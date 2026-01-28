@@ -1,0 +1,28 @@
+## Interface: 120000
+## Title: MidnightAddon
+## Author: liantian-cn - github.com/liantian-cn
+## Version: v1.0.0
+## IconAtlas: questlog-questtypeicon-weekly
+## SavedVariables: MidnightAddonDB
+## LoadSavedVariablesFirst: 1
+## Category-zhCN: 战斗辅助
+
+# LibStub
+Libs\LibStub\LibStub.lua
+Libs\LibRangeCheck-3.0\LibRangeCheck-3.0.lua
+
+Setting.lua
+MidnightAddon.lua
+MainFrame.lua
+Aura.lua
+PlayerStatus.lua
+SpellCD.lua
+SpellChargeCD.lua
+Misc.lua
+Party.lua
+TestShow.lua
+
+
+
+
+PlayerDefine.lua
