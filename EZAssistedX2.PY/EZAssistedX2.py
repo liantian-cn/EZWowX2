@@ -10,10 +10,8 @@ import dxcam
 from win32gui import EnumWindows, GetWindowText
 
 from PySide6.QtCore import Qt, QThread, Signal
-from PySide6.QtWidgets import (
-    QApplication, QWidget, QHBoxLayout, QVBoxLayout,
-    QComboBox, QPushButton, QLineEdit, QMessageBox,
-)
+from PySide6.QtWidgets import QApplication, QWidget, QHBoxLayout, QVBoxLayout, QComboBox, QPushButton, QLineEdit, QMessageBox
+
 
 # ── 常量 ──────────────────────────────────────────────
 
