@@ -336,7 +336,7 @@ def main():
         sys.exit(0)
 
     if not is_admin():
-        QMessageBox.information(None, "EZAssistedX2", "必须以管理员身份运行。")
+        QMessageBox.information(None, "EZAssistedX2", "必须以UAC管理员身份运行。")
         sys.exit(0)
 
     window = MainWindow()
