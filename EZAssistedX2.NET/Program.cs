@@ -21,7 +21,7 @@ internal static class Program
 
         if (!NativeMethods.IsUserAnAdmin())
         {
-            MessageBox.Show("必须以管理员身份运行。", "EZAssistedX2", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("必须以UAC管理员身份运行。", "EZAssistedX2", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return;
         }
 
