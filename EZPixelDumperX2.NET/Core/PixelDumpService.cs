@@ -112,7 +112,8 @@ public sealed class PixelDumpService : IDisposable
                     }
                     else
                     {
-                        Dictionary<string, object?> data = NodeDataExtractor.ExtractAllData(extractor, _colorMap);
+                        // [修改] 传入_titleManager，使技能名可通过像素解码自动学习
+                        Dictionary<string, object?> data = NodeDataExtractor.ExtractAllData(extractor, _colorMap, _titleManager);
                         lock (_sync)
                         {
                             _pixelDump = data;

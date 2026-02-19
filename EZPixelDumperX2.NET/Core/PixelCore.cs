@@ -441,6 +441,19 @@ public sealed class NodeExtractor
         _resolver = resolver;
     }
 
+    // [新增] 暴露宽高属性，供外部计算物理像素坐标
+    public int Width => _width;
+    public int Height => _height;
+
+    // [新增] 调试用：获取指定物理像素的RGB值字符串
+    public string GetPixelRgb(int pixelY, int pixelX)
+    {
+        if (pixelY < 0 || pixelY >= _height || pixelX < 0 || pixelX >= _width)
+            return "OOB";
+        int idx = (pixelY * _width + pixelX) * 3;
+        return $"({_rgb[idx]},{_rgb[idx+1]},{_rgb[idx+2]})";
+    }
+
     public Node Node(int x, int y)
     {
         int maxX = _width / 8;
@@ -491,10 +504,42 @@ public sealed class NodeExtractor
         return totalCount == 0 ? 0.0 : (double)whiteCount / totalCount;
     }
 
-    public (List<Dictionary<string, object?>>, Dictionary<string, Dictionary<string, object?>>) ReadSpellSequence(int left, int top, int length)
+    // [新增] 从物理像素行解码字符串（与Lua端EncodeStringToPixels对应）
+    // pixelY: 物理像素行Y坐标
+    // startX: 起始物理像素X坐标
+    // pixelCount: 像素数量（每像素存3字节ASCII）
+    public string DecodeStringFromPixelRow(int pixelY, int startX, int pixelCount)
+    {
+        if (pixelY < 0 || pixelY >= _height || startX < 0)
+            return string.Empty;
+
+        List<byte> bytes = new(pixelCount * 3);
+        for (int p = 0; p < pixelCount; p++)
+        {
+            int px = startX + p;
+            if (px >= _width) break;
+            int idx = (pixelY * _width + px) * 3;
+            byte r = _rgb[idx];
+            byte g = _rgb[idx + 1];
+            byte b = _rgb[idx + 2];
+            if (r == 0 && g == 0 && b == 0) break;
+            if (r != 0) bytes.Add(r);
+            if (g != 0) bytes.Add(g);
+            if (b != 0) bytes.Add(b);
+        }
+
+        return System.Text.Encoding.UTF8.GetString(bytes.ToArray());
+    }
+
+    // [修改] ReadSpellSequence 新增参数：spellNamePixelY/keybindPixelY/nodeSize/titleManager
+    // 用于从像素行解码技能名和按键绑定，并通过titleManager自动学习技能名映射
+    public (List<Dictionary<string, object?>>, Dictionary<string, Dictionary<string, object?>>) ReadSpellSequence(int left, int top, int length, int spellNamePixelY, int keybindPixelY, int nodeSize, NodeTitleManager? titleManager = null)
     {
         List<Dictionary<string, object?>> sequence = new();
         Dictionary<string, Dictionary<string, object?>> dict = new();
+
+        const int SpellNamePixels = 10;  // [新增] 每技能10像素用于解码技能名（与Lua端SPELL_NAME_PIXELS对应）
+        const int KeybindPixels   = 4;   // [新增] 每技能4像素用于解码按键绑定（与Lua端KEYBIND_PIXELS对应）
 
         for (int x = left; x < left + length; x++)
         {
@@ -508,18 +553,35 @@ public sealed class NodeExtractor
             Node chargeNode = Node(x, top + 2);
             (PixelBlock cooldownBlock, PixelBlock usableBlock, PixelBlock heightBlock, PixelBlock knownBlock) = mixNode.MixNode;
 
+            // [新增] 从像素行解码技能名和按键绑定
+            int spellIndex = x - left;
+            int nodePhysicalX = (2 + spellIndex) * nodeSize;
+            string spellName = DecodeStringFromPixelRow(spellNamePixelY, nodePhysicalX, SpellNamePixels);
+            string keybind   = DecodeStringFromPixelRow(keybindPixelY,   nodePhysicalX, KeybindPixels);
+
+            string title = iconNode.Title;
+
+            // [新增] 如果解码到了技能名，通过titleManager学习图标→名称映射，并优先使用像素解码的名称
+            if (titleManager is not null && !string.IsNullOrEmpty(spellName))
+            {
+                titleManager.AddTitle(iconNode.Full.Data, iconNode.Middle.Hash, iconNode.Middle.Data, spellName, "spell_name");
+                title = spellName;
+            }
+
             Dictionary<string, object?> spell = new()
             {
-                ["title"] = iconNode.Title,
-                ["remaining"] = cooldownBlock.Remaining,
-                ["height"] = heightBlock.IsWhite,
-                ["charge"] = (chargeNode.IsPure && chargeNode.IsBlack) ? 0 : chargeNode.WhiteCount,
-                ["known"] = knownBlock.IsWhite,
-                ["usable"] = usableBlock.IsWhite,
+                ["title"]      = title,
+                ["spell_name"] = spellName,   // [新增] 从像素解码的技能名
+                ["keybind"]    = keybind,      // [新增] 从像素解码的快捷键绑定
+                ["remaining"]  = cooldownBlock.Remaining,
+                ["height"]     = heightBlock.IsWhite,
+                ["charge"]     = (chargeNode.IsPure && chargeNode.IsBlack) ? 0 : chargeNode.WhiteCount,
+                ["known"]      = knownBlock.IsWhite,
+                ["usable"]     = usableBlock.IsWhite,
             };
 
             sequence.Add(spell);
-            dict[iconNode.Title] = spell;
+            dict[title] = spell;
         }
 
         return (sequence, dict);
@@ -579,7 +641,8 @@ public sealed class NodeExtractor
 
 public static class NodeDataExtractor
 {
-    public static Dictionary<string, object?> ExtractAllData(NodeExtractor extractor, ColorMap colorMap)
+    // [修改] 新增titleManager参数，用于传递给ReadSpellSequence进行技能名自动学习
+    public static Dictionary<string, object?> ExtractAllData(NodeExtractor extractor, ColorMap colorMap, NodeTitleManager? titleManager = null)
     {
         Dictionary<string, object?> data = new()
         {
@@ -595,6 +658,15 @@ public static class NodeDataExtractor
 
         try
         {
+            // [新增] 计算技能名/按键绑定像素行的物理Y坐标（与Lua端spellNameRowFrame/keybindRowFrame位置对应）
+            int nodeSize = extractor.Width / 52;
+            // PlayerSpellFrame 在主框架 (2,2) 节点，顶边物理Y = 2*nodeSize
+            // spellName行在 y = 2*nodeSize-2（TOPLEFT偏移 -(2*nodeSize-2)）
+            // keybind行在   y = 2*nodeSize-1（TOPLEFT偏移 -(2*nodeSize-1)）
+            int spellFrameTopY  = 2 * nodeSize;
+            int spellNamePixelY = spellFrameTopY - 2;
+            int keybindPixelY   = spellFrameTopY - 1;
+
             Dictionary<string, object?> misc = (Dictionary<string, object?>)data["misc"]!;
             misc["ac"] = extractor.Node(34, 5).Title;
             misc["on_chat"] = extractor.Node(35, 5).IsWhite;
@@ -617,7 +689,7 @@ public static class NodeDataExtractor
             playerAura["debuff_sequence"] = debuffSeq;
             playerAura["debuff"] = debuffDict;
 
-            (List<Dictionary<string, object?>> spellSeq, Dictionary<string, Dictionary<string, object?>> spellDict) = extractor.ReadSpellSequence(2, 2, 36);
+            (List<Dictionary<string, object?>> spellSeq, Dictionary<string, Dictionary<string, object?>> spellDict) = extractor.ReadSpellSequence(2, 2, 36, spellNamePixelY, keybindPixelY, nodeSize, titleManager);
             player["spell_sequence"] = spellSeq;
             player["spell"] = spellDict;
 

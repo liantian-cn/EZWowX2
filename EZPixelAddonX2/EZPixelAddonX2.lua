@@ -330,7 +330,9 @@ local function InitializeMainFrame()
 
     -- 创建主框架
     addonTable.MainFrame = CreateFrame("Frame", addonName .. "MainFrame", UIParent)
-    addonTable.MainFrame:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", 0, 0)
+    -- [修改] 主框架锚点从右上角(TOPRIGHT)改为左上角(TOPLEFT)，配合.NET端按物理像素坐标解码
+    -- addonTable.MainFrame:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", 0, 0)
+    addonTable.MainFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 0, 0)
     addonTable.MainFrame:SetSize(addonTable.nodeSize * 52, addonTable.nodeSize * 18)
     addonTable.MainFrame:SetFrameStrata("TOOLTIP")
     addonTable.MainFrame:SetFrameLevel(900)
@@ -541,6 +543,18 @@ local function CreateStringNode(x, y, title, parent_frame)
     return nodeString
 end
 
+-- [新增] 字符串编码为单像素RGB（每像素存3字节ASCII），用于将技能名/按键信息写入像素供.NET端读取
+local function EncodeStringToPixels(str, pixels)
+    local len = string.len(str)
+    for j = 1, #pixels do
+        local base = (j - 1) * 3 + 1
+        local r = (base     <= len) and (string.byte(str, base)     / 255) or 0
+        local g = (base + 1 <= len) and (string.byte(str, base + 1) / 255) or 0
+        local b = (base + 2 <= len) and (string.byte(str, base + 2) / 255) or 0
+        pixels[j]:SetColorTexture(r, g, b, 1)
+    end
+end
+
 -- 创建光环序列
 local function CreateAuraSequence(unit, filter, maxCount, name_prefix, parent, sortRule, sortDirection)
     logging("CreateAuraSequence[" .. unit .. "][" .. filter .. "]")
@@ -556,7 +570,6 @@ local function CreateAuraSequence(unit, filter, maxCount, name_prefix, parent, s
         isDebuff = true
     end
 
-
     local auraTextures = {}
 
     -- 创建光环序列元素
@@ -571,7 +584,7 @@ local function CreateAuraSequence(unit, filter, maxCount, name_prefix, parent, s
             duration = durationTexture,
             count = countString,
             fn = fnTexture,
-            forever = foreverTexture
+            forever = foreverTexture,
         })
     end
 
@@ -929,19 +942,106 @@ local function InitializeSpellFrame()
     local MaxFrame = math.min(36, #addonTable.Spell)
     local spellTextrues = {}
 
+    -- [新增] 建立 slot→bindingCmd 映射，用于通过动作条槽位反查技能绑定的快捷键
+    local slotToCmd = {}
+    local barDefs = {
+        { prefix = "ACTIONBUTTON",          start = 1   },  -- Action Bar 1: slot 1-12
+        { prefix = "MULTIACTIONBAR4BUTTON", start = 25  },  -- Action Bar 4: slot 25-36
+        { prefix = "MULTIACTIONBAR3BUTTON", start = 37  },  -- Action Bar 5: slot 37-48
+        { prefix = "MULTIACTIONBAR2BUTTON", start = 49  },  -- Action Bar 3: slot 49-60
+        { prefix = "MULTIACTIONBAR1BUTTON", start = 61  },  -- Action Bar 2: slot 61-72
+        { prefix = "MULTIACTIONBAR5BUTTON", start = 145 },  -- Action Bar 6: slot 145-156
+        { prefix = "MULTIACTIONBAR6BUTTON", start = 157 },  -- Action Bar 7: slot 157-168
+        { prefix = "MULTIACTIONBAR7BUTTON", start = 169 },  -- Action Bar 8: slot 169-180
+    }
+    for _, bar in ipairs(barDefs) do
+        for n = 1, 12 do
+            slotToCmd[bar.start + n - 1] = bar.prefix .. n
+        end
+    end
+
+    -- [新增] 根据spellID查找动作条槽位，返回对应的快捷键绑定字符串
+    local function GetSpellKeybind(spellID)
+        local slots = C_ActionBar.FindSpellActionButtons(spellID)
+        if slots then
+            for _, slot in ipairs(slots) do
+                local cmd = slotToCmd[slot]
+                if cmd then
+                    local key = GetBindingKey(cmd)
+                    if key then return key end
+                end
+            end
+        end
+        return ""
+    end
+
+    -- [修改] 日志输出增加技能名和按键绑定信息
     for i = 1, #addonTable.Spell do
         local SpellID = addonTable.Spell[i].spellID
-        local spellLink = GetSpellLink(SpellID)
-        logging("技能冷却[" .. i .. "]" .. spellLink .. ",类型:" .. addonTable.Spell[i].type)
+        local keybind = GetSpellKeybind(SpellID)
+        logging("技能冷却[" .. i .. "] " .. (C_Spell.GetSpellName(SpellID) or "") .. ",类型:" .. addonTable.Spell[i].type .. ",按键:" .. keybind)
     end
 
 
+
     -- 创建技能框架元素
+    -- [新增] 创建技能名像素行框架：位于PlayerSpellFrame顶边上方第2个物理像素行
+    -- 每个技能占用10个像素（可存30字节ASCII），用于编码技能名称
+    local pixel1 = GetUIScaleFactor(1)  -- 1物理像素大小
+
+    -- 技能名行框架：在MainFrame内，PlayerSpellFrame顶边上方第2个物理像素（y=2*nodeSize-2）
+    local spellNameRowFrame = CreateFrame("Frame", addonName .. "SpellNameRow", addonTable.MainFrame)
+    spellNameRowFrame:SetPoint("TOPLEFT", addonTable.MainFrame, "TOPLEFT", 2 * addonTable.nodeSize, -(2 * addonTable.nodeSize - 2 * pixel1))
+    spellNameRowFrame:SetSize(addonTable.nodeSize * 36, pixel1)
+    spellNameRowFrame:SetFrameLevel(addonTable.MainFrame:GetFrameLevel() + 10)
+    spellNameRowFrame:Show()
+
+    -- [新增] 按键绑定像素行框架：位于PlayerSpellFrame顶边上方第1个物理像素行
+    -- 每个技能占用4个像素（可存12字节ASCII），用于编码快捷键如CTRL-SHIFT-1
+    local keybindRowFrame = CreateFrame("Frame", addonName .. "KeybindRow", addonTable.MainFrame)
+    keybindRowFrame:SetPoint("TOPLEFT", addonTable.MainFrame, "TOPLEFT", 2 * addonTable.nodeSize, -(2 * addonTable.nodeSize - pixel1))
+    keybindRowFrame:SetSize(addonTable.nodeSize * 36, pixel1)
+    keybindRowFrame:SetFrameLevel(addonTable.MainFrame:GetFrameLevel() + 10)
+    keybindRowFrame:Show()
+
+    local SPELL_NAME_PIXELS = 10  -- 每技能10像素，存30字符
+    local KEYBIND_PIXELS    = 4   -- 每技能4像素，存12字符（支持CTRL-SHIFT-1等组合键）
+
     for i = 1, 36 do
         local iconTexture, fnTexture = CreateFootnoteNode(i - 1, 0, "SpellIconFrame" .. i, addonTable.PlayerSpellFrame)
         local cooldownTexture, usableTexture, highlightTexture, knownTexture = CreateMixedNode(i - 1, 1, "SpellMiscFrame" .. i, addonTable.PlayerSpellFrame)
-
         local charge_string = CreateStringNode(i - 1, 2, "SpellChargeFrame" .. i, addonTable.PlayerSpellFrame)
+
+        -- [新增] 为每个技能创建技能名像素点阵（10个1px像素，编码技能名称）
+        local node_size = addonTable.nodeSize
+        local spellname_pixels = {}
+        for p = 1, SPELL_NAME_PIXELS do
+            local f = CreateFrame("Frame", addonName .. "SpellNamePixel" .. i .. "_" .. p, spellNameRowFrame)
+            f:SetPoint("TOPLEFT", spellNameRowFrame, "TOPLEFT", (i - 1) * node_size + (p - 1) * pixel1, 0)
+            f:SetFrameLevel(spellNameRowFrame:GetFrameLevel() + 1)
+            f:SetSize(pixel1, pixel1)
+            f:Show()
+            local tex = f:CreateTexture(nil, "BACKGROUND")
+            tex:SetAllPoints(f)
+            tex:SetColorTexture(0, 0, 0, 1)
+            tex:Show()
+            spellname_pixels[p] = tex
+        end
+
+        -- [新增] 为每个技能创建按键绑定像素点阵（4个1px像素，编码快捷键）
+        local keybind_pixels = {}
+        for p = 1, KEYBIND_PIXELS do
+            local f = CreateFrame("Frame", addonName .. "KeybindPixel" .. i .. "_" .. p, keybindRowFrame)
+            f:SetPoint("TOPLEFT", keybindRowFrame, "TOPLEFT", (i - 1) * node_size + (p - 1) * pixel1, 0)
+            f:SetFrameLevel(keybindRowFrame:GetFrameLevel() + 1)
+            f:SetSize(pixel1, pixel1)
+            f:Show()
+            local tex = f:CreateTexture(nil, "BACKGROUND")
+            tex:SetAllPoints(f)
+            tex:SetColorTexture(0, 0, 0, 1)
+            tex:Show()
+            keybind_pixels[p] = tex
+        end
 
         table.insert(spellTextrues, {
             fn = fnTexture,
@@ -950,9 +1050,12 @@ local function InitializeSpellFrame()
             usable = usableTexture,
             highlight = highlightTexture,
             charge = charge_string,
-            known = knownTexture
+            known = knownTexture,
+            spellname_pixels = spellname_pixels,   -- [新增] 技能名像素引用
+            keybind_pixels = keybind_pixels,       -- [新增] 按键绑定像素引用
         })
     end
+
 
 
     -- 更新节点纹理函数
@@ -968,6 +1071,11 @@ local function InitializeSpellFrame()
                 spellTex.icon:SetColorTexture(0, 0, 0, 1)
                 spellTex.fn:SetColorTexture(0, 0, 0, 0)
             end
+            -- [新增] 将技能名和按键绑定编码写入像素，供.NET端截屏解码
+            local spellName = C_Spell.GetSpellName(SpellID) or ""
+            local keybind   = GetSpellKeybind(SpellID)
+            EncodeStringToPixels(spellName, spellTex.spellname_pixels)
+            EncodeStringToPixels(keybind,   spellTex.keybind_pixels)
         end
     end
 
