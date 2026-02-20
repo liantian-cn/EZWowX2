@@ -1,4 +1,9 @@
-﻿# PixelRotation 重建说明
+﻿# Demo
+
+自带一个戒律牧的demo，可以配合DumperX2使用
+
+
+# PixelRotation 重建说明
 
 ## 1. 项目目的
 
