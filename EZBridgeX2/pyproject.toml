@@ -1,0 +1,30 @@
+[project]
+name = "EZBridgeX2"
+version = "12.0.1.60044"
+description = ""
+readme = "README.md"
+requires-python = "==3.12.*"
+dependencies = [
+    "dxcam>=0.0.5,<1.0.0",
+    "numpy>=2.4.2,<3.0.0",
+    "opencv-python>=4.13.0.90,<5.0.0",
+    "pillow>=12.1.1,<13.0.0",
+    "pyright>=1.1.408,<2.0",
+    "pyside6>=6.10.1,<7.0.0",
+    "pywin32>=311,<312",
+    "xxhash>=3.6.0,<4.0.0",
+]
+
+[tool.pyright]
+typeCheckingMode = "strict"
+stubPath = "typings"
+include = [
+    "src/EZBridgeX2",
+]
+exclude = [
+    "**/node_modules",
+    "**/__pycache__",
+    "**/.*",
+    "src/tools/*", 
+    ".venv",
+]

@@ -1,0 +1,2 @@
+from typing import Any
+ICON_CATEGORIES: list[dict[str, Any]] = [{'name': '敌人释放的减益', 'footnotes': ['PLAYER_DEBUFF', 'BLEED', 'ENRAGE', 'POISON', 'DISEASE', 'CURSE', 'MAGIC']}, {'name': '玩家施放的减益', 'footnotes': ['ENEMY_DEBUFF']}, {'name': '友方施放的增益', 'footnotes': ['PLAYER_BUFF']}, {'name': '友方施放的技能', 'footnotes': ['PLAYER_SPELL']}, {'name': '敌方释放的技能', 'footnotes': ['ENEMY_SPELL_INTERRUPTIBLE', 'ENEMY_SPELL_NOT_INTERRUPTIBLE']}, {'name': '其他', 'footnotes': ['NONE', 'Unknown']}]
