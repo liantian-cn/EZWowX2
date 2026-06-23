@@ -1,0 +1,14 @@
+## Interface: 120005
+## Title: DéjàVu 核心模组
+## Author: Émile Boirac
+## Version: 12.0.5.67165
+## SavedVariables: DejaVu_CoreSave
+## LoadSavedVariablesFirst: 1
+## Group: DejaVu_Core
+## IconTexture: Interface\Icons\Ability_Domination_Rune13
+## Dependencies: !BugGrabber,BugSack
+
+Base.lua
+Profile.lua
+Config.lua
+Color.lua

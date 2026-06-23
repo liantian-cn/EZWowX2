@@ -1,0 +1,18 @@
+[project]
+name = "terminal"
+version = "12.0.1.66198"
+description = "Add your description here"
+readme = "PROJECT.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "mss>=10.1.0,<11.0.0",
+    "numpy>=2.4.3,<3.0.0",
+    "opencv-python>=4.13.0.92,<5.0.0",
+    "pillow>=12.1.1,<13.0.0",
+    "pip>=26.0.1",
+    "pyright>=1.1.408",
+    "pyside6>=6.10.2,<7.0",
+    "pytest>=9.0.2",
+    "pywin32>=311,<312",
+    "xxhash>=3.6.0,<4.0",
+]

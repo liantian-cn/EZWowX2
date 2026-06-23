@@ -1,0 +1,20 @@
+## Interface: 120005
+## Title: DéjàVu 死亡骑士
+## Author: Émile Boirac
+## Version: 12.0.5.67165
+## LoadOnDemand: 1
+## Dependencies: DejaVu_Core, DejaVu_Matrix, DejaVu_Panel, DejaVu_Spell, DejaVu_Aura, DejaVu_Common
+## Group: DejaVu_Core
+## IconTexture: Interface\Icons\ClassIcon_DeathKnight
+
+
+
+
+# _Test.lua
+
+Blood\Global.lua
+Blood\Spec.lua
+Blood\Spell.lua
+Blood\Config.lua
+Blood\Macro.lua
+DejaVu_DeathKnight.lua

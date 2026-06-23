@@ -1,0 +1,11 @@
+## Interface: 120005
+## Title: DéjàVu 设置面板模组
+## Author: Émile Boirac
+## Version: 12.0.5.67165
+## LoadOnDemand: 1
+## Dependencies: DejaVu_Core
+## Group: DejaVu_Core
+## IconTexture: Interface\Icons\Ability_Domination_Rune02
+
+DejaVu_Panel.lua
+# _Test.lua

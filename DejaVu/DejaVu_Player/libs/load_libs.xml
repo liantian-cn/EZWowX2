@@ -1,0 +1,6 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="LibStub-1.0\LibStub.lua"/>
+	<Script file="LibRangeCheck-3.0\LibRangeCheck-3.0.lua"/>
+
+
+</Ui>

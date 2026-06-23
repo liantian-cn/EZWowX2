@@ -1,0 +1,19 @@
+## Interface: 120005
+## Title: DéjàVu 牧师
+## Author: Émile Boirac
+## Version: 12.0.5.67165
+## LoadOnDemand: 1
+## Dependencies: DejaVu_Core, DejaVu_Matrix, DejaVu_Panel, DejaVu_Spell, DejaVu_Aura, DejaVu_Common
+## Group: DejaVu_Core
+## IconTexture: Interface\Icons\ClassIcon_Priest
+
+
+
+
+# _Test.lua
+Discipline\Global.lua
+Discipline\Spec.lua
+Discipline\Spell.lua
+Discipline\Config.lua
+Discipline\Macro.lua
+DejaVu_Priest.lua

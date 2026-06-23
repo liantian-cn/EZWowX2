@@ -1,0 +1,17 @@
+## Interface: 120005
+## Title: DéjàVu 敌对信息模组
+## Author: Émile Boirac
+## Version: 12.0.5.67165
+## LoadOnDemand: 1
+## Dependencies: DejaVu_Core, DejaVu_Matrix
+## Group: DejaVu_Core
+## IconTexture: Interface\Icons\Ability_Domination_Rune06
+
+# 核心依赖库
+libs\load_libs.xml
+
+Target.lua
+Focus.lua
+MouseOver.lua
+
+DejaVu_Enemy.lua

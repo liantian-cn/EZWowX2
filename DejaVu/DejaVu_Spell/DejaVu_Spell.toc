@@ -1,0 +1,14 @@
+## Interface: 120005
+## Title: DéjàVu 施法队列模组
+## Author: Émile Boirac
+## Version: 12.0.5.67165
+## LoadOnDemand: 1
+## Dependencies: DejaVu_Core, DejaVu_Matrix
+## Group: DejaVu_Core
+## IconTexture: Interface\Icons\Ability_Domination_Rune03
+
+DejaVu_Spell.lua
+Cooldown.lua
+Charge.lua
+
+# _Test.lua

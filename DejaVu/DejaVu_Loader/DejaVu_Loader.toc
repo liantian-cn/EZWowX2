@@ -1,0 +1,14 @@
+## Interface: 120005
+## Title: DéjàVu 顺序加载器
+## Author: Émile Boirac
+## Version: 12.0.5.67165
+## Dependencies: DejaVu_Core
+## LoadWith: DejaVu_Core
+## Group: DejaVu_Core
+## IconTexture: Interface\Icons\Ability_Domination_Rune09
+
+
+
+
+# _Test.lua
+DejaVu_Loader.lua

@@ -1,0 +1,18 @@
+## Interface: 120005
+## Title: DéjàVu 小队信息模组
+## Author: Émile Boirac
+## Version: 12.0.5.67165
+## LoadOnDemand: 1
+## Dependencies: DejaVu_Core, DejaVu_Matrix, DejaVu_Aura
+## Group: DejaVu_Core
+## IconTexture: Interface\Icons\Ability_Domination_Rune07
+
+# 核心依赖库
+libs\load_libs.xml
+
+AuraHelpful.lua
+AuraHarmful.lua
+Status.lua
+Absorbs.lua
+CastingTarget.lua
+DejaVu_Party.lua
