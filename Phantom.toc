@@ -1,0 +1,6 @@
+## Interface: 120007, 120100
+## Title: Phantom
+## Version: 12.1.0.68209
+## SavedVariables: PhantomSettings
+## LoadSavedVariablesFirst: 1
+## IconTexture: Interface\Icons\UI_Spellbook_OneButton
