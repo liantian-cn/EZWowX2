@@ -10,7 +10,7 @@ local UIParent = UIParent
 local GetUIScaleFactor = addonTable.GetUIScaleFactor
 
 -- 本地变量定义
-local MAX_BUFFS = 8
+local MAX_BUFFS = 12
 
 -- 代码部分
 local function CreateDemoFrame()
