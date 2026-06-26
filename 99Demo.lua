@@ -3,7 +3,10 @@ local addonName, addonTable = ...
 
 -- WOW API 缓存
 local After = C_Timer.After
+local CreateColor = CreateColor
+local CreateColorCurve = C_CurveUtil.CreateColorCurve
 local CreateFrame = CreateFrame
+local Linear = Enum.LuaCurveType.Linear
 local UIParent = UIParent
 
 -- 插件级变量定义/引用
@@ -13,7 +16,14 @@ local GetUIScaleFactor = addonTable.GetUIScaleFactor
 local MAX_BUFFS = 12
 local ICON_SIZE = 32
 local REMAINING_BLOCK_SIZE = 32
-local WHITE_TEXTURE = "Interface\\Buttons\\WHITE8X8"
+
+local remainingTextColorCurve = CreateColorCurve()
+remainingTextColorCurve:SetType(Linear)
+remainingTextColorCurve:AddPoint(0.0, CreateColor(0, 0, 0, 1))
+remainingTextColorCurve:AddPoint(5.0, CreateColor(100 / 255, 100 / 255, 100 / 255, 1))
+remainingTextColorCurve:AddPoint(30.0, CreateColor(150 / 255, 150 / 255, 150 / 255, 1))
+remainingTextColorCurve:AddPoint(155.0, CreateColor(200 / 255, 200 / 255, 200 / 255, 1))
+remainingTextColorCurve:AddPoint(375.0, CreateColor(1, 1, 1, 1))
 
 -- 代码部分
 local function CreateDemoFrame()
@@ -43,24 +53,13 @@ local function CreateDemoFrame()
         auraButton.Icon:SetAllPoints(auraButton)
         auraButton:SetIcon(auraButton.Icon)
 
-        auraButton.RemainingCooldown = CreateFrame("Cooldown", nil, auraButton, "CooldownFrameTemplate")
-        auraButton.RemainingCooldown:ClearAllPoints()
-        auraButton.RemainingCooldown:SetSize(GetUIScaleFactor(REMAINING_BLOCK_SIZE), GetUIScaleFactor(REMAINING_BLOCK_SIZE))
-        auraButton.RemainingCooldown:SetPoint("TOP", auraButton, "BOTTOM", 0, 0)
-        auraButton.RemainingCooldown:SetDrawBling(false)
-        auraButton.RemainingCooldown:SetDrawEdge(false)
-        auraButton.RemainingCooldown:SetDrawSwipe(true)
-        auraButton.RemainingCooldown:SetHideCountdownNumbers(true)
-        auraButton.RemainingCooldown:SetReverse(true)
-        auraButton.RemainingCooldown:SetSwipeTexture(WHITE_TEXTURE, 1, 1, 1, 1)
-        auraButton.RemainingCooldown:SetSwipeColor(1, 1, 1, 1)
-        auraButton.RemainingCooldown:SetUseAuraDisplayTime(true)
-
         auraButton.DurationText = auraButton:CreateFontString(nil, "ARTWORK")
-        auraButton.DurationText:SetPoint("CENTER", auraButton.RemainingCooldown, "CENTER", 0, 0)
+        auraButton.DurationText:SetSize(GetUIScaleFactor(REMAINING_BLOCK_SIZE), GetUIScaleFactor(REMAINING_BLOCK_SIZE))
+        auraButton.DurationText:SetPoint("TOP", auraButton, "BOTTOM", 0, 0)
+        auraButton.DurationText:SetJustifyH("CENTER")
+        auraButton.DurationText:SetJustifyV("MIDDLE")
         auraButton.DurationText:SetAlpha(1)
-        auraButton:SetDurationText(auraButton.DurationText)
-        auraButton:SetDurationCooldown(auraButton.RemainingCooldown)
+        auraButton:SetDurationText(auraButton.DurationText, { textColorCurve = remainingTextColorCurve })
 
         container:AddAuraFrame(auraButton)
     end
