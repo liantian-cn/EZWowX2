@@ -4,7 +4,6 @@ local addonName, addonTable = ...
 -- WOW API 缓存
 local After = C_Timer.After
 local CreateFrame = CreateFrame
-local GetAuraDataByIndex = C_UnitAuras.GetAuraDataByIndex
 local UIParent = UIParent
 
 -- 插件级变量定义/引用
@@ -26,38 +25,23 @@ local function CreateDemoFrame()
     frame.bg:SetAllPoints(frame)
     frame.bg:SetColorTexture(0, 0, 0, 0.65)
 
-    local buffArea = CreateFrame("Frame", nil, frame)
-    buffArea:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0)
-    buffArea:SetSize(GetUIScaleFactor(256), GetUIScaleFactor(32))
+    local container = CreateFrame("AuraContainer", nil, frame, "CustomAuraContainerTemplate")
+    container:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0)
+    container:SetSize(GetUIScaleFactor(256), GetUIScaleFactor(32))
+    container:SetUnit("player")
+    container:AddAuraFilter("HELPFUL", { maxFrameCount = MAX_BUFFS })
 
-    frame.icons = {}
     for buffIndex = 1, MAX_BUFFS do
-        local icon = buffArea:CreateTexture(nil, "ARTWORK")
-        icon:SetPoint("LEFT", buffArea, "LEFT", GetUIScaleFactor((buffIndex - 1) * 32), 0)
-        icon:SetSize(GetUIScaleFactor(32), GetUIScaleFactor(32))
-        icon:Hide()
-        frame.icons[buffIndex] = icon
-    end
+        local auraButton = CreateFrame("AuraButton", nil, container, "CustomAuraButtonTemplate")
+        auraButton:SetSize(GetUIScaleFactor(32), GetUIScaleFactor(32))
+        auraButton:SetPoint("TOPLEFT", container, "TOPLEFT", GetUIScaleFactor((buffIndex - 1) * 32), 0)
 
-    function frame:RefreshBuffs()
-        for buffIndex = 1, MAX_BUFFS do
-            local aura = GetAuraDataByIndex("player", buffIndex, "HELPFUL")
-            local icon = self.icons[buffIndex]
-            if aura and aura.icon then
-                icon:SetTexture(aura.icon)
-                icon:Show()
-            else
-                icon:Hide()
-            end
-        end
-    end
+        auraButton.Icon = auraButton:CreateTexture(nil, "OVERLAY")
+        auraButton.Icon:SetAllPoints(auraButton)
+        auraButton:SetIcon(auraButton.Icon)
 
-    frame:RegisterEvent("PLAYER_ENTERING_WORLD")
-    frame:RegisterUnitEvent("UNIT_AURA", "player")
-    frame:SetScript("OnEvent", function(self)
-        self:RefreshBuffs()
-    end)
-    frame:RefreshBuffs()
+        container:AddAuraFrame(auraButton)
+    end
 end
 
 After(0, CreateDemoFrame)
