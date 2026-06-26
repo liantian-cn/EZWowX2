@@ -22,7 +22,7 @@ local GetSpellTexture = C_Spell.GetSpellTexture         -- 获取技能图标
 local GetUIScaleFactor = addonTable.GetUIScaleFactor -- UI 缩放计算
 local Config = addonTable.Config                     -- 配置对象工厂
 local ConfigRows = addonTable.ConfigRows             -- 配置行对象工厂
-local logging = addonTable.Logging
+local logging = addonTable.logging
 logging(addonName .. " Panel loaded.")
 
 -- 面板模块主表
