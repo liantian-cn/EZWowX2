@@ -3,11 +3,7 @@ local addonName, addonTable = ...
 
 -- WOW API 缓存
 local After = C_Timer.After
-local CreateColor = CreateColor
-local CreateColorCurve = C_CurveUtil.CreateColorCurve
 local CreateFrame = CreateFrame
-local Linear = Enum.LuaCurveType.Linear
-local RemainingDuration = Enum.DurationTextBindingProperty.RemainingDuration
 local UIParent = UIParent
 
 -- 插件级变量定义/引用
@@ -17,14 +13,6 @@ local GetUIScaleFactor = addonTable.GetUIScaleFactor
 local MAX_BUFFS = 12
 local ICON_SIZE = 32
 local REMAINING_BLOCK_SIZE = 32
-
-local remainingTextColorCurve = CreateColorCurve()
-remainingTextColorCurve:SetType(Linear)
-remainingTextColorCurve:AddPoint(0.0, CreateColor(0, 0, 0, 1))
-remainingTextColorCurve:AddPoint(5.0, CreateColor(100 / 255, 100 / 255, 100 / 255, 1))
-remainingTextColorCurve:AddPoint(30.0, CreateColor(150 / 255, 150 / 255, 150 / 255, 1))
-remainingTextColorCurve:AddPoint(155.0, CreateColor(200 / 255, 200 / 255, 200 / 255, 1))
-remainingTextColorCurve:AddPoint(375.0, CreateColor(1, 1, 1, 1))
 
 -- 代码部分
 local function CreateDemoFrame()
@@ -61,7 +49,6 @@ local function CreateDemoFrame()
         auraButton.DurationText:SetJustifyV("MIDDLE")
         auraButton.DurationText:SetAlpha(1)
         auraButton:SetDurationText(auraButton.DurationText)
-        auraButton.DurationTextBinding:SetTextColorCurve(remainingTextColorCurve, RemainingDuration)
 
         container:AddAuraFrame(auraButton)
     end
