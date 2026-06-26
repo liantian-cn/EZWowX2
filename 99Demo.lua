@@ -12,7 +12,7 @@ local GetUIScaleFactor = addonTable.GetUIScaleFactor
 -- 本地变量定义
 local MAX_BUFFS = 12
 local ICON_SIZE = 32
-local REMAINING_BLOCK_SIZE = 16
+local REMAINING_BLOCK_SIZE = 32
 local WHITE_TEXTURE = "Interface\\Buttons\\WHITE8X8"
 
 -- 代码部分
