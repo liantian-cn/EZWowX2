@@ -7,6 +7,7 @@ local CreateColor = CreateColor
 local CreateColorCurve = C_CurveUtil.CreateColorCurve
 local CreateFrame = CreateFrame
 local Linear = Enum.LuaCurveType.Linear
+local RemainingDuration = Enum.DurationTextBindingProperty.RemainingDuration
 local UIParent = UIParent
 
 -- 插件级变量定义/引用
@@ -59,7 +60,8 @@ local function CreateDemoFrame()
         auraButton.DurationText:SetJustifyH("CENTER")
         auraButton.DurationText:SetJustifyV("MIDDLE")
         auraButton.DurationText:SetAlpha(1)
-        auraButton:SetDurationText(auraButton.DurationText, { textColorCurve = remainingTextColorCurve })
+        auraButton:SetDurationText(auraButton.DurationText)
+        auraButton.DurationTextBinding:SetTextColorCurve(remainingTextColorCurve, RemainingDuration)
 
         container:AddAuraFrame(auraButton)
     end
