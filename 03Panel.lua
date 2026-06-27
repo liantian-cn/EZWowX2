@@ -26,31 +26,31 @@ local logging = addonTable.logging
 logging(addonName .. " Panel loaded.")
 
 -- 面板模块主表
-local Panel = {}                                                       -- 面板模块主表
-local FontPath = "Interface\\Addons\\" .. addonName .. "\\UiFont.ttf"  -- 自定义字体路径
-local Rows = {}                                                        -- 面板行配置容器（在加载期写入, 在第二帧构建 UI）
-local SIZE = {}                                                        -- 尺寸表（在创建面板时初始化）
-local COLOR = {}                                                       -- 面板配色表
-local UI = {}                                                          -- UI 工具集合
-local OnUpdateFuncs = {}                                               -- 更新函数容器
-local DefaultApplied = {}                                              -- 记录已 set_default 的 key, 确保只执行一次
+local Panel = {}                                                             -- 面板模块主表
+local FontPath = "Interface\\Addons\\" .. addonName .. "\\media\\UiFont.ttf" -- 自定义字体路径
+local Rows = {}                                                              -- 面板行配置容器（在加载期写入, 在第二帧构建 UI）
+local SIZE = {}                                                              -- 尺寸表（在创建面板时初始化）
+local COLOR = {}                                                             -- 面板配色表
+local UI = {}                                                                -- UI 工具集合
+local OnUpdateFuncs = {}                                                     -- 更新函数容器
+local DefaultApplied = {}                                                    -- 记录已 set_default 的 key, 确保只执行一次
 
-COLOR = {                                                              -- 面板配色表
-    Black           = CreateColor(0 / 255, 0 / 255, 0 / 255, 1),       -- 纯黑
-    WindowBg        = CreateColor(30 / 255, 30 / 255, 30 / 255, 1),    -- 窗口背景色
-    WindowText      = CreateColor(0 / 255, 0 / 255, 0 / 255, 1),       -- 窗口文字色（备用）
-    WindowBorder    = CreateColor(83 / 255, 88 / 255, 91 / 255, 1),    -- 窗口边框色
-    Base            = CreateColor(255 / 255, 255 / 255, 255 / 255, 1), -- 基础白
-    ButtonBorder    = CreateColor(52 / 255, 52 / 255, 52 / 255, 1),    -- 按钮边框色
-    ButtonHighlight = CreateColor(86 / 255, 86 / 255, 86 / 255, 1),    -- 按钮悬停高亮
-    ButtonMouseUp   = CreateColor(43 / 255, 43 / 255, 43 / 255, 1),    -- 按钮正常底色
-    ButtonMouseDown = CreateColor(37 / 255, 37 / 255, 37 / 255, 1),    -- 按钮按下底色
-    SliderLeft      = CreateColor(73 / 255, 179 / 255, 234 / 255, 1),  -- 滑块已填充色
-    SliderRight     = CreateColor(159 / 255, 159 / 255, 159 / 255, 1), -- 滑块未填充色
-    RowHover        = CreateColor(50 / 255, 50 / 255, 50 / 255, 1),    -- 行悬停色
-    Text            = CreateColor(230 / 255, 230 / 255, 230 / 255, 1), -- 文本颜色
-    DropdownBg      = CreateColor(34 / 255, 34 / 255, 34 / 255, 1),    -- 下拉列表背景色
-}                                                                      -- COLOR 结束
+COLOR = {                                                                    -- 面板配色表
+    Black           = CreateColor(0 / 255, 0 / 255, 0 / 255, 1),             -- 纯黑
+    WindowBg        = CreateColor(30 / 255, 30 / 255, 30 / 255, 1),          -- 窗口背景色
+    WindowText      = CreateColor(0 / 255, 0 / 255, 0 / 255, 1),             -- 窗口文字色（备用）
+    WindowBorder    = CreateColor(83 / 255, 88 / 255, 91 / 255, 1),          -- 窗口边框色
+    Base            = CreateColor(255 / 255, 255 / 255, 255 / 255, 1),       -- 基础白
+    ButtonBorder    = CreateColor(52 / 255, 52 / 255, 52 / 255, 1),          -- 按钮边框色
+    ButtonHighlight = CreateColor(86 / 255, 86 / 255, 86 / 255, 1),          -- 按钮悬停高亮
+    ButtonMouseUp   = CreateColor(43 / 255, 43 / 255, 43 / 255, 1),          -- 按钮正常底色
+    ButtonMouseDown = CreateColor(37 / 255, 37 / 255, 37 / 255, 1),          -- 按钮按下底色
+    SliderLeft      = CreateColor(73 / 255, 179 / 255, 234 / 255, 1),        -- 滑块已填充色
+    SliderRight     = CreateColor(159 / 255, 159 / 255, 159 / 255, 1),       -- 滑块未填充色
+    RowHover        = CreateColor(50 / 255, 50 / 255, 50 / 255, 1),          -- 行悬停色
+    Text            = CreateColor(230 / 255, 230 / 255, 230 / 255, 1),       -- 文本颜色
+    DropdownBg      = CreateColor(34 / 255, 34 / 255, 34 / 255, 1),          -- 下拉列表背景色
+}                                                                            -- COLOR 结束
 
 
 -- 全局状态、爆发和启动
