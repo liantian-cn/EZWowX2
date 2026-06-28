@@ -26,6 +26,7 @@ SIZE.PIXEL_SIZE = SIZE.NODE_SIZE
 local AURA_BUTTON_WIDTH = 5 * SIZE.NODE_SIZE
 local AURA_BUTTON_HEIGHT = 8 * SIZE.NODE_SIZE
 local ICON_SIZE = 4 * SIZE.NODE_SIZE
+local AURA_BORDER_WIDTH = 0.5 * SIZE.NODE_SIZE
 local COUNT_SIZE = 4 * SIZE.NODE_SIZE
 local DURATION_BAR_WIDTH = SIZE.NODE_SIZE
 local DURATION_BAR_HEIGHT = 8 * SIZE.NODE_SIZE
@@ -54,8 +55,8 @@ local function CreateAuraButton(parent, auraIndex, auraBorderOptions)
         auraButton.AuraBorder = auraButton:CreateTexture(nil, "OVERLAY")
         auraButton.AuraBorder:SetTexture(DEBUFF_BORDER_TEXTURE)
         auraButton.AuraBorder:SetTexCoord(0.296875, 0.5703125, 0, 0.515625)
-        auraButton.AuraBorder:SetPoint("TOPLEFT", auraButton.Icon, "TOPLEFT", -GetDemoSize(1), GetDemoSize(1))
-        auraButton.AuraBorder:SetPoint("BOTTOMRIGHT", auraButton.Icon, "BOTTOMRIGHT", GetDemoSize(1), -GetDemoSize(1))
+        auraButton.AuraBorder:SetPoint("TOPLEFT", auraButton.Icon, "TOPLEFT", -GetDemoSize(AURA_BORDER_WIDTH), GetDemoSize(AURA_BORDER_WIDTH))
+        auraButton.AuraBorder:SetPoint("BOTTOMRIGHT", auraButton.Icon, "BOTTOMRIGHT", GetDemoSize(AURA_BORDER_WIDTH), -GetDemoSize(AURA_BORDER_WIDTH))
         auraButton:SetAuraBorder(auraButton.AuraBorder, auraBorderOptions)
     end
 
