@@ -1,0 +1,173 @@
+-- 命名空间声明
+local addonName, addonTable    = ...
+
+-- WOW API 缓存
+local After                    = C_Timer.After
+local insert                   = table.insert -- 插入表元素
+local CreateFrame              = CreateFrame  -- 创建框体
+local CreateColor              = CreateColor
+local UIParent                 = UIParent     -- 游戏主界面父框体
+local CreateColorCurve         = C_CurveUtil.CreateColorCurve
+local EvaluateColorFromBoolean = C_CurveUtil.EvaluateColorFromBoolean
+local Linear                   = Enum.LuaCurveType.Linear
+
+-- 插件级变量定义/引用
+
+local GetUIScaleFactor         = addonTable.GetUIScaleFactor -- UI 缩放计算
+addonTable.FrameInitFuncs      = {}                          -- 框架初始化函数表
+addonTable.SIZE                = {}                          -- 尺寸表
+
+
+-- 本地变量定义
+local scale         = 4
+local SIZE          = addonTable.SIZE
+local WHITE_TEXTURE = "Interface\\Buttons\\WHITE8X8"
+local BLACK         = CreateColor(0, 0, 0, 1)
+
+-- 代码部分
+
+local function InitializeSize()             -- 初始化尺寸
+    SIZE = {                                -- 尺寸表主体
+        Martix = {                          -- MartixFrame有多个Cell
+            Width = 132,                    -- Cell横向个数
+            Height = 10,                    -- Cell纵向个数
+        },
+        CELL = GetUIScaleFactor(scale * 4), -- Cell尺寸
+        FONT = GetUIScaleFactor(scale * 6), -- Font尺寸
+        -- MEGA = GetUIScaleFactor(scale * 8),  -- MegaCell尺寸
+        -- BADGE = GetUIScaleFactor(scale * 2), -- Badge尺寸
+        -- PAD = GetUIScaleFactor(scale * 1),  -- Padding尺寸
+    }
+end
+After(0, function()
+    for _, func in ipairs(addonTable.FrameInitFuncs) do
+        func()
+    end
+end)
+
+
+local function CreateMartixFrame() -- 创建矩阵框架
+    InitializeSize()
+
+    local frame = CreateFrame("Frame", addonName .. "MartixFrame", UIParent)
+    frame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 0, 0)
+    frame:SetSize(SIZE.CELL * SIZE.Martix.Width, SIZE.CELL * SIZE.Martix.Height)
+    frame:SetFrameStrata("TOOLTIP")
+    frame:SetFrameLevel(9000)
+    frame:Show()
+
+    local bg = frame:CreateTexture(nil, "BACKGROUND")
+    bg:SetAllPoints()
+    bg:SetColorTexture(0, 0, 0, 1)
+    bg:Show()
+    addonTable.MartixFrame = frame
+end
+insert(addonTable.FrameInitFuncs, CreateMartixFrame)
+
+---@class Cell
+---@field Texture Texture 单元格纹理
+---@field Frame Frame 单元格框架
+---@field X integer X坐标
+---@field Y integer Y坐标
+---@field classification integer 分类（根据cell用途不同，每个cell有个分类设置，范围0-255）
+---@field index integer 索引（相同分类的cell，每个cell有个索引设置，范围0-255）
+---@field default_value number 默认值（范围0-255），用于初始化cell的颜色分量
+---@field backgroundColor colorRGBA 背景颜色
+---@field trueColor colorRGBA 真值颜色
+---@field falseColor colorRGBA 假值颜色
+---@field zeroToOneCurve ColorCurveObject 颜色曲线（0-1）
+---@field quantizedCurve ColorCurveObject 颜色曲线（0-51）
+local Cell = {}
+Cell.__index = Cell
+
+---Cell 初始化方法（私有）
+---@private
+---@param x integer X坐标
+---@param y integer Y坐标
+---@param classification integer 分类（根据cell用途不同，每个cell有个分类设置，范围0-255）
+---@param index integer 索引（相同分类的cell，每个cell有个索引设置，范围0-255）
+---@param default_value number 默认值（范围0-255），用于初始化cell的颜色分量
+function Cell:_initialize(x, y, classification, index, default_value)
+    local parent = addonTable.MartixFrame
+    local cellName = addonName .. "Cell_" .. x .. "_" .. y
+
+    local cellFrame = CreateFrame("Frame", cellName, parent)
+    cellFrame:SetPoint("TOPLEFT", parent, "TOPLEFT", x * SIZE.CELL, -y * SIZE.CELL)
+    cellFrame:SetFrameLevel(parent:GetFrameLevel() + 10)
+    cellFrame:SetSize(SIZE.CELL, SIZE.CELL)
+    cellFrame:Show()
+
+    local cellTexture = cellFrame:CreateTexture(nil, "BACKGROUND")
+    cellTexture:SetAllPoints(cellFrame)
+    cellTexture:SetTexture(WHITE_TEXTURE)
+    cellTexture:Show()
+
+    self.Texture = cellTexture
+    self.Frame = cellFrame
+    self.Slug = cellSlug
+    self.X = x
+    self.Y = y
+    self.classification = classification
+    self.index = index
+    self.default_value = default_value
+    self.backgroundColor = CreateColor(classification / 255, index / 255, default_value / 255, 1)
+    self.trueColor = CreateColor(classification / 255, index / 255, 1, 1)
+    self.falseColor = CreateColor(classification / 255, index / 255, 0, 1)
+
+    local zeroToOneCurve = CreateColorCurve()
+    zeroToOneCurve:SetType(Linear)
+    zeroToOneCurve:AddPoint(0.0, CreateColor(classification / 255, index / 255, 0, 1))
+    zeroToOneCurve:AddPoint(1.0, CreateColor(classification / 255, index / 255, 1, 1))
+
+    local quantizedCurve = CreateColorCurve()
+    quantizedCurve:SetType(Linear)
+    quantizedCurve:AddPoint(0.0, CreateColor(classification / 255, index / 255, 0, 1))
+    quantizedCurve:AddPoint(51.0, CreateColor(classification / 255, index / 255, 1, 1))
+
+    self.zeroToOneCurve = zeroToOneCurve
+    self.quantizedCurve = quantizedCurve
+
+    self:setCell(backgroundColor)
+end
+
+---Cell 构造函数
+---@param x integer X坐标（以单元格为单位）
+---@param y integer Y坐标（以单元格为单位）
+---@param classification integer 分类（根据cell用途不同，每个cell有个分类设置，范围0-255）
+---@param index integer 索引（相同分类的cell，每个cell有个索引设置，范围0-255）
+---@param default_value? number 默认值（范围0-255），用于初始化cell的颜色分量
+---@return Cell # 返回Cell实例, 如果父框架不存在则返回nil
+function Cell:New(x, y, classification, index, default_value)
+    local instance = setmetatable({}, self)
+    default_value = default_value or 0
+    instance:_initialize(x, y, classification, index, default_value)
+    return instance
+end
+
+---使用最基础的 RGBA 方式设置颜色
+---@param r number|string|table 红色分量
+---@param g number|string|table 绿色分量
+---@param b number|string|table 蓝色分量
+function Cell:setCellRGBA(r, g, b)
+    self.Texture:SetVertexColor(r, g, b, 1)
+end
+
+---设置颜色方法
+---@param color colorRGBA 要设置的颜色
+function Cell:setCell(color)
+    self:setCellRGBA(color:GetRGBA())
+end
+
+---设置颜色方法, 根据布尔值选择颜色
+---@param isTrue boolean 是否为true值
+---@return nil
+function Cell:setCellBoolean(isTrue)
+    self:setCell(EvaluateColorFromBoolean(isTrue, self.trueColor, self.falseColor))
+end
+
+---清除颜色方法, 就是恢复默认的黑色
+function Cell:clearCell()
+    self:setCell(self.backgroundColor)
+end
+
+addonTable.Cell = Cell
