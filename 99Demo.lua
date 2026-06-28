@@ -18,7 +18,7 @@ local SIZE = {
     NODE_SIZE = 4,
 }
 
-local SCALE = 4
+local SCALE = 1
 
 SIZE.CELL_SIZE = SIZE.NODE_SIZE
 SIZE.PIXEL_SIZE = SIZE.NODE_SIZE
