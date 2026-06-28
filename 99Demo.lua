@@ -31,7 +31,7 @@ local DURATION_BAR_WIDTH = SIZE.NODE_SIZE
 local DURATION_BAR_HEIGHT = 8 * SIZE.NODE_SIZE
 local COUNT_FONT_SIZE = 6
 local PIX_NUM_FONT = "Interface\\AddOns\\" .. addonName .. "\\media\\PixNum.ttf"
-local DEBUFF_BORDER_TEXTURE = "Interface\\Buttons\\UI-Debuff-Overlays"
+local AURA_BORDER_TEXTURE = "Interface\\AddOns\\" .. addonName .. "\\media\\aura\\aura_border_32_4px.tga"
 local WHITE_TEXTURE = "Interface\\Buttons\\WHITE8X8"
 local ROW_GAP = SIZE.NODE_SIZE
 
@@ -52,8 +52,7 @@ local function CreateAuraButton(parent, auraIndex, auraBorderOptions)
 
     if auraBorderOptions then
         auraButton.AuraBorder = auraButton:CreateTexture(nil, "OVERLAY")
-        auraButton.AuraBorder:SetTexture(DEBUFF_BORDER_TEXTURE)
-        auraButton.AuraBorder:SetTexCoord(0.296875, 0.5703125, 0, 0.515625)
+        auraButton.AuraBorder:SetTexture(AURA_BORDER_TEXTURE)
         auraButton.AuraBorder:SetAllPoints(auraButton.Icon)
         auraButton:SetAuraBorder(auraButton.AuraBorder, auraBorderOptions)
     end
