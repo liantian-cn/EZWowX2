@@ -12,6 +12,11 @@
 
 
 08Color.lua
+11Matrix.lua
+
+21Spell.lua
 
 
-99Demo.lua
+class\DemonHunter.lua
+
+# 99Demo.lua
