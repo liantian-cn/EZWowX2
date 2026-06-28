@@ -3,6 +3,8 @@ local addonName, addonTable    = ...
 
 -- WOW API 缓存
 local insert                   = table.insert
+local random                   = math.random
+local CreateFrame              = CreateFrame
 local GetSpellCooldownDuration = C_Spell.GetSpellCooldownDuration
 local IsSpellOverlayed         = C_SpellActivationOverlay.IsSpellOverlayed
 local IsSpellUsable            = C_Spell.IsSpellUsable
@@ -13,9 +15,12 @@ local Cell                     = addonTable.Cell
 addonTable.ClassSpells         = {}
 
 -- 本地变量定义
-
-
-
+local SPELL_CLASSIFICATION  = 1
+local MARKER_CLASSIFICATION = 255
+local SPELL_ROW             = 1
+local SPELL_START_X         = 3
+local MARKER_VALUE          = 1
+local DEFAULT_VALUE         = 0
 
 local CommonSpells = {
     [1] = { spellId = 61304, name = "公共冷却" },
@@ -33,20 +38,17 @@ local CommonSpells = {
 
 -- 开始代码
 
-
-local eventFrame = CreateFrame("Frame")
-eventFrame:SetScript("OnEvent", function(self, event, ...)
-    self[event](...)
-end)
-
 local function InitSpellFrame()
-    Cell:New(1, 1, 255, 1, 1) -- 标记位：标记为的classification为255。技能冷却的classification为1，所以标记位的value为1。
-    Cell:New(2, 1, 255, 2, 1) -- 标记位：标记为的classification为255。技能冷却的classification为1，所以标记位的value为1。
+    Cell:New({ x = 1, y = SPELL_ROW, classification = MARKER_CLASSIFICATION, index = 1, default_value = MARKER_VALUE })
+    Cell:New({ x = 2, y = SPELL_ROW, classification = MARKER_CLASSIFICATION, index = 2, default_value = MARKER_VALUE })
 
-    local offsetX = 3         -- 从第3列开始放置技能图标
-    local offsetIndex = 0     -- index 从零开始。每个cell增1。
+    local offsetX = SPELL_START_X -- 从第3列开始放置技能冷却状态
+    local offsetIndex = 0         -- index 从零开始。每个cell增1。
 
     local allSpells = {}
+    local spellRecords = {}
+    local spellIDToRecords = {}
+    local eventFrame = CreateFrame("Frame")
 
     for _, spell in ipairs(CommonSpells) do
         insert(allSpells, spell)
@@ -56,18 +58,129 @@ local function InitSpellFrame()
         insert(allSpells, spell)
     end
 
-    for i, spell in ipairs(allSpells) do
-        -- 及冷却的classification为1，value默认为255
-        local remainingCell = Cell:New(offsetX, 1, 1, offsetIndex, 0)
-        offsetIndex = offsetIndex + 1
-        offsetX = offsetX + 1
-        local usableCell = Cell:New(offsetX, 1, 1, offsetIndex, 0)
-        offsetIndex = offsetIndex + 1
-        offsetX = offsetX + 1
-        local overlayedCell = Cell:New(offsetX, 1, 1, offsetIndex, 0)
-        offsetIndex = offsetIndex + 1
-        offsetX = offsetX + 1
-        local empty1Cell = Cell:New(offsetX, 1, 1, offsetIndex, 0)
+    local function CreateSpellCell(x, index)
+        return Cell:New({
+            x = x,
+            y = SPELL_ROW,
+            classification = SPELL_CLASSIFICATION,
+            index = index,
+            default_value = DEFAULT_VALUE,
+        })
     end
+
+    local function AddSpellRecord(spell, remainingCell, usableCell, overlayedCell, emptyCell)
+        local spellID = spell.spellId
+        if not spellID then
+            return
+        end
+
+        local record = {
+            spellID = spellID,
+            remaining = remainingCell,
+            usable = usableCell,
+            overlayed = overlayedCell,
+            empty = emptyCell,
+        }
+        local records = spellIDToRecords[spellID]
+
+        if not records then
+            records = {}
+            spellIDToRecords[spellID] = records
+        end
+
+        insert(spellRecords, record)
+        insert(records, record)
+    end
+
+    for _, spell in ipairs(allSpells) do
+        local remainingCell = CreateSpellCell(offsetX, offsetIndex)
+        offsetIndex = offsetIndex + 1
+        offsetX = offsetX + 1
+        local usableCell = CreateSpellCell(offsetX, offsetIndex)
+        offsetIndex = offsetIndex + 1
+        offsetX = offsetX + 1
+        local overlayedCell = CreateSpellCell(offsetX, offsetIndex)
+        offsetIndex = offsetIndex + 1
+        offsetX = offsetX + 1
+        local emptyCell = CreateSpellCell(offsetX, offsetIndex)
+        offsetIndex = offsetIndex + 1
+        offsetX = offsetX + 1
+
+        AddSpellRecord(spell, remainingCell, usableCell, overlayedCell, emptyCell)
+    end
+
+    local function UpdateRecords(records, updateFunc)
+        if not records then
+            return
+        end
+
+        for recordIndex = 1, #records do
+            updateFunc(records[recordIndex])
+        end
+    end
+
+    local function UpdateRemaining(record)
+        local remaining = GetSpellCooldownDuration(record.spellID)
+        if not remaining then
+            record.remaining:clearCell()
+            return
+        end
+
+        record.remaining:setCell(remaining:EvaluateRemainingDuration(record.remaining.quantizedCurve))
+    end
+
+    local function UpdateRemainingAll()
+        UpdateRecords(spellRecords, UpdateRemaining)
+    end
+
+    local function UpdateUsable(record)
+        record.usable:setCellBoolean(IsSpellUsable(record.spellID))
+    end
+
+    local function UpdateUsableAll()
+        UpdateRecords(spellRecords, UpdateUsable)
+    end
+
+    local function UpdateOverlayed(record)
+        record.overlayed:setCellBoolean(IsSpellOverlayed(record.spellID))
+    end
+
+    local function UpdateOverlayedAll()
+        UpdateRecords(spellRecords, UpdateOverlayed)
+    end
+
+    eventFrame:RegisterEvent("SPELL_ACTIVATION_OVERLAY_GLOW_SHOW")
+    function eventFrame.SPELL_ACTIVATION_OVERLAY_GLOW_SHOW(spellID)
+        UpdateRecords(spellIDToRecords[spellID], UpdateOverlayed)
+    end
+
+    eventFrame:RegisterEvent("SPELL_ACTIVATION_OVERLAY_GLOW_HIDE")
+    function eventFrame.SPELL_ACTIVATION_OVERLAY_GLOW_HIDE(spellID)
+        UpdateRecords(spellIDToRecords[spellID], UpdateOverlayed)
+    end
+
+    local fastTimeElapsed = -random() -- 0.1 秒刷新可施放状态。
+    local lowTimeElapsed = -random()  -- 0.5 秒刷新冷却剩余。
+    eventFrame:HookScript("OnUpdate", function(_, elapsed)
+        fastTimeElapsed = fastTimeElapsed + elapsed
+        if fastTimeElapsed > 0.1 then
+            fastTimeElapsed = fastTimeElapsed - 0.1
+            UpdateUsableAll()
+        end
+
+        lowTimeElapsed = lowTimeElapsed + elapsed
+        if lowTimeElapsed > 0.5 then
+            lowTimeElapsed = lowTimeElapsed - 0.5
+            UpdateRemainingAll()
+        end
+    end)
+
+    eventFrame:SetScript("OnEvent", function(self, event, ...)
+        self[event](...)
+    end)
+
+    UpdateRemainingAll()
+    UpdateUsableAll()
+    UpdateOverlayedAll()
 end
 insert(addonTable.FrameInitFuncs, InitSpellFrame)
