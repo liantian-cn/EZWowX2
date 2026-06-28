@@ -92,7 +92,7 @@ function Cell:_initialize(x, y, classification, index, default_value)
     local cellName = addonName .. "Cell_" .. x .. "_" .. y
 
     local cellFrame = CreateFrame("Frame", cellName, parent)
-    cellFrame:SetPoint("TOPLEFT", parent, "TOPLEFT", x * SIZE.CELL, -y * SIZE.CELL)
+    cellFrame:SetPoint("TOPLEFT", parent, "TOPLEFT", (x - 1) * SIZE.CELL, -(y - 1) * SIZE.CELL)
     cellFrame:SetFrameLevel(parent:GetFrameLevel() + 10)
     cellFrame:SetSize(SIZE.CELL, SIZE.CELL)
     cellFrame:Show()
