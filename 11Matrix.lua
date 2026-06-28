@@ -127,7 +127,7 @@ function Cell:_initialize(x, y, classification, index, default_value)
     self.zeroToOneCurve = zeroToOneCurve
     self.quantizedCurve = quantizedCurve
 
-    self:setCell(backgroundColor)
+    self:setCell(self.backgroundColor)
 end
 
 ---Cell 构造函数
