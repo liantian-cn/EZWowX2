@@ -3,7 +3,6 @@ local addonName, addonTable = ...
 
 -- WOW API 缓存
 local After = C_Timer.After
-local AuraButtonBorderStyleColor = AuraButtonBorderStyle.Color
 local CreateFrame = CreateFrame
 local Immediate = Enum.StatusBarInterpolation.Immediate
 local RemainingTime = Enum.StatusBarTimerDirection.RemainingTime
@@ -14,6 +13,7 @@ local GetUIScaleFactor = addonTable.GetUIScaleFactor
 
 -- 本地变量定义
 local MAX_BUFFS = 12
+local AURA_BUTTON_BORDER_STYLE_COLOR = 1
 local SIZE = {
     NODE_SIZE = 4,
 }
@@ -59,7 +59,7 @@ local function CreateAuraButton(parent, auraIndex, showDispelBorder)
         auraButton:SetAuraBorder(auraButton.AuraBorder, {
             showWhenHarmful = true,
             showWhenHelpful = false,
-            style = AuraButtonBorderStyleColor,
+            style = AURA_BUTTON_BORDER_STYLE_COLOR,
         })
     end
 
