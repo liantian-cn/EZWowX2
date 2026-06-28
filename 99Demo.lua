@@ -15,8 +15,10 @@ local GetUIScaleFactor = addonTable.GetUIScaleFactor
 local MAX_BUFFS = 12
 local SIZE = {
     NODE_SIZE = 4,
-    SCALE = 1,
 }
+
+local SCALE = 4
+
 SIZE.CELL_SIZE = SIZE.NODE_SIZE
 SIZE.PIXEL_SIZE = SIZE.NODE_SIZE
 
@@ -32,7 +34,7 @@ local WHITE_TEXTURE = "Interface\\Buttons\\WHITE8X8"
 
 -- 代码部分
 local function GetDemoSize(size)
-    return GetUIScaleFactor(size * SIZE.SCALE)
+    return GetUIScaleFactor(size * SCALE)
 end
 
 local function CreateDemoFrame()
