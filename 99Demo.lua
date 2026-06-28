@@ -13,7 +13,7 @@ local GetUIScaleFactor = addonTable.GetUIScaleFactor
 
 -- 本地变量定义
 local MAX_BUFFS = 12
-local AURA_BUTTON_BORDER_STYLE_ATLAS = 0
+local AURA_BUTTON_BORDER_STYLE_COLOR = 1
 local SIZE = {
     NODE_SIZE = 4,
 }
@@ -31,6 +31,7 @@ local DURATION_BAR_WIDTH = SIZE.NODE_SIZE
 local DURATION_BAR_HEIGHT = 8 * SIZE.NODE_SIZE
 local COUNT_FONT_SIZE = 6
 local PIX_NUM_FONT = "Interface\\AddOns\\" .. addonName .. "\\media\\PixNum.ttf"
+local DEBUFF_BORDER_TEXTURE = "Interface\\Buttons\\UI-Debuff-Overlays"
 local WHITE_TEXTURE = "Interface\\Buttons\\WHITE8X8"
 local ROW_GAP = SIZE.NODE_SIZE
 
@@ -51,6 +52,8 @@ local function CreateAuraButton(parent, auraIndex, auraBorderOptions)
 
     if auraBorderOptions then
         auraButton.AuraBorder = auraButton:CreateTexture(nil, "OVERLAY")
+        auraButton.AuraBorder:SetTexture(DEBUFF_BORDER_TEXTURE)
+        auraButton.AuraBorder:SetTexCoord(0.296875, 0.5703125, 0, 0.515625)
         auraButton.AuraBorder:SetPoint("TOPLEFT", auraButton.Icon, "TOPLEFT", -GetDemoSize(1), GetDemoSize(1))
         auraButton.AuraBorder:SetPoint("BOTTOMRIGHT", auraButton.Icon, "BOTTOMRIGHT", GetDemoSize(1), -GetDemoSize(1))
         auraButton:SetAuraBorder(auraButton.AuraBorder, auraBorderOptions)
@@ -110,16 +113,14 @@ local function CreateDemoFrame()
     frame.bg:SetColorTexture(0, 0, 0, 0.65)
 
     CreateAuraRow(frame, "HELPFUL", 0, {
-        showIcon = true,
         showWhenHarmful = false,
         showWhenHelpful = true,
-        style = AURA_BUTTON_BORDER_STYLE_ATLAS,
+        style = AURA_BUTTON_BORDER_STYLE_COLOR,
     })
     CreateAuraRow(frame, "HARMFUL", AURA_BUTTON_HEIGHT + ROW_GAP, {
-        showIcon = true,
         showWhenHarmful = true,
         showWhenHelpful = false,
-        style = AURA_BUTTON_BORDER_STYLE_ATLAS,
+        style = AURA_BUTTON_BORDER_STYLE_COLOR,
     })
 end
 
