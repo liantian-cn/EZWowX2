@@ -15,14 +15,14 @@ local Cell                     = addonTable.Cell
 addonTable.ClassSpells         = {}
 
 -- 本地变量定义
-local SPELL_CLASSIFICATION  = 1
-local MARKER_CLASSIFICATION = 255
-local SPELL_ROW             = 1
-local SPELL_START_X         = 3
-local MARKER_VALUE          = 1
-local DEFAULT_VALUE         = 0
+local SPELL_CLASSIFICATION     = 1
+local MARKER_CLASSIFICATION    = 255
+local SPELL_ROW                = 1
+local SPELL_START_X            = 3
+local MARKER_VALUE             = SPELL_CLASSIFICATION
+local DEFAULT_VALUE            = 0
 
-local CommonSpells = {
+local CommonSpells             = {
     [1] = { spellId = 61304, name = "公共冷却" },
 }
 
@@ -92,7 +92,7 @@ local function InitSpellFrame()
         insert(records, record)
     end
 
-    for _, spell in ipairs(allSpells) do
+    for i, spell in ipairs(allSpells) do
         local remainingCell = CreateSpellCell(offsetX, offsetIndex)
         offsetIndex = offsetIndex + 1
         offsetX = offsetX + 1
