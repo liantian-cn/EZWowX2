@@ -19,7 +19,7 @@ addonTable.SIZE                = {}                          -- 尺寸表
 
 
 -- 本地变量定义
-local scale         = 4
+local scale         = 2
 local SIZE          = addonTable.SIZE
 local WHITE_TEXTURE = "Interface\\Buttons\\WHITE8X8"
 local BLACK         = CreateColor(0, 0, 0, 1)
@@ -29,7 +29,7 @@ local BLACK         = CreateColor(0, 0, 0, 1)
 local function InitializeSize()             -- 初始化尺寸
     SIZE = {                                -- 尺寸表主体
         Martix = {                          -- MartixFrame有多个Cell
-            Width = 132,                    -- Cell横向个数
+            Width = 258,                    -- Cell横向个数
             Height = 10,                    -- Cell纵向个数
         },
         CELL = GetUIScaleFactor(scale * 4), -- Cell尺寸
@@ -172,3 +172,13 @@ function Cell:clearCell()
 end
 
 addonTable.Cell = Cell
+
+local function InitMarkFrame()
+    local MARKER_CLASSIFICATION = 255
+    local MARKER_VALUE = 255
+    local MARKER_VALUE_START = 255
+    local MARKER_VALUE_END = 0
+    Cell:New({ x = 1, y = 1, classification = MARKER_CLASSIFICATION, index = 1, default_value = MARKER_VALUE_START })
+    Cell:New({ x = 258, y = 1, classification = MARKER_CLASSIFICATION, index = 1, default_value = MARKER_VALUE_END })
+end
+insert(addonTable.FrameInitFuncs, InitMarkFrame)

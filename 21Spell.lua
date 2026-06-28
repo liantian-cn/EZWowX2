@@ -16,10 +16,8 @@ addonTable.ClassSpells         = {}
 
 -- 本地变量定义
 local SPELL_CLASSIFICATION     = 1
-local MARKER_CLASSIFICATION    = 255
 local SPELL_ROW                = 1
-local SPELL_START_X            = 3
-local MARKER_VALUE             = SPELL_CLASSIFICATION
+local SPELL_START_X            = 2
 local DEFAULT_VALUE            = 0
 local CELLS_PER_SPELL          = 4
 
@@ -40,9 +38,6 @@ local CommonSpells             = {
 -- 开始代码
 
 local function InitSpellFrame()
-    Cell:New({ x = 1, y = SPELL_ROW, classification = MARKER_CLASSIFICATION, index = 1, default_value = MARKER_VALUE })
-    Cell:New({ x = 2, y = SPELL_ROW, classification = MARKER_CLASSIFICATION, index = 2, default_value = MARKER_VALUE })
-
     local allSpells = {}
     local spellCells = {}
     local eventFrame = CreateFrame("Frame")
@@ -57,7 +52,7 @@ local function InitSpellFrame()
 
     for i, spell in ipairs(allSpells) do
         local baseX = SPELL_START_X + (i - 1) * CELLS_PER_SPELL
-        local baseIndex = (i - 1) * CELLS_PER_SPELL
+        local baseIndex = baseX - 2
         local remainingCell = Cell:New({
             x = baseX,
             y = SPELL_ROW,
