@@ -21,6 +21,7 @@ local SPELL_ROW                = 1
 local SPELL_START_X            = 3
 local MARKER_VALUE             = SPELL_CLASSIFICATION
 local DEFAULT_VALUE            = 0
+local CELLS_PER_SPELL          = 4
 
 local CommonSpells             = {
     [1] = { spellId = 61304, name = "公共冷却" },
@@ -42,12 +43,8 @@ local function InitSpellFrame()
     Cell:New({ x = 1, y = SPELL_ROW, classification = MARKER_CLASSIFICATION, index = 1, default_value = MARKER_VALUE })
     Cell:New({ x = 2, y = SPELL_ROW, classification = MARKER_CLASSIFICATION, index = 2, default_value = MARKER_VALUE })
 
-    local offsetX = SPELL_START_X -- 从第3列开始放置技能冷却状态
-    local offsetIndex = 0         -- index 从零开始。每个cell增1。
-
     local allSpells = {}
-    local spellRecords = {}
-    local spellIDToRecords = {}
+    local spellCells = {}
     local eventFrame = CreateFrame("Frame")
 
     for _, spell in ipairs(CommonSpells) do
@@ -58,105 +55,81 @@ local function InitSpellFrame()
         insert(allSpells, spell)
     end
 
-    local function CreateSpellCell(x, index)
-        return Cell:New({
-            x = x,
+    for i, spell in ipairs(allSpells) do
+        local baseX = SPELL_START_X + (i - 1) * CELLS_PER_SPELL
+        local baseIndex = (i - 1) * CELLS_PER_SPELL
+        local remainingCell = Cell:New({
+            x = baseX,
             y = SPELL_ROW,
             classification = SPELL_CLASSIFICATION,
-            index = index,
+            index = baseIndex,
             default_value = DEFAULT_VALUE,
+        })
+        local usableCell = Cell:New({
+            x = baseX + 1,
+            y = SPELL_ROW,
+            classification = SPELL_CLASSIFICATION,
+            index = baseIndex + 1,
+            default_value = DEFAULT_VALUE,
+        })
+        local overlayedCell = Cell:New({
+            x = baseX + 2,
+            y = SPELL_ROW,
+            classification = SPELL_CLASSIFICATION,
+            index = baseIndex + 2,
+            default_value = DEFAULT_VALUE,
+        })
+        local emptyCell = Cell:New({
+            x = baseX + 3,
+            y = SPELL_ROW,
+            classification = SPELL_CLASSIFICATION,
+            index = baseIndex + 3,
+            default_value = DEFAULT_VALUE,
+        })
+
+        insert(spellCells, {
+            spellId = spell.spellId,
+            remainingCell = remainingCell,
+            usableCell = usableCell,
+            overlayedCell = overlayedCell,
+            emptyCell = emptyCell,
         })
     end
 
-    local function AddSpellRecord(spell, remainingCell, usableCell, overlayedCell, emptyCell)
-        local spellID = spell.spellId
-        if not spellID then
-            return
-        end
-
-        local record = {
-            spellID = spellID,
-            remaining = remainingCell,
-            usable = usableCell,
-            overlayed = overlayedCell,
-            empty = emptyCell,
-        }
-        local records = spellIDToRecords[spellID]
-
-        if not records then
-            records = {}
-            spellIDToRecords[spellID] = records
-        end
-
-        insert(spellRecords, record)
-        insert(records, record)
-    end
-
-    for i, spell in ipairs(allSpells) do
-        local remainingCell = CreateSpellCell(offsetX, offsetIndex)
-        offsetIndex = offsetIndex + 1
-        offsetX = offsetX + 1
-        local usableCell = CreateSpellCell(offsetX, offsetIndex)
-        offsetIndex = offsetIndex + 1
-        offsetX = offsetX + 1
-        local overlayedCell = CreateSpellCell(offsetX, offsetIndex)
-        offsetIndex = offsetIndex + 1
-        offsetX = offsetX + 1
-        local emptyCell = CreateSpellCell(offsetX, offsetIndex)
-        offsetIndex = offsetIndex + 1
-        offsetX = offsetX + 1
-
-        AddSpellRecord(spell, remainingCell, usableCell, overlayedCell, emptyCell)
-    end
-
-    local function UpdateRecords(records, updateFunc)
-        if not records then
-            return
-        end
-
-        for recordIndex = 1, #records do
-            updateFunc(records[recordIndex])
-        end
-    end
-
-    local function UpdateRemaining(record)
-        local remaining = GetSpellCooldownDuration(record.spellID)
-        if not remaining then
-            record.remaining:clearCell()
-            return
-        end
-
-        record.remaining:setCell(remaining:EvaluateRemainingDuration(record.remaining.quantizedCurve))
-    end
-
     local function UpdateRemainingAll()
-        UpdateRecords(spellRecords, UpdateRemaining)
-    end
-
-    local function UpdateUsable(record)
-        record.usable:setCellBoolean(IsSpellUsable(record.spellID))
+        for cellIndex = 1, #spellCells do
+            local spellCell = spellCells[cellIndex]
+            local remaining = GetSpellCooldownDuration(spellCell.spellId)
+            if remaining then
+                spellCell.remainingCell:setCell(remaining:EvaluateRemainingDuration(spellCell.remainingCell.quantizedCurve))
+            else
+                spellCell.remainingCell:clearCell()
+            end
+        end
     end
 
     local function UpdateUsableAll()
-        UpdateRecords(spellRecords, UpdateUsable)
-    end
-
-    local function UpdateOverlayed(record)
-        record.overlayed:setCellBoolean(IsSpellOverlayed(record.spellID))
+        for cellIndex = 1, #spellCells do
+            local spellCell = spellCells[cellIndex]
+            spellCell.usableCell:setCellBoolean(IsSpellUsable(spellCell.spellId))
+        end
     end
 
     local function UpdateOverlayedAll()
-        UpdateRecords(spellRecords, UpdateOverlayed)
+        for cellIndex = 1, #spellCells do
+            local spellCell = spellCells[cellIndex]
+            spellCell.overlayedCell:setCellBoolean(IsSpellOverlayed(spellCell.spellId))
+        end
     end
 
     eventFrame:RegisterEvent("SPELL_ACTIVATION_OVERLAY_GLOW_SHOW")
-    function eventFrame.SPELL_ACTIVATION_OVERLAY_GLOW_SHOW(spellID)
-        UpdateRecords(spellIDToRecords[spellID], UpdateOverlayed)
+    function eventFrame.SPELL_ACTIVATION_OVERLAY_GLOW_SHOW()
+        UpdateOverlayedAll()
     end
 
     eventFrame:RegisterEvent("SPELL_ACTIVATION_OVERLAY_GLOW_HIDE")
-    function eventFrame.SPELL_ACTIVATION_OVERLAY_GLOW_HIDE(spellID)
-        UpdateRecords(spellIDToRecords[spellID], UpdateOverlayed)
+    function eventFrame.SPELL_ACTIVATION_OVERLAY_GLOW_HIDE()
+        UpdateOverlayedAll()
     end
 
     local fastTimeElapsed = -random() -- 0.1 秒刷新可施放状态。
