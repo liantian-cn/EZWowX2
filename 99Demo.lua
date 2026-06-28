@@ -46,7 +46,7 @@ local function CreateAuraButton(parent, auraIndex, auraBorderOptions)
     auraButton:SetSize(GetDemoSize(AURA_BUTTON_WIDTH), GetDemoSize(AURA_BUTTON_HEIGHT))
     auraButton:SetPoint("TOPLEFT", parent, "TOPLEFT", GetDemoSize((auraIndex - 1) * AURA_BUTTON_WIDTH), 0)
 
-    auraButton.Icon = auraButton:CreateTexture(nil, "OVERLAY")
+    auraButton.Icon = auraButton:CreateTexture(nil, "BACKGROUND")
     auraButton.Icon:SetSize(GetDemoSize(ICON_SIZE), GetDemoSize(ICON_SIZE))
     auraButton.Icon:SetPoint("TOPLEFT", auraButton, "TOPLEFT", 0, 0)
     auraButton:SetIcon(auraButton.Icon)
