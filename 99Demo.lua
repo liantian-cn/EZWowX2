@@ -55,8 +55,8 @@ local function CreateAuraButton(parent, auraIndex, auraBorderOptions)
         auraButton.AuraBorder = auraButton:CreateTexture(nil, "OVERLAY")
         auraButton.AuraBorder:SetTexture(DEBUFF_BORDER_TEXTURE)
         auraButton.AuraBorder:SetTexCoord(0.296875, 0.5703125, 0, 0.515625)
-        auraButton.AuraBorder:SetPoint("TOPLEFT", auraButton.Icon, "TOPLEFT", -GetDemoSize(AURA_BORDER_WIDTH), GetDemoSize(AURA_BORDER_WIDTH))
-        auraButton.AuraBorder:SetPoint("BOTTOMRIGHT", auraButton.Icon, "BOTTOMRIGHT", GetDemoSize(AURA_BORDER_WIDTH), -GetDemoSize(AURA_BORDER_WIDTH))
+        auraButton.AuraBorder:SetPoint("TOPLEFT", auraButton.Icon, "TOPLEFT", GetDemoSize(AURA_BORDER_WIDTH), -GetDemoSize(AURA_BORDER_WIDTH))
+        auraButton.AuraBorder:SetPoint("BOTTOMRIGHT", auraButton.Icon, "BOTTOMRIGHT", -GetDemoSize(AURA_BORDER_WIDTH), GetDemoSize(AURA_BORDER_WIDTH))
         auraButton:SetAuraBorder(auraButton.AuraBorder, auraBorderOptions)
     end
 
