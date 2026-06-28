@@ -131,16 +131,17 @@ function Cell:_initialize(x, y, classification, index, default_value)
 end
 
 ---Cell 构造函数
----@param x integer X坐标（以单元格为单位）
----@param y integer Y坐标（以单元格为单位）
----@param classification integer 分类（根据cell用途不同，每个cell有个分类设置，范围0-255）
----@param index integer 索引（相同分类的cell，每个cell有个索引设置，范围0-255）
----@param default_value? number 默认值（范围0-255），用于初始化cell的颜色分量
+---@param options table 构造参数
+---@field x integer X坐标（以单元格为单位）
+---@field y integer Y坐标（以单元格为单位）
+---@field classification integer 分类（根据cell用途不同，每个cell有个分类设置，范围0-255）
+---@field index integer 索引（相同分类的cell，每个cell有个索引设置，范围0-255）
+---@field default_value? number 默认值（范围0-255），用于初始化cell的颜色分量
 ---@return Cell # 返回Cell实例, 如果父框架不存在则返回nil
-function Cell:New(x, y, classification, index, default_value)
+function Cell:New(options)
     local instance = setmetatable({}, self)
-    default_value = default_value or 0
-    instance:_initialize(x, y, classification, index, default_value)
+    local default_value = options.default_value or 0
+    instance:_initialize(options.x, options.y, options.classification, options.index, default_value)
     return instance
 end
 
