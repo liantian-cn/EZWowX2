@@ -40,7 +40,7 @@ local function GetDemoSize(size)
     return GetUIScaleFactor(size * SCALE)
 end
 
-local function CreateAuraButton(parent, auraIndex, showDispelBorder)
+local function CreateAuraButton(parent, auraIndex, auraBorderOptions)
     local auraButton = CreateFrame("AuraButton", nil, parent, "CustomAuraButtonTemplate")
     auraButton:SetSize(GetDemoSize(AURA_BUTTON_WIDTH), GetDemoSize(AURA_BUTTON_HEIGHT))
     auraButton:SetPoint("TOPLEFT", parent, "TOPLEFT", GetDemoSize((auraIndex - 1) * AURA_BUTTON_WIDTH), 0)
@@ -50,17 +50,13 @@ local function CreateAuraButton(parent, auraIndex, showDispelBorder)
     auraButton.Icon:SetPoint("TOPLEFT", auraButton, "TOPLEFT", 0, 0)
     auraButton:SetIcon(auraButton.Icon)
 
-    if showDispelBorder then
+    if auraBorderOptions then
         auraButton.AuraBorder = auraButton:CreateTexture(nil, "OVERLAY")
         auraButton.AuraBorder:SetTexture(DEBUFF_BORDER_TEXTURE)
         auraButton.AuraBorder:SetTexCoord(0.296875, 0.5703125, 0, 0.515625)
         auraButton.AuraBorder:SetPoint("TOPLEFT", auraButton.Icon, "TOPLEFT", -GetDemoSize(1), GetDemoSize(1))
         auraButton.AuraBorder:SetPoint("BOTTOMRIGHT", auraButton.Icon, "BOTTOMRIGHT", GetDemoSize(1), -GetDemoSize(1))
-        auraButton:SetAuraBorder(auraButton.AuraBorder, {
-            showWhenHarmful = true,
-            showWhenHelpful = false,
-            style = AURA_BUTTON_BORDER_STYLE_COLOR,
-        })
+        auraButton:SetAuraBorder(auraButton.AuraBorder, auraBorderOptions)
     end
 
     auraButton.DurationBar = CreateFrame("StatusBar", nil, auraButton)
@@ -87,7 +83,7 @@ local function CreateAuraButton(parent, auraIndex, showDispelBorder)
     parent:AddAuraFrame(auraButton)
 end
 
-local function CreateAuraRow(parent, filterString, yOffset, showDispelBorder)
+local function CreateAuraRow(parent, filterString, yOffset, auraBorderOptions)
     local container = CreateFrame("AuraContainer", nil, parent, "CustomAuraContainerTemplate")
     container:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, -GetDemoSize(yOffset))
     container:SetSize(GetDemoSize(MAX_BUFFS * AURA_BUTTON_WIDTH), GetDemoSize(AURA_BUTTON_HEIGHT))
@@ -95,7 +91,7 @@ local function CreateAuraRow(parent, filterString, yOffset, showDispelBorder)
     container:AddAuraFilter(filterString, { maxFrameCount = MAX_BUFFS })
 
     for auraIndex = 1, MAX_BUFFS do
-        CreateAuraButton(container, auraIndex, showDispelBorder)
+        CreateAuraButton(container, auraIndex, auraBorderOptions)
     end
 
     return container
@@ -116,8 +112,16 @@ local function CreateDemoFrame()
     frame.bg:SetAllPoints(frame)
     frame.bg:SetColorTexture(0, 0, 0, 0.65)
 
-    CreateAuraRow(frame, "HELPFUL", 0, false)
-    CreateAuraRow(frame, "HARMFUL", AURA_BUTTON_HEIGHT + ROW_GAP, true)
+    CreateAuraRow(frame, "HELPFUL", 0, {
+        showWhenHarmful = false,
+        showWhenHelpful = true,
+        style = AURA_BUTTON_BORDER_STYLE_COLOR,
+    })
+    CreateAuraRow(frame, "HARMFUL", AURA_BUTTON_HEIGHT + ROW_GAP, {
+        showWhenHarmful = true,
+        showWhenHelpful = false,
+        style = AURA_BUTTON_BORDER_STYLE_COLOR,
+    })
 end
 
 After(0, CreateDemoFrame)
