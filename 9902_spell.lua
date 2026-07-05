@@ -150,5 +150,6 @@ local function InitSpellFrame()
     UpdateRemainingAll()
     UpdateUsableAll()
     UpdateOverlayedAll()
+    print("Spell frame initialized with " .. #spellCells .. " spells.")
 end
 insert(addonTable.FrameInitFuncs, InitSpellFrame)
