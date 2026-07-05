@@ -161,6 +161,7 @@ end
 
 ---设置颜色方法, 根据布尔值选择颜色
 ---@param isTrue boolean 是否为true值
+---@param reverse boolean 是否反转颜色选择，默认false
 ---@return nil
 function Cell:setCellBoolean(isTrue)
     self:setCell(EvaluateColorFromBoolean(isTrue, self.trueColor, self.falseColor))
