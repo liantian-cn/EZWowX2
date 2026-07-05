@@ -1,6 +1,9 @@
 -- 命名空间声明
 local addonName, addonTable = ...
 
+-- 本地变量定义
+local insert                = table.insert
+
 -- WOW API 缓存
 local CreateFrame           = CreateFrame
 local UnitIsDeadOrGhost     = UnitIsDeadOrGhost
@@ -8,8 +11,6 @@ local UnitIsDeadOrGhost     = UnitIsDeadOrGhost
 -- 插件级变量定义/引用
 local Cell                  = addonTable.Cell
 
--- 本地变量定义
-local insert                = table.insert
 
 --[[
 简述：      玩家处于存活状态
@@ -26,10 +27,8 @@ local insert                = table.insert
 注意：因为没有检测玩家是否存活的直接函数，所以使用UnitIsDeadOrGhost来检测玩家是否死亡，取反后即可得到玩家是否存活的状态。
 
 关于"秘密值"（Secret Value）：
-在WoW 12.1中，很多API返回的值被标记为"secret"，不能直接用于逻辑判断或计算。
-UnitIsDeadOrGhost返回的布尔值可能是secret的，取反操作可能无法正确执行。
-但是Cell:setCellBoolean这个函数设置了入参reverse，允许在设置cell颜色时，使用不同的EvaluateColorFromBoolean方案，实现取反。
-EvaluateColorFromBoolean是专门将秘密的布尔值转化为颜色的官方内置函数。
+在WoW 12.1中，很多API返回的值被标记为"secret"，不能直接用于逻辑判断或计算。UnitIsDeadOrGhost返回的布尔值可能是secret的，取反操作可能无法正确执行。
+但是Cell:setCellBoolean这个函数设置了入参reverse，允许在设置cell颜色时，使用不同的EvaluateColorFromBoolean方案，实现取反。EvaluateColorFromBoolean是专门将秘密的布尔值转化为颜色的官方内置函数。
 
 
 ]]
@@ -52,6 +51,8 @@ local function InitFrame()
     local eventFrame = CreateFrame("Frame") -- 每个文件独立的事件框架
 
     -- 创建cell实例
+    -- 当文件只需要创建一个cell时，直接使用cell作为局部变量即可。
+    -- 当文件需要创建多个cell时，可以使用一个table来存储所有cell实例，方便管理和访问。
     local cell = Cell:New({
         x = CELL_POSITION_X,
         y = CELL_POSITION_Y,
@@ -61,6 +62,8 @@ local function InitFrame()
     })
 
     -- 更新函数：设置cell的状态
+    -- 当文件只需要创建一个更新函数时，直接使用updateCell作为函数名即可。
+    -- 当文件需要创建多个更新函数时，使用清晰的名称。
     -- UnitIsDeadOrGhost("player") 返回：
     --   true  -> 玩家死亡或灵魂状态
     --   false -> 玩家存活状态
@@ -85,6 +88,11 @@ local function InitFrame()
     eventFrame:SetScript("OnEvent", function(self, event, ...)
         updateCell()
     end)
+
+    -- 如果需要为不同事件调用不同函数，可以使用路由分配模式：
+    -- eventFrame:SetScript("OnEvent", function(self, event, ...)
+    --     self[event](self, ...)
+    -- end)
 end
 
 -- 将初始化函数插入到全局初始化函数列表中，确保在插件加载时执行
