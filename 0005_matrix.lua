@@ -19,7 +19,7 @@ addonTable.SIZE                = {}                          -- 尺寸表
 
 
 -- 本地变量定义
-local scale         = 2
+local scale         = 6
 local SIZE          = addonTable.SIZE
 local WHITE_TEXTURE = "Interface\\Buttons\\WHITE8X8"
 local BLACK         = CreateColor(0, 0, 0, 1)
@@ -85,14 +85,14 @@ Cell.__index = Cell
 ---@param x integer X坐标
 ---@param y integer Y坐标
 ---@param classification integer 分类（根据cell用途不同，每个cell有个分类设置，范围0-255）
----@param index integer 索引（相同分类的cell，每个cell有个索引设置，范围0-255）
+---@param index integer 索引（相同分类的cell，每个cell有个索引设置，范围1-255，0保留不用）
 ---@param default_value number 默认值（范围0-255），用于初始化cell的颜色分量
 function Cell:_initialize(x, y, classification, index, default_value)
     local parent = addonTable.MartixFrame
     local cellName = addonName .. "Cell_" .. x .. "_" .. y
 
     local cellFrame = CreateFrame("Frame", cellName, parent)
-    cellFrame:SetPoint("TOPLEFT", parent, "TOPLEFT", (x - 1) * SIZE.CELL, -(y - 1) * SIZE.CELL)
+    cellFrame:SetPoint("TOPLEFT", parent, "TOPLEFT", x * SIZE.CELL, -(y - 1) * SIZE.CELL)
     cellFrame:SetFrameLevel(parent:GetFrameLevel() + 10)
     cellFrame:SetSize(SIZE.CELL, SIZE.CELL)
     cellFrame:Show()
@@ -132,11 +132,11 @@ end
 
 ---Cell 构造函数
 ---@param options table 构造参数
----@field x integer X坐标（以单元格为单位）
----@field y integer Y坐标（以单元格为单位）
----@field classification integer 分类（根据cell用途不同，每个cell有个分类设置，范围0-255）
----@field index integer 索引（相同分类的cell，每个cell有个索引设置，范围0-255）
----@field default_value? number 默认值（范围0-255），用于初始化cell的颜色分量
+-- -@field x integer X坐标（以单元格为单位）
+-- -@field y integer Y坐标（以单元格为单位）
+-- -@field classification integer 分类（根据cell用途不同，每个cell有个分类设置，范围0-255）
+-- -@field index integer 索引（相同分类的cell，每个cell有个索引设置，范围0-255）
+-- -@field default_value? number 默认值（范围0-255），用于初始化cell的颜色分量
 ---@return Cell # 返回Cell实例, 如果父框架不存在则返回nil
 function Cell:New(options)
     local instance = setmetatable({}, self)
@@ -178,7 +178,7 @@ local function InitMarkFrame()
     local MARKER_VALUE = 255
     local MARKER_VALUE_START = 255
     local MARKER_VALUE_END = 0
-    Cell:New({ x = 1, y = 1, classification = MARKER_CLASSIFICATION, index = 1, default_value = MARKER_VALUE_START })
-    Cell:New({ x = 258, y = 1, classification = MARKER_CLASSIFICATION, index = 1, default_value = MARKER_VALUE_END })
+    Cell:New({ x = 0, y = 1, classification = MARKER_CLASSIFICATION, index = 1, default_value = MARKER_VALUE_START })
+    Cell:New({ x = 257, y = 1, classification = MARKER_CLASSIFICATION, index = 1, default_value = MARKER_VALUE_END })
 end
 insert(addonTable.FrameInitFuncs, InitMarkFrame)
