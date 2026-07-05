@@ -163,8 +163,12 @@ end
 ---@param isTrue boolean 是否为true值
 ---@param reverse boolean 是否反转颜色选择，默认false
 ---@return nil
-function Cell:setCellBoolean(isTrue)
-    self:setCell(EvaluateColorFromBoolean(isTrue, self.trueColor, self.falseColor))
+function Cell:setCellBoolean(isTrue, reverse)
+    if reverse then
+        self:setCell(EvaluateColorFromBoolean(isTrue, self.falseColor, self.trueColor))
+    else
+        self:setCell(EvaluateColorFromBoolean(isTrue, self.trueColor, self.falseColor))
+    end
 end
 
 ---清除颜色方法, 就是恢复默认的黑色
