@@ -4,6 +4,7 @@ local addonName, addonTable = ...
 -- WOW API 缓存
 local CreateColor           = CreateColor
 local CreateFrame           = CreateFrame
+local issecretvalue         = issecretvalue
 local UnitCastingDuration   = UnitCastingDuration
 local UnitCastingInfo       = UnitCastingInfo
 local UnitChannelDuration   = UnitChannelDuration
@@ -76,9 +77,21 @@ local function InitFrame()
         iconCell.Border:Hide()
     end
 
+    local function clearCastState()
+        progressMode = nil
+        progressCell:clearCell()
+        empoweredCell:clearCell()
+        clearIcon()
+    end
+
     local function updateProgressCell()
         if progressMode == CAST_MODE_CASTING then
             local duration = UnitCastingDuration("player")
+
+            if issecretvalue(duration) then
+                progressCell:clearCell()
+                return
+            end
 
             if duration then
                 progressCell:setCell(duration:EvaluateElapsedPercent(progressCell.zeroToOneCurve))
@@ -87,6 +100,11 @@ local function InitFrame()
             end
         elseif progressMode == CAST_MODE_CHANNELING then
             local duration = UnitChannelDuration("player")
+
+            if issecretvalue(duration) then
+                progressCell:clearCell()
+                return
+            end
 
             if duration then
                 progressCell:setCell(duration:EvaluateElapsedPercent(progressCell.zeroToOneCurve))
@@ -101,6 +119,11 @@ local function InitFrame()
     local function updateCastState()
         local castingTexture = select(3, UnitCastingInfo("player"))
 
+        if issecretvalue(castingTexture) then
+            clearCastState()
+            return
+        end
+
         if castingTexture then
             progressMode = CAST_MODE_CASTING
             iconCell:SetIcon(castingTexture)
@@ -112,19 +135,29 @@ local function InitFrame()
 
         local channelTexture = select(3, UnitChannelInfo("player"))
 
+        if issecretvalue(channelTexture) then
+            clearCastState()
+            return
+        end
+
         if channelTexture then
+            local isEmpowered = select(9, UnitChannelInfo("player"))
+
             progressMode = CAST_MODE_CHANNELING
             iconCell:SetIcon(channelTexture)
             iconCell:SetBorderColor(ICON_BORDER_COLOR)
-            empoweredCell:setCellBoolean(select(9, UnitChannelInfo("player")))
+
+            if issecretvalue(isEmpowered) then
+                empoweredCell:clearCell()
+            else
+                empoweredCell:setCellBoolean(isEmpowered)
+            end
+
             updateProgressCell()
             return
         end
 
-        progressMode = nil
-        progressCell:clearCell()
-        empoweredCell:clearCell()
-        clearIcon()
+        clearCastState()
     end
 
     updateCastState()
