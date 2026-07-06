@@ -2,14 +2,11 @@
 local addonName, addonTable = ...
 
 -- WOW API 缓存
-local After = C_Timer.After
 local CreateFrame = CreateFrame
 local CreateColor = CreateColor
 
--- 插件级变量定义/引用
-local SIZE = addonTable.SIZE
-
 -- 本地变量定义
+local insert = table.insert
 local ICON_BORDER_COLOR = CreateColor(64 / 255, 158 / 255, 210 / 255, 1)
 local BORDER_TEXTURE = "Interface\\AddOns\\" .. addonName .. "\\media\\aura\\aura_border_32_4px.tga"
 local ICON_SIZE = 16
@@ -40,6 +37,7 @@ end
 ---@param y integer Y坐标
 function IconCell:_initialize(x, y)
     local parent = addonTable.MartixFrame
+    local SIZE = addonTable.SIZE
     local scale = 6
     local iconSize = ICON_SIZE * scale
 
@@ -92,7 +90,10 @@ local function CreateDemoIconCell()
     return iconCell
 end
 
--- 延迟初始化
-After(0, function()
-    CreateDemoIconCell()
-end)
+-- 将初始化函数插入到全局初始化函数列表中，确保在插件加载时执行
+-- 执行顺序：
+-- 1. 所有文件加载，注册CreateDemoIconCell到FrameInitFuncs
+-- 2. 第二帧时执行所有FrameInitFuncs
+-- 3. CreateMartixFrame先执行（在0005_matrix.lua中注册）
+-- 4. 然后CreateDemoIconCell执行（在本文件中注册）
+insert(addonTable.FrameInitFuncs, CreateDemoIconCell)
