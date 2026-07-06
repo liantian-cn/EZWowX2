@@ -18,6 +18,7 @@ libs\LibRangeCheck-3.0.lua
 
 1001_player_is_alive.lua
 #  demo
+9999_demo.lua
 # 9902_spell.lua
 
 
