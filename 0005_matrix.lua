@@ -19,7 +19,7 @@ addonTable.SIZE                = {}                          -- 尺寸表
 
 
 -- 本地变量定义
-local scale         = 6
+local scale         = 2
 local SIZE          = addonTable.SIZE
 local WHITE_TEXTURE = "Interface\\Buttons\\WHITE8X8"
 local BLACK         = CreateColor(0, 0, 0, 1)
@@ -204,7 +204,7 @@ end
 ---@param y integer Y坐标
 function IconCell:_initialize(x, y)
     local parent = addonTable.MartixFrame
-    local iconSize = 4 * SIZE.CELL  -- 4倍cell大小
+    local iconSize = 4 * SIZE.CELL -- 4倍cell大小
 
     -- 创建背景Frame
     local frame = CreateFrame("Frame", nil, parent)
@@ -225,14 +225,14 @@ function IconCell:_initialize(x, y)
     local border = frame:CreateTexture(nil, "OVERLAY")
     border:SetAllPoints(frame)
     border:SetTexture("Interface\\AddOns\\" .. addonName .. "\\media\\aura\\aura_border_32_4px.tga")
-    border:SetVertexColor(0, 0, 0, 0)  -- 默认透明
+    border:SetVertexColor(0, 0, 0, 0) -- 默认透明
     border:Hide()
 
     self.Frame = frame
     self.Background = background
     self.Icon = icon
     self.Border = border
-    self.BorderColor = CreateColor(0, 0, 0, 0)  -- 默认透明
+    self.BorderColor = CreateColor(0, 0, 0, 0) -- 默认透明
 end
 
 ---设置图标纹理
