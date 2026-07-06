@@ -5,9 +5,6 @@
 ## LoadSavedVariablesFirst: 1
 ## IconTexture: Interface\Icons\UI_Spellbook_OneButton
 
-libs\LibStub.lua
-libs\LibRangeCheck-3.0.lua
-
 0001_base.lua
 0002_config.lua
 0003_panel.lua
