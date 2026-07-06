@@ -105,8 +105,10 @@ local function InitFrame()
         clearTarget()
     end
 
-    local function refreshTargetValue()
-        setTargetValue(lastTargetValue)
+    local function clearStaleTargetValue()
+        if lastTargetValue ~= NO_TARGET_VALUE then
+            clearTarget()
+        end
     end
 
     clearTarget()
@@ -116,6 +118,7 @@ local function InitFrame()
     eventFrame:RegisterUnitEvent("UNIT_SPELLCAST_INTERRUPTED", "player")
     eventFrame:RegisterUnitEvent("UNIT_SPELLCAST_FAILED", "player")
     eventFrame:RegisterUnitEvent("UNIT_SPELLCAST_FAILED_QUIET", "player")
+    eventFrame:RegisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", "player")
 
     eventFrame:SetScript("OnEvent", function(self, event, unitTarget, targetName)
         if event == "UNIT_SPELLCAST_SENT" then
@@ -132,7 +135,7 @@ local function InitFrame()
 
         if fallbackElapsed >= FALLBACK_REFRESH_SECONDS then
             fallbackElapsed = 0
-            refreshTargetValue()
+            clearStaleTargetValue()
         end
     end)
 end
