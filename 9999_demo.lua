@@ -2,6 +2,7 @@
 local addonName, addonTable = ...
 
 -- WOW API 缓存
+local After = C_Timer.After
 local CreateFrame = CreateFrame
 local CreateColor = CreateColor
 
@@ -83,3 +84,15 @@ function IconCell:SetBorderColor(color)
 end
 
 addonTable.IconCell = IconCell
+
+-- 创建演示实例
+local function CreateDemoIconCell()
+    local iconCell = IconCell:New(1, 3)
+    iconCell:SetIcon(3186652)
+    return iconCell
+end
+
+-- 延迟初始化
+After(0, function()
+    CreateDemoIconCell()
+end)
