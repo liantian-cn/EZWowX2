@@ -10,18 +10,16 @@ local SIZE = addonTable.SIZE
 
 -- 本地变量定义
 local ICON_BORDER_COLOR = CreateColor(64 / 255, 158 / 255, 210 / 255, 1)
-local WHITE_TEXTURE = "Interface\\Buttons\\WHITE8X8"
 local BORDER_TEXTURE = "Interface\\AddOns\\" .. addonName .. "\\media\\aura\\aura_border_32_4px.tga"
-local ICON_SIZE = 16  -- 4倍cell大小 (16 * scale)
+local ICON_SIZE = 16
 
 -- 代码部分
 
 ---@class IconCell
 ---@field Frame Frame 图标框体
+---@field Background Texture 背景纹理
 ---@field Icon Texture 图标纹理
 ---@field Border Texture 边框纹理
----@field X integer X坐标
----@field Y integer Y坐标
 local IconCell = {}
 IconCell.__index = IconCell
 
@@ -41,40 +39,41 @@ end
 ---@param y integer Y坐标
 function IconCell:_initialize(x, y)
     local parent = addonTable.MartixFrame
-    local iconName = addonName .. "IconCell_" .. x .. "_" .. y
+    local scale = 6
+    local iconSize = ICON_SIZE * scale
 
-    -- 创建主框体
-    local frame = CreateFrame("Frame", iconName, parent)
+    -- 创建背景Frame
+    local frame = CreateFrame("Frame", nil, parent)
+    frame:SetSize(iconSize, iconSize)
     frame:SetPoint("TOPLEFT", parent, "TOPLEFT", x * SIZE.CELL, -(y - 1) * SIZE.CELL)
-    frame:SetFrameLevel(parent:GetFrameLevel() + 10)
-    frame:SetSize(SIZE.CELL, SIZE.CELL)
-    frame:Show()
 
-    -- 创建边框纹理
-    local border = frame:CreateTexture(nil, "BORDER")
+    -- 背景层
+    local background = frame:CreateTexture(nil, "BACKGROUND")
+    background:SetAllPoints(frame)
+    background:SetColorTexture(0, 0, 0, 1)
+
+    -- 图标层
+    local icon = frame:CreateTexture(nil, "ARTWORK")
+    icon:SetAllPoints(frame)
+    icon:Hide()
+
+    -- 边框层
+    local border = frame:CreateTexture(nil, "OVERLAY")
     border:SetAllPoints(frame)
     border:SetTexture(BORDER_TEXTURE)
     border:SetVertexColor(ICON_BORDER_COLOR:GetRGBA())
-    border:Show()
-
-    -- 创建图标纹理
-    local icon = frame:CreateTexture(nil, "ARTWORK")
-    icon:SetPoint("TOPLEFT", frame, "TOPLEFT", 2, -2)
-    icon:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -2, 2)
-    icon:SetTexture(WHITE_TEXTURE)
-    icon:Show()
 
     self.Frame = frame
+    self.Background = background
     self.Icon = icon
     self.Border = border
-    self.X = x
-    self.Y = y
 end
 
 ---设置图标纹理
 ---@param iconID number|string 图标ID或纹理路径
 function IconCell:SetIcon(iconID)
     self.Icon:SetTexture(iconID)
+    self.Icon:Show()
 end
 
 ---设置边框颜色
