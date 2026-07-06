@@ -4,8 +4,6 @@ local addonName, addonTable = ...
 -- WOW API 缓存
 local CreateFrame           = CreateFrame
 local issecretvalue         = issecretvalue
-local UnitCastingInfo       = UnitCastingInfo
-local UnitChannelInfo       = UnitChannelInfo
 local UnitExists            = UnitExists
 local UnitName              = UnitName
 
@@ -14,7 +12,6 @@ local Cell                  = addonTable.Cell
 
 -- 本地变量定义
 local insert                = table.insert
-local select                = select
 
 -- 代码部分
 
@@ -51,8 +48,10 @@ local function InitFrame()
         index = CELL_CLASSIFICATION_INDEX,
         default_value = DEFAULT_VALUE,
     })
+    local lastTargetValue = NO_TARGET_VALUE
 
     local function setTargetValue(value)
+        lastTargetValue = value
         cell:setCellRGBA(CELL_CLASSIFICATION / 255, CELL_CLASSIFICATION_INDEX / 255, value / 255)
     end
 
@@ -61,12 +60,18 @@ local function InitFrame()
     end
 
     local function setCastTarget(targetName)
-        if not targetName or issecretvalue(targetName) then
+        if issecretvalue(targetName) then
             clearTarget()
             return
         end
 
-        if targetName == UnitName("player") then
+        if not targetName then
+            clearTarget()
+            return
+        end
+
+        local playerName = UnitName("player")
+        if not issecretvalue(playerName) and playerName and targetName == playerName then
             setTargetValue(0)
             return
         end
@@ -74,31 +79,34 @@ local function InitFrame()
         for partyIndex = 1, 4 do
             local unit = "party" .. partyIndex
 
-            if UnitExists(unit) and targetName == UnitName(unit) then
-                setTargetValue(partyIndex)
-                return
+            if UnitExists(unit) then
+                local unitName = UnitName(unit)
+
+                if not issecretvalue(unitName) and unitName and targetName == unitName then
+                    setTargetValue(partyIndex)
+                    return
+                end
             end
         end
 
         for raidIndex = 1, 40 do
             local unit = "raid" .. raidIndex
 
-            if UnitExists(unit) and targetName == UnitName(unit) then
-                setTargetValue(raidIndex + 5)
-                return
+            if UnitExists(unit) then
+                local unitName = UnitName(unit)
+
+                if not issecretvalue(unitName) and unitName and targetName == unitName then
+                    setTargetValue(raidIndex + 5)
+                    return
+                end
             end
         end
 
         clearTarget()
     end
 
-    local function clearWhenNotCasting()
-        local castingTexture = select(3, UnitCastingInfo("player"))
-        local channelTexture = select(3, UnitChannelInfo("player"))
-
-        if not castingTexture and not channelTexture then
-            clearTarget()
-        end
+    local function refreshTargetValue()
+        setTargetValue(lastTargetValue)
     end
 
     clearTarget()
@@ -124,7 +132,7 @@ local function InitFrame()
 
         if fallbackElapsed >= FALLBACK_REFRESH_SECONDS then
             fallbackElapsed = 0
-            clearWhenNotCasting()
+            refreshTargetValue()
         end
     end)
 end
