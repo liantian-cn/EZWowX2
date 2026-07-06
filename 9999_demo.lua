@@ -12,7 +12,6 @@ local GetUIScaleFactor = addonTable.GetUIScaleFactor
 local insert = table.insert
 local ICON_BORDER_COLOR = CreateColor(64 / 255, 158 / 255, 210 / 255, 1)
 local BORDER_TEXTURE = "Interface\\AddOns\\" .. addonName .. "\\media\\aura\\aura_border_32_4px.tga"
-local ICON_SIZE = 16
 
 -- 代码部分
 
@@ -42,7 +41,7 @@ function IconCell:_initialize(x, y)
     local parent = addonTable.MartixFrame
     local scale = 6
     local CELL_SIZE = GetUIScaleFactor(scale * 4)
-    local iconSize = ICON_SIZE * scale
+    local iconSize = 4 * CELL_SIZE  -- 4倍cell大小
 
     -- 创建背景Frame
     local frame = CreateFrame("Frame", nil, parent)
