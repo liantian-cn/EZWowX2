@@ -14,6 +14,24 @@
 
 
 1001_player_is_alive.lua
+1002_player_class.lua
+1003_player_specialization.lua
+1004_player_role.lua
+1005_player_health_pct.lua
+1006_player_power_pct.lua
+1007_player_in_combat.lua
+1008_player_is_player_target.lua
+1009_player_is_moving.lua
+1010_player_in_vehicle.lua
+1011_player_melee_enemies_count.lua
+1012_player_is_targeting_spell.lua
+1013_player_is_chatting.lua
+1014_player_in_group.lua
+1015_player_trinket_ready.lua
+1017_player_healthstone_ready.lua
+1018_player_heal_potion_ready.lua
+1019_player_cast_info.lua
+1020_player_cast_target.lua
 #  demo
 9999_demo.lua
 # 9902_spell.lua
