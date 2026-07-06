@@ -6,7 +6,6 @@ local CreateFrame = CreateFrame
 local CreateColor = CreateColor
 
 -- 插件级变量定义/引用
-local GetUIScaleFactor = addonTable.GetUIScaleFactor
 
 -- 本地变量定义
 local insert = table.insert
@@ -39,14 +38,13 @@ end
 ---@param y integer Y坐标
 function IconCell:_initialize(x, y)
     local parent = addonTable.MartixFrame
-    local scale = 6
-    local CELL_SIZE = GetUIScaleFactor(scale * 4)
-    local iconSize = 4 * CELL_SIZE  -- 4倍cell大小
+    local SIZE = addonTable.SIZE
+    local iconSize = 4 * SIZE.CELL  -- 4倍cell大小
 
     -- 创建背景Frame
     local frame = CreateFrame("Frame", nil, parent)
     frame:SetSize(iconSize, iconSize)
-    frame:SetPoint("TOPLEFT", parent, "TOPLEFT", x * CELL_SIZE, -(y - 1) * CELL_SIZE)
+    frame:SetPoint("TOPLEFT", parent, "TOPLEFT", x * SIZE.CELL, -(y - 1) * SIZE.CELL)
 
     -- 背景层
     local background = frame:CreateTexture(nil, "BACKGROUND")
