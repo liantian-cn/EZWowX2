@@ -1,7 +1,13 @@
 -- 命名空间声明
 local addonName, addonTable = ...
 
+-- WOW API 缓存
 
+-- 插件级变量定义/引用
+
+-- 本地变量定义
+
+-- 代码部分
 
 -- 说明
 -- 每个cell的RGB值分别有不同的涵义
@@ -19,3 +25,7 @@ local CELL_CLASSIFICATION = {
     FOCUS_TARGET = 15,  -- 焦点目标分类，index代表第几个，value各不相同。
 }
 addonTable.CELL_CLASSIFICATION = CELL_CLASSIFICATION
+
+-- 默认距离阈值，后续可直接在插件级变量上调整
+addonTable.RANGED_RANGE = 20
+addonTable.MELEE_RANGE = 5
