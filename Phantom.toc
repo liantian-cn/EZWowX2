@@ -32,6 +32,24 @@
 1018_player_heal_potion_ready.lua
 1019_player_cast_info.lua
 1020_player_cast_target.lua
+1051_target_is_exists.lua
+1052_target_is_alive.lua
+1053_target_health_pct.lua
+1054_target_is_enemy.lua
+1055_target_can_attack.lua
+1056_target_in_ranged.lua
+1057_target_in_melee.lua
+1058_target_in_combat.lua
+1059_target_cast_info.lua
+1066_focus_is_exists.lua
+1067_focus_is_alive.lua
+1068_focus_health_pct.lua
+1069_focus_is_enemy.lua
+1070_focus_can_attack.lua
+1071_focus_in_ranged.lua
+1072_focus_in_melee.lua
+1073_focus_in_combat.lua
+1074_focus_cast_info.lua
 #  demo
 9999_demo.lua
 # 9902_spell.lua
