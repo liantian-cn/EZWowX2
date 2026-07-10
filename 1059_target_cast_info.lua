@@ -25,7 +25,7 @@ local select                = select
 简述：      目标施法信息
 分类：      目标状态
 分类索引：  9、10
-位置：      1行59列、1行60列、3行5列图标
+位置：      1行59列、1行60列、3行3列图标
 
 说明
 
@@ -39,7 +39,7 @@ local INTERRUPTIBLE_CELL_INDEX = 10
 local PROGRESS_CELL_POSITION_X = 59
 local INTERRUPTIBLE_CELL_POSITION_X = 60
 local CELL_POSITION_Y = 1
-local ICON_CELL_POSITION_X = 5
+local ICON_CELL_POSITION_X = 3
 local ICON_CELL_POSITION_Y = 3
 
 local DEFAULT_VALUE = 0

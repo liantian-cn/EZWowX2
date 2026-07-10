@@ -204,7 +204,7 @@ end
 ---@param y integer Y坐标
 function IconCell:_initialize(x, y)
     local parent = addonTable.MartixFrame
-    local iconSize = 4 * SIZE.CELL -- 4倍cell大小
+    local iconSize = 2 * SIZE.CELL -- 4倍cell大小
 
     -- 创建背景Frame
     local frame = CreateFrame("Frame", nil, parent)

@@ -3,6 +3,7 @@ local addonName, addonTable = ...
 
 -- WOW API 缓存
 local After = C_Timer.After
+local CreateNumericRuleFormatter = C_StringUtil.CreateNumericRuleFormatter
 local CreateFrame = CreateFrame
 local Immediate = Enum.StatusBarInterpolation.Immediate
 local RemainingTime = Enum.StatusBarTimerDirection.RemainingTime
@@ -34,6 +35,13 @@ local PIX_NUM_FONT = "Interface\\AddOns\\" .. addonName .. "\\media\\PixNum.ttf"
 local AURA_BORDER_TEXTURE = "Interface\\AddOns\\" .. addonName .. "\\media\\aura\\aura_border_32_4px.tga"
 local WHITE_TEXTURE = "Interface\\Buttons\\WHITE8X8"
 local ROW_GAP = SIZE.NODE_SIZE
+local APPLICATION_COUNT_FORMATTER = CreateNumericRuleFormatter()
+
+APPLICATION_COUNT_FORMATTER:SetBreakpoints({
+    { threshold = 0, format = "" },
+    { threshold = 1, format = "%d" },
+    { threshold = 10, format = "*" },
+})
 
 -- 代码部分
 local function GetDemoSize(size)
@@ -74,7 +82,7 @@ local function InitializeAuraButton(auraButton, auraBorderOptions)
     auraButton.Count:SetFont(PIX_NUM_FONT, GetDemoSize(COUNT_FONT_SIZE), "")
     auraButton.Count:SetJustifyH("CENTER")
     auraButton.Count:SetJustifyV("MIDDLE")
-    auraButton:SetApplicationCount(auraButton.Count, {})
+    auraButton:SetApplicationCount(auraButton.Count, { formatter = APPLICATION_COUNT_FORMATTER })
 end
 
 local function CreateAuraRow(parent, groupKey, filterString, yOffset, auraBorderOptions)

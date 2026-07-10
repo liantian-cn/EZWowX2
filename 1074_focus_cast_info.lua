@@ -25,7 +25,7 @@ local select                = select
 简述：      焦点施法信息
 分类：      焦点目标
 分类索引：  9、10
-位置：      1行74列、1行75列、7行5列图标
+位置：      1行74列、1行75列、5行3列图标
 
 说明
 
@@ -39,8 +39,8 @@ local INTERRUPTIBLE_CELL_INDEX = 10
 local PROGRESS_CELL_POSITION_X = 74
 local INTERRUPTIBLE_CELL_POSITION_X = 75
 local CELL_POSITION_Y = 1
-local ICON_CELL_POSITION_X = 5
-local ICON_CELL_POSITION_Y = 7
+local ICON_CELL_POSITION_X = 3
+local ICON_CELL_POSITION_Y = 5
 
 local DEFAULT_VALUE = 0
 local FALLBACK_REFRESH_SECONDS = 2
