@@ -11,6 +11,7 @@
 0004_color.lua
 0005_matrix.lua
 0006_cell_variable_define.lua
+0007_aura_common.lua
 
 
 1001_player_is_alive.lua
@@ -50,6 +51,7 @@
 1072_focus_in_melee.lua
 1073_focus_in_combat.lua
 1074_focus_cast_info.lua
+3006_player_buff.lua
 #  demo
 # 9901_aura_demo.lua
 9999_demo.lua

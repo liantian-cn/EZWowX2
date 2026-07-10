@@ -2,22 +2,23 @@
 local addonName, addonTable = ...
 
 -- WOW API 缓存
--- local CreateColor           = CreateColor
--- local CreateFrame           = CreateFrame
--- local issecretvalue         = issecretvalue
--- local UnitCastingDuration   = UnitCastingDuration
--- local UnitCastingInfo       = UnitCastingInfo
--- local UnitChannelDuration   = UnitChannelDuration
--- local UnitChannelInfo       = UnitChannelInfo
--- local UnitExists            = UnitExists
 
 -- 插件级变量定义/引用
--- local Cell                  = addonTable.Cell
--- local IconCell              = addonTable.IconCell
+local CreateAuraContainer = addonTable.CreateAuraContainer
+
+addonTable.PLAYER_BUFF_LIST = {
+    [1126] = true,   -- 爪子
+    [155777] = true, -- 萌芽
+    [774] = true,    -- 回春
+    [8936] = true,   -- 愈合
+    [48438] = true,  -- 野性成长
+    [33763] = true,  -- 生命绽放
+    [16870] = true,  -- 清晰预兆
+}
 
 -- 本地变量定义
--- local insert                = table.insert
--- local select                = select
+local insert = table.insert
+
 -- 代码部分
 
 --[[
@@ -28,16 +29,21 @@ local addonName, addonTable = ...
 
 说明
 
-显示焦点施法或引导进度、可中断状态和当前施法图标。施法纹理、可中断标记和持续时间对象使用secret检查后再显示。
+通过受管AuraContainer显示由玩家施放且位于PLAYER_BUFF_LIST中的增益效果。
 
 ]]
 
-addonTable.PLAYER_BUFF_LIST = {
-    1126,   -- 爪子
-    155777, -- 萌芽
-    774,    -- 回春
-    8936,   -- 愈合
-    48438,  -- 野性成长
-    33763,  -- 生命绽放
-    16870,  -- 清晰预兆
-}
+local function InitFrame()
+    CreateAuraContainer({
+        x = 6,
+        y = 3,
+        maxFrameCount = 10,
+        unitToken = "player",
+        filterString = "PLAYER|HELPFUL",
+        candidateFilters = {
+            includeSpellIDs = addonTable.PLAYER_BUFF_LIST,
+        },
+    })
+end
+
+insert(addonTable.FrameInitFuncs, InitFrame)
