@@ -40,10 +40,8 @@ local function GetDemoSize(size)
     return GetUIScaleFactor(size * SCALE)
 end
 
-local function CreateAuraButton(parent, auraIndex, auraBorderOptions)
-    local auraButton = CreateFrame("AuraButton", nil, parent, "CustomAuraButtonTemplate")
+local function InitializeAuraButton(auraButton, auraBorderOptions)
     auraButton:SetSize(GetDemoSize(AURA_BUTTON_WIDTH), GetDemoSize(AURA_BUTTON_HEIGHT))
-    auraButton:SetPoint("TOPLEFT", parent, "TOPLEFT", GetDemoSize((auraIndex - 1) * AURA_BUTTON_WIDTH), 0)
 
     auraButton.Icon = auraButton:CreateTexture(nil, "BACKGROUND")
     auraButton.Icon:SetSize(GetDemoSize(ICON_SIZE), GetDemoSize(ICON_SIZE))
@@ -77,20 +75,18 @@ local function CreateAuraButton(parent, auraIndex, auraBorderOptions)
     auraButton.Count:SetJustifyH("CENTER")
     auraButton.Count:SetJustifyV("MIDDLE")
     auraButton:SetApplicationCount(auraButton.Count, {})
-
-    parent:AddAuraFrame(auraButton)
 end
 
-local function CreateAuraRow(parent, filterString, yOffset, auraBorderOptions)
+local function CreateAuraRow(parent, groupKey, filterString, yOffset, auraBorderOptions)
     local container = CreateFrame("AuraContainer", nil, parent, "CustomAuraContainerTemplate")
     container:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, -GetDemoSize(yOffset))
-    container:SetSize(GetDemoSize(MAX_BUFFS * AURA_BUTTON_WIDTH), GetDemoSize(AURA_BUTTON_HEIGHT))
     container:SetUnit("player")
-    container:AddAuraFilter(filterString, { maxFrameCount = MAX_BUFFS })
-
-    for auraIndex = 1, MAX_BUFFS do
-        CreateAuraButton(container, auraIndex, auraBorderOptions)
-    end
+    container:AddAuraGroup(groupKey, filterString, {
+        maxFrameCount = MAX_BUFFS,
+        initializeFrame = function(auraButton)
+            InitializeAuraButton(auraButton, auraBorderOptions)
+        end,
+    })
 
     return container
 end
@@ -110,12 +106,12 @@ local function CreateDemoFrame()
     frame.bg:SetAllPoints(frame)
     frame.bg:SetColorTexture(0, 0, 0, 0.65)
 
-    CreateAuraRow(frame, "HELPFUL", 0, {
+    CreateAuraRow(frame, "helpful", "HELPFUL", 0, {
         showWhenHarmful = false,
         showWhenHelpful = true,
         style = AURA_BUTTON_BORDER_STYLE_COLOR,
     })
-    CreateAuraRow(frame, "HARMFUL", AURA_BUTTON_HEIGHT + ROW_GAP, {
+    CreateAuraRow(frame, "harmful", "HARMFUL", AURA_BUTTON_HEIGHT + ROW_GAP, {
         showWhenHarmful = true,
         showWhenHelpful = false,
         style = AURA_BUTTON_BORDER_STYLE_COLOR,
