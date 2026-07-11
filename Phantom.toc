@@ -11,7 +11,8 @@
 0004_color.lua
 0005_matrix.lua
 0006_cell_variable_define.lua
-0007_aura_common.lua
+0007_aura_slot_container.lua
+0008_aura_group_container.lua
 
 
 1001_player_is_alive.lua
