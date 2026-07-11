@@ -4,45 +4,51 @@ local addonName, addonTable = ...
 -- WOW API 缓存
 
 -- 插件级变量定义/引用
-local CreateAuraContainer = addonTable.CreateAuraContainer
-
-addonTable.PLAYER_BUFF_LIST = {
-    [1126] = true,   -- 爪子
-    [155777] = true, -- 萌芽
-    [774] = true,    -- 回春
-    [8936] = true,   -- 愈合
-    [48438] = true,  -- 野性成长
-    [33763] = true,  -- 生命绽放
-    [16870] = true,  -- 清晰预兆
-}
+local CreateAuraSlotContainer = addonTable.CreateAuraSlotContainer
+local PLAYER_BUFF_CLASSIFICATION = addonTable.CELL_CLASSIFICATION.PLAYER_BUFF
 
 -- 本地变量定义
 local insert = table.insert
 
 -- 代码部分
+addonTable.PLAYER_BUFF_LIST = {
+    { description = "爪子",     spellIDs = { 1126, 1128 } },
+    { description = "萌芽",     spellIDs = { 155777 } },
+    { description = "回春",     spellIDs = { 778, 774 } },
+    { description = "愈合",     spellIDs = { 8936, 8938 } },
+    { description = "野性成长", spellIDs = { 48438 } },
+}
+
+insert(addonTable.PLAYER_BUFF_LIST, {
+    description = "生命绽放",
+    spellIDs = { 33763 },
+})
+
+insert(addonTable.PLAYER_BUFF_LIST, {
+    description = "清晰预兆",
+    spellIDs = { 16870, 16872 },
+})
 
 --[[
 简述：      玩家Buff信息
 分类：      玩家Buff信息
-分类索引：  无
-位置：      从3行6列开始，向右延伸，总计10个 宽3高4的Aura实例
+分类索引：  1-7，由PLAYER_BUFF_LIST顺序确定
+位置：      从3行6列开始，向右延伸，共7个宽3高4的固定AuraSlot
 
 说明
 
-通过受管AuraContainer显示由玩家施放且位于PLAYER_BUFF_LIST中的增益效果。
-
+通过受管AuraSlotContainer显示由玩家施放且位于PLAYER_BUFF_LIST中的增益效果。
+每项description仅用于提高维护时的可读性，不参与Aura过滤。
 ]]
 
 local function InitFrame()
-    CreateAuraContainer({
+    CreateAuraSlotContainer({
         x = 6,
         y = 3,
-        maxFrameCount = 10,
         unitToken = "player",
         filterString = "PLAYER|HELPFUL",
-        candidateFilters = {
-            includeSpellIDs = addonTable.PLAYER_BUFF_LIST,
-        },
+        classification = PLAYER_BUFF_CLASSIFICATION,
+        slots = addonTable.PLAYER_BUFF_LIST,
     })
 end
 
