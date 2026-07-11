@@ -27,18 +27,18 @@ local AURA_BORDER_TEXTURE = "Interface\\AddOns\\" .. addonName .. "\\media\\aura
 local WHITE_TEXTURE = "Interface\\Buttons\\WHITE8X8"
 local PLAYER_BUFF_SLOTS = {
     { key = "mark_of_the_wild", spellIDs = { [1126] = true, [1128] = true } },
-    { key = "germination", spellIDs = { [155777] = true } },
-    { key = "rejuvenation", spellIDs = { [774] = true, [778] = true } },
-    { key = "regrowth", spellIDs = { [8936] = true, [8938] = true } },
-    { key = "wild_growth", spellIDs = { [48438] = true } },
-    { key = "lifebloom", spellIDs = { [33763] = true } },
-    { key = "omen_of_clarity", spellIDs = { [16870] = true } },
+    { key = "germination",      spellIDs = { [155777] = true } },
+    { key = "rejuvenation",     spellIDs = { [774] = true, [778] = true } },
+    { key = "regrowth",         spellIDs = { [8936] = true, [8938] = true } },
+    { key = "wild_growth",      spellIDs = { [48438] = true } },
+    { key = "lifebloom",        spellIDs = { [33763] = true } },
+    { key = "omen_of_clarity",  spellIDs = { [16870] = true } },
 }
 local APPLICATION_COUNT_FORMATTER = CreateNumericRuleFormatter()
 
 APPLICATION_COUNT_FORMATTER:SetBreakpoints({
-    { threshold = 0, format = "" },
-    { threshold = 1, format = "%d" },
+    { threshold = 0,  format = "" },
+    { threshold = 1,  format = "%d" },
     { threshold = 10, format = "*" },
 })
 
