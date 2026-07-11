@@ -19,7 +19,7 @@ addonTable.SIZE                = {}                          -- 尺寸表
 
 
 -- 本地变量定义
-local scale         = 4
+local scale         = 1
 local SIZE          = addonTable.SIZE
 local WHITE_TEXTURE = "Interface\\Buttons\\WHITE8X8"
 local BLACK         = CreateColor(0, 0, 0, 1)
