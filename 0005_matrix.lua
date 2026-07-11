@@ -19,7 +19,7 @@ addonTable.SIZE                = {}                          -- 尺寸表
 
 
 -- 本地变量定义
-local scale         = 4
+local scale         = 6
 local SIZE          = addonTable.SIZE
 local WHITE_TEXTURE = "Interface\\Buttons\\WHITE8X8"
 local BLACK         = CreateColor(0, 0, 0, 1)
@@ -29,7 +29,7 @@ local BLACK         = CreateColor(0, 0, 0, 1)
 local function InitializeSize()             -- 初始化尺寸
     SIZE = {                                -- 尺寸表主体
         Martix = {                          -- MartixFrame有多个Cell
-            Width = 258,                    -- Cell横向个数
+            Width = 110,                    -- Cell横向个数
             Height = 10,                    -- Cell纵向个数
         },
         CELL = GetUIScaleFactor(scale * 4), -- Cell尺寸
@@ -258,6 +258,24 @@ local function InitMarkFrame()
     local MARKER_VALUE_START = 255
     local MARKER_VALUE_END = 0
     Cell:New({ x = 0, y = 1, classification = MARKER_CLASSIFICATION, index = 1, default_value = MARKER_VALUE_START })
-    Cell:New({ x = 257, y = 1, classification = MARKER_CLASSIFICATION, index = 1, default_value = MARKER_VALUE_END })
+    Cell:New({ x = 0, y = 2, classification = MARKER_CLASSIFICATION, index = 2, default_value = MARKER_VALUE_START })
+    Cell:New({ x = 0, y = 3, classification = MARKER_CLASSIFICATION, index = 3, default_value = MARKER_VALUE_START })
+    Cell:New({ x = 0, y = 4, classification = MARKER_CLASSIFICATION, index = 4, default_value = MARKER_VALUE_START })
+    Cell:New({ x = 0, y = 5, classification = MARKER_CLASSIFICATION, index = 5, default_value = MARKER_VALUE_START })
+    Cell:New({ x = 0, y = 6, classification = MARKER_CLASSIFICATION, index = 6, default_value = MARKER_VALUE_START })
+    Cell:New({ x = 0, y = 7, classification = MARKER_CLASSIFICATION, index = 7, default_value = MARKER_VALUE_START })
+    Cell:New({ x = 0, y = 8, classification = MARKER_CLASSIFICATION, index = 8, default_value = MARKER_VALUE_START })
+    Cell:New({ x = 0, y = 9, classification = MARKER_CLASSIFICATION, index = 9, default_value = MARKER_VALUE_START })
+    Cell:New({ x = 0, y = 10, classification = MARKER_CLASSIFICATION, index = 10, default_value = MARKER_VALUE_START })
+    Cell:New({ x = 109, y = 1, classification = MARKER_CLASSIFICATION, index = 1, default_value = MARKER_VALUE_END })
+    Cell:New({ x = 109, y = 2, classification = MARKER_CLASSIFICATION, index = 2, default_value = MARKER_VALUE_END })
+    Cell:New({ x = 109, y = 3, classification = MARKER_CLASSIFICATION, index = 3, default_value = MARKER_VALUE_END })
+    Cell:New({ x = 109, y = 4, classification = MARKER_CLASSIFICATION, index = 4, default_value = MARKER_VALUE_END })
+    Cell:New({ x = 109, y = 5, classification = MARKER_CLASSIFICATION, index = 5, default_value = MARKER_VALUE_END })
+    Cell:New({ x = 109, y = 6, classification = MARKER_CLASSIFICATION, index = 6, default_value = MARKER_VALUE_END })
+    Cell:New({ x = 109, y = 7, classification = MARKER_CLASSIFICATION, index = 7, default_value = MARKER_VALUE_END })
+    Cell:New({ x = 109, y = 8, classification = MARKER_CLASSIFICATION, index = 8, default_value = MARKER_VALUE_END })
+    Cell:New({ x = 109, y = 9, classification = MARKER_CLASSIFICATION, index = 9, default_value = MARKER_VALUE_END })
+    Cell:New({ x = 109, y = 10, classification = MARKER_CLASSIFICATION, index = 10, default_value = MARKER_VALUE_END })
 end
 insert(addonTable.FrameInitFuncs, InitMarkFrame)
