@@ -53,7 +53,7 @@
 1074_focus_cast_info.lua
 3006_player_buff.lua
 #  demo
-# 9901_aura_demo.lua
+9901_aura_demo.lua
 9999_demo.lua
 # 9902_spell.lua
 
