@@ -2,6 +2,8 @@
 local addonName, addonTable = ...
 
 -- WOW API 缓存
+local Debuff = AuraUtil.AuraUpdateChangedType.Debuff
+local UnitFrameDebuff = AuraContainerSortMethod.UnitFrameDebuff
 
 -- 插件级变量定义/引用
 local CreateAuraGroupContainer = addonTable.CreateAuraGroupContainer
@@ -20,9 +22,8 @@ local insert = table.insert
 
 说明
 
-通过AuraGroupContainer显示位于玩家身上、满足团队框架过滤条件、
-且非玩家自行施放的有害效果。
-maxDuration = 120 排除持续时间超过120秒的Aura，同时隐式排除永久Aura。
+通过AuraGroupContainer显示位于玩家身上、经AuraUtil.ProcessAura处理后的官方主减益Debuff子集。
+该组有意排除Dispel分类。
 ]]
 
 local function InitFrame()
@@ -30,29 +31,18 @@ local function InitFrame()
         x = 35,
         y = 3,
         unitToken = "player",
-        -- filterString = "HARMFUL|RAID|!PLAYER",
-        filterString = "HARMFUL|RAID",
+        filterString = "HARMFUL",
         classification = PLAYER_DEBUFF_CLASSIFICATION,
         maxFrameCount = 4,
-        candidateFilters = {
-            -- maxDuration = 120,
+        processAuraOptions = {
+            ignoreBuffs = true,
+            ignoreDispelDebuffs = true,
         },
+        candidateFilters = {
+            processedAuraType = Debuff,
+        },
+        sortMethod = UnitFrameDebuff,
     })
 end
 
 insert(addonTable.FrameInitFuncs, InitFrame)
-
--- | Token | 含义 |
--- | --- | --- |
--- | `HELPFUL` | helpful aura。 |
--- | `HARMFUL` | harmful aura。 |
--- | `RAID` | 满足团队框架过滤条件的 Aura。 |
--- | `INCLUDE_NAME_PLATE_ONLY` | 包含标记为仅姓名板显示的 Aura。 |
--- | `PLAYER` | 由玩家施放。 |
--- | `CANCELABLE` | 玩家可取消。 |
--- | `MAW` | Maw 相关 Aura。 |
--- | `EXTERNAL_DEFENSIVE` | 外部防御效果。 |
--- | `CROWD_CONTROL` | 控制效果。 |
--- | `RAID_IN_COMBAT` | 战斗中应在团队框架显示的 Aura。 |
--- | `RAID_PLAYER_DISPELLABLE` | 玩家当前可驱散的 Aura。 |
--- | `BIG_DEFENSIVE` | 大型防御效果。 |
