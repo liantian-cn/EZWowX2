@@ -20,7 +20,7 @@ local insert                = table.insert
 简述：      焦点处于近战范围内
 分类：      焦点目标
 分类索引：  7
-位置：      1行72列
+位置：      1行67列
 
 说明
 
@@ -30,7 +30,7 @@ local insert                = table.insert
 
 local CELL_CLASSIFICATION = addonTable.CELL_CLASSIFICATION.FOCUS_TARGET
 local CELL_CLASSIFICATION_INDEX = 7
-local CELL_POSITION_X = 72
+local CELL_POSITION_X = 67
 local CELL_POSITION_Y = 1
 
 local DEFAULT_VALUE = 0
