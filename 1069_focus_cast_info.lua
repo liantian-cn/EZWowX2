@@ -25,7 +25,7 @@ local select                = select
 简述：      焦点施法信息
 分类：      焦点目标
 分类索引：  9、10
-位置：      1行74列、1行75列、5行3列图标
+位置：      1行69列、1行70列、5行3列图标
 
 说明
 
@@ -36,8 +36,8 @@ local select                = select
 local CELL_CLASSIFICATION = addonTable.CELL_CLASSIFICATION.FOCUS_TARGET
 local PROGRESS_CELL_INDEX = 9
 local INTERRUPTIBLE_CELL_INDEX = 10
-local PROGRESS_CELL_POSITION_X = 74
-local INTERRUPTIBLE_CELL_POSITION_X = 75
+local PROGRESS_CELL_POSITION_X = 69
+local INTERRUPTIBLE_CELL_POSITION_X = 70
 local CELL_POSITION_Y = 1
 local ICON_CELL_POSITION_X = 3
 local ICON_CELL_POSITION_Y = 5
