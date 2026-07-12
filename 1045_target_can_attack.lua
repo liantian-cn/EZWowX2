@@ -18,7 +18,7 @@ local insert                = table.insert
 简述：      目标可攻击状态
 分类：      目标状态
 分类索引：  5
-位置：      1行55列
+位置：      1行45列
 
 说明
 
@@ -28,7 +28,7 @@ local insert                = table.insert
 
 local CELL_CLASSIFICATION = addonTable.CELL_CLASSIFICATION.TARGET_STATUS
 local CELL_CLASSIFICATION_INDEX = 5
-local CELL_POSITION_X = 55
+local CELL_POSITION_X = 45
 local CELL_POSITION_Y = 1
 
 local DEFAULT_VALUE = 0
