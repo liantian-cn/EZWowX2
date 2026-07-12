@@ -19,7 +19,7 @@ local insert                = table.insert
 简述：      目标处于远程范围内
 分类：      目标状态
 分类索引：  6
-位置：      1行56列
+位置：      1行46列
 
 说明
 
@@ -29,7 +29,7 @@ local insert                = table.insert
 
 local CELL_CLASSIFICATION = addonTable.CELL_CLASSIFICATION.TARGET_STATUS
 local CELL_CLASSIFICATION_INDEX = 6
-local CELL_POSITION_X = 56
+local CELL_POSITION_X = 46
 local CELL_POSITION_Y = 1
 
 local DEFAULT_VALUE = 0
