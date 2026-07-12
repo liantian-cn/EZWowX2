@@ -17,7 +17,7 @@ local insert                = table.insert
 简述：      焦点存在状态
 分类：      焦点目标
 分类索引：  1
-位置：      1行66列
+位置：      1行61列
 
 说明
 
@@ -27,7 +27,7 @@ local insert                = table.insert
 
 local CELL_CLASSIFICATION = addonTable.CELL_CLASSIFICATION.FOCUS_TARGET
 local CELL_CLASSIFICATION_INDEX = 1
-local CELL_POSITION_X = 66
+local CELL_POSITION_X = 61
 local CELL_POSITION_Y = 1
 
 local DEFAULT_VALUE = 0
