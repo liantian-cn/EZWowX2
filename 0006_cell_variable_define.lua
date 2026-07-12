@@ -19,12 +19,14 @@ local addonName, addonTable = ...
 
 
 local CELL_CLASSIFICATION = {
-    MARKER = 255,         -- 标记分类，用于定位的Cell，index表示处于第几行，value=0代表左侧开始，value=255代表右侧结束。
-    PLAYER_STATUS = 5,    -- 玩家状态分类，index代表第几个，value各不相同。
-    TARGET_STATUS = 10,   -- 目标状态分类，index代表第几个，value各不相同。
-    FOCUS_TARGET = 15,    -- 焦点目标分类，index代表第几个，value各不相同。
-    PLAYER_BUFF = 20,     -- 玩家Buff分类，index代表第几个，value各不相同。
-    PLAYER_BUFF_EXT = 25, -- 玩家Buff分类，index代表第几个，value各不相同。
+    MARKER = 255,           -- 标记分类，用于定位的Cell，index表示处于第几行，value=0代表左侧开始，value=255代表右侧结束。
+    PLAYER_STATUS = 5,      -- 玩家状态分类，index代表第几个，value各不相同。
+    TARGET_STATUS = 10,     -- 目标状态分类，index代表第几个，value各不相同。
+    FOCUS_TARGET = 15,      -- 焦点目标分类，index代表第几个，value各不相同。
+    PLAYER_BUFF = 20,       -- 玩家Buff分类，index代表第几个，value各不相同。
+    PLAYER_BUFF_EXT = 25,   -- 玩家Buff分类，index代表第几个，value各不相同。
+    PLAYER_DEBUFF = 30,     -- 玩家Debuff分类，index代表第几个，value各不相同。
+    PLAYER_DEBUFF_EXT = 35, -- 玩家Debuff分类，index代表第几个，value各不相同。
 }
 addonTable.CELL_CLASSIFICATION = CELL_CLASSIFICATION
 

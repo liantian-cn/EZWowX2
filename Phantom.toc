@@ -33,7 +33,7 @@
 1017_player_healthstone_ready.lua
 1018_player_heal_potion_ready.lua
 1019_player_cast_info.lua
-1020_player_cast_target.lua
+1021_player_cast_target.lua
 1041_target_is_exists.lua
 1042_target_is_alive.lua
 1043_target_health_pct.lua

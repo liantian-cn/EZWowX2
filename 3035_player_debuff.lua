@@ -33,7 +33,7 @@ local function InitFrame()
         unitToken = "player",
         filterString = "HARMFUL",
         classification = PLAYER_DEBUFF_CLASSIFICATION,
-        maxFrameCount = 4,
+        maxFrameCount = 5,
         processAuraOptions = {
             ignoreBuffs = true,
             ignoreDispelDebuffs = true,

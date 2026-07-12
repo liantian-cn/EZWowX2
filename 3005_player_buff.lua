@@ -12,10 +12,10 @@ local insert = table.insert
 
 -- 代码部分
 addonTable.PLAYER_BUFF_LIST = {
-    { description = "爪子",     spellIDs = { 1126, 1128 } },
-    { description = "萌芽",     spellIDs = { 155777 } },
-    { description = "回春",     spellIDs = { 778, 774 } },
-    { description = "愈合",     spellIDs = { 8936, 8938 } },
+    { description = "爪子", spellIDs = { 1126, 1128 } },
+    { description = "萌芽", spellIDs = { 155777 } },
+    { description = "回春", spellIDs = { 778, 774 } },
+    { description = "愈合", spellIDs = { 8936, 8938 } },
     { description = "野性成长", spellIDs = { 48438 } },
 }
 
@@ -43,7 +43,7 @@ insert(addonTable.PLAYER_BUFF_LIST, {
 
 local function InitFrame()
     CreateAuraSlotContainer({
-        x = 6,
+        x = 5,
         y = 3,
         unitToken = "player",
         filterString = "PLAYER|HELPFUL",
