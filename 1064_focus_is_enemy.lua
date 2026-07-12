@@ -18,7 +18,7 @@ local insert                = table.insert
 简述：      焦点敌对状态
 分类：      焦点目标
 分类索引：  4
-位置：      1行69列
+位置：      1行64列
 
 说明
 
@@ -28,7 +28,7 @@ local insert                = table.insert
 
 local CELL_CLASSIFICATION = addonTable.CELL_CLASSIFICATION.FOCUS_TARGET
 local CELL_CLASSIFICATION_INDEX = 4
-local CELL_POSITION_X = 69
+local CELL_POSITION_X = 64
 local CELL_POSITION_Y = 1
 
 local DEFAULT_VALUE = 0
