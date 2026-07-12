@@ -20,7 +20,7 @@ local insert                = table.insert
 简述：      目标处于近战范围内
 分类：      目标状态
 分类索引：  7
-位置：      1行57列
+位置：      1行47列
 
 说明
 
@@ -30,7 +30,7 @@ local insert                = table.insert
 
 local CELL_CLASSIFICATION = addonTable.CELL_CLASSIFICATION.TARGET_STATUS
 local CELL_CLASSIFICATION_INDEX = 7
-local CELL_POSITION_X = 57
+local CELL_POSITION_X = 47
 local CELL_POSITION_Y = 1
 
 local DEFAULT_VALUE = 0
