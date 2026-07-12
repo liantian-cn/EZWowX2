@@ -57,11 +57,11 @@ local function InitializeAuraButton(auraButton, SIZE, classification)
     auraButton.DurationBar:SetPoint("TOPRIGHT", auraButton, "TOPRIGHT", 0, 0)
     auraButton.DurationBar:SetOrientation("VERTICAL")
     auraButton.DurationBar:SetStatusBarTexture(WHITE_TEXTURE)
-    auraButton.DurationBar:SetStatusBarColor(r, 0, 0, 1)
+    auraButton.DurationBar:SetStatusBarColor(r, 0, 1, 1)
 
     auraButton.DurationBar.Background = auraButton.DurationBar:CreateTexture(nil, "BACKGROUND")
     auraButton.DurationBar.Background:SetAllPoints(auraButton.DurationBar)
-    auraButton.DurationBar.Background:SetColorTexture(0, 0, 0, 1)
+    auraButton.DurationBar.Background:SetColorTexture(r, 0, 0, 1)
 
     auraButton:SetDurationBar(auraButton.DurationBar, {
         interpolation = Immediate,
