@@ -17,7 +17,7 @@ local insert                = table.insert
 简述：      目标存在状态
 分类：      目标状态
 分类索引：  1
-位置：      1行51列
+位置：      1行41列
 
 说明
 
@@ -27,7 +27,7 @@ local insert                = table.insert
 
 local CELL_CLASSIFICATION = addonTable.CELL_CLASSIFICATION.TARGET_STATUS
 local CELL_CLASSIFICATION_INDEX = 1
-local CELL_POSITION_X = 51
+local CELL_POSITION_X = 41
 local CELL_POSITION_Y = 1
 
 local DEFAULT_VALUE = 0
