@@ -18,7 +18,7 @@ local insert                = table.insert
 简述：      目标处于战斗中
 分类：      目标状态
 分类索引：  8
-位置：      1行58列
+位置：      1行48列
 
 说明
 
@@ -28,7 +28,7 @@ local insert                = table.insert
 
 local CELL_CLASSIFICATION = addonTable.CELL_CLASSIFICATION.TARGET_STATUS
 local CELL_CLASSIFICATION_INDEX = 8
-local CELL_POSITION_X = 58
+local CELL_POSITION_X = 48
 local CELL_POSITION_Y = 1
 
 local DEFAULT_VALUE = 0
