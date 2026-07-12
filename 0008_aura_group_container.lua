@@ -61,7 +61,7 @@ local function InitializeAuraButton(auraButton, SIZE, classification)
 
     auraButton.DurationBar.Background = auraButton.DurationBar:CreateTexture(nil, "BACKGROUND")
     auraButton.DurationBar.Background:SetAllPoints(auraButton.DurationBar)
-    auraButton.DurationBar.Background:SetColorTexture(r, 0, 0, 1)
+    auraButton.DurationBar.Background:SetColorTexture(0, 0, 0, 1)
 
     auraButton:SetDurationBar(auraButton.DurationBar, {
         interpolation = Immediate,
