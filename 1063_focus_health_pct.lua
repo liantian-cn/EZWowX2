@@ -18,7 +18,7 @@ local insert                = table.insert
 简述：      焦点生命百分比
 分类：      焦点目标
 分类索引：  3
-位置：      1行68列
+位置：      1行63列
 
 说明
 
@@ -28,7 +28,7 @@ local insert                = table.insert
 
 local CELL_CLASSIFICATION = addonTable.CELL_CLASSIFICATION.FOCUS_TARGET
 local CELL_CLASSIFICATION_INDEX = 3
-local CELL_POSITION_X = 68
+local CELL_POSITION_X = 63
 local CELL_POSITION_Y = 1
 
 local DEFAULT_VALUE = 0
