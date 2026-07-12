@@ -18,7 +18,7 @@ local insert                = table.insert
 简述：      目标生命百分比
 分类：      目标状态
 分类索引：  3
-位置：      1行53列
+位置：      1行43列
 
 说明
 
@@ -28,7 +28,7 @@ local insert                = table.insert
 
 local CELL_CLASSIFICATION = addonTable.CELL_CLASSIFICATION.TARGET_STATUS
 local CELL_CLASSIFICATION_INDEX = 3
-local CELL_POSITION_X = 53
+local CELL_POSITION_X = 43
 local CELL_POSITION_Y = 1
 
 local DEFAULT_VALUE = 0
