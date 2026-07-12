@@ -19,7 +19,7 @@ local insert                = table.insert
 简述：      焦点处于远程范围内
 分类：      焦点目标
 分类索引：  6
-位置：      1行71列
+位置：      1行66列
 
 说明
 
@@ -29,7 +29,7 @@ local insert                = table.insert
 
 local CELL_CLASSIFICATION = addonTable.CELL_CLASSIFICATION.FOCUS_TARGET
 local CELL_CLASSIFICATION_INDEX = 6
-local CELL_POSITION_X = 71
+local CELL_POSITION_X = 66
 local CELL_POSITION_Y = 1
 
 local DEFAULT_VALUE = 0
