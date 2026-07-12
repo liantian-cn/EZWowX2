@@ -25,7 +25,7 @@ local select                = select
 简述：      目标施法信息
 分类：      目标状态
 分类索引：  9、10
-位置：      1行59列、1行60列、3行3列图标
+位置：      1行49列、1行50列、3行3列图标
 
 说明
 
@@ -36,8 +36,8 @@ local select                = select
 local CELL_CLASSIFICATION = addonTable.CELL_CLASSIFICATION.TARGET_STATUS
 local PROGRESS_CELL_INDEX = 9
 local INTERRUPTIBLE_CELL_INDEX = 10
-local PROGRESS_CELL_POSITION_X = 59
-local INTERRUPTIBLE_CELL_POSITION_X = 60
+local PROGRESS_CELL_POSITION_X = 49
+local INTERRUPTIBLE_CELL_POSITION_X = 50
 local CELL_POSITION_Y = 1
 local ICON_CELL_POSITION_X = 3
 local ICON_CELL_POSITION_Y = 3
