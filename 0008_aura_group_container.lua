@@ -4,6 +4,7 @@ local addonName, addonTable = ...
 -- WOW API 缓存
 local CreateNumericRuleFormatter = C_StringUtil.CreateNumericRuleFormatter
 local CreateFrame = CreateFrame
+local ProcessAura = CustomAuraContainerAuraProcessingPolicy.ProcessAura
 local Immediate = Enum.StatusBarInterpolation.Immediate
 local RemainingTime = Enum.StatusBarTimerDirection.RemainingTime
 
@@ -76,9 +77,16 @@ function addonTable.CreateAuraGroupContainer(options)
 
     container:SetPoint("TOPLEFT", parent, "TOPLEFT", options.x * SIZE.CELL, -(options.y - 1) * SIZE.CELL)
     container:SetUnit(options.unitToken)
+
+    if options.processAuraOptions ~= nil then
+        container:SetAuraProcessingPolicy(ProcessAura, options.processAuraOptions)
+    end
+
     container:AddAuraGroup(AURA_GROUP_KEY, options.filterString, {
         maxFrameCount = options.maxFrameCount,
         candidateFilters = options.candidateFilters,
+        sortMethod = options.sortMethod,
+        sortDirection = options.sortDirection,
         initializeFrame = function(auraButton)
             InitializeAuraButton(auraButton, SIZE, options.classification)
         end,
