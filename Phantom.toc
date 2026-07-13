@@ -59,6 +59,7 @@
 7001_group_member_count.lua
 7002_group_type.lua
 7003_boss_encounter.lua
+8001_instance_difficulty.lua
 #  demo
 9901_aura_demo.lua
 9999_demo.lua
