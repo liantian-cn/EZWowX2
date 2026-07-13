@@ -28,15 +28,11 @@ local AURA_BORDER_FULL_TEXTURE = "Interface\\AddOns\\" .. addonName .. "\\media\
 说明
 
 通过 AuraSlot 显示最高优先级的大型防御效果。外部施放优先，其次选择到期更晚的效果。
-AuraButton 的不透明 ActiveOverlay 覆盖图标，使该 Cell 仅编码 Aura 是否存在。
+AuraButton 仅包含固定的不透明 ActiveOverlay，使该 Cell 仅编码 Aura 是否存在。
 ]]
 
 local function InitializeAuraButton(auraButton, size)
     auraButton:SetSize(size.CELL, size.CELL)
-
-    auraButton.Icon = auraButton:CreateTexture(nil, "BACKGROUND")
-    auraButton.Icon:SetAllPoints(auraButton)
-    auraButton:SetIcon(auraButton.Icon)
 
     auraButton.ActiveOverlay = auraButton:CreateTexture(nil, "OVERLAY")
     auraButton.ActiveOverlay:SetAllPoints(auraButton)
