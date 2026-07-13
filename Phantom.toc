@@ -56,6 +56,7 @@
 1069_focus_cast_info.lua
 3005_player_buff.lua
 3035_player_debuff.lua
+7001_group_member_count.lua
 #  demo
 9901_aura_demo.lua
 9999_demo.lua
