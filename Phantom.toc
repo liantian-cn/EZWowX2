@@ -57,6 +57,7 @@
 3005_player_buff.lua
 3035_player_debuff.lua
 7001_group_member_count.lua
+7002_group_type.lua
 7003_boss_encounter.lua
 #  demo
 9901_aura_demo.lua
