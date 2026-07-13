@@ -27,6 +27,10 @@ local CELL_CLASSIFICATION = {
     PLAYER_BUFF_EXT = 25,   -- 玩家Buff分类，index代表第几个，value各不相同。
     PLAYER_DEBUFF = 30,     -- 玩家Debuff分类，index代表第几个，value各不相同。
     PLAYER_DEBUFF_EXT = 35, -- 玩家Debuff分类，index代表第几个，value各不相同。
+    ENVIRONMENT = 100,      -- 环境分类，index代表第几个，value各不相同。
+    ENVIRONMENT_EXT = 105,  -- 环境分类，index代表第几个，value各不相同。
+    SPEC = 120,             -- 特殊分类，index代表第几个，value各不相同。
+    SPEC_EXT = 125,         -- 特殊分类，index代表第几个，value各不相同。
 }
 addonTable.CELL_CLASSIFICATION = CELL_CLASSIFICATION
 
