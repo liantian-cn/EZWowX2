@@ -15,7 +15,7 @@ local GetScreenHeight = GetScreenHeight
 
 addonTable.DEBUG = true             -- 是否开启调试模式
 addonTable.VERSION = "12.1.0.68209" -- 插件版本
-
+addonTable.SPEC = {}
 
 -- 本地变量定义
 
