@@ -1,63 +1,43 @@
+-- Namespace declaration
 local addonName, addonTable = ...
 
-local currentSpec           = GetSpecialization()
+-- WoW API cache
+local GetSpecialization = GetSpecialization
+local UnitClassBase = UnitClassBase
 
-if UnitClassBase("player") ~= "DRUID" then return end -- 如果不是德鲁伊职业，则不加载该文件
-if currentSpec ~= 4 then return end                   -- 如果不是恢复专精，则不加载该文件
+-- Addon-level variable definitions/references
 
+-- Local variables
+local currentSpec = GetSpecialization()
 
---[[
-技能冷却表
-说明：
-- 第一个固定是公共冷却，spellId 固定为 61304
-- index从1开始，必须连续。
-
-]]
+-- Code
+if UnitClassBase("player") ~= "DRUID" then return end
+if currentSpec ~= 4 then return end
 
 addonTable.SPEC.SpellList = {
-    [1] = { spellId = 61304, name = "公共冷却" },
-    -- [2] = { spellId = 999999, name = "技能A" },
-    -- [3] = { spellId = 888888, name = "技能B" },
+    [1] = { spellId = 61304, description = "公共冷却" },
+    [2] = { spellId = 22812, description = "树皮术" },
+    [3] = { spellId = 132469, description = "台风" },
+    [4] = { spellId = 99, description = "夺魂咆哮" },
+    [5] = { spellId = 29166, description = "激活" },
+    [6] = { spellId = 102793, description = "乌索尔旋风" },
+    [7] = { spellId = 18562, description = "迅捷治愈" },
+    [8] = { spellId = 48438, description = "野性成长" },
+    [9] = { spellId = 391528, description = "万灵之召" },
+    [10] = { spellId = 88423, description = "自然之愈" },
+    [11] = { spellId = 102342, description = "铁木树皮" },
+    [12] = { spellId = 132158, description = "自然迅捷" },
+    [13] = { spellId = 1261867, description = "野性之心" },
 }
 
---[[
-充能技能表
-说明：
-- index从1开始，必须连续。
-- minValue是充能技能的最小值，maxValue是充能技能的最大值。用于图像展示。
-- 当差值小于16时，获得最好的精度，但也无所谓啦。
-]]
-
+-- Entries without a source charge count bar use the user-approved Phantom 0..8 fallback.
 addonTable.SPEC.ChargeList = {
-    [1] = { spellId = 999999, name = "技能A", minValue = 0, maxValue = 2 },
+    [1] = { spellId = 18562, description = "迅捷治愈", minValue = 0, maxValue = 8 },
 }
 
---[[
-玩家增益监控表。
-说明：
-- index从1开始，必须连续。
-- 这里可以添加超过10个槽位，但实际运行中，超过10个的会被抛弃。
-- 有些buff，在不同天赋下有不同的ID，这里可以兼容。
-]]
-
+-- These tables are intentionally empty because Fuyutsui provides no finite static player-buff or player-origin target-debuff ID lists to port.
 addonTable.SPEC.PlayerBuff = {
-    [1] = { description = "爪子", spellIDs = { 1126, 1128 } },
-    [2] = { description = "萌芽", spellIDs = { 155777 } },
-    [3] = { description = "回春", spellIDs = { 778, 774 } },
-    [4] = { description = "愈合", spellIDs = { 8936, 8938 } },
-    [5] = { description = "野性成长", spellIDs = { 48438 } },
-    [6] = { description = "生命绽放", spellIDs = { 33763 } },
-    [7] = { description = "清晰预兆", spellIDs = { 16870, 16872 } },
 }
-
---[[
-目标减益监控表。
-说明：
-- index从1开始，必须连续。
-- 这里可以添加超过9个槽位，但实际运行中，超过9个的会被抛弃。
-- 有些buff，在不同天赋下有不同的ID，这里可以兼容。
-]]
 
 addonTable.SPEC.TargetDebuff = {
-    [1] = { description = "月火数", spellIDs = { 8921 } },
 }
