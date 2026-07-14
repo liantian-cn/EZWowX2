@@ -17,8 +17,8 @@ local insert = table.insert
 --[[
 简述：      玩家Debuff信息
 分类：      玩家Debuff信息
-分类索引：  动态，最多4个
-位置：      从35列3行开始，向右延伸，最多4个宽3高4的AuraGroup
+分类索引：  动态，最多5组
+位置：      从视觉第3行、零基X偏移38（视觉第39列）开始，向右延伸，最多5个宽3高4的AuraGroup
 
 说明
 
@@ -28,7 +28,7 @@ local insert = table.insert
 
 local function InitFrame()
     CreateAuraGroupContainer({
-        x = 35,
+        x = 38,
         y = 3,
         unitToken = "player",
         filterString = "HARMFUL",
