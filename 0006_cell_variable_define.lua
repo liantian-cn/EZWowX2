@@ -37,3 +37,7 @@ addonTable.CELL_CLASSIFICATION = CELL_CLASSIFICATION
 -- 默认距离阈值，后续可直接在插件级变量上调整
 addonTable.RANGED_RANGE = 20
 addonTable.MELEE_RANGE = 5
+
+-- 玩家吸收量状态条阈值
+addonTable.PLAYER_DAMAGE_ABSORB_THRESHOLD = 10000
+addonTable.PLAYER_HEAL_ABSORB_THRESHOLD = 10000
