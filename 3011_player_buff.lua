@@ -29,11 +29,21 @@ insert(addonTable.PLAYER_BUFF_LIST, {
     spellIDs = { 16870, 16872 },
 })
 
+insert(addonTable.PLAYER_BUFF_LIST, {
+    description = "树皮术",
+    spellIDs = { 22812 },
+})
+
+insert(addonTable.PLAYER_BUFF_LIST, {
+    description = "自然迅捷",
+    spellIDs = { 132158 },
+})
+
 --[[
 简述：      玩家Buff信息
 分类：      玩家Buff信息
-分类索引：  1-7，由PLAYER_BUFF_LIST顺序确定
-位置：      从3行6列开始，向右延伸，共7个宽3高4的固定AuraSlot
+分类索引：  1-9，由PLAYER_BUFF_LIST顺序确定
+位置：      从视觉第3行、零基X偏移11（视觉第12列）开始，向右延伸，共9个宽3高4的固定AuraSlot
 
 说明
 
@@ -43,7 +53,7 @@ insert(addonTable.PLAYER_BUFF_LIST, {
 
 local function InitFrame()
     CreateAuraSlotContainer({
-        x = 5,
+        x = 11,
         y = 3,
         unitToken = "player",
         filterString = "PLAYER|HELPFUL",
