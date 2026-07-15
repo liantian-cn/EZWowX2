@@ -31,6 +31,9 @@ local CELL_CLASSIFICATION = {
     ENVIRONMENT_EXT = 105,  -- 环境分类，index代表第几个，value各不相同。
     SPEC = 120,             -- 特殊分类，index代表第几个，value各不相同。
     SPEC_EXT = 125,         -- 特殊分类，index代表第几个，value各不相同。
+    SPELL_COOLDOWN = 130,   -- 技能冷却分类，index代表第几个，value各不相同。
+    SPELL_USABLE = 135,     -- 技能可用分类，index代表第几个，value各不相同。
+    SPELL_OVERLAYED = 140,  -- 技能高亮分类，index代表第几个，value各不相同。
 }
 addonTable.CELL_CLASSIFICATION = CELL_CLASSIFICATION
 
