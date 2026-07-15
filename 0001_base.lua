@@ -16,6 +16,9 @@ local GetScreenHeight = GetScreenHeight
 addonTable.DEBUG = true             -- 是否开启调试模式
 addonTable.VERSION = "12.1.0.68209" -- 插件版本
 addonTable.SPEC = {}
+addonTable.SPEC.SpellList = {
+    [1] = { spellId = 61304, description = "公共冷却" },
+}
 
 -- 本地变量定义
 
