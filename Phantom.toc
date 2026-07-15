@@ -97,6 +97,7 @@ class\evoker_augmentation.lua
 1067_focus_in_melee.lua
 1068_focus_in_combat.lua
 1069_focus_cast_info.lua
+2001_spell.lua
 3011_player_buff.lua
 3038_player_debuff.lua
 7001_group_member_count.lua
