@@ -63,7 +63,7 @@ local function InitFrame()
     container:SetSize(size.CELL, size.CELL)
     container:SetUnit("player")
 
-    local auraButton = container:AddAuraSlot("dispellable_debuff", "HARMFUL|RAID_PLAYER_DISPELLABLE", {
+    local auraButton = container:AddAuraSlot("dispellable_debuff", "HARMFUL|RAID_PLAYER_DISPELLABLE|RAID", {
         initializeFrame = function(frame)
             InitializeAuraButton(frame, size)
         end,
