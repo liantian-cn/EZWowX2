@@ -88,6 +88,7 @@ class\evoker_augmentation.lua
 1047_target_in_melee.lua
 1048_target_in_combat.lua
 1049_target_cast_info.lua
+1051_target_has_dispellable_buff.lua
 1061_focus_is_exists.lua
 1062_focus_is_alive.lua
 1063_focus_health_pct.lua
@@ -97,6 +98,7 @@ class\evoker_augmentation.lua
 1067_focus_in_melee.lua
 1068_focus_in_combat.lua
 1069_focus_cast_info.lua
+1071_focus_has_dispellable_buff.lua
 2001_spell.lua
 3011_player_buff.lua
 3038_player_debuff.lua
