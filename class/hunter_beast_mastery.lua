@@ -38,8 +38,9 @@ addonTable.SPEC.ChargeList = {
     [2] = { spellId = 217200, description = "倒刺射击", minValue = 0, maxValue = 8 },
 }
 
--- These tables are intentionally empty because Fuyutsui provides no finite static player-buff or player-origin target-debuff ID lists to port.
 addonTable.SPEC.PlayerBuff = {
+    [1] = { description = "自然之友", spellIDs = { 1276720 } },
+    [2] = { description = "狂野怒火", spellIDs = { 19574 } },
 }
 
 addonTable.SPEC.TargetDebuff = {
