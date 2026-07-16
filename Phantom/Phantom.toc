@@ -1,0 +1,117 @@
+## Interface: 120007, 120100
+## Title: Phantom
+## Version: 12.1.0.68209
+## SavedVariables: PhantomSettings
+## LoadSavedVariablesFirst: 1
+## IconTexture: Interface\Icons\UI_Spellbook_OneButton
+
+0001_base.lua
+0002_config.lua
+0003_panel.lua
+0004_color.lua
+0005_matrix.lua
+0006_cell_variable_define.lua
+0007_aura_slot_container.lua
+0008_aura_group_container.lua
+
+class\warrior_arms.lua
+class\warrior_fury.lua
+class\warrior_protection.lua
+class\paladin_holy.lua
+class\paladin_protection.lua
+class\paladin_retribution.lua
+class\hunter_beast_mastery.lua
+class\hunter_marksmanship.lua
+class\hunter_survival.lua
+class\rogue_assassination.lua
+class\rogue_outlaw.lua
+class\rogue_subtlety.lua
+class\priest_discipline.lua
+class\priest_holy.lua
+class\priest_shadow.lua
+class\deathknight_blood.lua
+class\deathknight_frost.lua
+class\deathknight_unholy.lua
+class\shaman_elemental.lua
+class\shaman_enhancement.lua
+class\shaman_restoration.lua
+class\mage_arcane.lua
+class\mage_fire.lua
+class\mage_frost.lua
+class\warlock_affliction.lua
+class\warlock_demonology.lua
+class\warlock_destruction.lua
+class\monk_brewmaster.lua
+class\monk_mistweaver.lua
+class\monk_windwalker.lua
+class\druid_balance.lua
+class\druid_feral.lua
+class\druid_guardian.lua
+class\druid_restoration.lua
+class\demonhunter_havoc.lua
+class\demonhunter_vengeance.lua
+class\demonhunter_devourer.lua
+class\evoker_devastation.lua
+class\evoker_preservation.lua
+class\evoker_augmentation.lua
+
+1001_player_is_alive.lua
+1002_player_class.lua
+1003_player_specialization.lua
+1004_player_role.lua
+1005_player_health_pct.lua
+1006_player_power_pct.lua
+1007_player_in_combat.lua
+1008_player_is_player_target.lua
+1009_player_is_moving.lua
+1010_player_in_vehicle.lua
+1011_player_melee_enemies_count.lua
+1012_player_is_targeting_spell.lua
+1013_player_is_chatting.lua
+1014_player_in_group.lua
+1015_player_trinket_ready.lua
+1017_player_healthstone_ready.lua
+1018_player_heal_potion_ready.lua
+1019_player_cast_info.lua
+1021_player_cast_target.lua
+1022_player_has_big_defensive.lua
+1023_player_has_dispellable_debuff.lua
+1024_player_hero_talent.lua
+1025_player_damage_absorb.lua
+1026_player_heal_absorb.lua
+1041_target_is_exists.lua
+1042_target_is_alive.lua
+1043_target_health_pct.lua
+1044_target_is_enemy.lua
+1045_target_can_attack.lua
+1046_target_in_ranged.lua
+1047_target_in_melee.lua
+1048_target_in_combat.lua
+1049_target_cast_info.lua
+1051_target_has_dispellable_buff.lua
+1061_focus_is_exists.lua
+1062_focus_is_alive.lua
+1063_focus_health_pct.lua
+1064_focus_is_enemy.lua
+1065_focus_can_attack.lua
+1066_focus_in_ranged.lua
+1067_focus_in_melee.lua
+1068_focus_in_combat.lua
+1069_focus_cast_info.lua
+1071_focus_has_dispellable_buff.lua
+2001_spell.lua
+3011_player_buff.lua
+3038_player_debuff.lua
+7001_group_member_count.lua
+7002_group_type.lua
+7003_boss_encounter.lua
+8001_instance_difficulty.lua
+#  demo
+9901_aura_demo.lua
+9999_demo.lua
+# 9902_spell.lua
+
+
+# class\DemonHunter.lua
+
+# 99Demo.lua
