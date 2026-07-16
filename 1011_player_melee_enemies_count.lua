@@ -4,6 +4,7 @@ local addonName, addonTable = ...
 -- WOW API 缓存
 local CheckInteractDistance = CheckInteractDistance
 local CreateFrame           = CreateFrame
+local InCombatLockdown      = InCombatLockdown
 local LibStub               = LibStub
 local UnitCanAttack         = UnitCanAttack
 local UnitExists            = UnitExists
@@ -60,6 +61,10 @@ local function InitFrame()
         if rangeChecker then
             local maxRange = select(2, rangeChecker:GetRange(unit))
             return maxRange ~= nil and maxRange <= 5
+        end
+
+        if InCombatLockdown() then
+            return false
         end
 
         return CheckInteractDistance(unit, 3)
