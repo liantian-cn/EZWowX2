@@ -4,6 +4,7 @@ local addonName, addonTable = ...
 -- WOW API 缓存
 local CheckInteractDistance = CheckInteractDistance
 local CreateFrame           = CreateFrame
+local InCombatLockdown      = InCombatLockdown
 local issecretvalue         = issecretvalue
 local LibStub               = LibStub
 local UnitExists            = UnitExists
@@ -73,7 +74,10 @@ local function InitFrame()
             end
         end
 
-        local inMeleeRange = CheckInteractDistance(UNIT_TOKEN, 3)
+        local inMeleeRange = nil
+        if not InCombatLockdown() then
+            inMeleeRange = CheckInteractDistance(UNIT_TOKEN, 3)
+        end
 
         if issecretvalue(inMeleeRange) or inMeleeRange == nil then
             cell:clearCell()
