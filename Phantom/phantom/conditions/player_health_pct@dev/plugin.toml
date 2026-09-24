@@ -1,0 +1,27 @@
+# AI Agent 自述；运行时不读取。参数与返回值以同目录实现为准。
+# 核验：2026-09-13，@wow-ui-source，12.1.0.69587
+# revision: a89e9d0ceb7f6cd31e8fc5ca7df1a338ac0b1b58
+# 定义：Interface/AddOns/Blizzard_APIDocumentationGenerated/ 下 UnitDocumentation.lua, CurveUtilDocumentation.lua
+name = "player_health_pct@dev"
+assisted_combat_rule_types = ["ASSISTED_COMBAT_RULE_TYPE_PLAYER_HEALTH_PCT_GREATER", "ASSISTED_COMBAT_RULE_TYPE_PLAYER_HEALTH_PCT_LESS"]
+author = "liantian-cn"
+version = "dev"
+display_name = "玩家生命百分比"
+recommended_condition_name = "玩家血量百分比"
+description = """
+固定采集玩家生命比例，use_predicted 默认 true。UnitHealthPercent 配合 C_CurveUtil.CreateColorCurve 把生命比例直接映射为黑白线性灰度；Lua 不读取秘密颜色分量。Python 从一个 Cell 读取灰度并换算为 0–100 的浮点百分比。无单位为 0，初始化立即刷新，随后响应进入世界、生命、最大生命及预测生命相关变化。
+"""
+
+[parameters.use_predicted]
+type = "bool"
+required = false
+default = true
+description = "是否使用预测生命值；严格布尔值。"
+
+[returns]
+type = "float"
+unit = "百分比（0–100）"
+fallback = 0.0
+description = "生命百分比标量，是否使用预测值由 use_predicted 决定；灰度为 0 对应 0.0，为 255 对应 100.0；解码异常返回 0.0。"
+
+# 刷新约定：事件通过 C_Timer.After(0, ...) 延后；无定时轮询。

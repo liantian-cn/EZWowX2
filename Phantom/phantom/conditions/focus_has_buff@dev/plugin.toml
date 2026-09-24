@@ -1,0 +1,18 @@
+name = "focus_has_buff@dev"
+author = "liantian-cn"
+version = "dev"
+# 显示实现：CellBackplate 提供固定黑底和行宽登记，背板→AuraContainer→AuraButton 使用静态层级。
+display_name = "焦点指定增益存在"
+description = "官方 AuraContainer 单 AuraSlot 多 ID 首匹配，显示可辅助焦点的指定增益。身份分类使用 UnitCanAssist(player, focus, true, true)，无焦点或不可辅助时为 false；Lua 不读取秘密光环数据。"
+recommended_condition_name = "焦点有{增益名称}"
+assisted_combat_rule_types = ["ASSISTED_COMBAT_RULE_TYPE_AURA_ON_TARGET", "ASSISTED_COMBAT_RULE_TYPE_AURA_MISSING_TARGET"]
+
+[parameters.aura_ids]
+type = "list[int]"
+required = true
+description = "非空正整数光环 ID 列表；一个官方槽首匹配任意 ID，不保证按配置 ID 顺序。"
+
+[returns]
+type = "bool"
+description = "纯白 Cell 为 true，纯黑为 false；异常像素或解码失败为 false。"
+fallback = false

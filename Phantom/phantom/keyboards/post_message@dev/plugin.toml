@@ -1,0 +1,13 @@
+name = "post_message@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "Windows 消息键盘"
+description = "接收内核确定的按键组合，定位唯一标题为魔兽世界的窗口，以 PostMessageW 的 WM_KEYDOWN/WM_KEYUP 依次按下、按住 10 ms、逆序释放。RCTRL/RALT/RSHIFT 使用通用 VK_CONTROL/VK_MENU/VK_SHIFT 配扫描码 0x1D/0x38/0x36，扩展位分别为 1/1/0；主键映射扫描码并区分导航区和数字小键盘，lParam 携带重复计数及按下/释放状态。消息入队不等同于游戏执行。"
+recommended_condition_name = "不适用"
+
+[parameters]
+description = "无构造参数；目标标题固定在插件内。send 接受 KeyCombination，不接受宏或窗口参数。"
+
+[returns]
+type = "None"
+description = "完成消息派发和释放尝试；目标缺失/歧义及发送失败抛异常，由内核暂停。"

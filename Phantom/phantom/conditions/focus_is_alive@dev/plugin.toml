@@ -1,0 +1,14 @@
+name = "focus_is_alive@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "焦点是否存活"
+description = "存在且不是死亡或灵魂；不以生命值推断存活。"
+recommended_condition_name = "焦点是否存活"
+
+[parameters]
+description = "无业务参数；拒绝多余字段。"
+
+[returns]
+type = "bool"
+description = "存在且不是死亡或灵魂；不以生命值推断存活。"
+fallback = false

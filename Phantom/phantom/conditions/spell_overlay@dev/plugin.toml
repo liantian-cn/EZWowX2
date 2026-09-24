@@ -1,0 +1,25 @@
+# AI Agent 自述；运行时不读取。参数与返回值以同目录实现为准。
+# 核验：2026-09-13，@wow-ui-source，12.1.0.69587
+# revision: a89e9d0ceb7f6cd31e8fc5ca7df1a338ac0b1b58
+# 定义：Interface/AddOns/Blizzard_APIDocumentationGenerated/ 下 SpellBookDocumentation.lua, SpellActivationOverlayDocumentation.lua, CurveUtilDocumentation.lua
+name = "spell_overlay@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "技能触发高亮"
+recommended_condition_name = "{技能名称}的高亮状态"
+description = """
+C_SpellBook.IsSpellInSpellBook 选择首个匹配候选，C_SpellActivationOverlay.IsSpellOverlayed 查询触发高亮，C_CurveUtil.EvaluateColorFromBoolean 将布尔值直接映射为白色或黑色。Python 严格把一个纯白 Cell 解为 True、纯黑解为 False，灰色或颜色污染使用兜底。初始化及高亮、法术书相关事件刷新；不读取高亮事件中的秘密技能 ID。此值表示高亮，不代替技能可用性或冷却判断。
+"""
+
+[parameters.spell_ids]
+type = "list[int]"
+required = true
+description = "按优先顺序排列的候选技能 ID，非空且每项为正整数，不接受 bool；选择首个匹配玩家法术书的技能，不合并候选结果。"
+
+[returns]
+type = "bool"
+unit = "无"
+fallback = false
+description = "高亮状态标量；无匹配候选或无高亮为 False，解码异常也返回 False。"
+
+# 刷新约定：事件通过 C_Timer.After(0, ...) 延后；无定时轮询。

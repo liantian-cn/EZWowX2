@@ -1,0 +1,16 @@
+name = "player_in_combat@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "玩家是否在战斗中"
+description = "result = UnitAffectingCombat(\"player\")；返回战斗布尔值。布尔值直接交给 Cell:setCellBoolean，经 EvaluateColorFromBoolean 显示黑白。"
+recommended_condition_name = "玩家是否在战斗中"
+
+[parameters]
+description = "无参数，拒绝多余字段。"
+
+[returns]
+type = "bool"
+description = "布尔值直接交给 Cell:setCellBoolean，经 EvaluateColorFromBoolean 显示黑白。"
+fallback = false
+
+# 刷新约定：事件通过 C_Timer.After(0, ...) 延后；UPDATE_INTERVAL = 1 秒兜底。

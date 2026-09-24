@@ -1,0 +1,663 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：shaman/elemental.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 目标光环限定不可辅助目标的 PLAYER|HARMFUL 减益；PLAYER 包含玩家、宠物和载具，排除其他来源。
+# 充能 max_charges=2 是本批阈值所需显示量程，不宣称技能真实上限为 2。
+# 光环秒数以固定 duration 换算；实际实例时长、延长和天赋变化会产生误差。
+schema_version = 1
+uuid = "e72ca89d-79e6-5aa9-af47-352225079387"
+
+[profile]
+title = "萨满祭司-元素"
+description = "萨满祭司一键辅助"
+unit_class = "SHAMAN"
+unit_class_id = 7
+unit_spec = 1
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "已学会地震术_61882"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [61882]
+
+[[conditions]]
+title = "地震术_61882可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [61882]
+
+[[conditions]]
+title = "地震术_61882冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [61882]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有大分裂的回响增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [384087]
+player_only = true
+
+[[conditions]]
+title = "已学会地震术_462620"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [462620]
+
+[[conditions]]
+title = "地震术_462620可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [462620]
+
+[[conditions]]
+title = "地震术_462620冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [462620]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会元素冲击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [117014]
+
+[[conditions]]
+title = "元素冲击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [117014]
+
+[[conditions]]
+title = "元素冲击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [117014]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会大地震击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [8042]
+
+[[conditions]]
+title = "大地震击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [8042]
+
+[[conditions]]
+title = "大地震击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [8042]
+ignore_gcd = true
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "已学会风暴守护者"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [191634]
+
+[[conditions]]
+title = "风暴守护者可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [191634]
+
+[[conditions]]
+title = "风暴守护者冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [191634]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有风暴守护者增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [191634]
+player_only = true
+
+[[conditions]]
+title = "已学会闪电箭"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [188196]
+
+[[conditions]]
+title = "闪电箭可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [188196]
+
+[[conditions]]
+title = "闪电箭冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [188196]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有狂风怒号增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [454015]
+player_only = true
+
+[[conditions]]
+title = "已学会闪电链"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [188443]
+
+[[conditions]]
+title = "闪电链可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [188443]
+
+[[conditions]]
+title = "闪电链冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [188443]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会烈焰震击_470411"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [470411]
+
+[[conditions]]
+title = "烈焰震击_470411可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [470411]
+
+[[conditions]]
+title = "烈焰震击_470411冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [470411]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标有烈焰震击_188389减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [188389]
+
+[[conditions]]
+title = "已学会熔岩爆裂"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [51505]
+
+[[conditions]]
+title = "熔岩爆裂可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [51505]
+
+[[conditions]]
+title = "熔岩爆裂冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [51505]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有元素宗师_260734增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [260734]
+player_only = true
+
+[[conditions]]
+title = "玩家有元素宗师_16166增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [16166]
+player_only = true
+
+[[conditions]]
+title = "已学会先祖迅捷"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [443454]
+
+[[conditions]]
+title = "先祖迅捷可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [443454]
+
+[[conditions]]
+title = "先祖迅捷冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [443454]
+ignore_gcd = true
+
+[[conditions]]
+title = "熔岩爆裂充能"
+plugin = "spell_charges@dev"
+[conditions.plugin_args]
+spell_ids = [51505]
+max_charges = 2
+width = 1
+
+[[conditions]]
+title = "玩家风暴守护者剩余秒数"
+plugin = "aura_player_buff_duration@dev"
+[conditions.plugin_args]
+aura_ids = [191634]
+duration = 15
+width = 4
+player_only = true
+
+[[conditions]]
+title = "已学会火舌武器_318038"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [318038]
+
+[[conditions]]
+title = "火舌武器_318038可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [318038]
+
+[[conditions]]
+title = "火舌武器_318038冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [318038]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有火舌武器_319778增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [319778]
+player_only = true
+
+[[conditions]]
+title = "已学会雷霆打击结界_462757"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [462757]
+
+[[conditions]]
+title = "雷霆打击结界_462757可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [462757]
+
+[[conditions]]
+title = "雷霆打击结界_462757冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [462757]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有雷霆打击结界_462742增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [462742]
+player_only = true
+
+[[conditions]]
+title = "玩家有净化烈焰_1259471增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1259471]
+player_only = true
+
+[[conditions]]
+title = "玩家有净化烈焰_1259491增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1259491]
+player_only = true
+
+[[conditions]]
+title = "已学会升腾"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [114050]
+
+[[conditions]]
+title = "升腾可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [114050]
+
+[[conditions]]
+title = "升腾冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [114050]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会闪电之盾"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [192106]
+
+[[conditions]]
+title = "闪电之盾可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [192106]
+
+[[conditions]]
+title = "闪电之盾冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [192106]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有闪电之盾增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [192106]
+player_only = true
+
+[[conditions]]
+title = "已学会天怒"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [462854]
+
+[[conditions]]
+title = "天怒可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [462854]
+
+[[conditions]]
+title = "天怒冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [462854]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有天怒高亮增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1271904]
+player_only = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "地震术"
+macro_text = "/cast 地震术"
+
+[[macros]]
+name = "元素冲击"
+macro_text = "/cast 元素冲击"
+
+[[macros]]
+name = "大地震击"
+macro_text = "/cast 大地震击"
+
+[[macros]]
+name = "风暴守护者"
+macro_text = "/cast 风暴守护者"
+
+[[macros]]
+name = "闪电箭"
+macro_text = "/cast 闪电箭"
+
+[[macros]]
+name = "闪电链"
+macro_text = "/cast 闪电链"
+
+[[macros]]
+name = "烈焰震击"
+macro_text = "/cast 烈焰震击"
+
+[[macros]]
+name = "熔岩爆裂"
+macro_text = "/cast 熔岩爆裂"
+
+[[macros]]
+name = "先祖迅捷"
+macro_text = "/cast 先祖迅捷"
+
+[[macros]]
+name = "火舌武器"
+macro_text = "/cast 火舌武器"
+
+[[macros]]
+name = "雷霆打击结界"
+macro_text = "/cast 雷霆打击结界"
+
+[[macros]]
+name = "升腾"
+macro_text = "/cast 升腾"
+
+[[macros]]
+name = "闪电之盾"
+macro_text = "/cast 闪电之盾"
+
+[[macros]]
+name = "天怒"
+macro_text = "/cast 天怒"
+
+# 来源 shaman/elemental.txt:2，步骤 0，动作 ID 61882，TXT 冷却 0 秒。
+# 来源行 6：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会地震术_61882 == True) and (地震术_61882可用 == True) and (地震术_61882冷却 == 0) and (玩家有大分裂的回响增益 == False)"
+macro = "地震术"
+annotate = "来源步骤 0：地震术（ID 61882）"
+
+# 来源 shaman/elemental.txt:8，步骤 1，动作 ID 462620，TXT 冷却 0 秒。
+# 来源行 12：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会地震术_462620 == True) and (地震术_462620可用 == True) and (地震术_462620冷却 == 0) and (玩家有大分裂的回响增益 == False)"
+macro = "地震术"
+annotate = "来源步骤 1：地震术（ID 462620）"
+
+# 来源 shaman/elemental.txt:14，步骤 2，动作 ID 117014，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会元素冲击 == True) and (元素冲击可用 == True) and (元素冲击冷却 == 0)"
+macro = "元素冲击"
+annotate = "来源步骤 2：元素冲击（ID 117014）"
+
+# 来源 shaman/elemental.txt:18，步骤 3，动作 ID 8042，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会大地震击 == True) and (大地震击可用 == True) and (大地震击冷却 == 0)"
+macro = "大地震击"
+annotate = "来源步骤 3：大地震击（ID 8042）"
+
+# 来源 shaman/elemental.txt:22，步骤 4，动作 ID 191634，TXT 冷却 60 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会风暴守护者 == True) and (风暴守护者可用 == True) and (风暴守护者冷却 == 0) and (玩家有风暴守护者增益 == False)"
+macro = "风暴守护者"
+annotate = "来源步骤 4：风暴守护者（ID 191634）"
+
+# 来源 shaman/elemental.txt:27，步骤 5，动作 ID 188196，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会闪电箭 == True) and (闪电箭可用 == True) and (闪电箭冷却 == 0) and (玩家有狂风怒号增益 == True)"
+macro = "闪电箭"
+annotate = "来源步骤 5：闪电箭（ID 188196）"
+
+# 来源 shaman/elemental.txt:32，步骤 6，动作 ID 188443，TXT 冷却 0 秒。
+# 来源行 37：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会闪电链 == True) and (闪电链可用 == True) and (闪电链冷却 == 0) and (玩家有风暴守护者增益 == True)"
+macro = "闪电链"
+annotate = "来源步骤 6：闪电链（ID 188443）"
+
+# 来源 shaman/elemental.txt:38，步骤 7，动作 ID 188196，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会闪电箭 == True) and (闪电箭可用 == True) and (闪电箭冷却 == 0) and (玩家有风暴守护者增益 == True)"
+macro = "闪电箭"
+annotate = "来源步骤 7：闪电箭（ID 188196）"
+
+# 来源 shaman/elemental.txt:43，步骤 8，动作 ID 470411，TXT 冷却 6 秒。
+# 来源行 48：TARGET_COUNT_NEAR_TARGET_LESS；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量小于等于 2 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会烈焰震击_470411 == True) and (烈焰震击_470411可用 == True) and (烈焰震击_470411冷却 == 0) and (目标有烈焰震击_188389减益 == False)"
+macro = "烈焰震击"
+annotate = "来源步骤 8：烈焰震击（ID 470411）"
+
+# 来源 shaman/elemental.txt:49，步骤 9，动作 ID 51505，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会熔岩爆裂 == True) and (熔岩爆裂可用 == True) and (熔岩爆裂冷却 == 0) and (玩家有元素宗师_260734增益 == False) and (玩家有元素宗师_16166增益 == True)"
+macro = "熔岩爆裂"
+annotate = "来源步骤 9：熔岩爆裂（ID 51505）"
+
+# 来源 shaman/elemental.txt:55，步骤 10，动作 ID 188443，TXT 冷却 0 秒。
+# 来源行 59：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会闪电链 == True) and (闪电链可用 == True) and (闪电链冷却 == 0) and (闪电链可用 == True)"
+macro = "闪电链"
+annotate = "来源步骤 10：闪电链（ID 188443）"
+
+# 来源 shaman/elemental.txt:61，步骤 11，动作 ID 188196，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会闪电箭 == True) and (闪电箭可用 == True) and (闪电箭冷却 == 0) and (闪电箭可用 == True)"
+macro = "闪电箭"
+annotate = "来源步骤 11：闪电箭（ID 188196）"
+
+# 来源 shaman/elemental.txt:66，步骤 12，动作 ID 443454，TXT 冷却 30 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会先祖迅捷 == True) and (先祖迅捷可用 == True) and (先祖迅捷冷却 == 0) and (先祖迅捷可用 == True) and (先祖迅捷冷却 == 0)"
+macro = "先祖迅捷"
+annotate = "来源步骤 12：先祖迅捷（ID 443454）"
+
+# 来源 shaman/elemental.txt:72，步骤 13，动作 ID 443454，TXT 冷却 30 秒。
+# 来源行 76：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会先祖迅捷 == True) and (先祖迅捷可用 == True) and (先祖迅捷冷却 == 0) and (先祖迅捷冷却 == 0)"
+macro = "先祖迅捷"
+annotate = "来源步骤 13：先祖迅捷（ID 443454）"
+
+# 来源 shaman/elemental.txt:78，步骤 14，动作 ID 443454，TXT 冷却 30 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会先祖迅捷 == True) and (先祖迅捷可用 == True) and (先祖迅捷冷却 == 0) and (先祖迅捷冷却 == 0)"
+macro = "先祖迅捷"
+annotate = "来源步骤 14：先祖迅捷（ID 443454）"
+
+# 来源 shaman/elemental.txt:83，步骤 15，动作 ID 51505，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "熔岩爆裂"
+annotate = "来源步骤 15：熔岩爆裂（ID 51505）"
+
+# 来源 shaman/elemental.txt:84，步骤 16，动作 ID 51505，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会熔岩爆裂 == True) and (熔岩爆裂可用 == True) and (熔岩爆裂冷却 == 0) and (熔岩爆裂充能 >= 2) and (熔岩爆裂可用 == True)"
+macro = "熔岩爆裂"
+annotate = "来源步骤 16：熔岩爆裂（ID 51505）"
+
+# 来源 shaman/elemental.txt:90，步骤 17，动作 ID 51505，TXT 冷却 0 秒。
+# 来源行 97：TARGET_COUNT_NEAR_TARGET_LESS；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量小于等于 2 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会熔岩爆裂 == True) and (熔岩爆裂可用 == True) and (熔岩爆裂冷却 == 0) and (玩家有元素宗师_16166增益 == True) and (玩家有元素宗师_260734增益 == False) and (目标有烈焰震击_188389减益 == True)"
+macro = "熔岩爆裂"
+annotate = "来源步骤 17：熔岩爆裂（ID 51505）"
+
+# 来源 shaman/elemental.txt:98，步骤 18，动作 ID 51505，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会熔岩爆裂 == True) and (熔岩爆裂可用 == True) and (熔岩爆裂冷却 == 0) and (玩家有元素宗师_16166增益 == False)"
+macro = "熔岩爆裂"
+annotate = "来源步骤 18：熔岩爆裂（ID 51505）"
+
+# 来源 shaman/elemental.txt:103，步骤 19，动作 ID 188443，TXT 冷却 0 秒。
+# 来源行 107：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会闪电链 == True) and (闪电链可用 == True) and (闪电链冷却 == 0) and (玩家风暴守护者剩余秒数 <= 3)"
+macro = "闪电链"
+annotate = "来源步骤 19：闪电链（ID 188443）"
+
+# 来源 shaman/elemental.txt:109，步骤 20，动作 ID 188196，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会闪电箭 == True) and (闪电箭可用 == True) and (闪电箭冷却 == 0) and (玩家风暴守护者剩余秒数 <= 3)"
+macro = "闪电箭"
+annotate = "来源步骤 20：闪电箭（ID 188196）"
+
+# 来源 shaman/elemental.txt:114，步骤 21，动作 ID 318038，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会火舌武器_318038 == True) and (火舌武器_318038可用 == True) and (火舌武器_318038冷却 == 0) and (玩家有火舌武器_319778增益 == False)"
+macro = "火舌武器"
+annotate = "来源步骤 21：火舌武器（ID 318038）"
+
+# 来源 shaman/elemental.txt:119，步骤 22，动作 ID 462757，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会雷霆打击结界_462757 == True) and (雷霆打击结界_462757可用 == True) and (雷霆打击结界_462757冷却 == 0) and (玩家有雷霆打击结界_462742增益 == False)"
+macro = "雷霆打击结界"
+annotate = "来源步骤 22：雷霆打击结界（ID 462757）"
+
+# 来源 shaman/elemental.txt:124，步骤 23，动作 ID 470411，TXT 冷却 6 秒。
+# 来源行 128：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 2 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会烈焰震击_470411 == True) and (烈焰震击_470411可用 == True) and (烈焰震击_470411冷却 == 0) and (玩家有净化烈焰_1259471增益 == False) and (目标有烈焰震击_188389减益 == False)"
+macro = "烈焰震击"
+annotate = "来源步骤 23：烈焰震击（ID 470411）"
+
+# 来源 shaman/elemental.txt:131，步骤 24，动作 ID 51505，TXT 冷却 0 秒。
+# 来源行 135：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 2 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会熔岩爆裂 == True) and (熔岩爆裂可用 == True) and (熔岩爆裂冷却 == 0) and (玩家有净化烈焰_1259491增益 == True)"
+macro = "熔岩爆裂"
+annotate = "来源步骤 24：熔岩爆裂（ID 51505）"
+
+# 来源 shaman/elemental.txt:137，步骤 25，动作 ID 470411，TXT 冷却 6 秒。
+# 来源行 141：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 2 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会烈焰震击_470411 == True) and (烈焰震击_470411可用 == True) and (烈焰震击_470411冷却 == 0) and (玩家有净化烈焰_1259471增益 == True) and (玩家有净化烈焰_1259491增益 == False)"
+macro = "烈焰震击"
+annotate = "来源步骤 25：烈焰震击（ID 470411）"
+
+# 来源 shaman/elemental.txt:144，步骤 26，动作 ID 114050，TXT 冷却 180 秒。
+# 来源行 148：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会升腾 == True) and (升腾可用 == True) and (升腾冷却 == 0)"
+macro = "升腾"
+annotate = "来源步骤 26：升腾（ID 114050）"
+
+# 来源 shaman/elemental.txt:149，步骤 27，动作 ID 192106，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会闪电之盾 == True) and (闪电之盾可用 == True) and (闪电之盾冷却 == 0) and (玩家有闪电之盾增益 == False)"
+macro = "闪电之盾"
+annotate = "来源步骤 27：闪电之盾（ID 192106）"
+
+# 来源 shaman/elemental.txt:154，步骤 28，动作 ID 462854，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会天怒 == True) and (天怒可用 == True) and (天怒冷却 == 0) and (玩家有天怒高亮增益 == True)"
+macro = "天怒"
+annotate = "来源步骤 28：天怒（ID 462854）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

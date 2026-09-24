@@ -1,0 +1,922 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：rogue/assassination.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 目标光环限定不可辅助目标的 PLAYER|HARMFUL 减益；PLAYER 包含玩家、宠物和载具，排除其他来源。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 技能射程规则使用当前步骤动作 ID 对 target 的射程结果，无效射程返回 False。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 玩家周围人数近似为本步骤技能可攻击敌人总数，仅可观察 nameplate1–40；secret/nil 射程漏计，不代表原码数圆内完整人数。
+# 资源 max_power 为固定参考，须按天赋调整；临时上限变化会有误差，Cell 量化步长约为 max_power/255。
+# 距离条件近似为当前步骤技能射程，忽略 TXT 码数；无效技能/无目标/nil 射程也返回 False。
+schema_version = 1
+uuid = "6292395a-8820-5ef3-b4c8-38ee9030e4c6"
+
+[profile]
+title = "潜行者-奇袭"
+description = "潜行者一键辅助"
+unit_class = "ROGUE"
+unit_class_id = 4
+unit_spec = 1
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "目标有锁喉减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [703]
+
+[[conditions]]
+title = "已学会锁喉"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [703]
+
+[[conditions]]
+title = "锁喉可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [703]
+
+[[conditions]]
+title = "锁喉冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [703]
+ignore_gcd = true
+
+[[conditions]]
+title = "锁喉对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 703
+unit_token = "target"
+
+[[conditions]]
+title = "目标有割裂减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [1943]
+
+[[conditions]]
+title = "玩家连击点"
+plugin = "spec_power_combo_points@dev"
+
+[[conditions]]
+title = "已学会割裂"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1943]
+
+[[conditions]]
+title = "割裂可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1943]
+
+[[conditions]]
+title = "割裂冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1943]
+ignore_gcd = true
+
+[[conditions]]
+title = "割裂对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 1943
+unit_token = "target"
+
+[[conditions]]
+title = "玩家有至黑之夜增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [457280]
+player_only = true
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "已学会君王之灾"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [385627]
+
+[[conditions]]
+title = "君王之灾可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [385627]
+
+[[conditions]]
+title = "君王之灾冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [385627]
+ignore_gcd = true
+
+[[conditions]]
+title = "君王之灾对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 385627
+unit_token = "target"
+
+[[conditions]]
+title = "玩家有无赦增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1265387]
+player_only = true
+
+[[conditions]]
+title = "已学会刺骨"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [196819]
+
+[[conditions]]
+title = "刺骨可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [196819]
+
+[[conditions]]
+title = "刺骨冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [196819]
+ignore_gcd = true
+
+[[conditions]]
+title = "刺骨对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 196819
+unit_token = "target"
+
+[[conditions]]
+title = "已学会影袭"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1752]
+
+[[conditions]]
+title = "影袭可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1752]
+
+[[conditions]]
+title = "影袭冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1752]
+ignore_gcd = true
+
+[[conditions]]
+title = "影袭对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 1752
+unit_token = "target"
+
+[[conditions]]
+title = "玩家有侧袭增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [121153]
+player_only = true
+
+[[conditions]]
+title = "已学会伏击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [8676]
+
+[[conditions]]
+title = "伏击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [8676]
+
+[[conditions]]
+title = "伏击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [8676]
+ignore_gcd = true
+
+[[conditions]]
+title = "伏击对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 8676
+unit_token = "target"
+
+[[conditions]]
+title = "刀扇技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 51723
+combat_only = false
+
+[[conditions]]
+title = "已学会刀扇"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [51723]
+
+[[conditions]]
+title = "刀扇可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [51723]
+
+[[conditions]]
+title = "刀扇冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [51723]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会剧毒之刃"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [185565]
+
+[[conditions]]
+title = "剧毒之刃可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [185565]
+
+[[conditions]]
+title = "剧毒之刃冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [185565]
+ignore_gcd = true
+
+[[conditions]]
+title = "剧毒之刃对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 185565
+unit_token = "target"
+
+[[conditions]]
+title = "玩家有潜行_1784增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1784]
+player_only = true
+
+[[conditions]]
+title = "玩家有消失增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [11327]
+player_only = true
+
+[[conditions]]
+title = "玩家能量"
+plugin = "spec_power_energy@dev"
+[conditions.plugin_args]
+max_power = 100
+
+[[conditions]]
+title = "目标在剧毒之刃技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 185565
+
+[[conditions]]
+title = "已学会夺命药膏"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [2823]
+
+[[conditions]]
+title = "夺命药膏可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [2823]
+
+[[conditions]]
+title = "夺命药膏冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [2823]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有夺命药膏增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [2823]
+player_only = true
+
+[[conditions]]
+title = "玩家有致伤药膏增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [8679]
+player_only = true
+
+[[conditions]]
+title = "玩家有龙淬之锋增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [381801]
+player_only = true
+
+[[conditions]]
+title = "玩家有深邃诡计增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [193531]
+player_only = true
+
+[[conditions]]
+title = "玩家有血色谋策增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [457512]
+player_only = true
+
+[[conditions]]
+title = "玩家有切割增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [315496]
+player_only = true
+
+[[conditions]]
+title = "已学会切割"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [315496]
+
+[[conditions]]
+title = "切割可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [315496]
+
+[[conditions]]
+title = "切割冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [315496]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有穷追猛砍增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [51667]
+player_only = true
+
+[[conditions]]
+title = "目标在伏击技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 8676
+
+[[conditions]]
+title = "玩家有强化锁喉增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [381632]
+player_only = true
+
+[[conditions]]
+title = "玩家有潜行_115191增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [115191]
+player_only = true
+
+[[conditions]]
+title = "目标在锁喉技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 703
+
+[[conditions]]
+title = "已学会萎缩药膏"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [381637]
+
+[[conditions]]
+title = "萎缩药膏可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [381637]
+
+[[conditions]]
+title = "萎缩药膏冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [381637]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有萎缩药膏增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [381637]
+player_only = true
+
+[[conditions]]
+title = "已学会增效药膏"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [381664]
+
+[[conditions]]
+title = "增效药膏可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [381664]
+
+[[conditions]]
+title = "增效药膏冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [381664]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有增效药膏增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [381664]
+player_only = true
+
+[[conditions]]
+title = "玩家有PvPRulesEnabledHARDCODED增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [134735]
+player_only = true
+
+[[conditions]]
+title = "已学会致伤药膏"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [8679]
+
+[[conditions]]
+title = "致伤药膏可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [8679]
+
+[[conditions]]
+title = "致伤药膏冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [8679]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会速效药膏"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [315584]
+
+[[conditions]]
+title = "速效药膏可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [315584]
+
+[[conditions]]
+title = "速效药膏冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [315584]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有速效药膏增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [315584]
+player_only = true
+
+[[conditions]]
+title = "已学会迟钝药膏"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [5761]
+
+[[conditions]]
+title = "迟钝药膏可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [5761]
+
+[[conditions]]
+title = "迟钝药膏冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [5761]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有迟钝药膏增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [5761]
+player_only = true
+
+[[conditions]]
+title = "已学会减速药膏"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [3408]
+
+[[conditions]]
+title = "减速药膏可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [3408]
+
+[[conditions]]
+title = "减速药膏冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [3408]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有减速药膏增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [3408]
+player_only = true
+
+[[conditions]]
+title = "已学会死亡印记"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [360194]
+
+[[conditions]]
+title = "死亡印记可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [360194]
+
+[[conditions]]
+title = "死亡印记冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [360194]
+ignore_gcd = true
+
+[[conditions]]
+title = "死亡印记对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 360194
+unit_token = "target"
+
+[[conditions]]
+title = "猩红风暴冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1247227]
+ignore_gcd = true
+
+[[conditions]]
+title = "猩红风暴可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1247227]
+
+[[conditions]]
+title = "已学会猩红风暴"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1247227]
+
+[[conditions]]
+title = "猩红风暴技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 1247227
+combat_only = false
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "锁喉"
+macro_text = "/cast 锁喉"
+
+[[macros]]
+name = "割裂"
+macro_text = "/cast 割裂"
+
+[[macros]]
+name = "君王之灾"
+macro_text = "/cast 君王之灾"
+
+[[macros]]
+name = "刺骨"
+macro_text = "/cast 刺骨"
+
+[[macros]]
+name = "影袭"
+macro_text = "/cast 影袭"
+
+[[macros]]
+name = "伏击"
+macro_text = "/cast 伏击"
+
+[[macros]]
+name = "刀扇"
+macro_text = "/cast 刀扇"
+
+[[macros]]
+name = "剧毒之刃"
+macro_text = "/cast 剧毒之刃"
+
+[[macros]]
+name = "夺命药膏"
+macro_text = "/cast 夺命药膏"
+
+[[macros]]
+name = "切割"
+macro_text = "/cast 切割"
+
+[[macros]]
+name = "萎缩药膏"
+macro_text = "/cast 萎缩药膏"
+
+[[macros]]
+name = "增效药膏"
+macro_text = "/cast 增效药膏"
+
+[[macros]]
+name = "致伤药膏"
+macro_text = "/cast 致伤药膏"
+
+[[macros]]
+name = "速效药膏"
+macro_text = "/cast 速效药膏"
+
+[[macros]]
+name = "迟钝药膏"
+macro_text = "/cast 迟钝药膏"
+
+[[macros]]
+name = "减速药膏"
+macro_text = "/cast 减速药膏"
+
+[[macros]]
+name = "死亡印记"
+macro_text = "/cast 死亡印记"
+
+[[macros]]
+name = "猩红风暴"
+macro_text = "/cast 猩红风暴"
+
+# 来源 rogue/assassination.txt:2，步骤 0，动作 ID 703，TXT 冷却 6 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (目标有锁喉减益 == False) and (已学会锁喉 == True) and (锁喉可用 == True) and (锁喉冷却 == 0) and (锁喉对目标在射程内 == True)"
+macro = "锁喉"
+annotate = "来源步骤 0：锁喉（ID 703）"
+
+# 来源 rogue/assassination.txt:8，步骤 1，动作 ID 1943，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (目标有割裂减益 == False) and (玩家连击点 >= 5) and (已学会割裂 == True) and (割裂可用 == True) and (割裂冷却 == 0) and (割裂对目标在射程内 == True) and (玩家有至黑之夜增益 == False)"
+macro = "割裂"
+annotate = "来源步骤 1：割裂（ID 1943）"
+
+# 来源 rogue/assassination.txt:16，步骤 2，动作 ID 385627，TXT 冷却 60 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会君王之灾 == True) and (君王之灾可用 == True) and (君王之灾冷却 == 0) and (君王之灾对目标在射程内 == True) and (目标有锁喉减益 == True) and (目标有割裂减益 == True) and (玩家有无赦增益 == True) and (玩家连击点 <= 1)"
+macro = "君王之灾"
+annotate = "来源步骤 2：君王之灾（ID 385627）"
+
+# 来源 rogue/assassination.txt:25，步骤 3，动作 ID 196819，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (玩家连击点 >= 5) and (已学会刺骨 == True) and (刺骨可用 == True) and (刺骨冷却 == 0) and (刺骨对目标在射程内 == True) and (玩家有至黑之夜增益 == False)"
+macro = "刺骨"
+annotate = "来源步骤 3：刺骨（ID 196819）"
+
+# 来源 rogue/assassination.txt:32，步骤 4，动作 ID 1752，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会影袭 == True) and (影袭可用 == True) and (影袭冷却 == 0) and (影袭对目标在射程内 == True)"
+macro = "影袭"
+annotate = "来源步骤 4：影袭（ID 1752）"
+
+# 来源 rogue/assassination.txt:37，步骤 5，动作 ID 8676，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (玩家有侧袭增益 == True) and (已学会伏击 == True) and (伏击可用 == True) and (伏击冷却 == 0) and (伏击对目标在射程内 == True)"
+macro = "伏击"
+annotate = "来源步骤 5：伏击（ID 8676）"
+
+# 来源 rogue/assassination.txt:43，步骤 6，动作 ID 51723，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (刀扇技能可攻击敌人总数 > 3) and (已学会刀扇 == True) and (刀扇可用 == True) and (刀扇冷却 == 0)"
+macro = "刀扇"
+annotate = "来源步骤 6：刀扇（ID 51723）"
+
+# 来源 rogue/assassination.txt:48，步骤 7，动作 ID 185565，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会剧毒之刃 == True) and (剧毒之刃可用 == True) and (剧毒之刃冷却 == 0) and (剧毒之刃对目标在射程内 == True) and (玩家有潜行_1784增益 == False) and (玩家有消失增益 == False) and (玩家能量 >= 70) and (目标在剧毒之刃技能范围内 == False)"
+macro = "剧毒之刃"
+annotate = "来源步骤 7：剧毒之刃（ID 185565）"
+
+# 来源 rogue/assassination.txt:57，步骤 8，动作 ID 2823，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会夺命药膏 == True) and (夺命药膏可用 == True) and (夺命药膏冷却 == 0) and (玩家有夺命药膏增益 == False) and (玩家有致伤药膏增益 == False) and (玩家有龙淬之锋增益 == False)"
+macro = "夺命药膏"
+annotate = "来源步骤 8：夺命药膏（ID 2823）"
+
+# 来源 rogue/assassination.txt:64，步骤 9，动作 ID 1752，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "影袭"
+annotate = "来源步骤 9：影袭（ID 1752）"
+
+# 来源 rogue/assassination.txt:65，步骤 10，动作 ID 196819，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (刺骨可用 == True) and (刺骨冷却 == 0) and (已学会刺骨 == True) and (玩家连击点 >= 5) and (刺骨对目标在射程内 == True) and (玩家有至黑之夜增益 == True) and (玩家有深邃诡计增益 == False) and (玩家有血色谋策增益 == False)"
+macro = "刺骨"
+annotate = "来源步骤 10：刺骨（ID 196819）"
+
+# 来源 rogue/assassination.txt:74，步骤 11，动作 ID 196819，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (刺骨可用 == True) and (刺骨冷却 == 0) and (已学会刺骨 == True) and (玩家连击点 >= 6) and (刺骨对目标在射程内 == True) and (玩家有至黑之夜增益 == True) and (玩家有血色谋策增益 == False) and (玩家有深邃诡计增益 == True)"
+macro = "刺骨"
+annotate = "来源步骤 11：刺骨（ID 196819）"
+
+# 来源 rogue/assassination.txt:83，步骤 12，动作 ID 196819，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (刺骨可用 == True) and (刺骨冷却 == 0) and (已学会刺骨 == True) and (玩家连击点 >= 6) and (刺骨对目标在射程内 == True) and (玩家有至黑之夜增益 == True) and (玩家有深邃诡计增益 == False) and (玩家有血色谋策增益 == True)"
+macro = "刺骨"
+annotate = "来源步骤 12：刺骨（ID 196819）"
+
+# 来源 rogue/assassination.txt:92，步骤 13，动作 ID 196819，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (刺骨可用 == True) and (刺骨冷却 == 0) and (已学会刺骨 == True) and (玩家连击点 >= 7) and (刺骨对目标在射程内 == True) and (玩家有至黑之夜增益 == True) and (玩家有深邃诡计增益 == True) and (玩家有血色谋策增益 == True)"
+macro = "刺骨"
+annotate = "来源步骤 13：刺骨（ID 196819）"
+
+# 来源 rogue/assassination.txt:101，步骤 14，动作 ID 315496，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (玩家有切割增益 == False) and (玩家连击点 >= 5) and (已学会切割 == True) and (切割可用 == True) and (切割冷却 == 0) and (玩家有穷追猛砍增益 == False)"
+macro = "切割"
+annotate = "来源步骤 14：切割（ID 315496）"
+
+# 来源 rogue/assassination.txt:108，步骤 15，动作 ID 8676，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会伏击 == True) and (伏击可用 == True) and (伏击冷却 == 0) and (目标在伏击技能范围内 == True) and (玩家有潜行_1784增益 == True) and (玩家有强化锁喉增益 == False)"
+macro = "伏击"
+annotate = "来源步骤 15：伏击（ID 8676）"
+
+# 来源 rogue/assassination.txt:115，步骤 16，动作 ID 8676，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会伏击 == True) and (伏击可用 == True) and (伏击冷却 == 0) and (目标在伏击技能范围内 == True) and (玩家有潜行_115191增益 == True) and (玩家有强化锁喉增益 == False)"
+macro = "伏击"
+annotate = "来源步骤 16：伏击（ID 8676）"
+
+# 来源 rogue/assassination.txt:122，步骤 17，动作 ID 8676，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会伏击 == True) and (伏击可用 == True) and (伏击冷却 == 0) and (目标在伏击技能范围内 == True) and (玩家有消失增益 == True) and (玩家有强化锁喉增益 == False)"
+macro = "伏击"
+annotate = "来源步骤 17：伏击（ID 8676）"
+
+# 来源 rogue/assassination.txt:129，步骤 18，动作 ID 703，TXT 冷却 6 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会锁喉 == True) and (锁喉可用 == True) and (锁喉冷却 == 0) and (目标在锁喉技能范围内 == True) and (玩家有潜行_1784增益 == True)"
+macro = "锁喉"
+annotate = "来源步骤 18：锁喉（ID 703）"
+
+# 来源 rogue/assassination.txt:135，步骤 19，动作 ID 703，TXT 冷却 6 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会锁喉 == True) and (锁喉可用 == True) and (锁喉冷却 == 0) and (目标在锁喉技能范围内 == True) and (玩家有潜行_115191增益 == True)"
+macro = "锁喉"
+annotate = "来源步骤 19：锁喉（ID 703）"
+
+# 来源 rogue/assassination.txt:141，步骤 20，动作 ID 703，TXT 冷却 6 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会锁喉 == True) and (锁喉可用 == True) and (锁喉冷却 == 0) and (目标在锁喉技能范围内 == True) and (玩家有消失增益 == True)"
+macro = "锁喉"
+annotate = "来源步骤 20：锁喉（ID 703）"
+
+# 来源 rogue/assassination.txt:147，步骤 21，动作 ID 381637，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会萎缩药膏 == True) and (萎缩药膏可用 == True) and (萎缩药膏冷却 == 0) and (玩家有萎缩药膏增益 == False)"
+macro = "萎缩药膏"
+annotate = "来源步骤 21：萎缩药膏（ID 381637）"
+
+# 来源 rogue/assassination.txt:152，步骤 22，动作 ID 2823，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会夺命药膏 == True) and (夺命药膏可用 == True) and (夺命药膏冷却 == 0) and (玩家有夺命药膏增益 == False) and (玩家有龙淬之锋增益 == True)"
+macro = "夺命药膏"
+annotate = "来源步骤 22：夺命药膏（ID 2823）"
+
+# 来源 rogue/assassination.txt:158，步骤 23，动作 ID 381664，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会增效药膏 == True) and (增效药膏可用 == True) and (增效药膏冷却 == 0) and (玩家有增效药膏增益 == False) and (玩家有龙淬之锋增益 == True) and (玩家有致伤药膏增益 == False) and (玩家有PvPRulesEnabledHARDCODED增益 == True)"
+macro = "增效药膏"
+annotate = "来源步骤 23：增效药膏（ID 381664）"
+
+# 来源 rogue/assassination.txt:166，步骤 24，动作 ID 8679，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会致伤药膏 == True) and (致伤药膏可用 == True) and (致伤药膏冷却 == 0) and (玩家有致伤药膏增益 == False) and (玩家有PvPRulesEnabledHARDCODED增益 == True) and (玩家有增效药膏增益 == False) and (玩家有龙淬之锋增益 == True)"
+macro = "致伤药膏"
+annotate = "来源步骤 24：致伤药膏（ID 8679）"
+
+# 来源 rogue/assassination.txt:174，步骤 25，动作 ID 315584，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会速效药膏 == True) and (速效药膏可用 == True) and (速效药膏冷却 == 0) and (玩家有增效药膏增益 == False) and (玩家有龙淬之锋增益 == True) and (玩家有致伤药膏增益 == False) and (玩家有速效药膏增益 == False)"
+macro = "速效药膏"
+annotate = "来源步骤 25：速效药膏（ID 315584）"
+
+# 来源 rogue/assassination.txt:182，步骤 26，动作 ID 5761，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会迟钝药膏 == True) and (迟钝药膏可用 == True) and (迟钝药膏冷却 == 0) and (玩家有迟钝药膏增益 == False)"
+macro = "迟钝药膏"
+annotate = "来源步骤 26：迟钝药膏（ID 5761）"
+
+# 来源 rogue/assassination.txt:187，步骤 27，动作 ID 3408，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会减速药膏 == True) and (减速药膏可用 == True) and (减速药膏冷却 == 0) and (玩家有迟钝药膏增益 == False) and (玩家有萎缩药膏增益 == False) and (玩家有减速药膏增益 == False) and (玩家有龙淬之锋增益 == False)"
+macro = "减速药膏"
+annotate = "来源步骤 27：减速药膏（ID 3408）"
+
+# 来源 rogue/assassination.txt:195，步骤 28，动作 ID 381664，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会增效药膏 == True) and (增效药膏可用 == True) and (增效药膏冷却 == 0) and (玩家有增效药膏增益 == False) and (玩家有龙淬之锋增益 == True) and (玩家有PvPRulesEnabledHARDCODED增益 == False)"
+macro = "增效药膏"
+annotate = "来源步骤 28：增效药膏（ID 381664）"
+
+# 来源 rogue/assassination.txt:202，步骤 29，动作 ID 3408，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会减速药膏 == True) and (减速药膏可用 == True) and (减速药膏冷却 == 0) and (玩家有龙淬之锋增益 == True) and (玩家有减速药膏增益 == False)"
+macro = "减速药膏"
+annotate = "来源步骤 29：减速药膏（ID 3408）"
+
+# 来源 rogue/assassination.txt:208，步骤 30，动作 ID 360194，TXT 冷却 120 秒。
+# 来源行 214：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会死亡印记 == True) and (死亡印记可用 == True) and (死亡印记冷却 == 0) and (目标有锁喉减益 == True) and (目标有割裂减益 == True) and (死亡印记对目标在射程内 == True)"
+macro = "死亡印记"
+annotate = "来源步骤 30：死亡印记（ID 360194）"
+
+# 来源 rogue/assassination.txt:216，步骤 31，动作 ID 385627，TXT 冷却 60 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (目标有割裂减益 == True) and (目标有锁喉减益 == True) and (君王之灾对目标在射程内 == True) and (君王之灾冷却 == 0) and (君王之灾可用 == True) and (已学会君王之灾 == True) and (玩家有无赦增益 == False)"
+macro = "君王之灾"
+annotate = "来源步骤 31：君王之灾（ID 385627）"
+
+# 来源 rogue/assassination.txt:224，步骤 32，动作 ID 1247227，TXT 冷却 0 秒。
+# 来源行 229：AURA_COUNT_NEAR_PLAYER_LESS；按冻结方案仅删除此条件，保留步骤。原文：若玩家周围 10 码内带有增益/减益 '锁喉[id:703,cd:6]' 的目标数量小于等于 5 个
+# 来源行 230：AURA_COUNT_NEAR_PLAYER_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若玩家周围 10 码内带有增益/减益 1943 的目标数量大于等于 1 个
+# 来源行 231：AURA_COUNT_NEAR_PLAYER_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若玩家周围 10 码内带有增益/减益 703 的目标数量大于等于 1 个
+[[rotation]]
+condition = "(插件启用 == True) and (猩红风暴冷却 == 0) and (猩红风暴可用 == True) and (已学会猩红风暴 == True) and (猩红风暴技能可攻击敌人总数 > 7)"
+macro = "猩红风暴"
+annotate = "来源步骤 32：猩红风暴（ID 1247227）"
+
+# 来源 rogue/assassination.txt:232，步骤 33，动作 ID 1247227，TXT 冷却 0 秒。
+# 来源行 237：AURA_COUNT_NEAR_PLAYER_LESS；按冻结方案仅删除此条件，保留步骤。原文：若玩家周围 10 码内带有增益/减益 '锁喉[id:703,cd:6]' 的目标数量小于等于 3 个
+# 来源行 238：AURA_COUNT_NEAR_PLAYER_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若玩家周围 10 码内带有增益/减益 1943 的目标数量大于等于 1 个
+# 来源行 239：AURA_COUNT_NEAR_PLAYER_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若玩家周围 10 码内带有增益/减益 703 的目标数量大于等于 1 个
+[[rotation]]
+condition = "(插件启用 == True) and (猩红风暴冷却 == 0) and (猩红风暴可用 == True) and (已学会猩红风暴 == True) and (猩红风暴技能可攻击敌人总数 > 5)"
+macro = "猩红风暴"
+annotate = "来源步骤 33：猩红风暴（ID 1247227）"
+
+# 来源 rogue/assassination.txt:240，步骤 34，动作 ID 1247227，TXT 冷却 0 秒。
+# 来源行 245：AURA_COUNT_NEAR_PLAYER_LESS；按冻结方案仅删除此条件，保留步骤。原文：若玩家周围 10 码内带有增益/减益 '锁喉[id:703,cd:6]' 的目标数量小于等于 1 个
+# 来源行 246：AURA_COUNT_NEAR_PLAYER_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若玩家周围 10 码内带有增益/减益 1943 的目标数量大于等于 1 个
+# 来源行 247：AURA_COUNT_NEAR_PLAYER_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若玩家周围 10 码内带有增益/减益 703 的目标数量大于等于 1 个
+[[rotation]]
+condition = "(插件启用 == True) and (猩红风暴冷却 == 0) and (猩红风暴可用 == True) and (已学会猩红风暴 == True) and (猩红风暴技能可攻击敌人总数 > 3)"
+macro = "猩红风暴"
+annotate = "来源步骤 34：猩红风暴（ID 1247227）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

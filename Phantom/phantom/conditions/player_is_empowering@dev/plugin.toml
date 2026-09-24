@@ -1,0 +1,16 @@
+name = "player_is_empowering@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "玩家是否正在蓄力"
+description = "UnitCastingInfo(\"player\") 第 11 项 delayTimeMs、UnitChannelInfo(\"player\") 第 9 项 isEmpowered 是 NeverSecret；后者返回通道是否蓄力的布尔值，无通道时无值。普通施法、普通通道及空闲为假，蓄力通道为真；不判断秘密名称或纹理。"
+recommended_condition_name = "玩家是否正在蓄力"
+
+[parameters]
+description = "无参数，拒绝多余字段。"
+
+[returns]
+type = "bool"
+description = "普通施法、普通通道及空闲为假，蓄力通道为真；不判断秘密名称或纹理。"
+fallback = false
+
+# 刷新约定：事件通过 C_Timer.After(0, ...) 延后；无定时轮询。

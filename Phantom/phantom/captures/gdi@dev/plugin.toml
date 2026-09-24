@@ -1,0 +1,27 @@
+# AI Agent 自述；运行时不读取。实现入口为同目录 capture.py。
+name = "gdi@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "Windows GDI 基板截图"
+recommended_condition_name = "不适用"
+description = """
+用于 Windows 桌面的 Phantom 基板定位与持续截图。构造 Plugin 得到尚未运行的 worker，start 开始采集，
+stop 停止并释放资源，set_fps 调整上限，get_latest_result 取得最新独立快照；不积压历史帧。
+GDI 后端使用 GetSystemMetrics 获取包含负坐标的虚拟桌面，SetThreadDpiAwarenessContext 使用物理像素坐标，
+GetDC、CreateCompatibleDC、CreateCompatibleBitmap 与 BitBlt 完成截图，GetDIBits 自顶向下读取 BGRA，
+再转换为独立连续 RGB uint8 NumPy 数组。公共 worker 负责角标定位、尺寸与校验色检查、局部裁剪和错误状态。
+有效图像是整个基板而非单个条件值；无法定位或底层失败不退回历史有效图像。后台退出时释放 GDI 资源并恢复线程 DPI 上下文。
+"""
+
+[parameters.fps]
+type = "int | float"
+required = false
+default = 15
+description = "采集每秒帧数上限，有限正数；经注册器构造时另行拒绝 bool。构造和 set_fps 均默认 15，允许运行时调整，不补跑积压帧。"
+
+[returns]
+type = "CaptureResult"
+description = "get_latest_result 返回最新独立快照；构造与启停方法本身不返回条件业务值。"
+image = "RGBImage | None：连续 RGB uint8 NumPy 数组，形状 (height, width, 3)。有效帧为完整基板；未定位或底层失败为 None；校验失败可能附带不可作为业务输入的图像。"
+status = "CaptureStatus：has_error: bool 表示本次采集错误，description: str 描述具体原因；有效帧为 false 和空描述。"
+fallback = "未启动时 CaptureResult() 为 image=None、非错误及空描述；失败发布错误快照；主动停止保留最后结果，重新启动清除旧结果。"

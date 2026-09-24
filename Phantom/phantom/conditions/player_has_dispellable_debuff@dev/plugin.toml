@@ -1,0 +1,19 @@
+name = "player_has_dispellable_debuff@dev"
+author = "liantian-cn"
+version = "dev"
+# 显示实现：CellBackplate 提供固定黑底和行宽登记，背板→AuraContainer→AuraButton 使用静态层级。
+display_name = "玩家是否有指定类型可驱散减益"
+description = "AuraContainer:AddAuraSlot(key, \"HARMFUL|RAID_PLAYER_DISPELLABLE\", options)；options.candidateFilters.includeDispelTypes 为类型布尔映射，容器管理显示；UpdateAllAuras() 请求刷新。同时要求玩家可驱散与类型匹配；空表或全 false 匹配不到任何减益。不读取秘密 AuraData。"
+recommended_condition_name = "玩家是否有指定类型可驱散减益"
+
+[parameters.dispel_types]
+type = "table[str, bool]"
+required = true
+description = "dispel_types 父表必填；键限定 Magic/Poison/Disease/Curse/Stealth/Special/Enrage，值必须为严格布尔值。加载成功后将缺失子键补齐为 false；空表或全 false 不匹配。"
+
+[returns]
+type = "bool"
+description = "同时要求玩家可驱散与类型匹配；空表或全 false 匹配不到任何减益。不读取秘密 AuraData。"
+fallback = false
+
+# 刷新约定：事件通过 C_Timer.After(0, ...) 延后；无定时轮询。

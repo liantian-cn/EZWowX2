@@ -1,0 +1,490 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：demonhunter/havoc.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 目标光环限定不可辅助目标的 PLAYER|HARMFUL 减益；PLAYER 包含玩家、宠物和载具，排除其他来源。
+# 距离条件近似为当前步骤技能射程，忽略 TXT 码数；无效技能/无目标/nil 射程也返回 False。
+# 技能射程规则使用当前步骤动作 ID 对 target 的射程结果，无效射程返回 False。
+# 玩家周围人数近似为本步骤技能可攻击敌人总数，仅可观察 nameplate1–40；secret/nil 射程漏计，不代表原码数圆内完整人数。
+schema_version = 1
+uuid = "34bd3e23-3766-5126-bceb-03925ee23842"
+
+[profile]
+title = "恶魔猎手-浩劫"
+description = "恶魔猎手一键辅助"
+unit_class = "DEMONHUNTER"
+unit_class_id = 12
+unit_spec = 1
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "已学会刃舞"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [188499]
+
+[[conditions]]
+title = "刃舞可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [188499]
+
+[[conditions]]
+title = "刃舞冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [188499]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有恶魔变形_162264增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [162264]
+player_only = true
+
+[[conditions]]
+title = "目标有精华破碎_320338减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [320338]
+
+[[conditions]]
+title = "目标在刃舞技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 188499
+
+[[conditions]]
+title = "已学会混乱打击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [162794]
+
+[[conditions]]
+title = "混乱打击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [162794]
+
+[[conditions]]
+title = "混乱打击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [162794]
+ignore_gcd = true
+
+[[conditions]]
+title = "混乱打击对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 162794
+unit_token = "target"
+
+[[conditions]]
+title = "已学会投掷利刃"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [185123]
+
+[[conditions]]
+title = "投掷利刃可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [185123]
+
+[[conditions]]
+title = "投掷利刃冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [185123]
+ignore_gcd = true
+
+[[conditions]]
+title = "投掷利刃对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 185123
+unit_token = "target"
+
+[[conditions]]
+title = "玩家有收割者战刃增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [444686]
+player_only = true
+
+[[conditions]]
+title = "已学会献祭光环"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [258920]
+
+[[conditions]]
+title = "献祭光环可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [258920]
+
+[[conditions]]
+title = "献祭光环冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [258920]
+ignore_gcd = true
+
+[[conditions]]
+title = "献祭光环技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 258920
+combat_only = false
+
+[[conditions]]
+title = "已学会精华破碎_258860"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [258860]
+
+[[conditions]]
+title = "精华破碎_258860可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [258860]
+
+[[conditions]]
+title = "精华破碎_258860冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [258860]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在精华破碎_258860技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 258860
+
+[[conditions]]
+title = "已学会眼棱"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [198013]
+
+[[conditions]]
+title = "眼棱可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [198013]
+
+[[conditions]]
+title = "眼棱冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [198013]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在眼棱技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 198013
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "已学会恶魔变形_191427"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [191427]
+
+[[conditions]]
+title = "恶魔变形_191427可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [191427]
+
+[[conditions]]
+title = "恶魔变形_191427冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [191427]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会邪能冲撞"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [344865]
+
+[[conditions]]
+title = "邪能冲撞可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [344865]
+
+[[conditions]]
+title = "邪能冲撞冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [344865]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有冲撞惯性_1215159增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1215159]
+player_only = true
+
+[[conditions]]
+title = "已学会邪能之刃"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [232893]
+
+[[conditions]]
+title = "邪能之刃可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [232893]
+
+[[conditions]]
+title = "邪能之刃冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [232893]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会复仇回避"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [198793]
+
+[[conditions]]
+title = "复仇回避可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [198793]
+
+[[conditions]]
+title = "复仇回避冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [198793]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有冲撞惯性_427640增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [427640]
+player_only = true
+
+[[conditions]]
+title = "已学会恶魔追击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [370965]
+
+[[conditions]]
+title = "恶魔追击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [370965]
+
+[[conditions]]
+title = "恶魔追击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [370965]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有能量放射增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [206476]
+player_only = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "刃舞"
+macro_text = "/cast 刃舞"
+
+[[macros]]
+name = "混乱打击"
+macro_text = "/cast 混乱打击"
+
+[[macros]]
+name = "投掷利刃"
+macro_text = "/cast 投掷利刃"
+
+[[macros]]
+name = "献祭光环"
+macro_text = "/cast 献祭光环"
+
+[[macros]]
+name = "精华破碎"
+macro_text = "/cast 精华破碎"
+
+[[macros]]
+name = "眼棱"
+macro_text = "/cast 眼棱"
+
+[[macros]]
+name = "恶魔变形"
+macro_text = "/cast 恶魔变形"
+
+[[macros]]
+name = "邪能冲撞"
+macro_text = "/cast 邪能冲撞"
+
+[[macros]]
+name = "邪能之刃"
+macro_text = "/cast 邪能之刃"
+
+[[macros]]
+name = "复仇回避"
+macro_text = "/cast 复仇回避"
+
+[[macros]]
+name = "恶魔追击"
+macro_text = "/cast 恶魔追击"
+
+# 来源 demonhunter/havoc.txt:2，步骤 0，动作 ID 188499，TXT 冷却 15 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会刃舞 == True) and (刃舞可用 == True) and (刃舞冷却 == 0) and (玩家有恶魔变形_162264增益 == True) and (目标有精华破碎_320338减益 == True) and (目标在刃舞技能范围内 == True)"
+macro = "刃舞"
+annotate = "来源步骤 0：刃舞（ID 188499）"
+
+# 来源 demonhunter/havoc.txt:9，步骤 1，动作 ID 162794，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会混乱打击 == True) and (混乱打击可用 == True) and (混乱打击冷却 == 0) and (混乱打击对目标在射程内 == True) and (玩家有恶魔变形_162264增益 == True) and (目标有精华破碎_320338减益 == True)"
+macro = "混乱打击"
+annotate = "来源步骤 1：混乱打击（ID 162794）"
+
+# 来源 demonhunter/havoc.txt:16，步骤 2，动作 ID 185123，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会投掷利刃 == True) and (投掷利刃可用 == True) and (投掷利刃冷却 == 0) and (投掷利刃对目标在射程内 == True) and (玩家有收割者战刃增益 == True)"
+macro = "投掷利刃"
+annotate = "来源步骤 2：投掷利刃（ID 185123）"
+
+# 来源 demonhunter/havoc.txt:22，步骤 3，动作 ID 258920，TXT 冷却 2 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会献祭光环 == True) and (献祭光环可用 == True) and (献祭光环冷却 == 0) and (献祭光环技能可攻击敌人总数 > 3)"
+macro = "献祭光环"
+annotate = "来源步骤 3：献祭光环（ID 258920）"
+
+# 来源 demonhunter/havoc.txt:27，步骤 4，动作 ID 258860，TXT 冷却 40 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会精华破碎_258860 == True) and (精华破碎_258860可用 == True) and (精华破碎_258860冷却 == 0) and (目标在精华破碎_258860技能范围内 == True) and (玩家有恶魔变形_162264增益 == True) and (精华破碎_258860冷却 == 0)"
+macro = "精华破碎"
+annotate = "来源步骤 4：精华破碎（ID 258860）"
+
+# 来源 demonhunter/havoc.txt:34，步骤 5，动作 ID 188499，TXT 冷却 15 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会刃舞 == True) and (刃舞可用 == True) and (刃舞冷却 == 0) and (玩家有恶魔变形_162264增益 == True) and (目标在刃舞技能范围内 == True)"
+macro = "刃舞"
+annotate = "来源步骤 5：刃舞（ID 188499）"
+
+# 来源 demonhunter/havoc.txt:40，步骤 6，动作 ID 198013，TXT 冷却 30 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会眼棱 == True) and (眼棱可用 == True) and (眼棱冷却 == 0) and (目标在眼棱技能范围内 == True)"
+macro = "眼棱"
+annotate = "来源步骤 6：眼棱（ID 198013）"
+
+# 来源 demonhunter/havoc.txt:45，步骤 7，动作 ID 188499，TXT 冷却 15 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会刃舞 == True) and (刃舞可用 == True) and (刃舞冷却 == 0) and (目标在刃舞技能范围内 == True)"
+macro = "刃舞"
+annotate = "来源步骤 7：刃舞（ID 188499）"
+
+# 来源 demonhunter/havoc.txt:50，步骤 8，动作 ID 162794，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会混乱打击 == True) and (混乱打击可用 == True) and (混乱打击冷却 == 0) and (混乱打击对目标在射程内 == True) and (玩家有恶魔变形_162264增益 == True)"
+macro = "混乱打击"
+annotate = "来源步骤 8：混乱打击（ID 162794）"
+
+# 来源 demonhunter/havoc.txt:56，步骤 9，动作 ID 162794，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会混乱打击 == True) and (混乱打击可用 == True) and (混乱打击冷却 == 0) and (混乱打击对目标在射程内 == True)"
+macro = "混乱打击"
+annotate = "来源步骤 9：混乱打击（ID 162794）"
+
+# 来源 demonhunter/havoc.txt:61，步骤 10，动作 ID 185123，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会投掷利刃 == True) and (投掷利刃可用 == True) and (投掷利刃冷却 == 0) and (投掷利刃对目标在射程内 == True)"
+macro = "投掷利刃"
+annotate = "来源步骤 10：投掷利刃（ID 185123）"
+
+# 来源 demonhunter/havoc.txt:66，步骤 11，动作 ID 162794，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "混乱打击"
+annotate = "来源步骤 11：混乱打击（ID 162794）"
+
+# 来源 demonhunter/havoc.txt:67，步骤 12，动作 ID 258920，TXT 冷却 2 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会献祭光环 == True) and (献祭光环可用 == True) and (献祭光环冷却 == 0) and (献祭光环技能可攻击敌人总数 > 1)"
+macro = "献祭光环"
+annotate = "来源步骤 12：献祭光环（ID 258920）"
+
+# 来源 demonhunter/havoc.txt:72，步骤 13，动作 ID 191427，TXT 冷却 120 秒。
+# 来源行 76：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会恶魔变形_191427 == True) and (恶魔变形_191427可用 == True) and (恶魔变形_191427冷却 == 0)"
+macro = "恶魔变形"
+annotate = "来源步骤 13：恶魔变形（ID 191427）"
+
+# 来源 demonhunter/havoc.txt:77，步骤 14，动作 ID 344865，TXT 冷却 0 秒。
+# 来源行 82：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (已学会邪能冲撞 == True) and (邪能冲撞可用 == True) and (邪能冲撞冷却 == 0) and (玩家有冲撞惯性_1215159增益 == True)"
+macro = "邪能冲撞"
+annotate = "来源步骤 14：邪能冲撞（ID 344865）"
+
+# 来源 demonhunter/havoc.txt:83，步骤 15，动作 ID 232893，TXT 冷却 12 秒。
+# 来源行 87：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (已学会邪能之刃 == True) and (邪能之刃可用 == True) and (邪能之刃冷却 == 0)"
+macro = "邪能之刃"
+annotate = "来源步骤 15：邪能之刃（ID 232893）"
+
+# 来源 demonhunter/havoc.txt:88，步骤 16，动作 ID 198793，TXT 冷却 0 秒。
+# 来源行 93：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (已学会复仇回避 == True) and (复仇回避可用 == True) and (复仇回避冷却 == 0) and (玩家有冲撞惯性_427640增益 == True)"
+macro = "复仇回避"
+annotate = "来源步骤 16：复仇回避（ID 198793）"
+
+# 来源 demonhunter/havoc.txt:94，步骤 17，动作 ID 370965，TXT 冷却 90 秒。
+# 来源行 98：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会恶魔追击 == True) and (恶魔追击可用 == True) and (恶魔追击冷却 == 0)"
+macro = "恶魔追击"
+annotate = "来源步骤 17：恶魔追击（ID 370965）"
+
+# 来源 demonhunter/havoc.txt:99，步骤 18，动作 ID 198793，TXT 冷却 0 秒。
+# 来源行 104：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (已学会复仇回避 == True) and (复仇回避可用 == True) and (复仇回避冷却 == 0) and (玩家有能量放射增益 == True)"
+macro = "复仇回避"
+annotate = "来源步骤 18：复仇回避（ID 198793）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

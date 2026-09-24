@@ -1,0 +1,572 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：warrior/fury.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 技能射程规则使用当前步骤动作 ID 对 target 的射程结果，无效射程返回 False。
+# 距离条件近似为当前步骤技能射程，忽略 TXT 码数；无效技能/无目标/nil 射程也返回 False。
+# 玩家周围人数近似为本步骤技能可攻击敌人总数，仅可观察 nameplate1–40；secret/nil 射程漏计，不代表原码数圆内完整人数。
+# 目标光环限定不可辅助目标的 PLAYER|HARMFUL 减益；PLAYER 包含玩家、宠物和载具，排除其他来源。
+schema_version = 1
+uuid = "71266bc1-e48c-5474-a602-b958e5f536c9"
+
+[profile]
+title = "战士-狂怒"
+description = "战士一键辅助"
+unit_class = "WARRIOR"
+unit_class_id = 1
+unit_spec = 2
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "玩家有激怒增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [184362]
+player_only = true
+
+[[conditions]]
+title = "已学会暴怒_184367"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [184367]
+
+[[conditions]]
+title = "暴怒_184367可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [184367]
+
+[[conditions]]
+title = "暴怒_184367冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [184367]
+ignore_gcd = true
+
+[[conditions]]
+title = "暴怒_184367对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 184367
+unit_token = "target"
+
+[[conditions]]
+title = "玩家有雷霆轰击增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [435615]
+player_only = true
+
+[[conditions]]
+title = "目标在雷霆一击技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 6343
+
+[[conditions]]
+title = "已学会雷霆一击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [6343]
+
+[[conditions]]
+title = "雷霆一击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [6343]
+
+[[conditions]]
+title = "雷霆一击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [6343]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在奥丁之怒技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 385059
+
+[[conditions]]
+title = "已学会奥丁之怒"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [385059]
+
+[[conditions]]
+title = "奥丁之怒可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [385059]
+
+[[conditions]]
+title = "奥丁之怒冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [385059]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有崩解闪电增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [436707]
+player_only = true
+
+[[conditions]]
+title = "玩家有旋风斩_85739增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [85739]
+player_only = true
+
+[[conditions]]
+title = "目标在旋风斩_190411技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 190411
+
+[[conditions]]
+title = "已学会旋风斩_190411"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [190411]
+
+[[conditions]]
+title = "旋风斩_190411技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 190411
+combat_only = false
+
+[[conditions]]
+title = "旋风斩_190411可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [190411]
+
+[[conditions]]
+title = "旋风斩_190411冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [190411]
+ignore_gcd = true
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "目标在剑刃风暴技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 227847
+
+[[conditions]]
+title = "已学会剑刃风暴"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [227847]
+
+[[conditions]]
+title = "剑刃风暴可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [227847]
+
+[[conditions]]
+title = "剑刃风暴冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [227847]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会斩杀"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [5308]
+
+[[conditions]]
+title = "斩杀可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [5308]
+
+[[conditions]]
+title = "斩杀冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [5308]
+ignore_gcd = true
+
+[[conditions]]
+title = "斩杀对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 5308
+unit_token = "target"
+
+[[conditions]]
+title = "雷霆一击技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 6343
+combat_only = false
+
+[[conditions]]
+title = "已学会怒击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [85288]
+
+[[conditions]]
+title = "怒击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [85288]
+
+[[conditions]]
+title = "怒击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [85288]
+ignore_gcd = true
+
+[[conditions]]
+title = "怒击对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 85288
+unit_token = "target"
+
+[[conditions]]
+title = "已学会嗜血"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [23881]
+
+[[conditions]]
+title = "嗜血可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [23881]
+
+[[conditions]]
+title = "嗜血冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [23881]
+ignore_gcd = true
+
+[[conditions]]
+title = "嗜血对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 23881
+unit_token = "target"
+
+[[conditions]]
+title = "已学会英勇投掷"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [57755]
+
+[[conditions]]
+title = "英勇投掷可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [57755]
+
+[[conditions]]
+title = "英勇投掷冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [57755]
+ignore_gcd = true
+
+[[conditions]]
+title = "英勇投掷对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 57755
+unit_token = "target"
+
+[[conditions]]
+title = "目标在英勇投掷技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 57755
+
+[[conditions]]
+title = "玩家有暴怒_209694增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [209694]
+player_only = true
+
+[[conditions]]
+title = "已学会鲁莽"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1719]
+
+[[conditions]]
+title = "鲁莽可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1719]
+
+[[conditions]]
+title = "鲁莽冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1719]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会天神下凡"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [107574]
+
+[[conditions]]
+title = "天神下凡可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [107574]
+
+[[conditions]]
+title = "天神下凡冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [107574]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标有撕裂减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [388539]
+
+[[conditions]]
+title = "玩家有血怒风暴增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1299025]
+player_only = true
+
+[[conditions]]
+title = "已学会战斗怒吼"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [6673]
+
+[[conditions]]
+title = "战斗怒吼可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [6673]
+
+[[conditions]]
+title = "战斗怒吼冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [6673]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有战斗怒吼高亮增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1271909]
+player_only = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "暴怒"
+macro_text = "/cast 暴怒"
+
+[[macros]]
+name = "雷霆一击"
+macro_text = "/cast 雷霆一击"
+
+[[macros]]
+name = "奥丁之怒"
+macro_text = "/cast 奥丁之怒"
+
+[[macros]]
+name = "旋风斩"
+macro_text = "/cast 旋风斩"
+
+[[macros]]
+name = "剑刃风暴"
+macro_text = "/cast 剑刃风暴"
+
+[[macros]]
+name = "斩杀"
+macro_text = "/cast 斩杀"
+
+[[macros]]
+name = "怒击"
+macro_text = "/cast 怒击"
+
+[[macros]]
+name = "嗜血"
+macro_text = "/cast 嗜血"
+
+[[macros]]
+name = "英勇投掷"
+macro_text = "/cast 英勇投掷"
+
+[[macros]]
+name = "猛击"
+macro_text = "/cast 猛击"
+
+[[macros]]
+name = "鲁莽"
+macro_text = "/cast 鲁莽"
+
+[[macros]]
+name = "天神下凡"
+macro_text = "/cast 天神下凡"
+
+[[macros]]
+name = "战斗怒吼"
+macro_text = "/cast 战斗怒吼"
+
+# 来源 warrior/fury.txt:2，步骤 0，动作 ID 184367，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (玩家有激怒增益 == False) and (已学会暴怒_184367 == True) and (暴怒_184367可用 == True) and (暴怒_184367冷却 == 0) and (暴怒_184367对目标在射程内 == True)"
+macro = "暴怒"
+annotate = "来源步骤 0：暴怒（ID 184367）"
+
+# 来源 warrior/fury.txt:8，步骤 1，动作 ID 6343，TXT 冷却 6 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (玩家有雷霆轰击增益 == True) and (目标在雷霆一击技能范围内 == True) and (玩家有激怒增益 == True) and (已学会雷霆一击 == True) and (雷霆一击可用 == True) and (雷霆一击冷却 == 0)"
+macro = "雷霆一击"
+annotate = "来源步骤 1：雷霆一击（ID 6343）"
+
+# 来源 warrior/fury.txt:15，步骤 2，动作 ID 385059，TXT 冷却 45 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (目标在奥丁之怒技能范围内 == True) and (已学会奥丁之怒 == True) and (奥丁之怒可用 == True) and (奥丁之怒冷却 == 0)"
+macro = "奥丁之怒"
+annotate = "来源步骤 2：奥丁之怒（ID 385059）"
+
+# 来源 warrior/fury.txt:20，步骤 3，动作 ID 6343，TXT 冷却 6 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (目标在雷霆一击技能范围内 == True) and (玩家有崩解闪电增益 == True) and (已学会雷霆一击 == True) and (玩家有旋风斩_85739增益 == False) and (已学会雷霆一击 == True) and (雷霆一击可用 == True) and (雷霆一击冷却 == 0)"
+macro = "雷霆一击"
+annotate = "来源步骤 3：雷霆一击（ID 6343）"
+
+# 来源 warrior/fury.txt:28，步骤 4，动作 ID 190411，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (目标在旋风斩_190411技能范围内 == True) and (玩家有崩解闪电增益 == False) and (已学会旋风斩_190411 == True) and (玩家有旋风斩_85739增益 == False) and (旋风斩_190411技能可攻击敌人总数 > 3) and (已学会旋风斩_190411 == True) and (旋风斩_190411可用 == True) and (旋风斩_190411冷却 == 0)"
+macro = "旋风斩"
+annotate = "来源步骤 4：旋风斩（ID 190411）"
+
+# 来源 warrior/fury.txt:37，步骤 5，动作 ID 227847，TXT 冷却 90 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (目标在剑刃风暴技能范围内 == True) and (玩家有激怒增益 == True) and (已学会剑刃风暴 == True) and (剑刃风暴可用 == True) and (剑刃风暴冷却 == 0)"
+macro = "剑刃风暴"
+annotate = "来源步骤 5：剑刃风暴（ID 227847）"
+
+# 来源 warrior/fury.txt:43，步骤 6，动作 ID 184367，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会暴怒_184367 == True) and (暴怒_184367可用 == True) and (暴怒_184367冷却 == 0) and (暴怒_184367对目标在射程内 == True)"
+macro = "暴怒"
+annotate = "来源步骤 6：暴怒（ID 184367）"
+
+# 来源 warrior/fury.txt:48，步骤 7，动作 ID 5308，TXT 冷却 6 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会斩杀 == True) and (斩杀可用 == True) and (斩杀冷却 == 0) and (斩杀对目标在射程内 == True)"
+macro = "斩杀"
+annotate = "来源步骤 7：斩杀（ID 5308）"
+
+# 来源 warrior/fury.txt:53，步骤 8，动作 ID 6343，TXT 冷却 6 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (目标在雷霆一击技能范围内 == True) and (玩家有崩解闪电增益 == True) and (雷霆一击技能可攻击敌人总数 > 3) and (已学会雷霆一击 == True) and (雷霆一击可用 == True) and (雷霆一击冷却 == 0)"
+macro = "雷霆一击"
+annotate = "来源步骤 8：雷霆一击（ID 6343）"
+
+# 来源 warrior/fury.txt:60，步骤 9，动作 ID 85288，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会怒击 == True) and (怒击可用 == True) and (怒击冷却 == 0) and (怒击对目标在射程内 == True)"
+macro = "怒击"
+annotate = "来源步骤 9：怒击（ID 85288）"
+
+# 来源 warrior/fury.txt:65，步骤 10，动作 ID 23881，TXT 冷却 5 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会嗜血 == True) and (嗜血可用 == True) and (嗜血冷却 == 0) and (嗜血对目标在射程内 == True)"
+macro = "嗜血"
+annotate = "来源步骤 10：嗜血（ID 23881）"
+
+# 来源 warrior/fury.txt:70，步骤 11，动作 ID 6343，TXT 冷却 6 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (目标在雷霆一击技能范围内 == True) and (玩家有崩解闪电增益 == True) and (已学会雷霆一击 == True) and (雷霆一击可用 == True) and (雷霆一击冷却 == 0)"
+macro = "雷霆一击"
+annotate = "来源步骤 11：雷霆一击（ID 6343）"
+
+# 来源 warrior/fury.txt:76，步骤 12，动作 ID 57755，TXT 冷却 6 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会英勇投掷 == True) and (英勇投掷可用 == True) and (英勇投掷冷却 == 0) and (英勇投掷对目标在射程内 == True) and (目标在英勇投掷技能范围内 == False)"
+macro = "英勇投掷"
+annotate = "来源步骤 12：英勇投掷（ID 57755）"
+
+# 来源 warrior/fury.txt:82，步骤 13，动作 ID 1464，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (玩家有暴怒_209694增益 == False)"
+macro = "猛击"
+annotate = "来源步骤 13：猛击（ID 1464）"
+
+# 来源 warrior/fury.txt:84，步骤 14，动作 ID 1719，TXT 冷却 90 秒。
+# 来源行 89：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会鲁莽 == True) and (鲁莽可用 == True) and (鲁莽冷却 == 0) and (鲁莽冷却 == 0)"
+macro = "鲁莽"
+annotate = "来源步骤 14：鲁莽（ID 1719）"
+
+# 来源 warrior/fury.txt:90，步骤 15，动作 ID 107574，TXT 冷却 90 秒。
+# 来源行 95：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会天神下凡 == True) and (天神下凡可用 == True) and (天神下凡冷却 == 0) and (天神下凡冷却 == 0)"
+macro = "天神下凡"
+annotate = "来源步骤 15：天神下凡（ID 107574）"
+
+# 来源 warrior/fury.txt:96，步骤 16，动作 ID 6343，TXT 冷却 6 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (目标有撕裂减益 == False) and (雷霆一击可用 == True) and (雷霆一击冷却 == 0) and (玩家有血怒风暴增益 == True) and (已学会雷霆一击 == True) and (玩家有崩解闪电增益 == True)"
+macro = "雷霆一击"
+annotate = "来源步骤 16：雷霆一击（ID 6343）"
+
+# 来源 warrior/fury.txt:103，步骤 17，动作 ID 190411，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (旋风斩_190411冷却 == 0)"
+macro = "旋风斩"
+annotate = "来源步骤 17：旋风斩（ID 190411）"
+
+# 来源 warrior/fury.txt:105，步骤 18，动作 ID 6673，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会战斗怒吼 == True) and (战斗怒吼可用 == True) and (战斗怒吼冷却 == 0) and (玩家有战斗怒吼高亮增益 == True)"
+macro = "战斗怒吼"
+annotate = "来源步骤 18：战斗怒吼（ID 6673）"
+
+# 来源 warrior/fury.txt:110，步骤 19，动作 ID 190411，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (目标有撕裂减益 == False) and (已学会旋风斩_190411 == True) and (旋风斩_190411可用 == True) and (旋风斩_190411冷却 == 0) and (玩家有血怒风暴增益 == True)"
+macro = "旋风斩"
+annotate = "来源步骤 19：旋风斩（ID 190411）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

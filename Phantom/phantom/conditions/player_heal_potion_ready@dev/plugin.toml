@@ -1,0 +1,16 @@
+name = "player_heal_potion_ready@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "治疗药水是否准备就绪"
+description = "start, duration, enabled = C_Item.GetItemCooldown(itemID)；usable, noMana = C_Item.IsUsableItem(itemID)；返回冷却及可用状态。固定物品 258138；冷却为零且启用、可用、不缺资源。不另查背包数量。"
+recommended_condition_name = "治疗药水是否准备就绪"
+
+[parameters]
+description = "无参数，拒绝多余字段。"
+
+[returns]
+type = "bool"
+description = "固定物品 258138；冷却为零且启用、可用、不缺资源。不另查背包数量。"
+fallback = false
+
+# 刷新约定：事件通过 C_Timer.After(0, ...) 延后；UPDATE_INTERVAL = 1 秒兜底。

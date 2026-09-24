@@ -1,0 +1,16 @@
+name = "focus_cast_icon@dev"
+# 通过 IconTile:SetIcon 直接显示，不消费 SetTexture 返回值，不比较秘密 texture。
+# 单位消失或无施法时清空；不保证设置失败时隐藏角标，实际客户端仍待验收。
+author = "liantian-cn"
+version = "dev"
+display_name = "焦点施法或引导图标"
+description = "存在且当前有施法或引导；纹理直接显示且不消费设置返回值，内部 6×6 hash，空槽或解码异常为空字符串。单位消失或无施法时清空。沿用玩家图标样式，角标不表示打断许可。"
+recommended_condition_name = "焦点施法或引导图标"
+
+[parameters]
+description = "无业务参数；拒绝多余字段。"
+
+[returns]
+type = "str"
+description = "内部 6×6 hash，空槽或解码异常为空字符串；不保证纹理设置失败时隐藏角标。"
+fallback = ""

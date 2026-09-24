@@ -1,0 +1,496 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：mage/arcane.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 资源 max_power 为固定参考，须按天赋调整；临时上限变化会有误差，Cell 量化步长约为 max_power/255。
+# 法力特例：TXT 数值除以 10 作为百分比，max_power=100，不作绝对法力值。
+# 玩家周围人数近似为本步骤技能可攻击敌人总数，仅可观察 nameplate1–40；secret/nil 射程漏计，不代表原码数圆内完整人数。
+# 层数使用固定显示量程；超量程饱和，零填充不能区分无光环与零层。
+# 目标光环限定不可辅助目标的 PLAYER|HARMFUL 减益；PLAYER 包含玩家、宠物和载具，排除其他来源。
+schema_version = 1
+uuid = "b2daf3de-4102-53fe-a709-449006a4bc51"
+
+[profile]
+title = "法师-奥术"
+description = "法师一键辅助"
+unit_class = "MAGE"
+unit_class_id = 8
+unit_spec = 1
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "已学会奥术飞弹"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [5143]
+
+[[conditions]]
+title = "奥术飞弹可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [5143]
+
+[[conditions]]
+title = "奥术飞弹冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [5143]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有节能施法增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [263725]
+player_only = true
+
+[[conditions]]
+title = "玩家有虚空精准增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [383783]
+player_only = true
+
+[[conditions]]
+title = "已学会奥术弹幕"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [44425]
+
+[[conditions]]
+title = "奥术弹幕可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [44425]
+
+[[conditions]]
+title = "奥术弹幕冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [44425]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家法力百分比"
+plugin = "spec_power_mana@dev"
+[conditions.plugin_args]
+max_power = 100
+
+[[conditions]]
+title = "玩家有奥术涌动_365362增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [365362]
+player_only = true
+
+[[conditions]]
+title = "已学会魔爆术"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1449]
+
+[[conditions]]
+title = "魔爆术可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1449]
+
+[[conditions]]
+title = "魔爆术冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1449]
+ignore_gcd = true
+
+[[conditions]]
+title = "魔爆术技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 1449
+combat_only = false
+
+[[conditions]]
+title = "玩家有增效增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [236628]
+player_only = true
+
+[[conditions]]
+title = "已学会奥术宝珠"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [153626]
+
+[[conditions]]
+title = "奥术宝珠可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [153626]
+
+[[conditions]]
+title = "奥术宝珠冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [153626]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家奥术充能"
+plugin = "spec_power_arcane_charges@dev"
+
+[[conditions]]
+title = "玩家有法球精通增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1243435]
+player_only = true
+
+[[conditions]]
+title = "玩家有咒焰齐射增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1260616]
+player_only = true
+
+[[conditions]]
+title = "玩家奥术齐射层数"
+plugin = "aura_player_buff_stacks@dev"
+[conditions.plugin_args]
+aura_ids = [1242974]
+max_value = 25
+min_value = 0
+width = 7
+player_only = true
+
+[[conditions]]
+title = "玩家有过载飞弹增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1277009]
+player_only = true
+
+[[conditions]]
+title = "玩家有高压增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [461248]
+player_only = true
+
+[[conditions]]
+title = "已学会大法师之触_321507"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [321507]
+
+[[conditions]]
+title = "大法师之触_321507可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [321507]
+
+[[conditions]]
+title = "大法师之触_321507冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [321507]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标有大法师之触_210824减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [210824]
+
+[[conditions]]
+title = "已学会奥术冲击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [30451]
+
+[[conditions]]
+title = "奥术冲击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [30451]
+
+[[conditions]]
+title = "奥术冲击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [30451]
+ignore_gcd = true
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "已学会奥术涌动_365350"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [365350]
+
+[[conditions]]
+title = "奥术涌动_365350可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [365350]
+
+[[conditions]]
+title = "奥术涌动_365350冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [365350]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会唤醒"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [12051]
+
+[[conditions]]
+title = "唤醒可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [12051]
+
+[[conditions]]
+title = "唤醒冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [12051]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会奥术智慧"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1459]
+
+[[conditions]]
+title = "奥术智慧可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1459]
+
+[[conditions]]
+title = "奥术智慧冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1459]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有奥术智慧高亮增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1271907]
+player_only = true
+
+[[conditions]]
+title = "玩家有奥术之魂增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [451038]
+player_only = true
+
+[[conditions]]
+title = "已学会棱彩飞弹_1295924"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1295924]
+
+[[conditions]]
+title = "棱彩飞弹_1295924可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1295924]
+
+[[conditions]]
+title = "棱彩飞弹_1295924冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1295924]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有棱彩飞弹_1295942增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1295942]
+player_only = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "奥术飞弹"
+macro_text = "/cast 奥术飞弹"
+
+[[macros]]
+name = "奥术弹幕"
+macro_text = "/cast 奥术弹幕"
+
+[[macros]]
+name = "魔爆术"
+macro_text = "/cast 魔爆术"
+
+[[macros]]
+name = "奥术宝珠"
+macro_text = "/cast 奥术宝珠"
+
+[[macros]]
+name = "大法师之触"
+macro_text = "/cast 大法师之触"
+
+[[macros]]
+name = "奥术冲击"
+macro_text = "/cast 奥术冲击"
+
+[[macros]]
+name = "奥术涌动"
+macro_text = "/cast 奥术涌动"
+
+[[macros]]
+name = "唤醒"
+macro_text = "/cast 唤醒"
+
+[[macros]]
+name = "奥术智慧"
+macro_text = "/cast 奥术智慧"
+
+[[macros]]
+name = "棱彩飞弹"
+macro_text = "/cast 棱彩飞弹"
+
+# 来源 mage/arcane.txt:2，步骤 0，动作 ID 5143，TXT 冷却 0 秒。
+# 来源行 8：TARGET_COUNT_NEAR_TARGET_LESS；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量小于等于 2 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会奥术飞弹 == True) and (奥术飞弹可用 == True) and (奥术飞弹冷却 == 0) and (玩家有节能施法增益 == True) and (玩家有虚空精准增益 == False) and (奥术飞弹可用 == True)"
+macro = "奥术飞弹"
+annotate = "来源步骤 0：奥术飞弹（ID 5143）"
+
+# 来源 mage/arcane.txt:10，步骤 1，动作 ID 44425，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会奥术弹幕 == True) and (奥术弹幕可用 == True) and (奥术弹幕冷却 == 0) and (玩家法力百分比 <= 10) and (玩家有奥术涌动_365362增益 == False)"
+macro = "奥术弹幕"
+annotate = "来源步骤 1：奥术弹幕（ID 44425）"
+
+# 来源 mage/arcane.txt:16，步骤 2，动作 ID 1449，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会魔爆术 == True) and (魔爆术可用 == True) and (魔爆术冷却 == 0) and (魔爆术技能可攻击敌人总数 > 3) and (玩家有增效增益 == False)"
+macro = "魔爆术"
+annotate = "来源步骤 2：魔爆术（ID 1449）"
+
+# 来源 mage/arcane.txt:22，步骤 3，动作 ID 153626，TXT 冷却 0 秒。
+# 来源行 27：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 2 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会奥术宝珠 == True) and (奥术宝珠可用 == True) and (奥术宝珠冷却 == 0) and (玩家奥术充能 <= 1) and (玩家有法球精通增益 == False)"
+macro = "奥术宝珠"
+annotate = "来源步骤 3：奥术宝珠（ID 153626）"
+
+# 来源 mage/arcane.txt:29，步骤 4，动作 ID 153626，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会奥术宝珠 == True) and (奥术宝珠可用 == True) and (奥术宝珠冷却 == 0) and (玩家奥术充能 <= 1) and (玩家有法球精通增益 == False)"
+macro = "奥术宝珠"
+annotate = "来源步骤 4：奥术宝珠（ID 153626）"
+
+# 来源 mage/arcane.txt:35，步骤 5，动作 ID 44425，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会奥术弹幕 == True) and (奥术弹幕可用 == True) and (奥术弹幕冷却 == 0) and (玩家奥术充能 >= 4) and (玩家有咒焰齐射增益 == True) and (玩家奥术齐射层数 >= 22)"
+macro = "奥术弹幕"
+annotate = "来源步骤 5：奥术弹幕（ID 44425）"
+
+# 来源 mage/arcane.txt:42，步骤 6，动作 ID 5143，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会奥术飞弹 == True) and (奥术飞弹可用 == True) and (奥术飞弹冷却 == 0) and (玩家有过载飞弹增益 == True)"
+macro = "奥术飞弹"
+annotate = "来源步骤 6：奥术飞弹（ID 5143）"
+
+# 来源 mage/arcane.txt:47，步骤 7，动作 ID 5143，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会奥术飞弹 == True) and (奥术飞弹可用 == True) and (奥术飞弹冷却 == 0) and (玩家有节能施法增益 == True) and (玩家有虚空精准增益 == False) and (玩家有高压增益 == True)"
+macro = "奥术飞弹"
+annotate = "来源步骤 7：奥术飞弹（ID 5143）"
+
+# 来源 mage/arcane.txt:54，步骤 8，动作 ID 44425，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "奥术弹幕"
+annotate = "来源步骤 8：奥术弹幕（ID 44425）"
+
+# 来源 mage/arcane.txt:55，步骤 9，动作 ID 321507，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会大法师之触_321507 == True) and (大法师之触_321507可用 == True) and (大法师之触_321507冷却 == 0) and (大法师之触_321507冷却 == 0) and (目标有大法师之触_210824减益 == False)"
+macro = "大法师之触"
+annotate = "来源步骤 9：大法师之触（ID 321507）"
+
+# 来源 mage/arcane.txt:61，步骤 10，动作 ID 30451，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会奥术冲击 == True) and (奥术冲击可用 == True) and (奥术冲击冷却 == 0) and (奥术冲击可用 == True)"
+macro = "奥术冲击"
+annotate = "来源步骤 10：奥术冲击（ID 30451）"
+
+# 来源 mage/arcane.txt:66，步骤 11，动作 ID 44425，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会奥术弹幕 == True) and (奥术弹幕可用 == True) and (奥术弹幕冷却 == 0) and (玩家奥术充能 >= 4) and (玩家有咒焰齐射增益 == False) and (玩家奥术齐射层数 >= 17)"
+macro = "奥术弹幕"
+annotate = "来源步骤 11：奥术弹幕（ID 44425）"
+
+# 来源 mage/arcane.txt:73，步骤 12，动作 ID 1449，TXT 冷却 0 秒。
+# 来源行 78：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会魔爆术 == True) and (已学会魔爆术 == True) and (魔爆术可用 == True) and (魔爆术冷却 == 0) and (魔爆术可用 == True)"
+macro = "魔爆术"
+annotate = "来源步骤 12：魔爆术（ID 1449）"
+
+# 来源 mage/arcane.txt:80，步骤 13，动作 ID 365350，TXT 冷却 90 秒。
+# 来源行 84：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会奥术涌动_365350 == True) and (奥术涌动_365350可用 == True) and (奥术涌动_365350冷却 == 0)"
+macro = "奥术涌动"
+annotate = "来源步骤 13：奥术涌动（ID 365350）"
+
+# 来源 mage/arcane.txt:85，步骤 14，动作 ID 12051，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会唤醒 == True) and (唤醒可用 == True) and (唤醒冷却 == 0) and (玩家法力百分比 <= 20) and (玩家有奥术涌动_365362增益 == False)"
+macro = "唤醒"
+annotate = "来源步骤 14：唤醒（ID 12051）"
+
+# 来源 mage/arcane.txt:91，步骤 15，动作 ID 1459，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会奥术智慧 == True) and (奥术智慧可用 == True) and (奥术智慧冷却 == 0) and (玩家有奥术智慧高亮增益 == True)"
+macro = "奥术智慧"
+annotate = "来源步骤 15：奥术智慧（ID 1459）"
+
+# 来源 mage/arcane.txt:96，步骤 16，动作 ID 44425，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会奥术弹幕 == True) and (奥术弹幕可用 == True) and (奥术弹幕冷却 == 0) and (玩家有奥术之魂增益 == True)"
+macro = "奥术弹幕"
+annotate = "来源步骤 16：奥术弹幕（ID 44425）"
+
+# 来源 mage/arcane.txt:101，步骤 17，动作 ID 153626，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会奥术宝珠 == True) and (奥术宝珠可用 == True) and (奥术宝珠冷却 == 0) and (玩家有法球精通增益 == True) and (玩家有节能施法增益 == True)"
+macro = "奥术宝珠"
+annotate = "来源步骤 17：奥术宝珠（ID 153626）"
+
+# 来源 mage/arcane.txt:107，步骤 18，动作 ID 1295924，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会棱彩飞弹_1295924 == True) and (棱彩飞弹_1295924可用 == True) and (棱彩飞弹_1295924冷却 == 0) and (玩家有棱彩飞弹_1295942增益 == True)"
+macro = "棱彩飞弹"
+annotate = "来源步骤 18：棱彩飞弹（ID 1295924）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

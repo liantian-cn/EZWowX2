@@ -1,0 +1,16 @@
+name = "item_cooldown_ready@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "指定物品库存与冷却就绪"
+description = "C_Item.GetItemCount 查询非银行库存，四个可选参数均 false；C_Item.GetItemCooldown 返回有效的非负有限 start/duration 且 enabled 为 true，并确认没有剩余冷却时返回真。不检查 usable 或资源。事件延至下一帧刷新，另有一秒随机错峰兜底。"
+recommended_condition_name = "{物品名称}冷却就绪"
+
+[parameters.item_id]
+type = "int"
+required = true
+description = "唯一物品 ID，必须是正整数，不接受 bool、列表或候选物品集合。"
+
+[returns]
+type = "bool"
+description = "一个严格黑白 Cell；仅使用静态公开 ID 的已核验普通返回路径，非银行库存大于零、冷却启用且剩余时间为零时为真。无库存、普通返回无效、API 异常及像素解码异常均为 false，不代表物品当前一定可使用。"
+fallback = false

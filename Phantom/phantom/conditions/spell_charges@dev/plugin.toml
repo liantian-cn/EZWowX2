@@ -1,0 +1,36 @@
+# AI Agent 自述；运行时不读取。参数与返回值以同目录实现为准。
+# 核验：2026-09-13，@wow-ui-source，12.1.0.69587
+# revision: a89e9d0ceb7f6cd31e8fc5ca7df1a338ac0b1b58
+# 定义：Interface/AddOns/Blizzard_APIDocumentationGenerated/ 下 SpellBookDocumentation.lua, SpellDocumentation.lua, SpellSharedDocumentation.lua
+name = "spell_charges@dev"
+assisted_combat_rule_types = ["ASSISTED_COMBAT_RULE_TYPE_SPELL_CHARGES_GREATER", "ASSISTED_COMBAT_RULE_TYPE_SPELL_CHARGES_LESS"]
+author = "liantian-cn"
+version = "dev"
+display_name = "技能充能层数"
+recommended_condition_name = "{技能名称}的充能层数"
+description = """
+C_SpellBook.IsSpellInSpellBook 从候选中选择首个匹配技能，C_Spell.GetSpellCharges 获取充能信息。Lua 将 currentCharges 直接交给 ValueBar 的 StatusBar 显示，不对秘密层数做算术；条的量程上限由 max_charges 决定，内容宽度由独立 width 决定。Python 统计内容区域的白色比例，乘 max_charges 后作非负四舍五入，返回整数层数。无匹配技能或无充能信息显示零层；法术书、充能和技能可用次数相关事件刷新。
+"""
+
+[parameters.spell_ids]
+type = "list[int]"
+required = true
+description = "按优先顺序排列的候选技能 ID，非空且每项为正整数，不接受 bool；选择首个匹配玩家法术书的技能，不合并候选结果。"
+
+[parameters.max_charges]
+type = "int"
+required = true
+description = "技能充能上限，正整数且不接受 bool 或 float；决定 Lua 数值条和 Python 解码量程，应与技能实际层数上限一致。"
+
+[parameters.width]
+type = "int"
+required = false
+description = "独立的 ValueBar 内容宽度，以 Cell 为单位，每单位 4 像素；显式值必须为正整数，不接受 bool 或 float，无上限。省略时取 max(1, ceil(max_charges/2))，同样无上限，派生默认值不补写配置；此默认会改变旧配置省略 width 时的布局。"
+
+[returns]
+type = "int"
+unit = "层"
+fallback = 0
+description = "0 到 max_charges 的充能数量标量；一个 ValueBar，内容尺寸为 4*width × 4 像素，含分隔为 4*(width+1) × 4；解码异常返回 0。"
+
+# 刷新约定：事件通过 C_Timer.After(0, ...) 延后；无定时轮询。

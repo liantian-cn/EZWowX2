@@ -1,0 +1,484 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：hunter/marksmanship.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 技能射程规则使用当前步骤动作 ID 对 target 的射程结果，无效射程返回 False。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 光环秒数以固定 duration 换算；实际实例时长、延长和天赋变化会产生误差。
+# 距离条件近似为当前步骤技能射程，忽略 TXT 码数；无效技能/无目标/nil 射程也返回 False。
+# 资源 max_power 为固定参考，须按天赋调整；临时上限变化会有误差，Cell 量化步长约为 max_power/255。
+# 充能 max_charges=2 是本批阈值所需显示量程，不宣称技能真实上限为 2。
+schema_version = 1
+uuid = "898409b8-be1a-519f-b1f4-0641b6b0548c"
+
+[profile]
+title = "猎人-射击"
+description = "猎人一键辅助"
+unit_class = "HUNTER"
+unit_class_id = 3
+unit_spec = 2
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "已学会多重射击_257620"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [257620]
+
+[[conditions]]
+title = "多重射击_257620可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [257620]
+
+[[conditions]]
+title = "多重射击_257620冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [257620]
+ignore_gcd = true
+
+[[conditions]]
+title = "多重射击_257620对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 257620
+unit_token = "target"
+
+[[conditions]]
+title = "玩家技巧射击剩余秒数"
+plugin = "aura_player_buff_duration@dev"
+[conditions.plugin_args]
+aura_ids = [257622]
+duration = 20
+width = 5
+player_only = true
+
+[[conditions]]
+title = "玩家有弹无虚发_260242增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [260242]
+player_only = true
+
+[[conditions]]
+title = "已学会急速射击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [257044]
+
+[[conditions]]
+title = "急速射击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [257044]
+
+[[conditions]]
+title = "急速射击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [257044]
+ignore_gcd = true
+
+[[conditions]]
+title = "急速射击对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 257044
+unit_token = "target"
+
+[[conditions]]
+title = "已学会乱射"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [260243]
+
+[[conditions]]
+title = "乱射可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [260243]
+
+[[conditions]]
+title = "乱射冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [260243]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在乱射技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 260243
+
+[[conditions]]
+title = "已学会瞄准射击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [19434]
+
+[[conditions]]
+title = "瞄准射击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [19434]
+
+[[conditions]]
+title = "瞄准射击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [19434]
+ignore_gcd = true
+
+[[conditions]]
+title = "瞄准射击对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 19434
+unit_token = "target"
+
+[[conditions]]
+title = "已学会夺命射击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [53351]
+
+[[conditions]]
+title = "夺命射击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [53351]
+
+[[conditions]]
+title = "夺命射击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [53351]
+ignore_gcd = true
+
+[[conditions]]
+title = "夺命射击对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 53351
+unit_token = "target"
+
+[[conditions]]
+title = "已学会稳固射击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [56641]
+
+[[conditions]]
+title = "稳固射击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [56641]
+
+[[conditions]]
+title = "稳固射击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [56641]
+ignore_gcd = true
+
+[[conditions]]
+title = "稳固射击对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 56641
+unit_token = "target"
+
+[[conditions]]
+title = "已学会多重射击_2643"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [2643]
+
+[[conditions]]
+title = "多重射击_2643可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [2643]
+
+[[conditions]]
+title = "多重射击_2643冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [2643]
+ignore_gcd = true
+
+[[conditions]]
+title = "多重射击_2643对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 2643
+unit_token = "target"
+
+[[conditions]]
+title = "玩家集中值"
+plugin = "spec_power_focus@dev"
+[conditions.plugin_args]
+max_power = 100
+
+[[conditions]]
+title = "玩家有黑蚀箭增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [466932]
+player_only = true
+
+[[conditions]]
+title = "已学会奥术射击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [185358]
+
+[[conditions]]
+title = "奥术射击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [185358]
+
+[[conditions]]
+title = "奥术射击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [185358]
+ignore_gcd = true
+
+[[conditions]]
+title = "奥术射击对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 185358
+unit_token = "target"
+
+[[conditions]]
+title = "玩家有技巧射击增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [257622]
+player_only = true
+
+[[conditions]]
+title = "瞄准射击充能"
+plugin = "spell_charges@dev"
+[conditions.plugin_args]
+spell_ids = [19434]
+max_charges = 2
+width = 1
+
+[[conditions]]
+title = "玩家有弹无虚发_260240增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [260240]
+player_only = true
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "已学会百发百中"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [288613]
+
+[[conditions]]
+title = "百发百中可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [288613]
+
+[[conditions]]
+title = "百发百中冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [288613]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会爆炸射击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [212431]
+
+[[conditions]]
+title = "爆炸射击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [212431]
+
+[[conditions]]
+title = "爆炸射击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [212431]
+ignore_gcd = true
+
+[[conditions]]
+title = "爆炸射击对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 212431
+unit_token = "target"
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "多重射击"
+macro_text = "/cast 多重射击"
+
+[[macros]]
+name = "急速射击"
+macro_text = "/cast 急速射击"
+
+[[macros]]
+name = "乱射"
+macro_text = "/cast 乱射"
+
+[[macros]]
+name = "瞄准射击"
+macro_text = "/cast 瞄准射击"
+
+[[macros]]
+name = "夺命射击"
+macro_text = "/cast 夺命射击"
+
+[[macros]]
+name = "稳固射击"
+macro_text = "/cast 稳固射击"
+
+[[macros]]
+name = "奥术射击"
+macro_text = "/cast 奥术射击"
+
+[[macros]]
+name = "百发百中"
+macro_text = "/cast 百发百中"
+
+[[macros]]
+name = "爆炸射击"
+macro_text = "/cast 爆炸射击"
+
+# 来源 hunter/marksmanship.txt:2，步骤 0，动作 ID 257620，TXT 冷却 0 秒。
+# 来源行 8：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会多重射击_257620 == True) and (多重射击_257620可用 == True) and (多重射击_257620冷却 == 0) and (多重射击_257620对目标在射程内 == True) and (玩家技巧射击剩余秒数 <= 2)"
+macro = "多重射击"
+annotate = "来源步骤 0：多重射击（ID 257620）"
+
+# 来源 hunter/marksmanship.txt:9，步骤 1，动作 ID 257620，TXT 冷却 0 秒。
+# 来源行 15：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会多重射击_257620 == True) and (多重射击_257620可用 == True) and (多重射击_257620冷却 == 0) and (多重射击_257620对目标在射程内 == True) and (玩家有弹无虚发_260242增益 == True)"
+macro = "多重射击"
+annotate = "来源步骤 1：多重射击（ID 257620）"
+
+# 来源 hunter/marksmanship.txt:16，步骤 2，动作 ID 257044，TXT 冷却 16 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会急速射击 == True) and (急速射击可用 == True) and (急速射击冷却 == 0) and (急速射击对目标在射程内 == True)"
+macro = "急速射击"
+annotate = "来源步骤 2：急速射击（ID 257044）"
+
+# 来源 hunter/marksmanship.txt:21，步骤 3，动作 ID 260243，TXT 冷却 45 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会乱射 == True) and (乱射可用 == True) and (乱射冷却 == 0) and (目标在乱射技能范围内 == True)"
+macro = "乱射"
+annotate = "来源步骤 3：乱射（ID 260243）"
+
+# 来源 hunter/marksmanship.txt:26，步骤 4，动作 ID 19434，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会瞄准射击 == True) and (瞄准射击可用 == True) and (瞄准射击冷却 == 0) and (瞄准射击对目标在射程内 == True)"
+macro = "瞄准射击"
+annotate = "来源步骤 4：瞄准射击（ID 19434）"
+
+# 来源 hunter/marksmanship.txt:31，步骤 5，动作 ID 53351，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会夺命射击 == True) and (夺命射击可用 == True) and (夺命射击冷却 == 0) and (夺命射击对目标在射程内 == True)"
+macro = "夺命射击"
+annotate = "来源步骤 5：夺命射击（ID 53351）"
+
+# 来源 hunter/marksmanship.txt:36，步骤 6，动作 ID 56641，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会稳固射击 == True) and (稳固射击可用 == True) and (稳固射击冷却 == 0) and (稳固射击对目标在射程内 == True) and (稳固射击可用 == True)"
+macro = "稳固射击"
+annotate = "来源步骤 6：稳固射击（ID 56641）"
+
+# 来源 hunter/marksmanship.txt:42，步骤 7，动作 ID 2643，TXT 冷却 0 秒。
+# 来源行 47：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会多重射击_2643 == True) and (多重射击_2643可用 == True) and (多重射击_2643冷却 == 0) and (多重射击_2643对目标在射程内 == True) and (玩家集中值 >= 90)"
+macro = "多重射击"
+annotate = "来源步骤 7：多重射击（ID 2643）"
+
+# 来源 hunter/marksmanship.txt:49，步骤 8，动作 ID 53351，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会夺命射击 == True) and (夺命射击可用 == True) and (夺命射击冷却 == 0) and (夺命射击对目标在射程内 == True) and (玩家有黑蚀箭增益 == True)"
+macro = "夺命射击"
+annotate = "来源步骤 8：夺命射击（ID 53351）"
+
+# 来源 hunter/marksmanship.txt:55，步骤 9，动作 ID 185358，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会奥术射击 == True) and (奥术射击可用 == True) and (奥术射击冷却 == 0) and (奥术射击对目标在射程内 == True) and (玩家有弹无虚发_260242增益 == True)"
+macro = "奥术射击"
+annotate = "来源步骤 9：奥术射击（ID 185358）"
+
+# 来源 hunter/marksmanship.txt:61，步骤 10，动作 ID 257620，TXT 冷却 0 秒。
+# 来源行 67：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会多重射击_257620 == True) and (多重射击_257620可用 == True) and (多重射击_257620冷却 == 0) and (多重射击_257620对目标在射程内 == True) and (玩家有技巧射击增益 == False)"
+macro = "多重射击"
+annotate = "来源步骤 10：多重射击（ID 257620）"
+
+# 来源 hunter/marksmanship.txt:68，步骤 11，动作 ID 19434，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会瞄准射击 == True)"
+macro = "瞄准射击"
+annotate = "来源步骤 11：瞄准射击（ID 19434）"
+
+# 来源 hunter/marksmanship.txt:70，步骤 12，动作 ID 19434，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会瞄准射击 == True) and (瞄准射击可用 == True) and (瞄准射击冷却 == 0) and (瞄准射击对目标在射程内 == True) and (瞄准射击可用 == True) and (瞄准射击充能 >= 2)"
+macro = "瞄准射击"
+annotate = "来源步骤 12：瞄准射击（ID 19434）"
+
+# 来源 hunter/marksmanship.txt:77，步骤 13，动作 ID 56641，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "稳固射击"
+annotate = "来源步骤 13：稳固射击（ID 56641）"
+
+# 来源 hunter/marksmanship.txt:78，步骤 14，动作 ID 185358，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会奥术射击 == True) and (奥术射击可用 == True) and (奥术射击冷却 == 0) and (玩家有弹无虚发_260240增益 == False)"
+macro = "奥术射击"
+annotate = "来源步骤 14：奥术射击（ID 185358）"
+
+# 来源 hunter/marksmanship.txt:83，步骤 15，动作 ID 288613，TXT 冷却 120 秒。
+# 来源行 87：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会百发百中 == True) and (百发百中可用 == True) and (百发百中冷却 == 0)"
+macro = "百发百中"
+annotate = "来源步骤 15：百发百中（ID 288613）"
+
+# 来源 hunter/marksmanship.txt:88，步骤 16，动作 ID 212431，TXT 冷却 30 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会爆炸射击 == True) and (爆炸射击可用 == True) and (爆炸射击冷却 == 0) and (爆炸射击对目标在射程内 == True)"
+macro = "爆炸射击"
+annotate = "来源步骤 16：爆炸射击（ID 212431）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

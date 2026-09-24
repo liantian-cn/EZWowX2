@@ -1,0 +1,438 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：demonhunter/vengeance.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 技能射程规则使用当前步骤动作 ID 对 target 的射程结果，无效射程返回 False。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 距离条件近似为当前步骤技能射程，忽略 TXT 码数；无效技能/无目标/nil 射程也返回 False。
+# 目标光环限定不可辅助目标的 PLAYER|HARMFUL 减益；PLAYER 包含玩家、宠物和载具，排除其他来源。
+# 玩家周围人数近似为本步骤技能可攻击敌人总数，仅可观察 nameplate1–40；secret/nil 射程漏计，不代表原码数圆内完整人数。
+# 层数使用固定显示量程；超量程饱和，零填充不能区分无光环与零层。
+schema_version = 1
+uuid = "a8baf779-6195-578b-8588-17713d6a524f"
+
+[profile]
+title = "恶魔猎手-复仇"
+description = "恶魔猎手一键辅助"
+unit_class = "DEMONHUNTER"
+unit_class_id = 12
+unit_spec = 2
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "已学会投掷利刃"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [204157]
+
+[[conditions]]
+title = "投掷利刃可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [204157]
+
+[[conditions]]
+title = "投掷利刃冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [204157]
+ignore_gcd = true
+
+[[conditions]]
+title = "投掷利刃对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 204157
+unit_token = "target"
+
+[[conditions]]
+title = "玩家有收割者战刃增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [444764]
+player_only = true
+
+[[conditions]]
+title = "已学会裂魂"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [203782]
+
+[[conditions]]
+title = "裂魂可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [203782]
+
+[[conditions]]
+title = "裂魂冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [203782]
+ignore_gcd = true
+
+[[conditions]]
+title = "裂魂对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 203782
+unit_token = "target"
+
+[[conditions]]
+title = "玩家有撕裂猛击增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [442442]
+player_only = true
+
+[[conditions]]
+title = "已学会灵魂裂劈"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [228477]
+
+[[conditions]]
+title = "灵魂裂劈可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [228477]
+
+[[conditions]]
+title = "灵魂裂劈冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [228477]
+ignore_gcd = true
+
+[[conditions]]
+title = "灵魂裂劈对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 228477
+unit_token = "target"
+
+[[conditions]]
+title = "玩家有战刃乱舞增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [442435]
+player_only = true
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "已学会灵魂切削"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [207407]
+
+[[conditions]]
+title = "灵魂切削可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [207407]
+
+[[conditions]]
+title = "灵魂切削冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [207407]
+ignore_gcd = true
+
+[[conditions]]
+title = "灵魂切削对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 207407
+unit_token = "target"
+
+[[conditions]]
+title = "已学会怨念咒符"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [390163]
+
+[[conditions]]
+title = "怨念咒符可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [390163]
+
+[[conditions]]
+title = "怨念咒符冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [390163]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在怨念咒符技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 390163
+
+[[conditions]]
+title = "已学会烈焰咒符_204596"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [204596]
+
+[[conditions]]
+title = "烈焰咒符_204596可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [204596]
+
+[[conditions]]
+title = "烈焰咒符_204596冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [204596]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在烈焰咒符_204596技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 204596
+
+[[conditions]]
+title = "目标有烈焰咒符_204598减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [204598]
+
+[[conditions]]
+title = "已学会献祭光环"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [258920]
+
+[[conditions]]
+title = "献祭光环可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [258920]
+
+[[conditions]]
+title = "献祭光环冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [258920]
+ignore_gcd = true
+
+[[conditions]]
+title = "献祭光环技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 258920
+combat_only = false
+
+[[conditions]]
+title = "已学会幽魂炸弹"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [247454]
+
+[[conditions]]
+title = "幽魂炸弹可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [247454]
+
+[[conditions]]
+title = "幽魂炸弹冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [247454]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家灵魂残片层数"
+plugin = "aura_player_buff_stacks@dev"
+[conditions.plugin_args]
+aura_ids = [203981]
+max_value = 20
+min_value = 0
+width = 5
+player_only = true
+
+[[conditions]]
+title = "已学会破裂"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [263642]
+
+[[conditions]]
+title = "破裂可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [263642]
+
+[[conditions]]
+title = "破裂冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [263642]
+ignore_gcd = true
+
+[[conditions]]
+title = "破裂对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 263642
+unit_token = "target"
+
+[[conditions]]
+title = "已学会恶魔变形"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [187827]
+
+[[conditions]]
+title = "恶魔变形可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [187827]
+
+[[conditions]]
+title = "恶魔变形冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [187827]
+ignore_gcd = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "投掷利刃"
+macro_text = "/cast 投掷利刃"
+
+[[macros]]
+name = "裂魂"
+macro_text = "/cast 裂魂"
+
+[[macros]]
+name = "灵魂裂劈"
+macro_text = "/cast 灵魂裂劈"
+
+[[macros]]
+name = "灵魂切削"
+macro_text = "/cast 灵魂切削"
+
+[[macros]]
+name = "怨念咒符"
+macro_text = "/cast 怨念咒符"
+
+[[macros]]
+name = "烈焰咒符"
+macro_text = "/cast 烈焰咒符"
+
+[[macros]]
+name = "献祭光环"
+macro_text = "/cast 献祭光环"
+
+[[macros]]
+name = "幽魂炸弹"
+macro_text = "/cast 幽魂炸弹"
+
+[[macros]]
+name = "破裂"
+macro_text = "/cast 破裂"
+
+[[macros]]
+name = "恶魔变形"
+macro_text = "/cast 恶魔变形"
+
+# 来源 demonhunter/vengeance.txt:2，步骤 0，动作 ID 204157，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会投掷利刃 == True) and (投掷利刃可用 == True) and (投掷利刃冷却 == 0) and (投掷利刃对目标在射程内 == True) and (玩家有收割者战刃增益 == True)"
+macro = "投掷利刃"
+annotate = "来源步骤 0：投掷利刃（ID 204157）"
+
+# 来源 demonhunter/vengeance.txt:8，步骤 1，动作 ID 203782，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会裂魂 == True) and (裂魂可用 == True) and (裂魂冷却 == 0) and (裂魂对目标在射程内 == True) and (玩家有撕裂猛击增益 == True)"
+macro = "裂魂"
+annotate = "来源步骤 1：裂魂（ID 203782）"
+
+# 来源 demonhunter/vengeance.txt:14，步骤 2，动作 ID 228477，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会灵魂裂劈 == True) and (灵魂裂劈可用 == True) and (灵魂裂劈冷却 == 0) and (灵魂裂劈对目标在射程内 == True) and (玩家有战刃乱舞增益 == True)"
+macro = "灵魂裂劈"
+annotate = "来源步骤 2：灵魂裂劈（ID 228477）"
+
+# 来源 demonhunter/vengeance.txt:20，步骤 3，动作 ID 207407，TXT 冷却 60 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会灵魂切削 == True) and (灵魂切削可用 == True) and (灵魂切削冷却 == 0) and (灵魂切削对目标在射程内 == True)"
+macro = "灵魂切削"
+annotate = "来源步骤 3：灵魂切削（ID 207407）"
+
+# 来源 demonhunter/vengeance.txt:25，步骤 4，动作 ID 390163，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会怨念咒符 == True) and (怨念咒符可用 == True) and (怨念咒符冷却 == 0) and (目标在怨念咒符技能范围内 == True)"
+macro = "怨念咒符"
+annotate = "来源步骤 4：怨念咒符（ID 390163）"
+
+# 来源 demonhunter/vengeance.txt:30，步骤 5，动作 ID 204596，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会烈焰咒符_204596 == True) and (烈焰咒符_204596可用 == True) and (烈焰咒符_204596冷却 == 0) and (目标在烈焰咒符_204596技能范围内 == True) and (目标有烈焰咒符_204598减益 == False)"
+macro = "烈焰咒符"
+annotate = "来源步骤 5：烈焰咒符（ID 204596）"
+
+# 来源 demonhunter/vengeance.txt:36，步骤 6，动作 ID 258920，TXT 冷却 2 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会献祭光环 == True) and (献祭光环可用 == True) and (献祭光环冷却 == 0) and (献祭光环技能可攻击敌人总数 > 1)"
+macro = "献祭光环"
+annotate = "来源步骤 6：献祭光环（ID 258920）"
+
+# 来源 demonhunter/vengeance.txt:41，步骤 7，动作 ID 247454，TXT 冷却 25 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会幽魂炸弹 == True) and (幽魂炸弹可用 == True) and (幽魂炸弹冷却 == 0) and (玩家灵魂残片层数 >= 4)"
+macro = "幽魂炸弹"
+annotate = "来源步骤 7：幽魂炸弹（ID 247454）"
+
+# 来源 demonhunter/vengeance.txt:46，步骤 8，动作 ID 263642，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会破裂 == True) and (破裂可用 == True) and (破裂冷却 == 0) and (破裂对目标在射程内 == True) and (已学会破裂 == True)"
+macro = "破裂"
+annotate = "来源步骤 8：破裂（ID 263642）"
+
+# 来源 demonhunter/vengeance.txt:52，步骤 9，动作 ID 228477，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会灵魂裂劈 == True) and (灵魂裂劈可用 == True) and (灵魂裂劈冷却 == 0) and (灵魂裂劈对目标在射程内 == True)"
+macro = "灵魂裂劈"
+annotate = "来源步骤 9：灵魂裂劈（ID 228477）"
+
+# 来源 demonhunter/vengeance.txt:57，步骤 10，动作 ID 204157，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会投掷利刃 == True) and (投掷利刃可用 == True) and (投掷利刃冷却 == 0) and (投掷利刃对目标在射程内 == True)"
+macro = "投掷利刃"
+annotate = "来源步骤 10：投掷利刃（ID 204157）"
+
+# 来源 demonhunter/vengeance.txt:62，步骤 11，动作 ID 228477，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "灵魂裂劈"
+annotate = "来源步骤 11：灵魂裂劈（ID 228477）"
+
+# 来源 demonhunter/vengeance.txt:63，步骤 12，动作 ID 187827，TXT 冷却 0 秒。
+# 来源行 67：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (已学会恶魔变形 == True) and (恶魔变形可用 == True) and (恶魔变形冷却 == 0)"
+macro = "恶魔变形"
+annotate = "来源步骤 12：恶魔变形（ID 187827）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

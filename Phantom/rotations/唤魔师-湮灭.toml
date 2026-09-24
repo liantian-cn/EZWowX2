@@ -1,0 +1,447 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：evoker/devastation.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 目标光环限定不可辅助目标的 PLAYER|HARMFUL 减益；PLAYER 包含玩家、宠物和载具，排除其他来源。
+# 距离条件近似为当前步骤技能射程，忽略 TXT 码数；无效技能/无目标/nil 射程也返回 False。
+# 层数使用固定显示量程；超量程饱和，零填充不能区分无光环与零层。
+schema_version = 1
+uuid = "10d2b9dc-91bc-5945-92e1-0145e8dce75c"
+
+[profile]
+title = "唤魔师-湮灭"
+description = "唤魔师一键辅助"
+unit_class = "EVOKER"
+unit_class_id = 13
+unit_spec = 1
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "已学会火焰吐息_357208"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [357208]
+
+[[conditions]]
+title = "火焰吐息_357208可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [357208]
+
+[[conditions]]
+title = "火焰吐息_357208冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [357208]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有吞噬烈焰增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [444088]
+player_only = true
+
+[[conditions]]
+title = "目标有火焰吐息_357209减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [357209]
+
+[[conditions]]
+title = "已学会永恒之涌"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [359073]
+
+[[conditions]]
+title = "永恒之涌可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [359073]
+
+[[conditions]]
+title = "永恒之涌冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [359073]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会裂解"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [356995]
+
+[[conditions]]
+title = "裂解可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [356995]
+
+[[conditions]]
+title = "裂解冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [356995]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有群体裂解增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [436336]
+player_only = true
+
+[[conditions]]
+title = "已学会葬火"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [357211]
+
+[[conditions]]
+title = "葬火可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [357211]
+
+[[conditions]]
+title = "葬火冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [357211]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会活化烈焰"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [361469]
+
+[[conditions]]
+title = "活化烈焰可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [361469]
+
+[[conditions]]
+title = "活化烈焰冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [361469]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有燃尽增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [375802]
+player_only = true
+
+[[conditions]]
+title = "玩家有飞扑烈焰增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [370901]
+player_only = true
+
+[[conditions]]
+title = "已学会碧蓝打击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [362969]
+
+[[conditions]]
+title = "碧蓝打击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [362969]
+
+[[conditions]]
+title = "碧蓝打击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [362969]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有碧蓝横扫增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1265871]
+player_only = true
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "已学会狂龙之怒"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [375087]
+
+[[conditions]]
+title = "狂龙之怒可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [375087]
+
+[[conditions]]
+title = "狂龙之怒冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [375087]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会深呼吸"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [357210]
+
+[[conditions]]
+title = "深呼吸可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [357210]
+
+[[conditions]]
+title = "深呼吸冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [357210]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有回归增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [371807]
+player_only = true
+
+[[conditions]]
+title = "目标在深呼吸技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 357210
+
+[[conditions]]
+title = "已学会扭转天平"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [370553]
+
+[[conditions]]
+title = "扭转天平可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [370553]
+
+[[conditions]]
+title = "扭转天平冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [370553]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会青铜龙的祝福"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [364342]
+
+[[conditions]]
+title = "青铜龙的祝福可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [364342]
+
+[[conditions]]
+title = "青铜龙的祝福冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [364342]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有青铜龙的祝福高亮增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1271912]
+player_only = true
+
+[[conditions]]
+title = "玩家有释缚烈焰增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1292323]
+player_only = true
+
+[[conditions]]
+title = "玩家精华迸发层数"
+plugin = "aura_player_buff_stacks@dev"
+[conditions.plugin_args]
+aura_ids = [359618]
+max_value = 2
+min_value = 0
+width = 1
+player_only = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "火焰吐息"
+macro_text = "/cast 火焰吐息"
+
+[[macros]]
+name = "永恒之涌"
+macro_text = "/cast 永恒之涌"
+
+[[macros]]
+name = "裂解"
+macro_text = "/cast 裂解"
+
+[[macros]]
+name = "葬火"
+macro_text = "/cast 葬火"
+
+[[macros]]
+name = "活化烈焰"
+macro_text = "/cast 活化烈焰"
+
+[[macros]]
+name = "碧蓝打击"
+macro_text = "/cast 碧蓝打击"
+
+[[macros]]
+name = "狂龙之怒"
+macro_text = "/cast 狂龙之怒"
+
+[[macros]]
+name = "深呼吸"
+macro_text = "/cast 深呼吸"
+
+[[macros]]
+name = "扭转天平"
+macro_text = "/cast 扭转天平"
+
+[[macros]]
+name = "青铜龙的祝福"
+macro_text = "/cast 青铜龙的祝福"
+
+# 来源 evoker/devastation.txt:2，步骤 0，动作 ID 357208，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会火焰吐息_357208 == True) and (火焰吐息_357208可用 == True) and (火焰吐息_357208冷却 == 0) and (火焰吐息_357208可用 == True) and (玩家有吞噬烈焰增益 == True) and (目标有火焰吐息_357209减益 == False)"
+macro = "火焰吐息"
+annotate = "来源步骤 0：火焰吐息（ID 357208）"
+
+# 来源 evoker/devastation.txt:9，步骤 1，动作 ID 359073，TXT 冷却 30 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会永恒之涌 == True) and (永恒之涌可用 == True) and (永恒之涌冷却 == 0) and (永恒之涌可用 == True)"
+macro = "永恒之涌"
+annotate = "来源步骤 1：永恒之涌（ID 359073）"
+
+# 来源 evoker/devastation.txt:14，步骤 2，动作 ID 356995，TXT 冷却 0 秒。
+# 来源行 18：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会裂解 == True) and (裂解可用 == True) and (裂解冷却 == 0) and (玩家有群体裂解增益 == True)"
+macro = "裂解"
+annotate = "来源步骤 2：裂解（ID 356995）"
+
+# 来源 evoker/devastation.txt:20，步骤 3，动作 ID 357211，TXT 冷却 0 秒。
+# 来源行 24：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会葬火 == True) and (葬火可用 == True) and (葬火冷却 == 0)"
+macro = "葬火"
+annotate = "来源步骤 3：葬火（ID 357211）"
+
+# 来源 evoker/devastation.txt:25，步骤 4，动作 ID 361469，TXT 冷却 0 秒。
+# 来源行 29：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会活化烈焰 == True) and (活化烈焰可用 == True) and (活化烈焰冷却 == 0) and (玩家有燃尽增益 == True) and (玩家有飞扑烈焰增益 == True)"
+macro = "活化烈焰"
+annotate = "来源步骤 4：活化烈焰（ID 361469）"
+
+# 来源 evoker/devastation.txt:32，步骤 5，动作 ID 362969，TXT 冷却 0 秒。
+# 来源行 36：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会碧蓝打击 == True) and (碧蓝打击可用 == True) and (碧蓝打击冷却 == 0)"
+macro = "碧蓝打击"
+annotate = "来源步骤 5：碧蓝打击（ID 362969）"
+
+# 来源 evoker/devastation.txt:37，步骤 6，动作 ID 356995，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会裂解 == True) and (裂解可用 == True) and (裂解冷却 == 0)"
+macro = "裂解"
+annotate = "来源步骤 6：裂解（ID 356995）"
+
+# 来源 evoker/devastation.txt:41，步骤 7，动作 ID 361469，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会活化烈焰 == True) and (活化烈焰可用 == True) and (活化烈焰冷却 == 0) and (活化烈焰可用 == True)"
+macro = "活化烈焰"
+annotate = "来源步骤 7：活化烈焰（ID 361469）"
+
+# 来源 evoker/devastation.txt:46，步骤 8，动作 ID 361469，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "活化烈焰"
+annotate = "来源步骤 8：活化烈焰（ID 361469）"
+
+# 来源 evoker/devastation.txt:47，步骤 9，动作 ID 357208，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会火焰吐息_357208 == True) and (火焰吐息_357208可用 == True) and (火焰吐息_357208冷却 == 0) and (火焰吐息_357208可用 == True) and (玩家有吞噬烈焰增益 == False)"
+macro = "火焰吐息"
+annotate = "来源步骤 9：火焰吐息（ID 357208）"
+
+# 来源 evoker/devastation.txt:53，步骤 10，动作 ID 362969，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会碧蓝打击 == True) and (碧蓝打击可用 == True) and (碧蓝打击冷却 == 0) and (玩家有碧蓝横扫增益 == True)"
+macro = "碧蓝打击"
+annotate = "来源步骤 10：碧蓝打击（ID 362969）"
+
+# 来源 evoker/devastation.txt:58，步骤 11，动作 ID 375087，TXT 冷却 120 秒。
+# 来源行 62：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会狂龙之怒 == True) and (狂龙之怒可用 == True) and (狂龙之怒冷却 == 0)"
+macro = "狂龙之怒"
+annotate = "来源步骤 11：狂龙之怒（ID 375087）"
+
+# 来源 evoker/devastation.txt:63，步骤 12，动作 ID 357210，TXT 冷却 0 秒。
+# 来源行 69：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (已学会深呼吸 == True) and (深呼吸可用 == True) and (深呼吸冷却 == 0) and (玩家有回归增益 == False) and (目标在深呼吸技能范围内 == True)"
+macro = "深呼吸"
+annotate = "来源步骤 12：深呼吸（ID 357210）"
+
+# 来源 evoker/devastation.txt:70，步骤 13，动作 ID 370553，TXT 冷却 120 秒。
+# 来源行 75：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会扭转天平 == True) and (扭转天平可用 == True) and (扭转天平冷却 == 0) and (扭转天平冷却 == 0)"
+macro = "扭转天平"
+annotate = "来源步骤 13：扭转天平（ID 370553）"
+
+# 来源 evoker/devastation.txt:76，步骤 14，动作 ID 364342，TXT 冷却 15 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会青铜龙的祝福 == True) and (青铜龙的祝福可用 == True) and (青铜龙的祝福冷却 == 0) and (玩家有青铜龙的祝福高亮增益 == True)"
+macro = "青铜龙的祝福"
+annotate = "来源步骤 14：青铜龙的祝福（ID 364342）"
+
+# 来源 evoker/devastation.txt:81，步骤 15，动作 ID 375087，TXT 冷却 120 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会狂龙之怒 == True) and (狂龙之怒可用 == True) and (狂龙之怒冷却 == 0) and (玩家有释缚烈焰增益 == True) and (玩家精华迸发层数 <= 1)"
+macro = "狂龙之怒"
+annotate = "来源步骤 15：狂龙之怒（ID 375087）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

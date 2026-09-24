@@ -1,0 +1,17 @@
+name = "player_has_big_defensive@dev"
+author = "liantian-cn"
+version = "dev"
+# 显示实现：CellBackplate 提供固定黑底和行宽登记，背板→AuraContainer→AuraButton 使用静态层级。
+display_name = "玩家是否有大防御"
+description = "container = CreateFrame(\"AuraContainer\", nil, parent, \"CustomAuraContainerTemplate\")；SetUnit(\"player\")；AddAuraSlot(key, \"HELPFUL|BIG_DEFENSIVE\", options) 返回受管按钮；UpdateAllAuras() 请求刷新。BigDefensive/Normal 排序，单固定 slot 静态白色覆盖，至少一个匹配即显示白色；不读取 aura 数据或可见性。"
+recommended_condition_name = "玩家是否有大防御"
+
+[parameters]
+description = "无参数，拒绝多余字段。"
+
+[returns]
+type = "bool"
+description = "BigDefensive/Normal 排序，单固定 slot 静态白色覆盖，至少一个匹配即显示白色；不读取 aura 数据或可见性。"
+fallback = false
+
+# 刷新约定：事件通过 C_Timer.After(0, ...) 延后；无定时轮询。

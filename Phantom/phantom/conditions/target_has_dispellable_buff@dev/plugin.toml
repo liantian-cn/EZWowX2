@@ -1,0 +1,17 @@
+name = "target_has_dispellable_buff@dev"
+author = "liantian-cn"
+version = "dev"
+# 显示实现：CellBackplate 提供固定黑底和行宽登记，背板→AuraContainer→AuraButton 使用静态层级。
+display_name = "目标敌人可驱散增益存在状态"
+description = "存在且 UnitIsEnemy；HELPFUL|RAID_PLAYER_DISPELLABLE 与 includeDispelTypes。团队有人能驱散不等于玩家本人当前能驱散。空表或全 false 不匹配；Enrage 实际键本地证据不足，游戏待验。"
+recommended_condition_name = "目标敌人可驱散增益存在状态"
+
+[parameters.dispel_types]
+type = "dict[str, bool]"
+required = true
+description = "dispel_types 父表必填；键限定 Magic/Poison/Disease/Curse/Stealth/Special/Enrage，值必须为严格布尔值。加载成功后将缺失子键补齐为 false；空表或全 false 不匹配。"
+
+[returns]
+type = "bool"
+description = "存在且 UnitIsEnemy；HELPFUL|RAID_PLAYER_DISPELLABLE 与 includeDispelTypes。团队有人能驱散不等于玩家本人当前能驱散。空表或全 false 不匹配；Enrage 实际键本地证据不足，游戏待验。"
+fallback = false

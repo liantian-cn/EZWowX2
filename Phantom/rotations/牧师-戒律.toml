@@ -1,0 +1,279 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：priest/discipline.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 目标光环限定不可辅助目标的 PLAYER|HARMFUL 减益；PLAYER 包含玩家、宠物和载具，排除其他来源。
+# 玩家周围人数近似为本步骤技能可攻击敌人总数，仅可观察 nameplate1–40；secret/nil 射程漏计，不代表原码数圆内完整人数。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+schema_version = 1
+uuid = "979a8ee1-8ac7-5761-935c-4170df781a67"
+
+[profile]
+title = "牧师-戒律"
+description = "牧师一键辅助"
+unit_class = "PRIEST"
+unit_class_id = 5
+unit_spec = 1
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "已学会暗言术痛"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [589]
+
+[[conditions]]
+title = "暗言术痛可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [589]
+
+[[conditions]]
+title = "暗言术痛冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [589]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标有暗言术痛减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [589]
+
+[[conditions]]
+title = "已学会神圣新星"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [132157]
+
+[[conditions]]
+title = "神圣新星可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [132157]
+
+[[conditions]]
+title = "神圣新星冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [132157]
+ignore_gcd = true
+
+[[conditions]]
+title = "神圣新星技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 132157
+combat_only = false
+
+[[conditions]]
+title = "已学会苦修"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [47540]
+
+[[conditions]]
+title = "苦修可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [47540]
+
+[[conditions]]
+title = "苦修冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [47540]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会心灵震爆"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [8092]
+
+[[conditions]]
+title = "心灵震爆可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [8092]
+
+[[conditions]]
+title = "心灵震爆冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [8092]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会暗言术灭"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [32379]
+
+[[conditions]]
+title = "暗言术灭可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [32379]
+
+[[conditions]]
+title = "暗言术灭冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [32379]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标当前血量百分比"
+plugin = "target_health_pct@dev"
+[conditions.plugin_args]
+use_predicted = false
+
+[[conditions]]
+title = "已学会惩击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [585]
+
+[[conditions]]
+title = "惩击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [585]
+
+[[conditions]]
+title = "惩击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [585]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有虚空冲击增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [450404]
+player_only = true
+
+[[conditions]]
+title = "已学会真言术韧"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [21562]
+
+[[conditions]]
+title = "真言术韧可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [21562]
+
+[[conditions]]
+title = "真言术韧冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [21562]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有真言术韧高亮增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1271911]
+player_only = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "暗言术：痛"
+macro_text = "/cast 暗言术：痛"
+
+[[macros]]
+name = "神圣新星"
+macro_text = "/cast 神圣新星"
+
+[[macros]]
+name = "苦修"
+macro_text = "/cast 苦修"
+
+[[macros]]
+name = "心灵震爆"
+macro_text = "/cast 心灵震爆"
+
+[[macros]]
+name = "暗言术：灭"
+macro_text = "/cast 暗言术：灭"
+
+[[macros]]
+name = "惩击"
+macro_text = "/cast 惩击"
+
+[[macros]]
+name = "真言术：韧"
+macro_text = "/cast 真言术：韧"
+
+# 来源 priest/discipline.txt:2，步骤 0，动作 ID 589，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会暗言术痛 == True) and (暗言术痛可用 == True) and (暗言术痛冷却 == 0) and (目标有暗言术痛减益 == False)"
+macro = "暗言术：痛"
+annotate = "来源步骤 0：暗言术：痛（ID 589）"
+
+# 来源 priest/discipline.txt:7，步骤 1，动作 ID 132157，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会神圣新星 == True) and (神圣新星可用 == True) and (神圣新星冷却 == 0) and (神圣新星技能可攻击敌人总数 > 12)"
+macro = "神圣新星"
+annotate = "来源步骤 1：神圣新星（ID 132157）"
+
+# 来源 priest/discipline.txt:12，步骤 2，动作 ID 47540，TXT 冷却 2 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会苦修 == True) and (苦修可用 == True) and (苦修冷却 == 0)"
+macro = "苦修"
+annotate = "来源步骤 2：苦修（ID 47540）"
+
+# 来源 priest/discipline.txt:16，步骤 3，动作 ID 8092，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会心灵震爆 == True) and (心灵震爆可用 == True) and (心灵震爆冷却 == 0)"
+macro = "心灵震爆"
+annotate = "来源步骤 3：心灵震爆（ID 8092）"
+
+# 来源 priest/discipline.txt:20，步骤 4，动作 ID 32379，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会暗言术灭 == True) and (暗言术灭可用 == True) and (暗言术灭冷却 == 0) and (目标当前血量百分比 <= 20)"
+macro = "暗言术：灭"
+annotate = "来源步骤 4：暗言术：灭（ID 32379）"
+
+# 来源 priest/discipline.txt:25，步骤 5，动作 ID 585，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会惩击 == True) and (惩击可用 == True) and (惩击冷却 == 0) and (惩击可用 == True)"
+macro = "惩击"
+annotate = "来源步骤 5：惩击（ID 585）"
+
+# 来源 priest/discipline.txt:30，步骤 6，动作 ID 585，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会惩击 == True) and (惩击可用 == True) and (惩击冷却 == 0) and (玩家有虚空冲击增益 == True) and (惩击可用 == True)"
+macro = "惩击"
+annotate = "来源步骤 6：惩击（ID 585）"
+
+# 来源 priest/discipline.txt:36，步骤 7，动作 ID 47540，TXT 冷却 2 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "苦修"
+annotate = "来源步骤 7：苦修（ID 47540）"
+
+# 来源 priest/discipline.txt:37，步骤 8，动作 ID 21562，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会真言术韧 == True) and (真言术韧可用 == True) and (真言术韧冷却 == 0) and (玩家有真言术韧高亮增益 == True)"
+macro = "真言术：韧"
+annotate = "来源步骤 8：真言术：韧（ID 21562）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

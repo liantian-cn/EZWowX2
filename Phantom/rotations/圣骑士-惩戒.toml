@@ -1,0 +1,480 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：paladin/retribution.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 技能射程规则使用当前步骤动作 ID 对 target 的射程结果，无效射程返回 False。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 玩家周围人数近似为本步骤技能可攻击敌人总数，仅可观察 nameplate1–40；secret/nil 射程漏计，不代表原码数圆内完整人数。
+# 目标光环限定不可辅助目标的 PLAYER|HARMFUL 减益；PLAYER 包含玩家、宠物和载具，排除其他来源。
+# 距离条件近似为当前步骤技能射程，忽略 TXT 码数；无效技能/无目标/nil 射程也返回 False。
+schema_version = 1
+uuid = "8a0a6f1b-6815-5569-8824-191a39a68e8a"
+
+[profile]
+title = "圣骑士-惩戒"
+description = "圣骑士一键辅助"
+unit_class = "PALADIN"
+unit_class_id = 2
+unit_spec = 3
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "已学会处决宣判"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [343527]
+
+[[conditions]]
+title = "处决宣判可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [343527]
+
+[[conditions]]
+title = "处决宣判冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [343527]
+ignore_gcd = true
+
+[[conditions]]
+title = "处决宣判对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 343527
+unit_token = "target"
+
+[[conditions]]
+title = "已学会灰烬觉醒"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [255937]
+
+[[conditions]]
+title = "灰烬觉醒可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [255937]
+
+[[conditions]]
+title = "玩家有圣光之锤增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [427441]
+player_only = true
+
+[[conditions]]
+title = "灰烬觉醒对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 255937
+unit_token = "target"
+
+[[conditions]]
+title = "已学会圣殿骑士的裁决"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [85256]
+
+[[conditions]]
+title = "圣殿骑士的裁决可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [85256]
+
+[[conditions]]
+title = "圣殿骑士的裁决冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [85256]
+ignore_gcd = true
+
+[[conditions]]
+title = "圣殿骑士的裁决技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 85256
+combat_only = false
+
+[[conditions]]
+title = "圣殿骑士的裁决对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 85256
+unit_token = "target"
+
+[[conditions]]
+title = "已学会公正之剑"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [184575]
+
+[[conditions]]
+title = "公正之剑可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [184575]
+
+[[conditions]]
+title = "公正之剑冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [184575]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有异端逐除_383344增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [383344]
+player_only = true
+
+[[conditions]]
+title = "目标有异端逐除_383346减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [383346]
+
+[[conditions]]
+title = "公正之剑对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 184575
+unit_token = "target"
+
+[[conditions]]
+title = "已学会神圣风暴"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [53385]
+
+[[conditions]]
+title = "神圣风暴可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [53385]
+
+[[conditions]]
+title = "神圣风暴冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [53385]
+ignore_gcd = true
+
+[[conditions]]
+title = "神圣风暴技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 53385
+combat_only = false
+
+[[conditions]]
+title = "玩家神圣能量"
+plugin = "spec_power_holy_power@dev"
+
+[[conditions]]
+title = "灰烬觉醒冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [255937]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在灰烬觉醒技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 255937
+
+[[conditions]]
+title = "玩家有苍穹之遗增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [387178]
+player_only = true
+
+[[conditions]]
+title = "目标在圣洁鸣钟技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 375576
+
+[[conditions]]
+title = "已学会圣洁鸣钟"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [375576]
+
+[[conditions]]
+title = "圣洁鸣钟可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [375576]
+
+[[conditions]]
+title = "圣洁鸣钟冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [375576]
+ignore_gcd = true
+
+[[conditions]]
+title = "圣洁鸣钟技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 375576
+combat_only = false
+
+[[conditions]]
+title = "玩家有苍穹之力增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [326733]
+player_only = true
+
+[[conditions]]
+title = "已学会十字军打击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [35395]
+
+[[conditions]]
+title = "十字军打击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [35395]
+
+[[conditions]]
+title = "十字军打击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [35395]
+ignore_gcd = true
+
+[[conditions]]
+title = "十字军打击对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 35395
+unit_token = "target"
+
+[[conditions]]
+title = "已学会审判"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [20271]
+
+[[conditions]]
+title = "审判可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [20271]
+
+[[conditions]]
+title = "审判冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [20271]
+ignore_gcd = true
+
+[[conditions]]
+title = "审判对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 20271
+unit_token = "target"
+
+[[conditions]]
+title = "玩家有远征打击增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [404542]
+player_only = true
+
+[[conditions]]
+title = "玩家有复仇之怒增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [31884]
+player_only = true
+
+[[conditions]]
+title = "已学会复仇之怒"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [31884]
+
+[[conditions]]
+title = "复仇之怒可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [31884]
+
+[[conditions]]
+title = "复仇之怒冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [31884]
+ignore_gcd = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "处决宣判"
+macro_text = "/cast 处决宣判"
+
+[[macros]]
+name = "灰烬觉醒"
+macro_text = "/cast 灰烬觉醒"
+
+[[macros]]
+name = "圣殿骑士的裁决"
+macro_text = "/cast 圣殿骑士的裁决"
+
+[[macros]]
+name = "公正之剑"
+macro_text = "/cast 公正之剑"
+
+[[macros]]
+name = "神圣风暴"
+macro_text = "/cast 神圣风暴"
+
+[[macros]]
+name = "圣洁鸣钟"
+macro_text = "/cast 圣洁鸣钟"
+
+[[macros]]
+name = "十字军打击"
+macro_text = "/cast 十字军打击"
+
+[[macros]]
+name = "审判"
+macro_text = "/cast 审判"
+
+[[macros]]
+name = "复仇之怒"
+macro_text = "/cast 复仇之怒"
+
+# 来源 paladin/retribution.txt:2，步骤 0，动作 ID 343527，TXT 冷却 60 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会处决宣判 == True) and (处决宣判可用 == True) and (处决宣判冷却 == 0) and (处决宣判对目标在射程内 == True)"
+macro = "处决宣判"
+annotate = "来源步骤 0：处决宣判（ID 343527）"
+
+# 来源 paladin/retribution.txt:7，步骤 1，动作 ID 255937，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会灰烬觉醒 == True) and (灰烬觉醒可用 == True) and (玩家有圣光之锤增益 == True) and (灰烬觉醒对目标在射程内 == True)"
+macro = "灰烬觉醒"
+annotate = "来源步骤 1：灰烬觉醒（ID 255937）"
+
+# 来源 paladin/retribution.txt:12，步骤 2，动作 ID 85256，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会圣殿骑士的裁决 == True) and (圣殿骑士的裁决可用 == True) and (圣殿骑士的裁决冷却 == 0) and (圣殿骑士的裁决技能可攻击敌人总数 <= 2) and (玩家有圣光之锤增益 == False) and (圣殿骑士的裁决对目标在射程内 == True)"
+macro = "圣殿骑士的裁决"
+annotate = "来源步骤 2：圣殿骑士的裁决（ID 85256）"
+
+# 来源 paladin/retribution.txt:19，步骤 3，动作 ID 184575，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会公正之剑 == True) and (公正之剑可用 == True) and (公正之剑冷却 == 0) and (玩家有异端逐除_383344增益 == True) and (目标有异端逐除_383346减益 == False) and (公正之剑对目标在射程内 == True)"
+macro = "公正之剑"
+annotate = "来源步骤 3：公正之剑（ID 184575）"
+
+# 来源 paladin/retribution.txt:26，步骤 4，动作 ID 53385，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会神圣风暴 == True) and (神圣风暴可用 == True) and (神圣风暴冷却 == 0) and (神圣风暴技能可攻击敌人总数 > 2) and (玩家神圣能量 >= 3) and (玩家有圣光之锤增益 == False)"
+macro = "神圣风暴"
+annotate = "来源步骤 4：神圣风暴（ID 53385）"
+
+# 来源 paladin/retribution.txt:33，步骤 5，动作 ID 255937，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会灰烬觉醒 == True) and (灰烬觉醒可用 == True) and (灰烬觉醒冷却 == 0) and (目标在灰烬觉醒技能范围内 == True)"
+macro = "灰烬觉醒"
+annotate = "来源步骤 5：灰烬觉醒（ID 255937）"
+
+# 来源 paladin/retribution.txt:38，步骤 6，动作 ID 85256，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会圣殿骑士的裁决 == True) and (圣殿骑士的裁决可用 == True) and (圣殿骑士的裁决冷却 == 0) and (玩家有苍穹之遗增益 == True) and (玩家神圣能量 >= 5) and (玩家有圣光之锤增益 == False) and (圣殿骑士的裁决对目标在射程内 == True)"
+macro = "圣殿骑士的裁决"
+annotate = "来源步骤 6：圣殿骑士的裁决（ID 85256）"
+
+# 来源 paladin/retribution.txt:46，步骤 7，动作 ID 375576，TXT 冷却 60 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (目标在圣洁鸣钟技能范围内 == True) and (已学会圣洁鸣钟 == True) and (圣洁鸣钟可用 == True) and (圣洁鸣钟冷却 == 0) and (圣洁鸣钟技能可攻击敌人总数 > 3) and (玩家神圣能量 <= 1)"
+macro = "圣洁鸣钟"
+annotate = "来源步骤 7：圣洁鸣钟（ID 375576）"
+
+# 来源 paladin/retribution.txt:53，步骤 8，动作 ID 53385，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会神圣风暴 == True) and (神圣风暴可用 == True) and (神圣风暴冷却 == 0) and (玩家有苍穹之力增益 == True) and (玩家有圣光之锤增益 == False)"
+macro = "神圣风暴"
+annotate = "来源步骤 8：神圣风暴（ID 53385）"
+
+# 来源 paladin/retribution.txt:59，步骤 9，动作 ID 375576，TXT 冷却 60 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (目标在圣洁鸣钟技能范围内 == True) and (已学会圣洁鸣钟 == True) and (圣洁鸣钟可用 == True) and (圣洁鸣钟冷却 == 0) and (玩家神圣能量 <= 3) and (圣洁鸣钟技能可攻击敌人总数 <= 2)"
+macro = "圣洁鸣钟"
+annotate = "来源步骤 9：圣洁鸣钟（ID 375576）"
+
+# 来源 paladin/retribution.txt:66，步骤 10，动作 ID 184575，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会公正之剑 == True) and (公正之剑可用 == True) and (公正之剑冷却 == 0) and (玩家神圣能量 <= 3) and (公正之剑对目标在射程内 == True)"
+macro = "公正之剑"
+annotate = "来源步骤 10：公正之剑（ID 184575）"
+
+# 来源 paladin/retribution.txt:72，步骤 11，动作 ID 35395，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会十字军打击 == True) and (十字军打击可用 == True) and (十字军打击冷却 == 0) and (十字军打击对目标在射程内 == True)"
+macro = "十字军打击"
+annotate = "来源步骤 11：十字军打击（ID 35395）"
+
+# 来源 paladin/retribution.txt:77，步骤 12，动作 ID 20271，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会审判 == True) and (审判可用 == True) and (审判冷却 == 0) and (玩家神圣能量 <= 3) and (审判对目标在射程内 == True)"
+macro = "审判"
+annotate = "来源步骤 12：审判（ID 20271）"
+
+# 来源 paladin/retribution.txt:83，步骤 13，动作 ID 85256，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会圣殿骑士的裁决 == True) and (圣殿骑士的裁决可用 == True) and (圣殿骑士的裁决冷却 == 0) and (玩家有圣光之锤增益 == False) and (圣殿骑士的裁决对目标在射程内 == True)"
+macro = "圣殿骑士的裁决"
+annotate = "来源步骤 13：圣殿骑士的裁决（ID 85256）"
+
+# 来源 paladin/retribution.txt:89，步骤 14，动作 ID 35395，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会十字军打击 == True) and (十字军打击可用 == True) and (十字军打击冷却 == 0) and (玩家有远征打击增益 == False) and (十字军打击对目标在射程内 == True)"
+macro = "十字军打击"
+annotate = "来源步骤 14：十字军打击（ID 35395）"
+
+# 来源 paladin/retribution.txt:95，步骤 15，动作 ID 20271，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "审判"
+annotate = "来源步骤 15：审判（ID 20271）"
+
+# 来源 paladin/retribution.txt:96，步骤 16，动作 ID 20271，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (玩家有复仇之怒增益 == True) and (已学会审判 == True) and (审判可用 == True) and (审判冷却 == 0) and (玩家神圣能量 <= 3) and (审判对目标在射程内 == True)"
+macro = "审判"
+annotate = "来源步骤 16：审判（ID 20271）"
+
+# 来源 paladin/retribution.txt:103，步骤 17，动作 ID 31884，TXT 冷却 120 秒。
+# 来源行 107：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会复仇之怒 == True) and (复仇之怒可用 == True) and (复仇之怒冷却 == 0)"
+macro = "复仇之怒"
+annotate = "来源步骤 17：复仇之怒（ID 31884）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

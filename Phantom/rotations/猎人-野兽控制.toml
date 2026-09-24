@@ -1,0 +1,373 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：hunter/beastmastery.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 技能射程规则使用当前步骤动作 ID 对 target 的射程结果，无效射程返回 False。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 光环秒数以固定 duration 换算；实际实例时长、延长和天赋变化会产生误差。
+# 宠物条件只统计存在且存活的 pet 单位，不统计临时召唤物。
+schema_version = 1
+uuid = "6f41a2e9-69cc-59f8-a6bd-8c4b90dc0fd4"
+
+[profile]
+title = "猎人-野兽控制"
+description = "猎人一键辅助"
+unit_class = "HUNTER"
+unit_class_id = 3
+unit_spec = 1
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "已学会狂野怒火"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [19574]
+
+[[conditions]]
+title = "狂野怒火可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [19574]
+
+[[conditions]]
+title = "狂野怒火冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [19574]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会狂野鞭笞"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1264359]
+
+[[conditions]]
+title = "狂野鞭笞可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1264359]
+
+[[conditions]]
+title = "狂野鞭笞冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1264359]
+ignore_gcd = true
+
+[[conditions]]
+title = "狂野鞭笞对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 1264359
+unit_token = "target"
+
+[[conditions]]
+title = "玩家野兽顺劈剩余秒数"
+plugin = "aura_player_buff_duration@dev"
+[conditions.plugin_args]
+aura_ids = [268877]
+duration = 10
+width = 3
+player_only = true
+
+[[conditions]]
+title = "已学会杀戮命令"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [34026]
+
+[[conditions]]
+title = "杀戮命令可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [34026]
+
+[[conditions]]
+title = "杀戮命令冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [34026]
+ignore_gcd = true
+
+[[conditions]]
+title = "杀戮命令对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 34026
+unit_token = "target"
+
+[[conditions]]
+title = "已学会倒刺射击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [217200]
+
+[[conditions]]
+title = "倒刺射击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [217200]
+
+[[conditions]]
+title = "倒刺射击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [217200]
+ignore_gcd = true
+
+[[conditions]]
+title = "倒刺射击对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 217200
+unit_token = "target"
+
+[[conditions]]
+title = "已学会奥术射击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [185358]
+
+[[conditions]]
+title = "奥术射击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [185358]
+
+[[conditions]]
+title = "奥术射击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [185358]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会黑蚀箭"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [466930]
+
+[[conditions]]
+title = "黑蚀箭可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [466930]
+
+[[conditions]]
+title = "黑蚀箭冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [466930]
+ignore_gcd = true
+
+[[conditions]]
+title = "黑蚀箭对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 466930
+unit_token = "target"
+
+[[conditions]]
+title = "玩家有野兽顺劈增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [268877]
+player_only = true
+
+[[conditions]]
+title = "玩家有存活宠物"
+plugin = "player_has_pet@dev"
+
+[[conditions]]
+title = "已学会召唤宠物1"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [883]
+
+[[conditions]]
+title = "召唤宠物1可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [883]
+
+[[conditions]]
+title = "召唤宠物1冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [883]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会稳固射击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [56641]
+
+[[conditions]]
+title = "稳固射击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [56641]
+
+[[conditions]]
+title = "稳固射击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [56641]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有兽群战术增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [321014]
+player_only = true
+
+[[conditions]]
+title = "已学会复活宠物"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [982]
+
+[[conditions]]
+title = "复活宠物可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [982]
+
+[[conditions]]
+title = "复活宠物冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [982]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有追踪宠物增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1244922]
+player_only = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "狂野怒火"
+macro_text = "/cast 狂野怒火"
+
+[[macros]]
+name = "狂野鞭笞"
+macro_text = "/cast 狂野鞭笞"
+
+[[macros]]
+name = "杀戮命令"
+macro_text = "/cast 杀戮命令"
+
+[[macros]]
+name = "倒刺射击"
+macro_text = "/cast 倒刺射击"
+
+[[macros]]
+name = "奥术射击"
+macro_text = "/cast 奥术射击"
+
+[[macros]]
+name = "黑蚀箭"
+macro_text = "/cast 黑蚀箭"
+
+[[macros]]
+name = "召唤宠物 1"
+macro_text = "/cast 召唤宠物 1"
+
+[[macros]]
+name = "稳固射击"
+macro_text = "/cast 稳固射击"
+
+[[macros]]
+name = "复活宠物"
+macro_text = "/cast 复活宠物"
+
+# 来源 hunter/beastmastery.txt:2，步骤 0，动作 ID 19574，TXT 冷却 90 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会狂野怒火 == True) and (狂野怒火可用 == True) and (狂野怒火冷却 == 0)"
+macro = "狂野怒火"
+annotate = "来源步骤 0：狂野怒火（ID 19574）"
+
+# 来源 hunter/beastmastery.txt:6，步骤 1，动作 ID 1264359，TXT 冷却 8 秒。
+# 来源行 12：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会狂野鞭笞 == True) and (狂野鞭笞可用 == True) and (狂野鞭笞冷却 == 0) and (狂野鞭笞对目标在射程内 == True) and (玩家野兽顺劈剩余秒数 <= 2)"
+macro = "狂野鞭笞"
+annotate = "来源步骤 1：狂野鞭笞（ID 1264359）"
+
+# 来源 hunter/beastmastery.txt:13，步骤 2，动作 ID 34026，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会杀戮命令 == True) and (杀戮命令可用 == True) and (杀戮命令冷却 == 0) and (杀戮命令对目标在射程内 == True)"
+macro = "杀戮命令"
+annotate = "来源步骤 2：杀戮命令（ID 34026）"
+
+# 来源 hunter/beastmastery.txt:18，步骤 3，动作 ID 217200，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会倒刺射击 == True) and (倒刺射击可用 == True) and (倒刺射击冷却 == 0) and (倒刺射击对目标在射程内 == True)"
+macro = "倒刺射击"
+annotate = "来源步骤 3：倒刺射击（ID 217200）"
+
+# 来源 hunter/beastmastery.txt:23，步骤 4，动作 ID 185358，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会奥术射击 == True) and (奥术射击可用 == True) and (奥术射击冷却 == 0)"
+macro = "奥术射击"
+annotate = "来源步骤 4：奥术射击（ID 185358）"
+
+# 来源 hunter/beastmastery.txt:27，步骤 5，动作 ID 466930，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会黑蚀箭 == True) and (黑蚀箭可用 == True) and (黑蚀箭冷却 == 0) and (黑蚀箭对目标在射程内 == True)"
+macro = "黑蚀箭"
+annotate = "来源步骤 5：黑蚀箭（ID 466930）"
+
+# 来源 hunter/beastmastery.txt:32，步骤 6，动作 ID 1264359，TXT 冷却 8 秒。
+# 来源行 37：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会狂野鞭笞 == True) and (狂野鞭笞可用 == True) and (狂野鞭笞冷却 == 0) and (狂野鞭笞对目标在射程内 == True) and (玩家有野兽顺劈增益 == False)"
+macro = "狂野鞭笞"
+annotate = "来源步骤 6：狂野鞭笞（ID 1264359）"
+
+# 来源 hunter/beastmastery.txt:39，步骤 7，动作 ID 883，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (玩家有存活宠物 == False) and (已学会召唤宠物1 == True) and (召唤宠物1可用 == True) and (召唤宠物1冷却 == 0)"
+macro = "召唤宠物 1"
+annotate = "来源步骤 7：召唤宠物 1（ID 883）"
+
+# 来源 hunter/beastmastery.txt:44，步骤 8，动作 ID 56641，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会稳固射击 == True) and (稳固射击可用 == True) and (稳固射击冷却 == 0) and (玩家有兽群战术增益 == False) and (稳固射击可用 == True)"
+macro = "稳固射击"
+annotate = "来源步骤 8：稳固射击（ID 56641）"
+
+# 来源 hunter/beastmastery.txt:50，步骤 9，动作 ID 185358，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "奥术射击"
+annotate = "来源步骤 9：奥术射击（ID 185358）"
+
+# 来源 hunter/beastmastery.txt:51，步骤 10，动作 ID 982，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会复活宠物 == True) and (复活宠物可用 == True) and (复活宠物冷却 == 0) and (玩家有追踪宠物增益 == True)"
+macro = "复活宠物"
+annotate = "来源步骤 10：复活宠物（ID 982）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

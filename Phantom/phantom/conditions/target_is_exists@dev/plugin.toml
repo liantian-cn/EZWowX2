@@ -1,0 +1,14 @@
+name = "target_is_exists@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "目标是否存在"
+description = "UnitExists；不存在或解码失败为 false。"
+recommended_condition_name = "目标是否存在"
+
+[parameters]
+description = "无业务参数；拒绝多余字段。"
+
+[returns]
+type = "bool"
+description = "UnitExists；不存在或解码失败为 false。"
+fallback = false

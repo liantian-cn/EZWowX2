@@ -1,0 +1,3 @@
+interface:
+  display_name: "Shigure迁移工具"
+  short_description: "按源规则顺序迁移 Shigure JSON 与技能 Lua，核对条件、宏和离线结果"

@@ -1,0 +1,601 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：deathknight/frost.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 技能射程规则使用当前步骤动作 ID 对 target 的射程结果，无效射程返回 False。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 距离条件近似为当前步骤技能射程，忽略 TXT 码数；无效技能/无目标/nil 射程也返回 False。
+# 玩家周围人数近似为本步骤技能可攻击敌人总数，仅可观察 nameplate1–40；secret/nil 射程漏计，不代表原码数圆内完整人数。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 资源 max_power 为固定参考，须按天赋调整；临时上限变化会有误差，Cell 量化步长约为 max_power/255。
+# 层数使用固定显示量程；超量程饱和，零填充不能区分无光环与零层。
+schema_version = 1
+uuid = "0f61d668-622e-52e7-8239-e18851ce9088"
+
+[profile]
+title = "死亡骑士-冰霜"
+description = "死亡骑士一键辅助"
+unit_class = "DEATHKNIGHT"
+unit_class_id = 6
+unit_spec = 2
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "死神印记对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 439843
+unit_token = "target"
+
+[[conditions]]
+title = "已学会死神印记"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [439843]
+
+[[conditions]]
+title = "死神印记可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [439843]
+
+[[conditions]]
+title = "死神印记冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [439843]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会冰霜之镰"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [207230]
+
+[[conditions]]
+title = "冰霜之镰可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [207230]
+
+[[conditions]]
+title = "冰霜之镰冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [207230]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在冰霜之镰技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 207230
+
+[[conditions]]
+title = "冰霜之镰技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 207230
+combat_only = false
+
+[[conditions]]
+title = "玩家有杀戮机器增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [51124]
+player_only = true
+
+[[conditions]]
+title = "已学会湮灭"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [49020]
+
+[[conditions]]
+title = "湮灭可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [49020]
+
+[[conditions]]
+title = "湮灭冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [49020]
+ignore_gcd = true
+
+[[conditions]]
+title = "湮灭对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 49020
+unit_token = "target"
+
+[[conditions]]
+title = "目标在冷酷严冬技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 196770
+
+[[conditions]]
+title = "已学会冷酷严冬"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [196770]
+
+[[conditions]]
+title = "冷酷严冬可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [196770]
+
+[[conditions]]
+title = "冷酷严冬冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [196770]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有冰霜统御增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [377226]
+player_only = true
+
+[[conditions]]
+title = "玩家有白霜增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [59052]
+player_only = true
+
+[[conditions]]
+title = "已学会凛风冲击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [49184]
+
+[[conditions]]
+title = "凛风冲击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [49184]
+
+[[conditions]]
+title = "凛风冲击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [49184]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在冰川突进技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 194913
+
+[[conditions]]
+title = "冰川突进技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 194913
+combat_only = false
+
+[[conditions]]
+title = "已学会冰川突进"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [194913]
+
+[[conditions]]
+title = "冰川突进可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [194913]
+
+[[conditions]]
+title = "冰川突进冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [194913]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家符文能量"
+plugin = "spec_power_runic_power@dev"
+[conditions.plugin_args]
+max_power = 100
+
+[[conditions]]
+title = "已学会灵魂收割"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [343294]
+
+[[conditions]]
+title = "灵魂收割可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [343294]
+
+[[conditions]]
+title = "灵魂收割冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [343294]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标当前血量百分比"
+plugin = "target_health_pct@dev"
+[conditions.plugin_args]
+use_predicted = false
+
+[[conditions]]
+title = "灵魂收割对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 343294
+unit_token = "target"
+
+[[conditions]]
+title = "已学会冰霜打击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [49143]
+
+[[conditions]]
+title = "冰霜打击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [49143]
+
+[[conditions]]
+title = "冰霜打击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [49143]
+ignore_gcd = true
+
+[[conditions]]
+title = "冰霜打击对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 49143
+unit_token = "target"
+
+[[conditions]]
+title = "凛风冲击对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 49184
+unit_token = "target"
+
+[[conditions]]
+title = "目标在凛风冲击技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 49184
+
+[[conditions]]
+title = "已学会冰霜之柱"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [51271]
+
+[[conditions]]
+title = "冰霜之柱可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [51271]
+
+[[conditions]]
+title = "冰霜之柱冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [51271]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在冰霜之柱技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 51271
+
+[[conditions]]
+title = "目标在冰霜打击技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 49143
+
+[[conditions]]
+title = "玩家有冰霜灾祸增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1229310]
+player_only = true
+
+[[conditions]]
+title = "已学会符文武器增效"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [47568]
+
+[[conditions]]
+title = "符文武器增效可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [47568]
+
+[[conditions]]
+title = "符文武器增效冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [47568]
+ignore_gcd = true
+
+[[conditions]]
+title = "符文武器增效对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 47568
+unit_token = "target"
+
+[[conditions]]
+title = "玩家杀戮机器层数"
+plugin = "aura_player_buff_stacks@dev"
+[conditions.plugin_args]
+aura_ids = [51124]
+max_value = 2
+min_value = 0
+width = 1
+player_only = true
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "已学会冰霜巨龙之怒"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [279302]
+
+[[conditions]]
+title = "冰霜巨龙之怒可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [279302]
+
+[[conditions]]
+title = "冰霜巨龙之怒冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [279302]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在冰霜巨龙之怒技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 279302
+
+[[conditions]]
+title = "玩家有冰霜之柱增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [51271]
+player_only = true
+
+[[conditions]]
+title = "已学会冰龙吐息"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1249658]
+
+[[conditions]]
+title = "冰龙吐息可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1249658]
+
+[[conditions]]
+title = "冰龙吐息冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1249658]
+ignore_gcd = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "死神印记"
+macro_text = "/cast 死神印记"
+
+[[macros]]
+name = "冰霜之镰"
+macro_text = "/cast 冰霜之镰"
+
+[[macros]]
+name = "湮灭"
+macro_text = "/cast 湮灭"
+
+[[macros]]
+name = "冷酷严冬"
+macro_text = "/cast 冷酷严冬"
+
+[[macros]]
+name = "凛风冲击"
+macro_text = "/cast 凛风冲击"
+
+[[macros]]
+name = "冰川突进"
+macro_text = "/cast 冰川突进"
+
+[[macros]]
+name = "灵魂收割"
+macro_text = "/cast 灵魂收割"
+
+[[macros]]
+name = "冰霜打击"
+macro_text = "/cast 冰霜打击"
+
+[[macros]]
+name = "冰霜之柱"
+macro_text = "/cast 冰霜之柱"
+
+[[macros]]
+name = "符文武器增效"
+macro_text = "/cast 符文武器增效"
+
+[[macros]]
+name = "符文打击"
+macro_text = "/cast 符文打击"
+
+[[macros]]
+name = "冰霜巨龙之怒"
+macro_text = "/cast 冰霜巨龙之怒"
+
+[[macros]]
+name = "冰龙吐息"
+macro_text = "/cast 冰龙吐息"
+
+# 来源 deathknight/frost.txt:2，步骤 0，动作 ID 439843，TXT 冷却 45 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (死神印记对目标在射程内 == True) and (已学会死神印记 == True) and (死神印记可用 == True) and (死神印记冷却 == 0)"
+macro = "死神印记"
+annotate = "来源步骤 0：死神印记（ID 439843）"
+
+# 来源 deathknight/frost.txt:7，步骤 1，动作 ID 207230，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会冰霜之镰 == True) and (冰霜之镰可用 == True) and (冰霜之镰冷却 == 0) and (目标在冰霜之镰技能范围内 == True) and (冰霜之镰技能可攻击敌人总数 > 3) and (玩家有杀戮机器增益 == True)"
+macro = "冰霜之镰"
+annotate = "来源步骤 1：冰霜之镰（ID 207230）"
+
+# 来源 deathknight/frost.txt:14，步骤 2，动作 ID 49020，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (玩家有杀戮机器增益 == True) and (已学会湮灭 == True) and (湮灭可用 == True) and (湮灭冷却 == 0) and (湮灭对目标在射程内 == True)"
+macro = "湮灭"
+annotate = "来源步骤 2：湮灭（ID 49020）"
+
+# 来源 deathknight/frost.txt:20，步骤 3，动作 ID 196770，TXT 冷却 20 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (目标在冷酷严冬技能范围内 == True) and (已学会冷酷严冬 == True) and (冷酷严冬可用 == True) and (冷酷严冬冷却 == 0) and (玩家有冰霜统御增益 == False)"
+macro = "冷酷严冬"
+annotate = "来源步骤 3：冷酷严冬（ID 196770）"
+
+# 来源 deathknight/frost.txt:26，步骤 4，动作 ID 49184，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (玩家有白霜增益 == True) and (已学会凛风冲击 == True) and (凛风冲击可用 == True) and (凛风冲击冷却 == 0)"
+macro = "凛风冲击"
+annotate = "来源步骤 4：凛风冲击（ID 49184）"
+
+# 来源 deathknight/frost.txt:31，步骤 5，动作 ID 194913，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (目标在冰川突进技能范围内 == True) and (冰川突进技能可攻击敌人总数 > 3) and (已学会冰川突进 == True) and (冰川突进可用 == True) and (冰川突进冷却 == 0) and (玩家符文能量 >= 8)"
+macro = "冰川突进"
+annotate = "来源步骤 5：冰川突进（ID 194913）"
+
+# 来源 deathknight/frost.txt:38，步骤 6，动作 ID 343294，TXT 冷却 15 秒。
+# 来源行 44：TARGET_COUNT_NEAR_TARGET_LESS；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量小于等于 2 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会灵魂收割 == True) and (灵魂收割可用 == True) and (灵魂收割冷却 == 0) and (目标当前血量百分比 <= 35) and (灵魂收割对目标在射程内 == True)"
+macro = "灵魂收割"
+annotate = "来源步骤 6：灵魂收割（ID 343294）"
+
+# 来源 deathknight/frost.txt:45，步骤 7，动作 ID 49143，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (玩家符文能量 >= 8) and (已学会冰霜打击 == True) and (冰霜打击可用 == True) and (冰霜打击冷却 == 0) and (冰霜打击对目标在射程内 == True)"
+macro = "冰霜打击"
+annotate = "来源步骤 7：冰霜打击（ID 49143）"
+
+# 来源 deathknight/frost.txt:51，步骤 8，动作 ID 49020，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会湮灭 == True) and (湮灭可用 == True) and (湮灭冷却 == 0) and (湮灭对目标在射程内 == True)"
+macro = "湮灭"
+annotate = "来源步骤 8：湮灭（ID 49020）"
+
+# 来源 deathknight/frost.txt:56，步骤 9，动作 ID 49143，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会冰霜打击 == True) and (冰霜打击可用 == True) and (冰霜打击冷却 == 0) and (冰霜打击对目标在射程内 == True)"
+macro = "冰霜打击"
+annotate = "来源步骤 9：冰霜打击（ID 49143）"
+
+# 来源 deathknight/frost.txt:61，步骤 10，动作 ID 49184，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会凛风冲击 == True) and (凛风冲击冷却 == 0) and (凛风冲击对目标在射程内 == True) and (目标在凛风冲击技能范围内 == False)"
+macro = "凛风冲击"
+annotate = "来源步骤 10：凛风冲击（ID 49184）"
+
+# 来源 deathknight/frost.txt:66，步骤 11，动作 ID 51271，TXT 冷却 45 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会冰霜之柱 == True) and (冰霜之柱可用 == True) and (冰霜之柱冷却 == 0) and (冰霜之柱冷却 == 0) and (目标在冰霜之柱技能范围内 == True)"
+macro = "冰霜之柱"
+annotate = "来源步骤 11：冰霜之柱（ID 51271）"
+
+# 来源 deathknight/frost.txt:72，步骤 12，动作 ID 207230，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会冰霜之镰 == True) and (冰霜之镰可用 == True) and (冰霜之镰冷却 == 0) and (目标在冰霜之镰技能范围内 == True) and (冰霜之镰技能可攻击敌人总数 > 3)"
+macro = "冰霜之镰"
+annotate = "来源步骤 12：冰霜之镰（ID 207230）"
+
+# 来源 deathknight/frost.txt:78，步骤 13，动作 ID 194913，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (目标在冰川突进技能范围内 == True) and (冰川突进技能可攻击敌人总数 > 3) and (已学会冰川突进 == True) and (冰川突进可用 == True) and (冰川突进冷却 == 0)"
+macro = "冰川突进"
+annotate = "来源步骤 13：冰川突进（ID 194913）"
+
+# 来源 deathknight/frost.txt:84，步骤 14，动作 ID 49143，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会冰霜打击 == True) and (冰霜打击可用 == True) and (冰霜打击冷却 == 0) and (目标在冰霜打击技能范围内 == True) and (玩家有冰霜灾祸增益 == True)"
+macro = "冰霜打击"
+annotate = "来源步骤 14：冰霜打击（ID 49143）"
+
+# 来源 deathknight/frost.txt:90，步骤 15，动作 ID 47568，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会符文武器增效 == True) and (符文武器增效可用 == True) and (符文武器增效冷却 == 0) and (符文武器增效对目标在射程内 == True) and (玩家符文能量 <= 80) and (玩家杀戮机器层数 <= 1)"
+macro = "符文武器增效"
+annotate = "来源步骤 15：符文武器增效（ID 47568）"
+
+# 来源 deathknight/frost.txt:97，步骤 16，动作 ID 47568，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会符文武器增效 == True) and (符文武器增效可用 == True) and (符文武器增效冷却 == 0) and (符文武器增效对目标在射程内 == True) and (玩家符文能量 <= 8) and (玩家有杀戮机器增益 == False)"
+macro = "符文武器增效"
+annotate = "来源步骤 16：符文武器增效（ID 47568）"
+
+# 来源 deathknight/frost.txt:104，步骤 17，动作 ID 316239，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "符文打击"
+annotate = "来源步骤 17：符文打击（ID 316239）"
+
+# 来源 deathknight/frost.txt:105，步骤 18，动作 ID 279302，TXT 冷却 90 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会冰霜巨龙之怒 == True) and (冰霜巨龙之怒可用 == True) and (冰霜巨龙之怒冷却 == 0) and (目标在冰霜巨龙之怒技能范围内 == True) and (玩家有冰霜之柱增益 == True)"
+macro = "冰霜巨龙之怒"
+annotate = "来源步骤 18：冰霜巨龙之怒（ID 279302）"
+
+# 来源 deathknight/frost.txt:111，步骤 19，动作 ID 279302，TXT 冷却 90 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会冰霜巨龙之怒 == True) and (冰霜巨龙之怒可用 == True) and (冰霜巨龙之怒冷却 == 0) and (目标在冰霜巨龙之怒技能范围内 == True)"
+macro = "冰霜巨龙之怒"
+annotate = "来源步骤 19：冰霜巨龙之怒（ID 279302）"
+
+# 来源 deathknight/frost.txt:116，步骤 20，动作 ID 1249658，TXT 冷却 90 秒。
+# 来源行 120：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会冰龙吐息 == True) and (冰龙吐息可用 == True) and (冰龙吐息冷却 == 0)"
+macro = "冰龙吐息"
+annotate = "来源步骤 20：冰龙吐息（ID 1249658）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

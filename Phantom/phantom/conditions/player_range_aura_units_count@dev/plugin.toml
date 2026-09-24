@@ -1,0 +1,25 @@
+name = "player_range_aura_units_count@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "技能射程内指定减益敌人数"
+description = "DoesSpellExist 验证技能后只扫描 nameplate1..40 中存在、可攻击、存活的敌人；可选战斗过滤。射程先检查秘密，仅普通 true 才查询 GetUnitAuraBySpellID；查询结果及 isHarmful 非秘密且确为 debuff 才计数。aura_id 初始化必须为 NeverSecret，否则硬 error 并可能中止剩余 UI 初始化。仅报告可观察姓名板，不代表全部附近敌人。事件加 1 秒兜底。"
+recommended_condition_name = "技能射程内带有{减益名称}的敌人数"
+assisted_combat_rule_types = ["ASSISTED_COMBAT_RULE_TYPE_AURA_COUNT_NEAR_PLAYER_GREATER", "ASSISTED_COMBAT_RULE_TYPE_AURA_COUNT_NEAR_PLAYER_LESS"]
+[parameters.spell_id]
+type = "int"
+required = true
+description = "检测射程的正整数技能 ID。"
+[parameters.aura_id]
+type = "int"
+required = true
+description = "指定减益的正整数技能 ID，游戏初始化时必须为 NeverSecret。"
+[parameters.combat_only]
+type = "bool"
+required = false
+default = false
+description = "严格布尔值；true 时只计战斗中的敌人。"
+[returns]
+type = "int"
+description = "0–40 个可观察敌人；灰度 count/40 后四舍五入还原。无单位、无效技能、秘密或 nil 结果不计数。"
+unit = "个"
+fallback = 0

@@ -1,0 +1,59 @@
+[capture]
+plugin = "gdi@dev"
+fps = 15
+
+[ui]
+min_width = 120
+min_height = 46
+log_max_lines = 1000
+
+[rotations]
+"deathknight.blood" = "rotations/死亡骑士-鲜血.toml"
+"warrior.arms" = "rotations/战士-武器.toml"
+"warrior.fury" = "rotations/战士-狂怒.toml"
+"warrior.protection" = "rotations/战士-防护.toml"
+"paladin.holy" = "rotations/圣骑士-神圣.toml"
+"paladin.protection" = "rotations/圣骑士-防护.toml"
+"paladin.retribution" = "rotations/圣骑士-惩戒.toml"
+"hunter.beastmastery" = "rotations/猎人-野兽控制.toml"
+"hunter.marksmanship" = "rotations/猎人-射击.toml"
+"hunter.survival" = "rotations/猎人-生存.toml"
+"rogue.assassination" = "rotations/潜行者-奇袭.toml"
+"rogue.outlaw" = "rotations/潜行者-狂徒.toml"
+"rogue.subtlety" = "rotations/潜行者-敏锐.toml"
+"priest.discipline" = "rotations/牧师-戒律.toml"
+"priest.holy" = "rotations/牧师-神圣.toml"
+"priest.shadow" = "rotations/牧师-暗影.toml"
+"deathknight.frost" = "rotations/死亡骑士-冰霜.toml"
+"deathknight.unholy" = "rotations/死亡骑士-邪恶.toml"
+"shaman.elemental" = "rotations/萨满祭司-元素.toml"
+"shaman.enhancement" = "rotations/萨满祭司-增强.toml"
+"shaman.restoration" = "rotations/萨满祭司-恢复.toml"
+"mage.arcane" = "rotations/法师-奥术.toml"
+"mage.fire" = "rotations/法师-火焰.toml"
+"mage.frost" = "rotations/法师-冰霜.toml"
+"warlock.affliction" = "rotations/术士-痛苦.toml"
+"warlock.demonology" = "rotations/术士-恶魔学识.toml"
+"warlock.destruction" = "rotations/术士-毁灭.toml"
+"monk.brewmaster" = "rotations/武僧-酒仙.toml"
+"monk.mistweaver" = "rotations/武僧-织雾.toml"
+"monk.windwalker" = "rotations/武僧-踏风.toml"
+"druid.balance" = "rotations/德鲁伊-平衡.toml"
+"druid.feral" = "rotations/德鲁伊-野性.toml"
+"druid.guardian" = "rotations/德鲁伊-守护.toml"
+"druid.restoration" = "rotations/德鲁伊-恢复.toml"
+"demonhunter.havoc" = "rotations/恶魔猎手-浩劫.toml"
+"demonhunter.vengeance" = "rotations/恶魔猎手-复仇.toml"
+"demonhunter.devourer" = "rotations/恶魔猎手-噬灭.toml"
+"evoker.devastation" = "rotations/唤魔师-湮灭.toml"
+"evoker.preservation" = "rotations/唤魔师-恩护.toml"
+"evoker.augmentation" = "rotations/唤魔师-增辉.toml"
+
+[wow]
+executable = 'E:\World of Warcraft\_retail_\Wow.exe'
+
+[addon]
+name = "Phantom"
+
+[keyboard]
+plugin = "post_message@dev"

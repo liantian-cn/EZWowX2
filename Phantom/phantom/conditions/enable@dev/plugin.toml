@@ -1,0 +1,14 @@
+name = "enable@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "插件启用"
+description = "从当前帧 Cell(3, 1) 读取Lua 控制条的启用状态，严格黑白解码。沿用现有 Lua 输出，不提供 template.lua，不分配新区域；配置 title 可自由命名。"
+recommended_condition_name = "插件启用"
+
+[parameters]
+description = "无参数。"
+
+[returns]
+type = "bool"
+description = "白色为 true，黑色为 false；非黑白或读取异常时返回兜底，继续求值，不隐式暂停。"
+fallback = true

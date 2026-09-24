@@ -1,0 +1,15 @@
+name: Develop push
+
+on:
+  push:
+    branches: [develop]
+
+permissions: {}
+
+jobs:
+  notify:
+    name: 通知 main 同步
+    runs-on: ubuntu-latest
+    steps:
+      - name: 记录推送
+        run: echo 'develop 已更新，由默认分支的同步工作流发布。'

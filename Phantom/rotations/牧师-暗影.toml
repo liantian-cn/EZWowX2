@@ -1,0 +1,633 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：priest/shadow.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 资源 max_power 为固定参考，须按天赋调整；临时上限变化会有误差，Cell 量化步长约为 max_power/255。
+# 本专精固定资源参考：暗影狂乱值 150（Voidtouched）。
+# 目标光环限定不可辅助目标的 PLAYER|HARMFUL 减益；PLAYER 包含玩家、宠物和载具，排除其他来源。
+# 光环秒数以固定 duration 换算；实际实例时长、延长和天赋变化会产生误差。
+# 充能 max_charges=2 是本批阈值所需显示量程，不宣称技能真实上限为 2。
+schema_version = 1
+uuid = "902ef259-ef3e-5a1a-8422-4eccf1f960bb"
+
+[profile]
+title = "牧师-暗影"
+description = "牧师一键辅助"
+unit_class = "PRIEST"
+unit_class_id = 5
+unit_spec = 3
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "已学会触须猛击_1227280"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1227280]
+
+[[conditions]]
+title = "触须猛击_1227280可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1227280]
+
+[[conditions]]
+title = "触须猛击_1227280冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1227280]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有暗影形态增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [232698]
+player_only = true
+
+[[conditions]]
+title = "玩家有虚空形态_194249增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [194249]
+player_only = true
+
+[[conditions]]
+title = "已学会暗影形态"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [232698]
+
+[[conditions]]
+title = "暗影形态可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [232698]
+
+[[conditions]]
+title = "暗影形态冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [232698]
+ignore_gcd = true
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "已学会光晕"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [120644]
+
+[[conditions]]
+title = "光晕可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [120644]
+
+[[conditions]]
+title = "光晕冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [120644]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会暗言术癫"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [335467]
+
+[[conditions]]
+title = "暗言术癫可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [335467]
+
+[[conditions]]
+title = "暗言术癫冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [335467]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家狂乱值"
+plugin = "spec_power_insanity@dev"
+[conditions.plugin_args]
+max_power = 150
+
+[[conditions]]
+title = "玩家有灵媒增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [407430]
+player_only = true
+
+[[conditions]]
+title = "已学会吸血鬼之触"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [34914]
+
+[[conditions]]
+title = "吸血鬼之触可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [34914]
+
+[[conditions]]
+title = "吸血鬼之触冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [34914]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标有吸血鬼之触减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [34914]
+
+[[conditions]]
+title = "玩家有触须猛击_1243723增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1243723]
+player_only = true
+
+[[conditions]]
+title = "已学会暗言术痛"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [589]
+
+[[conditions]]
+title = "暗言术痛可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [589]
+
+[[conditions]]
+title = "暗言术痛冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [589]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标有暗言术痛减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [589]
+
+[[conditions]]
+title = "玩家有哀难增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [238558]
+player_only = true
+
+[[conditions]]
+title = "已学会心灵震爆"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [8092]
+
+[[conditions]]
+title = "心灵震爆可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [8092]
+
+[[conditions]]
+title = "心灵震爆冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [8092]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有虚空冲击_450404增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [450404]
+player_only = true
+
+[[conditions]]
+title = "已学会虚空洪流"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [263165]
+
+[[conditions]]
+title = "虚空洪流可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [263165]
+
+[[conditions]]
+title = "虚空洪流冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [263165]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标有暗言术癫减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [335467]
+
+[[conditions]]
+title = "玩家有虚空冲击_450405增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [450405]
+player_only = true
+
+[[conditions]]
+title = "已学会暗言术灭"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [32379]
+
+[[conditions]]
+title = "暗言术灭可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [32379]
+
+[[conditions]]
+title = "暗言术灭冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [32379]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有亡语者增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [392507]
+player_only = true
+
+[[conditions]]
+title = "目标当前血量百分比"
+plugin = "target_health_pct@dev"
+[conditions.plugin_args]
+use_predicted = false
+
+[[conditions]]
+title = "已学会精神鞭笞"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [15407]
+
+[[conditions]]
+title = "精神鞭笞可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [15407]
+
+[[conditions]]
+title = "精神鞭笞冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [15407]
+ignore_gcd = true
+
+[[conditions]]
+title = "虚空形态_228260可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [228260]
+
+[[conditions]]
+title = "虚空形态_228260冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [228260]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会虚空形态_228260"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [228260]
+
+[[conditions]]
+title = "目标暗言术癫剩余秒数"
+plugin = "aura_target_debuff_duration@dev"
+[conditions.plugin_args]
+aura_ids = [335467]
+duration = 6
+width = 2
+
+[[conditions]]
+title = "心灵震爆充能"
+plugin = "spell_charges@dev"
+[conditions.plugin_args]
+spell_ids = [8092]
+max_charges = 2
+width = 1
+
+[[conditions]]
+title = "已学会能量灌注"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [10060]
+
+[[conditions]]
+title = "能量灌注可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [10060]
+
+[[conditions]]
+title = "能量灌注冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [10060]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会真言术韧"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [21562]
+
+[[conditions]]
+title = "真言术韧可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [21562]
+
+[[conditions]]
+title = "真言术韧冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [21562]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有真言术韧高亮增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1271911]
+player_only = true
+
+[[conditions]]
+title = "玩家有碾压虚空增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1279437]
+player_only = true
+
+[[conditions]]
+title = "触须猛击_1227280充能"
+plugin = "spell_charges@dev"
+[conditions.plugin_args]
+spell_ids = [1227280]
+max_charges = 2
+width = 1
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "触须猛击"
+macro_text = "/cast 触须猛击"
+
+[[macros]]
+name = "暗影形态"
+macro_text = "/cast 暗影形态"
+
+[[macros]]
+name = "光晕"
+macro_text = "/cast 光晕"
+
+[[macros]]
+name = "暗言术：癫"
+macro_text = "/cast 暗言术：癫"
+
+[[macros]]
+name = "吸血鬼之触"
+macro_text = "/cast 吸血鬼之触"
+
+[[macros]]
+name = "暗言术：痛"
+macro_text = "/cast 暗言术：痛"
+
+[[macros]]
+name = "心灵震爆"
+macro_text = "/cast 心灵震爆"
+
+[[macros]]
+name = "虚空洪流"
+macro_text = "/cast 虚空洪流"
+
+[[macros]]
+name = "暗言术：灭"
+macro_text = "/cast 暗言术：灭"
+
+[[macros]]
+name = "精神鞭笞"
+macro_text = "/cast 精神鞭笞"
+
+[[macros]]
+name = "虚空形态"
+macro_text = "/cast 虚空形态"
+
+[[macros]]
+name = "能量灌注"
+macro_text = "/cast 能量灌注"
+
+[[macros]]
+name = "真言术：韧"
+macro_text = "/cast 真言术：韧"
+
+# 来源 priest/shadow.txt:2，步骤 0，动作 ID 1227280，TXT 冷却 0 秒。
+# 来源行 6：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 8 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会触须猛击_1227280 == True) and (触须猛击_1227280可用 == True) and (触须猛击_1227280冷却 == 0)"
+macro = "触须猛击"
+annotate = "来源步骤 0：触须猛击（ID 1227280）"
+
+# 来源 priest/shadow.txt:7，步骤 1，动作 ID 232698，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (玩家有暗影形态增益 == False) and (玩家有虚空形态_194249增益 == False) and (已学会暗影形态 == True) and (暗影形态可用 == True) and (暗影形态冷却 == 0)"
+macro = "暗影形态"
+annotate = "来源步骤 1：暗影形态（ID 232698）"
+
+# 来源 priest/shadow.txt:13，步骤 2，动作 ID 120644，TXT 冷却 60 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会光晕 == True) and (光晕可用 == True) and (光晕冷却 == 0)"
+macro = "光晕"
+annotate = "来源步骤 2：光晕（ID 120644）"
+
+# 来源 priest/shadow.txt:17，步骤 3，动作 ID 335467，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会暗言术癫 == True) and (暗言术癫可用 == True) and (暗言术癫冷却 == 0) and (玩家狂乱值 >= 90) and (玩家有灵媒增益 == False)"
+macro = "暗言术：癫"
+annotate = "来源步骤 3：暗言术：癫（ID 335467）"
+
+# 来源 priest/shadow.txt:23，步骤 4，动作 ID 335467，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会暗言术癫 == True) and (暗言术癫可用 == True) and (暗言术癫冷却 == 0) and (玩家狂乱值 >= 140) and (玩家有灵媒增益 == True)"
+macro = "暗言术：癫"
+annotate = "来源步骤 4：暗言术：癫（ID 335467）"
+
+# 来源 priest/shadow.txt:29，步骤 5，动作 ID 34914，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会吸血鬼之触 == True) and (吸血鬼之触可用 == True) and (吸血鬼之触冷却 == 0) and (目标有吸血鬼之触减益 == False) and (玩家有触须猛击_1243723增益 == False)"
+macro = "吸血鬼之触"
+annotate = "来源步骤 5：吸血鬼之触（ID 34914）"
+
+# 来源 priest/shadow.txt:35，步骤 6，动作 ID 589，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会暗言术痛 == True) and (暗言术痛可用 == True) and (暗言术痛冷却 == 0) and (目标有暗言术痛减益 == False) and (玩家有哀难增益 == False)"
+macro = "暗言术：痛"
+annotate = "来源步骤 6：暗言术：痛（ID 589）"
+
+# 来源 priest/shadow.txt:41，步骤 7，动作 ID 8092，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会心灵震爆 == True) and (心灵震爆可用 == True) and (心灵震爆冷却 == 0) and (玩家有虚空冲击_450404增益 == True)"
+macro = "心灵震爆"
+annotate = "来源步骤 7：心灵震爆（ID 8092）"
+
+# 来源 priest/shadow.txt:46，步骤 8，动作 ID 263165，TXT 冷却 30 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会虚空洪流 == True) and (虚空洪流可用 == True) and (虚空洪流冷却 == 0)"
+macro = "虚空洪流"
+annotate = "来源步骤 8：虚空洪流（ID 263165）"
+
+# 来源 priest/shadow.txt:50，步骤 9，动作 ID 335467，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会暗言术癫 == True) and (暗言术癫可用 == True) and (暗言术癫冷却 == 0) and (目标有暗言术癫减益 == False)"
+macro = "暗言术：癫"
+annotate = "来源步骤 9：暗言术：癫（ID 335467）"
+
+# 来源 priest/shadow.txt:55，步骤 10，动作 ID 8092，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会心灵震爆 == True) and (心灵震爆可用 == True) and (心灵震爆冷却 == 0) and (玩家有虚空冲击_450405增益 == False)"
+macro = "心灵震爆"
+annotate = "来源步骤 10：心灵震爆（ID 8092）"
+
+# 来源 priest/shadow.txt:60，步骤 11，动作 ID 32379，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会暗言术灭 == True) and (暗言术灭可用 == True) and (暗言术灭冷却 == 0) and (玩家有亡语者增益 == True) and (目标当前血量百分比 <= 35)"
+macro = "暗言术：灭"
+annotate = "来源步骤 11：暗言术：灭（ID 32379）"
+
+# 来源 priest/shadow.txt:66，步骤 12，动作 ID 32379，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会暗言术灭 == True) and (暗言术灭可用 == True) and (暗言术灭冷却 == 0) and (目标当前血量百分比 <= 20)"
+macro = "暗言术：灭"
+annotate = "来源步骤 12：暗言术：灭（ID 32379）"
+
+# 来源 priest/shadow.txt:71，步骤 13，动作 ID 15407，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会精神鞭笞 == True) and (精神鞭笞可用 == True) and (精神鞭笞冷却 == 0) and (精神鞭笞可用 == True)"
+macro = "精神鞭笞"
+annotate = "来源步骤 13：精神鞭笞（ID 15407）"
+
+# 来源 priest/shadow.txt:76，步骤 14，动作 ID 228260，TXT 冷却 120 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (虚空形态_228260可用 == True) and (虚空形态_228260冷却 == 0) and (已学会虚空形态_228260 == True) and (玩家有虚空形态_194249增益 == True)"
+macro = "虚空形态"
+annotate = "来源步骤 14：虚空形态（ID 228260）"
+
+# 来源 priest/shadow.txt:81，步骤 15，动作 ID 8092，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "心灵震爆"
+annotate = "来源步骤 15：心灵震爆（ID 8092）"
+
+# 来源 priest/shadow.txt:82，步骤 16，动作 ID 335467，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会暗言术癫 == True) and (暗言术癫可用 == True) and (暗言术癫冷却 == 0) and (目标暗言术癫剩余秒数 <= 1.5)"
+macro = "暗言术：癫"
+annotate = "来源步骤 16：暗言术：癫（ID 335467）"
+
+# 来源 priest/shadow.txt:87，步骤 17，动作 ID 8092，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会心灵震爆 == True) and (心灵震爆可用 == True) and (心灵震爆冷却 == 0) and (玩家有虚空冲击_450404增益 == True) and (心灵震爆充能 >= 2) and (心灵震爆可用 == True)"
+macro = "心灵震爆"
+annotate = "来源步骤 17：心灵震爆（ID 8092）"
+
+# 来源 priest/shadow.txt:94，步骤 18，动作 ID 8092，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会心灵震爆 == True) and (心灵震爆可用 == True) and (心灵震爆冷却 == 0) and (玩家有虚空冲击_450405增益 == True) and (心灵震爆充能 >= 2) and (虚空洪流冷却 <= 5)"
+macro = "心灵震爆"
+annotate = "来源步骤 18：心灵震爆（ID 8092）"
+
+# 来源 priest/shadow.txt:101，步骤 19，动作 ID 8092，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会心灵震爆 == True) and (心灵震爆可用 == True) and (心灵震爆冷却 == 0) and (玩家有虚空冲击_450405增益 == True) and (虚空洪流冷却 >= 5)"
+macro = "心灵震爆"
+annotate = "来源步骤 19：心灵震爆（ID 8092）"
+
+# 来源 priest/shadow.txt:107，步骤 20，动作 ID 335467，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会暗言术癫 == True) and (暗言术癫可用 == True) and (暗言术癫冷却 == 0)"
+macro = "暗言术：癫"
+annotate = "来源步骤 20：暗言术：癫（ID 335467）"
+
+# 来源 priest/shadow.txt:111，步骤 21，动作 ID 8092，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会心灵震爆 == True) and (心灵震爆可用 == True) and (心灵震爆冷却 == 0) and (玩家有虚空冲击_450405增益 == False) and (心灵震爆充能 >= 2) and (心灵震爆可用 == True)"
+macro = "心灵震爆"
+annotate = "来源步骤 21：心灵震爆（ID 8092）"
+
+# 来源 priest/shadow.txt:118，步骤 22，动作 ID 1227280，TXT 冷却 0 秒。
+# 来源行 122：TARGET_COUNT_NEAR_TARGET_LESS；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 8 码内的目标数量小于等于 2 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会触须猛击_1227280 == True) and (触须猛击_1227280可用 == True) and (触须猛击_1227280冷却 == 0) and (目标有吸血鬼之触减益 == False) and (玩家有触须猛击_1243723增益 == False)"
+macro = "触须猛击"
+annotate = "来源步骤 22：触须猛击（ID 1227280）"
+
+# 来源 priest/shadow.txt:125，步骤 23，动作 ID 228260，TXT 冷却 120 秒。
+# 来源行 129：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会虚空形态_228260 == True) and (虚空形态_228260可用 == True) and (虚空形态_228260冷却 == 0) and (玩家有虚空形态_194249增益 == False)"
+macro = "虚空形态"
+annotate = "来源步骤 23：虚空形态（ID 228260）"
+
+# 来源 priest/shadow.txt:131，步骤 24，动作 ID 10060，TXT 冷却 120 秒。
+# 来源行 135：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会能量灌注 == True) and (能量灌注可用 == True) and (能量灌注冷却 == 0) and (玩家有虚空形态_194249增益 == True)"
+macro = "能量灌注"
+annotate = "来源步骤 24：能量灌注（ID 10060）"
+
+# 来源 priest/shadow.txt:137，步骤 25，动作 ID 21562，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会真言术韧 == True) and (真言术韧可用 == True) and (真言术韧冷却 == 0) and (玩家有真言术韧高亮增益 == True)"
+macro = "真言术：韧"
+annotate = "来源步骤 25：真言术：韧（ID 21562）"
+
+# 来源 priest/shadow.txt:142，步骤 26，动作 ID 228260，TXT 冷却 120 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (虚空形态_228260可用 == True) and (虚空形态_228260冷却 == 0) and (已学会虚空形态_228260 == True) and (玩家有碾压虚空增益 == True)"
+macro = "虚空形态"
+annotate = "来源步骤 26：虚空形态（ID 228260）"
+
+# 来源 priest/shadow.txt:147，步骤 27，动作 ID 1227280，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (触须猛击_1227280可用 == True) and (已学会触须猛击_1227280 == True) and (触须猛击_1227280冷却 == 0) and (触须猛击_1227280充能 >= 2)"
+macro = "触须猛击"
+annotate = "来源步骤 27：触须猛击（ID 1227280）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

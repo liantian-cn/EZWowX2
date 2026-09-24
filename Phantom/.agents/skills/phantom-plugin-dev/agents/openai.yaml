@@ -1,0 +1,3 @@
+interface:
+  display_name: "Phantom 插件开发"
+  short_description: "开发 Phantom 条件、截图与键盘插件，核对版本契约及验证要求"

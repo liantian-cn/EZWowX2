@@ -1,0 +1,30 @@
+[project]
+name = "phantom-rotations"
+version = "0.1.0"
+requires-python = ">=3.13,<3.14"
+description = "Phantom desktop pixel capture foundations"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --import-mode=importlib"
+pythonpath = ["."]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+files = ["phantom", "tests", "demo", "scripts"]
+exclude = ["demo_results/", "phantom[/\\\\](?:conditions|captures|keyboards)[/\\\\][^/\\\\]+@"]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 240
+extend-exclude = ["demo_results"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "UP"]
+
+[tool.ruff.format]
+skip-magic-trailing-comma = true
+
+[tool.ruff.lint.isort]
+split-on-trailing-comma = false

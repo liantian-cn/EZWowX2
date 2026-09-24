@@ -1,0 +1,16 @@
+name = "player_is_targeting_spell@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "玩家是否正在选择施法目标"
+description = "result = SpellIsTargeting()；返回是否处于法术目标选择状态。布尔值直接用黑白编码。"
+recommended_condition_name = "玩家是否正在选择施法目标"
+
+[parameters]
+description = "无参数，拒绝多余字段。"
+
+[returns]
+type = "bool"
+description = "布尔值直接用黑白编码。"
+fallback = false
+
+# 刷新约定：事件通过 C_Timer.After(0, ...) 延后；UPDATE_INTERVAL = 1 秒兜底。

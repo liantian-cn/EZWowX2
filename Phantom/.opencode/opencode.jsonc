@@ -1,0 +1,25 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "references": {
+    "wow-ui-source": {
+      "repository": "Gethe/wow-ui-source",
+      "branch": "ptr",
+      "description": "A mirror of Blizzard's official UI/Lua source for authoritative verification of APIs and behavior in the target version. Please confirm the build/revision and follow user instructions, frozen plans, and project standards.",
+    },
+    "PhantomProject": {
+      "repository": "liantian-cn/PhantomProject",
+      "branch": "develop",
+      "description": "Optional, lower-priority historical Lua examples with limited relevance to this project. Please treat them as supplementary context rather than a basis for design, implementation constraints, or API evidence. There is no need to consult or adopt them.",
+    },
+    "Shigure": {
+      "repository": "waynebian01/Shigure",
+      "branch": "main",
+      "description": "Optional, lower-priority external Lua examples with limited relevance to this project. Please treat them as supplementary context rather than a basis for design, implementation constraints, or API evidence. There is no need to consult or adopt them.",
+    },
+    "WowAssistedCombatReveal": {
+      "repository": "liantian-cn/WowAssistedCombatReveal",
+      "branch": "main",
+      "description": "An optional, lower-priority reference offering analysis of the official combat logic.",
+    },
+  },
+}

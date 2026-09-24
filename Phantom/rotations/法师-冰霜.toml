@@ -1,0 +1,332 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：mage/frost.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 目标光环限定不可辅助目标的 PLAYER|HARMFUL 减益；PLAYER 包含玩家、宠物和载具，排除其他来源。
+# 层数使用固定显示量程；超量程饱和，零填充不能区分无光环与零层。
+schema_version = 1
+uuid = "43d2fc26-d3a5-551b-aaa6-d51de4025a29"
+
+[profile]
+title = "法师-冰霜"
+description = "法师一键辅助"
+unit_class = "MAGE"
+unit_class_id = 8
+unit_spec = 3
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "已学会暴风雪"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [190356]
+
+[[conditions]]
+title = "暴风雪可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [190356]
+
+[[conditions]]
+title = "暴风雪冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [190356]
+ignore_gcd = true
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "已学会寒冰宝珠"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [84714]
+
+[[conditions]]
+title = "寒冰宝珠可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [84714]
+
+[[conditions]]
+title = "寒冰宝珠冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [84714]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会冰风暴"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [44614]
+
+[[conditions]]
+title = "冰风暴可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [44614]
+
+[[conditions]]
+title = "冰风暴冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [44614]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会冰枪术"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [30455]
+
+[[conditions]]
+title = "冰枪术可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [30455]
+
+[[conditions]]
+title = "冰枪术冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [30455]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有寒冰指增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [44544]
+player_only = true
+
+[[conditions]]
+title = "目标有冻结减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [1221389]
+
+[[conditions]]
+title = "目标冻结层数"
+plugin = "aura_target_debuff_stacks@dev"
+[conditions.plugin_args]
+aura_ids = [1221389]
+max_value = 20
+min_value = 0
+width = 5
+
+[[conditions]]
+title = "已学会寒冰箭"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [116]
+
+[[conditions]]
+title = "寒冰箭可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [116]
+
+[[conditions]]
+title = "寒冰箭冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [116]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有霜火增效增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [431177]
+player_only = true
+
+[[conditions]]
+title = "已学会冰霜射线"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [205021]
+
+[[conditions]]
+title = "冰霜射线可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [205021]
+
+[[conditions]]
+title = "冰霜射线冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [205021]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有彗星风暴增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1247778]
+player_only = true
+
+[[conditions]]
+title = "已学会奥术智慧"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1459]
+
+[[conditions]]
+title = "奥术智慧可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1459]
+
+[[conditions]]
+title = "奥术智慧冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1459]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有奥术智慧高亮增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1271907]
+player_only = true
+
+[[conditions]]
+title = "玩家有冰川尖刺增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1222865]
+player_only = true
+
+[[conditions]]
+title = "玩家有冰冷智慧增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [190446]
+player_only = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "暴风雪"
+macro_text = "/cast 暴风雪"
+
+[[macros]]
+name = "寒冰宝珠"
+macro_text = "/cast 寒冰宝珠"
+
+[[macros]]
+name = "冰风暴"
+macro_text = "/cast 冰风暴"
+
+[[macros]]
+name = "冰枪术"
+macro_text = "/cast 冰枪术"
+
+[[macros]]
+name = "寒冰箭"
+macro_text = "/cast 寒冰箭"
+
+[[macros]]
+name = "冰霜射线"
+macro_text = "/cast 冰霜射线"
+
+[[macros]]
+name = "奥术智慧"
+macro_text = "/cast 奥术智慧"
+
+# 来源 mage/frost.txt:2，步骤 0，动作 ID 190356，TXT 冷却 12 秒。
+# 来源行 6：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会暴风雪 == True) and (暴风雪可用 == True) and (暴风雪冷却 == 0)"
+macro = "暴风雪"
+annotate = "来源步骤 0：暴风雪（ID 190356）"
+
+# 来源 mage/frost.txt:7，步骤 1，动作 ID 84714，TXT 冷却 60 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会寒冰宝珠 == True) and (寒冰宝珠可用 == True) and (寒冰宝珠冷却 == 0)"
+macro = "寒冰宝珠"
+annotate = "来源步骤 1：寒冰宝珠（ID 84714）"
+
+# 来源 mage/frost.txt:11，步骤 2，动作 ID 44614，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会冰风暴 == True) and (冰风暴可用 == True) and (冰风暴冷却 == 0)"
+macro = "冰风暴"
+annotate = "来源步骤 2：冰风暴（ID 44614）"
+
+# 来源 mage/frost.txt:15，步骤 3，动作 ID 30455，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会冰枪术 == True) and (冰枪术可用 == True) and (冰枪术冷却 == 0) and (玩家有寒冰指增益 == True) and (目标有冻结减益 == True)"
+macro = "冰枪术"
+annotate = "来源步骤 3：冰枪术（ID 30455）"
+
+# 来源 mage/frost.txt:21，步骤 4，动作 ID 30455，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会冰枪术 == True) and (冰枪术可用 == True) and (冰枪术冷却 == 0) and (目标冻结层数 >= 5)"
+macro = "冰枪术"
+annotate = "来源步骤 4：冰枪术（ID 30455）"
+
+# 来源 mage/frost.txt:26，步骤 5，动作 ID 116，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会寒冰箭 == True) and (寒冰箭可用 == True) and (寒冰箭冷却 == 0) and (寒冰箭可用 == True)"
+macro = "寒冰箭"
+annotate = "来源步骤 5：寒冰箭（ID 116）"
+
+# 来源 mage/frost.txt:31，步骤 6，动作 ID 116，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会寒冰箭 == True) and (寒冰箭可用 == True) and (寒冰箭冷却 == 0) and (玩家有霜火增效增益 == True)"
+macro = "寒冰箭"
+annotate = "来源步骤 6：寒冰箭（ID 116）"
+
+# 来源 mage/frost.txt:36，步骤 7，动作 ID 116，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "寒冰箭"
+annotate = "来源步骤 7：寒冰箭（ID 116）"
+
+# 来源 mage/frost.txt:37，步骤 8，动作 ID 205021，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会冰霜射线 == True) and (冰霜射线可用 == True) and (冰霜射线冷却 == 0) and (目标冻结层数 <= 5)"
+macro = "冰霜射线"
+annotate = "来源步骤 8：冰霜射线（ID 205021）"
+
+# 来源 mage/frost.txt:42，步骤 9，动作 ID 205021，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (玩家有彗星风暴增益 == True) and (冰霜射线可用 == True) and (冰霜射线冷却 == 0)"
+macro = "冰霜射线"
+annotate = "来源步骤 9：冰霜射线（ID 205021）"
+
+# 来源 mage/frost.txt:46，步骤 10，动作 ID 1459，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会奥术智慧 == True) and (奥术智慧可用 == True) and (奥术智慧冷却 == 0) and (玩家有奥术智慧高亮增益 == True)"
+macro = "奥术智慧"
+annotate = "来源步骤 10：奥术智慧（ID 1459）"
+
+# 来源 mage/frost.txt:51，步骤 11，动作 ID 116，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (寒冰箭可用 == True) and (寒冰箭冷却 == 0) and (玩家有冰川尖刺增益 == True) and (目标冻结层数 <= 16) and (已学会寒冰箭 == True)"
+macro = "寒冰箭"
+annotate = "来源步骤 11：寒冰箭（ID 116）"
+
+# 来源 mage/frost.txt:57，步骤 12，动作 ID 44614，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (冰风暴冷却 == 0) and (冰风暴可用 == True) and (已学会冰风暴 == True) and (玩家有冰冷智慧增益 == True) and (目标冻结层数 <= 16)"
+macro = "冰风暴"
+annotate = "来源步骤 12：冰风暴（ID 44614）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

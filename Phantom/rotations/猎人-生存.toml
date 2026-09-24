@@ -1,0 +1,391 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：hunter/survival.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 技能射程规则使用当前步骤动作 ID 对 target 的射程结果，无效射程返回 False。
+# 距离条件近似为当前步骤技能射程，忽略 TXT 码数；无效技能/无目标/nil 射程也返回 False。
+# 资源 max_power 为固定参考，须按天赋调整；临时上限变化会有误差，Cell 量化步长约为 max_power/255。
+# 宠物条件只统计存在且存活的 pet 单位，不统计临时召唤物。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+schema_version = 1
+uuid = "17b7e70e-f314-592c-858f-6030c431a9d0"
+
+[profile]
+title = "猎人-生存"
+description = "猎人一键辅助"
+unit_class = "HUNTER"
+unit_class_id = 3
+unit_spec = 3
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "已学会野火炸弹"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [259495]
+
+[[conditions]]
+title = "野火炸弹可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [259495]
+
+[[conditions]]
+title = "野火炸弹冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [259495]
+ignore_gcd = true
+
+[[conditions]]
+title = "野火炸弹对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 259495
+unit_token = "target"
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "已学会爆裂火铳"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1261193]
+
+[[conditions]]
+title = "爆裂火铳可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1261193]
+
+[[conditions]]
+title = "爆裂火铳冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1261193]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在爆裂火铳技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 1261193
+
+[[conditions]]
+title = "已学会杀戮命令"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [259489]
+
+[[conditions]]
+title = "杀戮命令可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [259489]
+
+[[conditions]]
+title = "杀戮命令冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [259489]
+ignore_gcd = true
+
+[[conditions]]
+title = "杀戮命令对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 259489
+unit_token = "target"
+
+[[conditions]]
+title = "玩家集中值"
+plugin = "spec_power_focus@dev"
+[conditions.plugin_args]
+max_power = 100
+
+[[conditions]]
+title = "已学会猛禽一击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [186270]
+
+[[conditions]]
+title = "猛禽一击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [186270]
+
+[[conditions]]
+title = "猛禽一击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [186270]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在猛禽一击技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 186270
+
+[[conditions]]
+title = "已学会召唤宠物1"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [883]
+
+[[conditions]]
+title = "召唤宠物1可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [883]
+
+[[conditions]]
+title = "召唤宠物1冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [883]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有存活宠物"
+plugin = "player_has_pet@dev"
+
+[[conditions]]
+title = "已学会奥术射击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [185358]
+
+[[conditions]]
+title = "奥术射击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [185358]
+
+[[conditions]]
+title = "奥术射击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [185358]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会复活宠物"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [982]
+
+[[conditions]]
+title = "复活宠物可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [982]
+
+[[conditions]]
+title = "复活宠物冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [982]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有追踪宠物增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1244922]
+player_only = true
+
+[[conditions]]
+title = "已学会狩魂一击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1250646]
+
+[[conditions]]
+title = "狩魂一击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1250646]
+
+[[conditions]]
+title = "狩魂一击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1250646]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有利矛之刃增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [260286]
+player_only = true
+
+[[conditions]]
+title = "已学会燎焰沥青"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1251592]
+
+[[conditions]]
+title = "燎焰沥青可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1251592]
+
+[[conditions]]
+title = "燎焰沥青冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1251592]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在燎焰沥青技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 1251592
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "野火炸弹"
+macro_text = "/cast 野火炸弹"
+
+[[macros]]
+name = "爆裂火铳"
+macro_text = "/cast 爆裂火铳"
+
+[[macros]]
+name = "杀戮命令"
+macro_text = "/cast 杀戮命令"
+
+[[macros]]
+name = "猛禽一击"
+macro_text = "/cast 猛禽一击"
+
+[[macros]]
+name = "召唤宠物 1"
+macro_text = "/cast 召唤宠物 1"
+
+[[macros]]
+name = "奥术射击"
+macro_text = "/cast 奥术射击"
+
+[[macros]]
+name = "稳固射击"
+macro_text = "/cast 稳固射击"
+
+[[macros]]
+name = "复活宠物"
+macro_text = "/cast 复活宠物"
+
+[[macros]]
+name = "狩魂一击"
+macro_text = "/cast 狩魂一击"
+
+[[macros]]
+name = "燎焰沥青"
+macro_text = "/cast 燎焰沥青"
+
+# 来源 hunter/survival.txt:2，步骤 0，动作 ID 259495，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会野火炸弹 == True) and (野火炸弹可用 == True) and (野火炸弹冷却 == 0) and (野火炸弹对目标在射程内 == True)"
+macro = "野火炸弹"
+annotate = "来源步骤 0：野火炸弹（ID 259495）"
+
+# 来源 hunter/survival.txt:7，步骤 1，动作 ID 1261193，TXT 冷却 60 秒。
+# 来源行 11：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会爆裂火铳 == True) and (爆裂火铳可用 == True) and (爆裂火铳冷却 == 0) and (目标在爆裂火铳技能范围内 == True)"
+macro = "爆裂火铳"
+annotate = "来源步骤 1：爆裂火铳（ID 1261193）"
+
+# 来源 hunter/survival.txt:13，步骤 2，动作 ID 259489，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会杀戮命令 == True) and (杀戮命令可用 == True) and (杀戮命令冷却 == 0) and (杀戮命令对目标在射程内 == True) and (玩家集中值 <= 40)"
+macro = "杀戮命令"
+annotate = "来源步骤 2：杀戮命令（ID 259489）"
+
+# 来源 hunter/survival.txt:19，步骤 3，动作 ID 1261193，TXT 冷却 60 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会爆裂火铳 == True) and (爆裂火铳可用 == True) and (爆裂火铳冷却 == 0) and (目标在爆裂火铳技能范围内 == True)"
+macro = "爆裂火铳"
+annotate = "来源步骤 3：爆裂火铳（ID 1261193）"
+
+# 来源 hunter/survival.txt:24，步骤 4，动作 ID 186270，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会猛禽一击 == True) and (猛禽一击可用 == True) and (猛禽一击冷却 == 0) and (目标在猛禽一击技能范围内 == True)"
+macro = "猛禽一击"
+annotate = "来源步骤 4：猛禽一击（ID 186270）"
+
+# 来源 hunter/survival.txt:29，步骤 5，动作 ID 883，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会召唤宠物1 == True) and (召唤宠物1可用 == True) and (召唤宠物1冷却 == 0) and (玩家有存活宠物 == False)"
+macro = "召唤宠物 1"
+annotate = "来源步骤 5：召唤宠物 1（ID 883）"
+
+# 来源 hunter/survival.txt:34，步骤 6，动作 ID 186270，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会猛禽一击 == True)"
+macro = "猛禽一击"
+annotate = "来源步骤 6：猛禽一击（ID 186270）"
+
+# 来源 hunter/survival.txt:36，步骤 7，动作 ID 185358，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会奥术射击 == True) and (奥术射击可用 == True) and (奥术射击冷却 == 0)"
+macro = "奥术射击"
+annotate = "来源步骤 7：奥术射击（ID 185358）"
+
+# 来源 hunter/survival.txt:40，步骤 8，动作 ID 56641，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "稳固射击"
+annotate = "来源步骤 8：稳固射击（ID 56641）"
+
+# 来源 hunter/survival.txt:41，步骤 9，动作 ID 982，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会复活宠物 == True) and (复活宠物可用 == True) and (复活宠物冷却 == 0) and (玩家有追踪宠物增益 == True)"
+macro = "复活宠物"
+annotate = "来源步骤 9：复活宠物（ID 982）"
+
+# 来源 hunter/survival.txt:46，步骤 10，动作 ID 1250646，TXT 冷却 90 秒。
+# 来源行 50：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会狩魂一击 == True) and (狩魂一击可用 == True) and (狩魂一击冷却 == 0)"
+macro = "狩魂一击"
+annotate = "来源步骤 10：狩魂一击（ID 1250646）"
+
+# 来源 hunter/survival.txt:51，步骤 11，动作 ID 259489，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (玩家有利矛之刃增益 == False) and (已学会杀戮命令 == True) and (杀戮命令可用 == True) and (杀戮命令冷却 == 0) and (杀戮命令对目标在射程内 == True)"
+macro = "杀戮命令"
+annotate = "来源步骤 11：杀戮命令（ID 259489）"
+
+# 来源 hunter/survival.txt:57，步骤 12，动作 ID 1251592，TXT 冷却 0 秒。
+# 来源行 61：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会燎焰沥青 == True) and (燎焰沥青可用 == True) and (燎焰沥青冷却 == 0) and (目标在燎焰沥青技能范围内 == True)"
+macro = "燎焰沥青"
+annotate = "来源步骤 12：燎焰沥青（ID 1251592）"
+
+# 来源 hunter/survival.txt:63，步骤 13，动作 ID 1251592，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会燎焰沥青 == True) and (燎焰沥青可用 == True) and (燎焰沥青冷却 == 0) and (目标在燎焰沥青技能范围内 == True)"
+macro = "燎焰沥青"
+annotate = "来源步骤 13：燎焰沥青（ID 1251592）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

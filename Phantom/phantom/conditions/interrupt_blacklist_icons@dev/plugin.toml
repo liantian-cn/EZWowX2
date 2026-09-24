@@ -1,0 +1,17 @@
+name = "interrupt_blacklist_icons@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "打断黑名单图标"
+description = "游戏 panel 的单一法术列表编辑入口，固定 interrupt_blacklist 配置键，按档案保存并响应回调。固定十个 IconTile，按 ID 数值升序取前十项；失败槽留空、不补位、不删配置、不循环重试、不输出面板问号纹理。初始化及配置/档案变化请求法术数据，成功加载事件仅刷新仍配置的技能。有效图标黄色 INTERRUPTIBLE 角标只表示类别，不表示当前施法可打断。"
+recommended_condition_name = "打断黑名单图标"
+# 每份循环只允许声明一次；共享同一个 interrupt_blacklist 配置，不支持多份独立黑名单。
+# 六项默认只由 panel 应用一次，已有档案列表优先；可保存超过十项。
+# 默认：468962, 1248327, 1254669, 1258436, 1262510, 1262526。
+
+[parameters]
+description = "无业务参数；拒绝多余字段。"
+
+[returns]
+type = "list[str]"
+description = "十个物理槽的内部 6×6 RGB hash，过滤空槽，保持槽顺序和重复 hash；全空或解码失败返回 []。不自动匹配当前施法，也不执行打断。"
+fallback = []

@@ -1,0 +1,3 @@
+interface:
+  display_name: "Phantom WoW 核验"
+  short_description: "核验 Phantom 使用的 WoW API、秘密值、光环与源码证据"

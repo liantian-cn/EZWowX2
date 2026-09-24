@@ -1,0 +1,13 @@
+name = "player_has_pet@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "玩家是否有存活宠物"
+description = "UnitExists(pet) 且非 UnitIsDeadOrGhost(pet)；只统计宠物单位，事件刷新。"
+recommended_condition_name = "玩家是否有存活宠物"
+assisted_combat_rule_types = ["ASSISTED_COMBAT_RULE_TYPE_HAS_PET", "ASSISTED_COMBAT_RULE_TYPE_HAS_NO_PET"]
+[parameters]
+description = "无参数。"
+[returns]
+type = "bool"
+description = "无宠物或宠物死亡为 false；严格黑白 Cell。"
+fallback = false

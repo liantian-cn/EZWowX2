@@ -1,0 +1,318 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：shaman/restoration.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 目标光环限定不可辅助目标的 PLAYER|HARMFUL 减益；PLAYER 包含玩家、宠物和载具，排除其他来源。
+# 充能 max_charges=2 是本批阈值所需显示量程，不宣称技能真实上限为 2。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+schema_version = 1
+uuid = "f556f419-6a93-51ef-826b-044687629993"
+
+[profile]
+title = "萨满祭司-恢复"
+description = "萨满祭司一键辅助"
+unit_class = "SHAMAN"
+unit_class_id = 7
+unit_spec = 3
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "已学会闪电链"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [188443]
+
+[[conditions]]
+title = "闪电链可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [188443]
+
+[[conditions]]
+title = "闪电链冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [188443]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标有烈焰震击_188389减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [188389]
+
+[[conditions]]
+title = "已学会烈焰震击_470411"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [470411]
+
+[[conditions]]
+title = "烈焰震击_470411可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [470411]
+
+[[conditions]]
+title = "烈焰震击_470411冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [470411]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会熔岩爆裂"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [51505]
+
+[[conditions]]
+title = "熔岩爆裂可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [51505]
+
+[[conditions]]
+title = "熔岩爆裂冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [51505]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会闪电箭"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [188196]
+
+[[conditions]]
+title = "闪电箭可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [188196]
+
+[[conditions]]
+title = "闪电箭冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [188196]
+ignore_gcd = true
+
+[[conditions]]
+title = "熔岩爆裂充能"
+plugin = "spell_charges@dev"
+[conditions.plugin_args]
+spell_ids = [51505]
+max_charges = 2
+width = 1
+
+[[conditions]]
+title = "已学会水之护盾"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [52127]
+
+[[conditions]]
+title = "水之护盾可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [52127]
+
+[[conditions]]
+title = "水之护盾冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [52127]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有水之护盾增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [52127]
+player_only = true
+
+[[conditions]]
+title = "已学会大地生命武器_382021"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [382021]
+
+[[conditions]]
+title = "大地生命武器_382021可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [382021]
+
+[[conditions]]
+title = "大地生命武器_382021冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [382021]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有大地生命武器_382022增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [382022]
+player_only = true
+
+[[conditions]]
+title = "已学会唤潮者的护卫_457481"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [457481]
+
+[[conditions]]
+title = "唤潮者的护卫_457481可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [457481]
+
+[[conditions]]
+title = "唤潮者的护卫_457481冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [457481]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有唤潮者的护卫_457496增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [457496]
+player_only = true
+
+[[conditions]]
+title = "已学会天怒"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [462854]
+
+[[conditions]]
+title = "天怒可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [462854]
+
+[[conditions]]
+title = "天怒冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [462854]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有天怒高亮增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1271904]
+player_only = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "闪电链"
+macro_text = "/cast 闪电链"
+
+[[macros]]
+name = "烈焰震击"
+macro_text = "/cast 烈焰震击"
+
+[[macros]]
+name = "熔岩爆裂"
+macro_text = "/cast 熔岩爆裂"
+
+[[macros]]
+name = "闪电箭"
+macro_text = "/cast 闪电箭"
+
+[[macros]]
+name = "水之护盾"
+macro_text = "/cast 水之护盾"
+
+[[macros]]
+name = "大地生命武器"
+macro_text = "/cast 大地生命武器"
+
+[[macros]]
+name = "唤潮者的护卫"
+macro_text = "/cast 唤潮者的护卫"
+
+[[macros]]
+name = "天怒"
+macro_text = "/cast 天怒"
+
+# 来源 shaman/restoration.txt:2，步骤 0，动作 ID 188443，TXT 冷却 0 秒。
+# 来源行 3：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会闪电链 == True) and (闪电链可用 == True) and (闪电链冷却 == 0) and (闪电链可用 == True)"
+macro = "闪电链"
+annotate = "来源步骤 0：闪电链（ID 188443）"
+
+# 来源 shaman/restoration.txt:8，步骤 1，动作 ID 470411，TXT 冷却 6 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (目标有烈焰震击_188389减益 == False) and (已学会烈焰震击_470411 == True) and (烈焰震击_470411可用 == True) and (烈焰震击_470411冷却 == 0)"
+macro = "烈焰震击"
+annotate = "来源步骤 1：烈焰震击（ID 470411）"
+
+# 来源 shaman/restoration.txt:13，步骤 2，动作 ID 51505，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会熔岩爆裂 == True) and (熔岩爆裂可用 == True) and (熔岩爆裂冷却 == 0)"
+macro = "熔岩爆裂"
+annotate = "来源步骤 2：熔岩爆裂（ID 51505）"
+
+# 来源 shaman/restoration.txt:17，步骤 3，动作 ID 188196，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会闪电箭 == True) and (闪电箭可用 == True) and (闪电箭冷却 == 0) and (闪电箭可用 == True)"
+macro = "闪电箭"
+annotate = "来源步骤 3：闪电箭（ID 188196）"
+
+# 来源 shaman/restoration.txt:22，步骤 4，动作 ID 51505，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "熔岩爆裂"
+annotate = "来源步骤 4：熔岩爆裂（ID 51505）"
+
+# 来源 shaman/restoration.txt:23，步骤 5，动作 ID 51505，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会熔岩爆裂 == True) and (熔岩爆裂可用 == True) and (熔岩爆裂冷却 == 0) and (熔岩爆裂充能 >= 2) and (熔岩爆裂可用 == True)"
+macro = "熔岩爆裂"
+annotate = "来源步骤 5：熔岩爆裂（ID 51505）"
+
+# 来源 shaman/restoration.txt:29，步骤 6，动作 ID 52127，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会水之护盾 == True) and (水之护盾可用 == True) and (水之护盾冷却 == 0) and (玩家有水之护盾增益 == False)"
+macro = "水之护盾"
+annotate = "来源步骤 6：水之护盾（ID 52127）"
+
+# 来源 shaman/restoration.txt:34，步骤 7，动作 ID 382021，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会大地生命武器_382021 == True) and (大地生命武器_382021可用 == True) and (大地生命武器_382021冷却 == 0) and (玩家有大地生命武器_382022增益 == False)"
+macro = "大地生命武器"
+annotate = "来源步骤 7：大地生命武器（ID 382021）"
+
+# 来源 shaman/restoration.txt:39，步骤 8，动作 ID 457481，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会唤潮者的护卫_457481 == True) and (唤潮者的护卫_457481可用 == True) and (唤潮者的护卫_457481冷却 == 0) and (玩家有唤潮者的护卫_457496增益 == False)"
+macro = "唤潮者的护卫"
+annotate = "来源步骤 8：唤潮者的护卫（ID 457481）"
+
+# 来源 shaman/restoration.txt:44，步骤 9，动作 ID 462854，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会天怒 == True) and (天怒可用 == True) and (天怒冷却 == 0) and (玩家有天怒高亮增益 == True)"
+macro = "天怒"
+annotate = "来源步骤 9：天怒（ID 462854）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

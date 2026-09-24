@@ -1,0 +1,490 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：druid/restoration.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 目标光环限定不可辅助目标的 PLAYER|HARMFUL 减益；PLAYER 包含玩家、宠物和载具，排除其他来源。
+# 技能射程规则使用当前步骤动作 ID 对 target 的射程结果，无效射程返回 False。
+# 距离条件近似为当前步骤技能射程，忽略 TXT 码数；无效技能/无目标/nil 射程也返回 False。
+# 玩家周围人数近似为本步骤技能可攻击敌人总数，仅可观察 nameplate1–40；secret/nil 射程漏计，不代表原码数圆内完整人数。
+schema_version = 1
+uuid = "763c94be-846a-500e-8e81-74d430bdd2a7"
+
+[profile]
+title = "德鲁伊-恢复"
+description = "德鲁伊一键辅助"
+unit_class = "DRUID"
+unit_class_id = 11
+unit_spec = 4
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "已学会割裂"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1079]
+
+[[conditions]]
+title = "割裂可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1079]
+
+[[conditions]]
+title = "割裂冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1079]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有猎豹形态增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [768]
+player_only = true
+
+[[conditions]]
+title = "玩家连击点"
+plugin = "spec_power_combo_points@dev"
+
+[[conditions]]
+title = "目标有割裂减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [1079]
+
+[[conditions]]
+title = "割裂对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 1079
+unit_token = "target"
+
+[[conditions]]
+title = "已学会凶猛撕咬"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [22568]
+
+[[conditions]]
+title = "凶猛撕咬可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [22568]
+
+[[conditions]]
+title = "凶猛撕咬冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [22568]
+ignore_gcd = true
+
+[[conditions]]
+title = "凶猛撕咬对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 22568
+unit_token = "target"
+
+[[conditions]]
+title = "已学会痛击_106830"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [106830]
+
+[[conditions]]
+title = "痛击_106830可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [106830]
+
+[[conditions]]
+title = "痛击_106830冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [106830]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在痛击_106830技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 106830
+
+[[conditions]]
+title = "目标有痛击_405233减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [405233]
+
+[[conditions]]
+title = "痛击_106830技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 106830
+combat_only = false
+
+[[conditions]]
+title = "已学会横扫"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [106785]
+
+[[conditions]]
+title = "横扫可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [106785]
+
+[[conditions]]
+title = "横扫冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [106785]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在横扫技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 106785
+
+[[conditions]]
+title = "横扫技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 106785
+combat_only = false
+
+[[conditions]]
+title = "已学会撕碎"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [5221]
+
+[[conditions]]
+title = "撕碎可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [5221]
+
+[[conditions]]
+title = "撕碎冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [5221]
+ignore_gcd = true
+
+[[conditions]]
+title = "撕碎对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 5221
+unit_token = "target"
+
+[[conditions]]
+title = "已学会斜掠_1822"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1822]
+
+[[conditions]]
+title = "斜掠_1822可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1822]
+
+[[conditions]]
+title = "斜掠_1822冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1822]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标有斜掠_155722减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [155722]
+
+[[conditions]]
+title = "斜掠_1822对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 1822
+unit_token = "target"
+
+[[conditions]]
+title = "已学会月火术_8921"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [8921]
+
+[[conditions]]
+title = "月火术_8921可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [8921]
+
+[[conditions]]
+title = "月火术_8921冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [8921]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标有月火术_164812减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [164812]
+
+[[conditions]]
+title = "已学会阳炎术_93402"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [93402]
+
+[[conditions]]
+title = "阳炎术_93402可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [93402]
+
+[[conditions]]
+title = "阳炎术_93402冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [93402]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标有阳炎术_164815减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [164815]
+
+[[conditions]]
+title = "已学会星火术"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [197628]
+
+[[conditions]]
+title = "星火术可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [197628]
+
+[[conditions]]
+title = "星火术冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [197628]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会星涌术"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [197626]
+
+[[conditions]]
+title = "星涌术可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [197626]
+
+[[conditions]]
+title = "星涌术冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [197626]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会愤怒"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [5176]
+
+[[conditions]]
+title = "愤怒可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [5176]
+
+[[conditions]]
+title = "愤怒冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [5176]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会野性印记"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1126]
+
+[[conditions]]
+title = "野性印记可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1126]
+
+[[conditions]]
+title = "野性印记冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1126]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有野性印记高亮增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1271910]
+player_only = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "割裂"
+macro_text = "/cast 割裂"
+
+[[macros]]
+name = "凶猛撕咬"
+macro_text = "/cast 凶猛撕咬"
+
+[[macros]]
+name = "痛击"
+macro_text = "/cast 痛击"
+
+[[macros]]
+name = "横扫"
+macro_text = "/cast 横扫"
+
+[[macros]]
+name = "撕碎"
+macro_text = "/cast 撕碎"
+
+[[macros]]
+name = "斜掠"
+macro_text = "/cast 斜掠"
+
+[[macros]]
+name = "月火术"
+macro_text = "/cast 月火术"
+
+[[macros]]
+name = "阳炎术"
+macro_text = "/cast 阳炎术"
+
+[[macros]]
+name = "星火术"
+macro_text = "/cast 星火术"
+
+[[macros]]
+name = "星涌术"
+macro_text = "/cast 星涌术"
+
+[[macros]]
+name = "愤怒"
+macro_text = "/cast 愤怒"
+
+[[macros]]
+name = "野性印记"
+macro_text = "/cast 野性印记"
+
+# 来源 druid/restoration.txt:2，步骤 0，动作 ID 1079，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会割裂 == True) and (割裂可用 == True) and (割裂冷却 == 0) and (玩家有猎豹形态增益 == True) and (玩家连击点 >= 5) and (目标有割裂减益 == False) and (割裂对目标在射程内 == True)"
+macro = "割裂"
+annotate = "来源步骤 0：割裂（ID 1079）"
+
+# 来源 druid/restoration.txt:10，步骤 1，动作 ID 22568，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会凶猛撕咬 == True) and (凶猛撕咬可用 == True) and (凶猛撕咬冷却 == 0) and (玩家有猎豹形态增益 == True) and (玩家连击点 >= 5) and (凶猛撕咬对目标在射程内 == True)"
+macro = "凶猛撕咬"
+annotate = "来源步骤 1：凶猛撕咬（ID 22568）"
+
+# 来源 druid/restoration.txt:17，步骤 2，动作 ID 106830，TXT 冷却 6 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会痛击_106830 == True) and (痛击_106830可用 == True) and (痛击_106830冷却 == 0) and (目标在痛击_106830技能范围内 == True) and (玩家有猎豹形态增益 == True) and (目标有痛击_405233减益 == False) and (痛击_106830技能可攻击敌人总数 > 3)"
+macro = "痛击"
+annotate = "来源步骤 2：痛击（ID 106830）"
+
+# 来源 druid/restoration.txt:25，步骤 3，动作 ID 106785，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会横扫 == True) and (横扫可用 == True) and (横扫冷却 == 0) and (目标在横扫技能范围内 == True) and (玩家有猎豹形态增益 == True) and (横扫技能可攻击敌人总数 > 3)"
+macro = "横扫"
+annotate = "来源步骤 3：横扫（ID 106785）"
+
+# 来源 druid/restoration.txt:32，步骤 4，动作 ID 5221，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会撕碎 == True) and (撕碎可用 == True) and (撕碎冷却 == 0) and (玩家有猎豹形态增益 == True) and (撕碎对目标在射程内 == True)"
+macro = "撕碎"
+annotate = "来源步骤 4：撕碎（ID 5221）"
+
+# 来源 druid/restoration.txt:38，步骤 5，动作 ID 1822，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会斜掠_1822 == True) and (斜掠_1822可用 == True) and (斜掠_1822冷却 == 0) and (玩家有猎豹形态增益 == True) and (目标有斜掠_155722减益 == False) and (斜掠_1822对目标在射程内 == True)"
+macro = "斜掠"
+annotate = "来源步骤 5：斜掠（ID 1822）"
+
+# 来源 druid/restoration.txt:45，步骤 6，动作 ID 8921，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会月火术_8921 == True) and (月火术_8921可用 == True) and (月火术_8921冷却 == 0) and (目标有月火术_164812减益 == False) and (玩家有猎豹形态增益 == False)"
+macro = "月火术"
+annotate = "来源步骤 6：月火术（ID 8921）"
+
+# 来源 druid/restoration.txt:51，步骤 7，动作 ID 93402，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会阳炎术_93402 == True) and (阳炎术_93402可用 == True) and (阳炎术_93402冷却 == 0) and (目标有阳炎术_164815减益 == False) and (玩家有猎豹形态增益 == False)"
+macro = "阳炎术"
+annotate = "来源步骤 7：阳炎术（ID 93402）"
+
+# 来源 druid/restoration.txt:57，步骤 8，动作 ID 197628，TXT 冷却 0 秒。
+# 来源行 61：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会星火术 == True) and (星火术可用 == True) and (星火术冷却 == 0) and (玩家有猎豹形态增益 == False) and (星火术可用 == True)"
+macro = "星火术"
+annotate = "来源步骤 8：星火术（ID 197628）"
+
+# 来源 druid/restoration.txt:64，步骤 9，动作 ID 197626，TXT 冷却 10 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会星涌术 == True) and (星涌术可用 == True) and (星涌术冷却 == 0) and (玩家有猎豹形态增益 == False)"
+macro = "星涌术"
+annotate = "来源步骤 9：星涌术（ID 197626）"
+
+# 来源 druid/restoration.txt:69，步骤 10，动作 ID 5176，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会愤怒 == True) and (愤怒可用 == True) and (愤怒冷却 == 0) and (玩家有猎豹形态增益 == False) and (愤怒可用 == True)"
+macro = "愤怒"
+annotate = "来源步骤 10：愤怒（ID 5176）"
+
+# 来源 druid/restoration.txt:75，步骤 11，动作 ID 8921，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "月火术"
+annotate = "来源步骤 11：月火术（ID 8921）"
+
+# 来源 druid/restoration.txt:76，步骤 12，动作 ID 1126，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会野性印记 == True) and (野性印记可用 == True) and (野性印记冷却 == 0) and (玩家有野性印记高亮增益 == True)"
+macro = "野性印记"
+annotate = "来源步骤 12：野性印记（ID 1126）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

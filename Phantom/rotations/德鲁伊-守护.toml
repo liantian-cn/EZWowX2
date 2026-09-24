@@ -1,0 +1,451 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：druid/guardian.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 距离条件近似为当前步骤技能射程，忽略 TXT 码数；无效技能/无目标/nil 射程也返回 False。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 玩家周围人数近似为本步骤技能可攻击敌人总数，仅可观察 nameplate1–40；secret/nil 射程漏计，不代表原码数圆内完整人数。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 目标光环限定不可辅助目标的 PLAYER|HARMFUL 减益；PLAYER 包含玩家、宠物和载具，排除其他来源。
+# 技能射程规则使用当前步骤动作 ID 对 target 的射程结果，无效射程返回 False。
+# 资源 max_power 为固定参考，须按天赋调整；临时上限变化会有误差，Cell 量化步长约为 max_power/255。
+schema_version = 1
+uuid = "9d5a4644-d8dd-57f3-9ae9-518a8e0cc6b4"
+
+[profile]
+title = "德鲁伊-守护"
+description = "德鲁伊一键辅助"
+unit_class = "DRUID"
+unit_class_id = 11
+unit_spec = 3
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "目标在痛击技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 77758
+
+[[conditions]]
+title = "已学会痛击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [77758]
+
+[[conditions]]
+title = "痛击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [77758]
+
+[[conditions]]
+title = "痛击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [77758]
+ignore_gcd = true
+
+[[conditions]]
+title = "痛击技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 77758
+combat_only = false
+
+[[conditions]]
+title = "已学会熊形态"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [5487]
+
+[[conditions]]
+title = "熊形态可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [5487]
+
+[[conditions]]
+title = "熊形态冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [5487]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有熊形态增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [5487]
+player_only = true
+
+[[conditions]]
+title = "已学会月火术_8921"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [8921]
+
+[[conditions]]
+title = "月火术_8921可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [8921]
+
+[[conditions]]
+title = "月火术_8921冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [8921]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标有月火术_164812减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [164812]
+
+[[conditions]]
+title = "已学会裂伤"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [33917]
+
+[[conditions]]
+title = "裂伤可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [33917]
+
+[[conditions]]
+title = "裂伤冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [33917]
+ignore_gcd = true
+
+[[conditions]]
+title = "裂伤对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 33917
+unit_token = "target"
+
+[[conditions]]
+title = "已学会重殴"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [6807]
+
+[[conditions]]
+title = "重殴可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [6807]
+
+[[conditions]]
+title = "重殴冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [6807]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家怒气"
+plugin = "spec_power_rage@dev"
+[conditions.plugin_args]
+max_power = 100
+
+[[conditions]]
+title = "重殴对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 6807
+unit_token = "target"
+
+[[conditions]]
+title = "已学会横扫"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [213764]
+
+[[conditions]]
+title = "横扫可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [213764]
+
+[[conditions]]
+title = "横扫冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [213764]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在横扫技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 213764
+
+[[conditions]]
+title = "玩家有星河守护者增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [213708]
+player_only = true
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "目标在明月普照技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 204066
+
+[[conditions]]
+title = "已学会明月普照"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [204066]
+
+[[conditions]]
+title = "明月普照可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [204066]
+
+[[conditions]]
+title = "明月普照冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [204066]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会万灵之召"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [391528]
+
+[[conditions]]
+title = "万灵之召可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [391528]
+
+[[conditions]]
+title = "万灵之召冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [391528]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在万灵之召技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 391528
+
+[[conditions]]
+title = "月火术_8921对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 8921
+unit_token = "target"
+
+[[conditions]]
+title = "目标在月火术_8921技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 8921
+
+[[conditions]]
+title = "已学会狂暴"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [50334]
+
+[[conditions]]
+title = "狂暴可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [50334]
+
+[[conditions]]
+title = "狂暴冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [50334]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会野性印记"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1126]
+
+[[conditions]]
+title = "野性印记可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1126]
+
+[[conditions]]
+title = "野性印记冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1126]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有野性印记高亮增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1271910]
+player_only = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "痛击"
+macro_text = "/cast 痛击"
+
+[[macros]]
+name = "熊形态"
+macro_text = "/cast 熊形态"
+
+[[macros]]
+name = "月火术"
+macro_text = "/cast 月火术"
+
+[[macros]]
+name = "裂伤"
+macro_text = "/cast 裂伤"
+
+[[macros]]
+name = "重殴"
+macro_text = "/cast 重殴"
+
+[[macros]]
+name = "横扫"
+macro_text = "/cast 横扫"
+
+[[macros]]
+name = "明月普照"
+macro_text = "/cast 明月普照"
+
+[[macros]]
+name = "万灵之召"
+macro_text = "/cast 万灵之召"
+
+[[macros]]
+name = "狂暴"
+macro_text = "/cast 狂暴"
+
+[[macros]]
+name = "野性印记"
+macro_text = "/cast 野性印记"
+
+# 来源 druid/guardian.txt:2，步骤 0，动作 ID 77758，TXT 冷却 6 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (目标在痛击技能范围内 == True) and (已学会痛击 == True) and (痛击可用 == True) and (痛击冷却 == 0) and (痛击技能可攻击敌人总数 > 3)"
+macro = "痛击"
+annotate = "来源步骤 0：痛击（ID 77758）"
+
+# 来源 druid/guardian.txt:8，步骤 1，动作 ID 5487，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会熊形态 == True) and (熊形态可用 == True) and (熊形态冷却 == 0) and (玩家有熊形态增益 == False)"
+macro = "熊形态"
+annotate = "来源步骤 1：熊形态（ID 5487）"
+
+# 来源 druid/guardian.txt:13，步骤 2，动作 ID 8921，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会月火术_8921 == True) and (月火术_8921可用 == True) and (月火术_8921冷却 == 0) and (目标有月火术_164812减益 == False)"
+macro = "月火术"
+annotate = "来源步骤 2：月火术（ID 8921）"
+
+# 来源 druid/guardian.txt:18，步骤 3，动作 ID 33917，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会裂伤 == True) and (裂伤可用 == True) and (裂伤冷却 == 0) and (裂伤对目标在射程内 == True)"
+macro = "裂伤"
+annotate = "来源步骤 3：裂伤（ID 33917）"
+
+# 来源 druid/guardian.txt:23，步骤 4，动作 ID 6807，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会重殴 == True) and (重殴可用 == True) and (重殴冷却 == 0) and (玩家怒气 >= 8) and (重殴对目标在射程内 == True)"
+macro = "重殴"
+annotate = "来源步骤 4：重殴（ID 6807）"
+
+# 来源 druid/guardian.txt:29，步骤 5，动作 ID 77758，TXT 冷却 6 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (目标在痛击技能范围内 == True) and (已学会痛击 == True) and (痛击可用 == True) and (痛击冷却 == 0)"
+macro = "痛击"
+annotate = "来源步骤 5：痛击（ID 77758）"
+
+# 来源 druid/guardian.txt:34，步骤 6，动作 ID 213764，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会横扫 == True) and (横扫可用 == True) and (横扫冷却 == 0) and (目标在横扫技能范围内 == True)"
+macro = "横扫"
+annotate = "来源步骤 6：横扫（ID 213764）"
+
+# 来源 druid/guardian.txt:39，步骤 7，动作 ID 8921，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会月火术_8921 == True) and (月火术_8921可用 == True) and (月火术_8921冷却 == 0) and (玩家有星河守护者增益 == True)"
+macro = "月火术"
+annotate = "来源步骤 7：月火术（ID 8921）"
+
+# 来源 druid/guardian.txt:44，步骤 8，动作 ID 204066，TXT 冷却 60 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (目标在明月普照技能范围内 == True) and (已学会明月普照 == True) and (明月普照可用 == True) and (明月普照冷却 == 0)"
+macro = "明月普照"
+annotate = "来源步骤 8：明月普照（ID 204066）"
+
+# 来源 druid/guardian.txt:49，步骤 9，动作 ID 213764，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "横扫"
+annotate = "来源步骤 9：横扫（ID 213764）"
+
+# 来源 druid/guardian.txt:50，步骤 10，动作 ID 391528，TXT 冷却 120 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会万灵之召 == True) and (万灵之召可用 == True) and (万灵之召冷却 == 0) and (目标在万灵之召技能范围内 == True)"
+macro = "万灵之召"
+annotate = "来源步骤 10：万灵之召（ID 391528）"
+
+# 来源 druid/guardian.txt:55，步骤 11，动作 ID 8921，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会月火术_8921 == True) and (月火术_8921可用 == True) and (月火术_8921冷却 == 0) and (月火术_8921对目标在射程内 == True) and (目标在月火术_8921技能范围内 == False)"
+macro = "月火术"
+annotate = "来源步骤 11：月火术（ID 8921）"
+
+# 来源 druid/guardian.txt:61，步骤 12，动作 ID 50334，TXT 冷却 180 秒。
+# 来源行 65：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会狂暴 == True) and (狂暴可用 == True) and (狂暴冷却 == 0)"
+macro = "狂暴"
+annotate = "来源步骤 12：狂暴（ID 50334）"
+
+# 来源 druid/guardian.txt:66，步骤 13，动作 ID 391528，TXT 冷却 120 秒。
+# 来源行 70：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会万灵之召 == True) and (万灵之召可用 == True) and (万灵之召冷却 == 0)"
+macro = "万灵之召"
+annotate = "来源步骤 13：万灵之召（ID 391528）"
+
+# 来源 druid/guardian.txt:71，步骤 14，动作 ID 1126，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会野性印记 == True) and (野性印记可用 == True) and (野性印记冷却 == 0) and (玩家有野性印记高亮增益 == True)"
+macro = "野性印记"
+annotate = "来源步骤 14：野性印记（ID 1126）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

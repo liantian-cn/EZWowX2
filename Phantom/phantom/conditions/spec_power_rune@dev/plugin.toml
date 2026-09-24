@@ -1,0 +1,24 @@
+# AI Agent 自述；运行时不读取。参数与返回值以同目录实现为准。
+# 核验：2026-09-13，@wow-ui-source，12.1.0.69587
+# revision: a89e9d0ceb7f6cd31e8fc5ca7df1a338ac0b1b58
+# 定义：Interface/AddOns/Blizzard_APIDocumentationGenerated/ 下 PlayerScriptDocumentation.lua, UnitDocumentation.lua
+name = "spec_power_rune@dev"
+assisted_combat_rule_types = ["ASSISTED_COMBAT_RULE_TYPE_RUNES_GREATER", "ASSISTED_COMBAT_RULE_TYPE_RUNES_LESS"]
+author = "liantian-cn"
+version = "dev"
+display_name = "死亡骑士可用符文数量"
+recommended_condition_name = "符文数量"
+description = """
+用于死亡骑士判断可立即使用的符文数。GetRuneCooldown 逐一查询六个符文，只统计 runeReady 为真的符文，不使用符文冷却时长或秘密事件参数。Lua 将数量编码为一个 Cell 的整数灰度亮度 0–6；Python 对灰度均值作非负四舍五入，并检查结果处于 0–6，返回整数。初始化和符文更新事件重新统计。
+"""
+
+[parameters]
+description = "无参数；可省略 plugin_args 或传空表，其他字段均拒绝。"
+
+[returns]
+type = "int"
+unit = "个"
+fallback = 0
+description = "0–6 的可用符文数量标量；颜色污染、数量越界或解码异常返回 0。"
+
+# 刷新约定：事件通过 C_Timer.After(0, ...) 延后；无定时轮询。

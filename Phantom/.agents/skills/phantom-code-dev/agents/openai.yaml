@@ -1,0 +1,3 @@
+interface:
+  display_name: "Phantom 代码开发"
+  short_description: "开发 Phantom 核心代码、TUI 与像素协议，按任务加载规范"

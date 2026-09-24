@@ -1,0 +1,398 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：monk/brewmaster.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 技能射程规则使用当前步骤动作 ID 对 target 的射程结果，无效射程返回 False。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 距离条件近似为当前步骤技能射程，忽略 TXT 码数；无效技能/无目标/nil 射程也返回 False。
+# 充能 max_charges=2 是本批阈值所需显示量程，不宣称技能真实上限为 2。
+# 玩家周围人数近似为本步骤技能可攻击敌人总数，仅可观察 nameplate1–40；secret/nil 射程漏计，不代表原码数圆内完整人数。
+schema_version = 1
+uuid = "c378a039-a5a2-5b94-bf10-4a4212deef8e"
+
+[profile]
+title = "武僧-酒仙"
+description = "武僧一键辅助"
+unit_class = "MONK"
+unit_class_id = 10
+unit_spec = 1
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "已学会轮回之触"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [322109]
+
+[[conditions]]
+title = "轮回之触可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [322109]
+
+[[conditions]]
+title = "轮回之触冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [322109]
+ignore_gcd = true
+
+[[conditions]]
+title = "轮回之触对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 322109
+unit_token = "target"
+
+[[conditions]]
+title = "已学会幻灭踢"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [205523]
+
+[[conditions]]
+title = "幻灭踢可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [205523]
+
+[[conditions]]
+title = "幻灭踢冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [205523]
+ignore_gcd = true
+
+[[conditions]]
+title = "幻灭踢对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 205523
+unit_token = "target"
+
+[[conditions]]
+title = "玩家有幻灭连击增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [228563]
+player_only = true
+
+[[conditions]]
+title = "已学会真气爆裂"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [123986]
+
+[[conditions]]
+title = "真气爆裂可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [123986]
+
+[[conditions]]
+title = "真气爆裂冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [123986]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在真气爆裂技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 123986
+
+[[conditions]]
+title = "已学会醉酿投"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [121253]
+
+[[conditions]]
+title = "醉酿投可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [121253]
+
+[[conditions]]
+title = "醉酿投冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [121253]
+ignore_gcd = true
+
+[[conditions]]
+title = "醉酿投对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 121253
+unit_token = "target"
+
+[[conditions]]
+title = "醉酿投充能"
+plugin = "spell_charges@dev"
+[conditions.plugin_args]
+spell_ids = [121253]
+max_charges = 2
+width = 1
+
+[[conditions]]
+title = "已学会火焰之息"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [115181]
+
+[[conditions]]
+title = "火焰之息可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [115181]
+
+[[conditions]]
+title = "火焰之息冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [115181]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在火焰之息技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 115181
+
+[[conditions]]
+title = "已学会爆炸酒桶"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [325153]
+
+[[conditions]]
+title = "爆炸酒桶可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [325153]
+
+[[conditions]]
+title = "爆炸酒桶冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [325153]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在爆炸酒桶技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 325153
+
+[[conditions]]
+title = "已学会碧玉疾风"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [116847]
+
+[[conditions]]
+title = "碧玉疾风可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [116847]
+
+[[conditions]]
+title = "碧玉疾风冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [116847]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会神鹤引项踢"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [322729]
+
+[[conditions]]
+title = "神鹤引项踢可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [322729]
+
+[[conditions]]
+title = "神鹤引项踢冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [322729]
+ignore_gcd = true
+
+[[conditions]]
+title = "神鹤引项踢技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 322729
+combat_only = false
+
+[[conditions]]
+title = "已学会猛虎掌"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [100780]
+
+[[conditions]]
+title = "猛虎掌可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [100780]
+
+[[conditions]]
+title = "猛虎掌冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [100780]
+ignore_gcd = true
+
+[[conditions]]
+title = "猛虎掌对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 100780
+unit_token = "target"
+
+[[conditions]]
+title = "玩家有顺水推舟增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [418359]
+player_only = true
+
+[[conditions]]
+title = "猛虎掌技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 100780
+combat_only = false
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "轮回之触"
+macro_text = "/cast 轮回之触"
+
+[[macros]]
+name = "幻灭踢"
+macro_text = "/cast 幻灭踢"
+
+[[macros]]
+name = "真气爆裂"
+macro_text = "/cast 真气爆裂"
+
+[[macros]]
+name = "醉酿投"
+macro_text = "/cast 醉酿投"
+
+[[macros]]
+name = "火焰之息"
+macro_text = "/cast 火焰之息"
+
+[[macros]]
+name = "爆炸酒桶"
+macro_text = "/cast 爆炸酒桶"
+
+[[macros]]
+name = "碧玉疾风"
+macro_text = "/cast 碧玉疾风"
+
+[[macros]]
+name = "神鹤引项踢"
+macro_text = "/cast 神鹤引项踢"
+
+[[macros]]
+name = "猛虎掌"
+macro_text = "/cast 猛虎掌"
+
+# 来源 monk/brewmaster.txt:2，步骤 0，动作 ID 322109，TXT 冷却 180 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会轮回之触 == True) and (轮回之触可用 == True) and (轮回之触冷却 == 0) and (轮回之触对目标在射程内 == True)"
+macro = "轮回之触"
+annotate = "来源步骤 0：轮回之触（ID 322109）"
+
+# 来源 monk/brewmaster.txt:7，步骤 1，动作 ID 205523，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会幻灭踢 == True) and (幻灭踢可用 == True) and (幻灭踢冷却 == 0) and (幻灭踢对目标在射程内 == True) and (玩家有幻灭连击增益 == False)"
+macro = "幻灭踢"
+annotate = "来源步骤 1：幻灭踢（ID 205523）"
+
+# 来源 monk/brewmaster.txt:13，步骤 2，动作 ID 123986，TXT 冷却 30 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会真气爆裂 == True) and (真气爆裂可用 == True) and (真气爆裂冷却 == 0) and (目标在真气爆裂技能范围内 == True)"
+macro = "真气爆裂"
+annotate = "来源步骤 2：真气爆裂（ID 123986）"
+
+# 来源 monk/brewmaster.txt:18，步骤 3，动作 ID 121253，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会醉酿投 == True) and (醉酿投可用 == True) and (醉酿投冷却 == 0) and (醉酿投对目标在射程内 == True) and (醉酿投充能 >= 2)"
+macro = "醉酿投"
+annotate = "来源步骤 3：醉酿投（ID 121253）"
+
+# 来源 monk/brewmaster.txt:24，步骤 4，动作 ID 115181，TXT 冷却 15 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会火焰之息 == True) and (火焰之息可用 == True) and (火焰之息冷却 == 0) and (目标在火焰之息技能范围内 == True)"
+macro = "火焰之息"
+annotate = "来源步骤 4：火焰之息（ID 115181）"
+
+# 来源 monk/brewmaster.txt:29，步骤 5，动作 ID 325153，TXT 冷却 60 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会爆炸酒桶 == True) and (爆炸酒桶可用 == True) and (爆炸酒桶冷却 == 0) and (目标在爆炸酒桶技能范围内 == True)"
+macro = "爆炸酒桶"
+annotate = "来源步骤 5：爆炸酒桶（ID 325153）"
+
+# 来源 monk/brewmaster.txt:34，步骤 6，动作 ID 116847，TXT 冷却 6 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会碧玉疾风 == True) and (碧玉疾风可用 == True) and (碧玉疾风冷却 == 0)"
+macro = "碧玉疾风"
+annotate = "来源步骤 6：碧玉疾风（ID 116847）"
+
+# 来源 monk/brewmaster.txt:38，步骤 7，动作 ID 322729，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会神鹤引项踢 == True) and (神鹤引项踢可用 == True) and (神鹤引项踢冷却 == 0) and (神鹤引项踢技能可攻击敌人总数 > 3) and (神鹤引项踢可用 == True)"
+macro = "神鹤引项踢"
+annotate = "来源步骤 7：神鹤引项踢（ID 322729）"
+
+# 来源 monk/brewmaster.txt:44，步骤 8，动作 ID 100780，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会猛虎掌 == True) and (猛虎掌可用 == True) and (猛虎掌冷却 == 0) and (猛虎掌对目标在射程内 == True) and (玩家有顺水推舟增益 == False)"
+macro = "猛虎掌"
+annotate = "来源步骤 8：猛虎掌（ID 100780）"
+
+# 来源 monk/brewmaster.txt:50，步骤 9，动作 ID 100780，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会猛虎掌 == True) and (猛虎掌可用 == True) and (猛虎掌冷却 == 0) and (猛虎掌对目标在射程内 == True) and (玩家有顺水推舟增益 == False) and (玩家有幻灭连击增益 == True) and (猛虎掌技能可攻击敌人总数 <= 2)"
+macro = "猛虎掌"
+annotate = "来源步骤 9：猛虎掌（ID 100780）"
+
+# 来源 monk/brewmaster.txt:58，步骤 10，动作 ID 121253，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会醉酿投 == True) and (醉酿投可用 == True) and (醉酿投冷却 == 0) and (醉酿投对目标在射程内 == True)"
+macro = "醉酿投"
+annotate = "来源步骤 10：醉酿投（ID 121253）"
+
+# 来源 monk/brewmaster.txt:63，步骤 11，动作 ID 121253，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "醉酿投"
+annotate = "来源步骤 11：醉酿投（ID 121253）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

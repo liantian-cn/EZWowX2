@@ -1,0 +1,539 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：warlock/affliction.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 目标光环限定不可辅助目标的 PLAYER|HARMFUL 减益；PLAYER 包含玩家、宠物和载具，排除其他来源。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 灵魂碎片 TXT 除以 10；毁灭使用 0..50 片段 ValueBar / 10 浮点模式，其他专精保留整数碎片。
+# 光环秒数以固定 duration 换算；实际实例时长、延长和天赋变化会产生误差。
+# 宠物条件只统计存在且存活的 pet 单位，不统计临时召唤物。
+# 层数使用固定显示量程；超量程饱和，零填充不能区分无光环与零层。
+schema_version = 1
+uuid = "c6fa401b-9f64-5d79-9ac3-8e1408b84850"
+
+[profile]
+title = "术士-痛苦"
+description = "术士一键辅助"
+unit_class = "WARLOCK"
+unit_class_id = 9
+unit_spec = 1
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "已学会腐蚀之种"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [27243]
+
+[[conditions]]
+title = "腐蚀之种可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [27243]
+
+[[conditions]]
+title = "腐蚀之种冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [27243]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标有腐蚀术_146739减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [146739]
+
+[[conditions]]
+title = "玩家有枯萎_445465增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [445465]
+player_only = true
+
+[[conditions]]
+title = "目标有腐蚀之种减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [27243]
+
+[[conditions]]
+title = "玩家有SeedofCorruptionIsOutDNT增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1279998]
+player_only = true
+
+[[conditions]]
+title = "目标有枯萎_445474减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [445474]
+
+[[conditions]]
+title = "已学会腐蚀术_172"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [172]
+
+[[conditions]]
+title = "腐蚀术_172可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [172]
+
+[[conditions]]
+title = "腐蚀术_172冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [172]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会痛苦无常"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1259790]
+
+[[conditions]]
+title = "痛苦无常可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1259790]
+
+[[conditions]]
+title = "痛苦无常冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1259790]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家灵魂碎片"
+plugin = "spec_power_soul_shards@dev"
+[conditions.plugin_args]
+fractional = false
+
+[[conditions]]
+title = "已学会痛楚"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [980]
+
+[[conditions]]
+title = "痛楚可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [980]
+
+[[conditions]]
+title = "痛楚冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [980]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标有痛楚减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [980]
+
+[[conditions]]
+title = "已学会鬼影缠身"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [48181]
+
+[[conditions]]
+title = "鬼影缠身可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [48181]
+
+[[conditions]]
+title = "鬼影缠身冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [48181]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有碎片动荡增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1260269]
+player_only = true
+
+[[conditions]]
+title = "已学会暗影箭"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [686]
+
+[[conditions]]
+title = "暗影箭可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [686]
+
+[[conditions]]
+title = "暗影箭冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [686]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标痛楚剩余秒数"
+plugin = "aura_target_debuff_duration@dev"
+[conditions.plugin_args]
+aura_ids = [980]
+duration = 18
+width = 5
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "已学会怨毒"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [442726]
+
+[[conditions]]
+title = "怨毒可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [442726]
+
+[[conditions]]
+title = "怨毒冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [442726]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会召唤地狱猎犬"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [691]
+
+[[conditions]]
+title = "召唤地狱猎犬可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [691]
+
+[[conditions]]
+title = "召唤地狱猎犬冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [691]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有存活宠物"
+plugin = "player_has_pet@dev"
+
+[[conditions]]
+title = "玩家有牺牲魔典_196099增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [196099]
+player_only = true
+
+[[conditions]]
+title = "玩家有RecentlyDemonHasBeenSummonedDNT增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1288970]
+player_only = true
+
+[[conditions]]
+title = "已学会牺牲魔典_108503"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [108503]
+
+[[conditions]]
+title = "牺牲魔典_108503可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [108503]
+
+[[conditions]]
+title = "牺牲魔典_108503冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [108503]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会召唤小鬼"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [688]
+
+[[conditions]]
+title = "召唤小鬼可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [688]
+
+[[conditions]]
+title = "召唤小鬼冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [688]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会召唤黑眼"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [205180]
+
+[[conditions]]
+title = "召唤黑眼可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [205180]
+
+[[conditions]]
+title = "召唤黑眼冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [205180]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会幽冥收割"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1257052]
+
+[[conditions]]
+title = "幽冥收割可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1257052]
+
+[[conditions]]
+title = "幽冥收割冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1257052]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家夜幕层数"
+plugin = "aura_player_buff_stacks@dev"
+[conditions.plugin_args]
+aura_ids = [264571]
+max_value = 2
+min_value = 0
+width = 1
+player_only = true
+
+[[conditions]]
+title = "玩家夜幕剩余秒数"
+plugin = "aura_player_buff_duration@dev"
+[conditions.plugin_args]
+aura_ids = [264571]
+duration = 12
+width = 3
+player_only = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "腐蚀之种"
+macro_text = "/cast 腐蚀之种"
+
+[[macros]]
+name = "腐蚀术"
+macro_text = "/cast 腐蚀术"
+
+[[macros]]
+name = "痛苦无常"
+macro_text = "/cast 痛苦无常"
+
+[[macros]]
+name = "痛楚"
+macro_text = "/cast 痛楚"
+
+[[macros]]
+name = "鬼影缠身"
+macro_text = "/cast 鬼影缠身"
+
+[[macros]]
+name = "暗影箭"
+macro_text = "/cast 暗影箭"
+
+[[macros]]
+name = "怨毒"
+macro_text = "/cast 怨毒"
+
+[[macros]]
+name = "召唤地狱猎犬"
+macro_text = "/cast 召唤地狱猎犬"
+
+[[macros]]
+name = "牺牲魔典"
+macro_text = "/cast 牺牲魔典"
+
+[[macros]]
+name = "召唤小鬼"
+macro_text = "/cast 召唤小鬼"
+
+[[macros]]
+name = "召唤黑眼"
+macro_text = "/cast 召唤黑眼"
+
+[[macros]]
+name = "幽冥收割"
+macro_text = "/cast 幽冥收割"
+
+# 来源 warlock/affliction.txt:2，步骤 0，动作 ID 27243，TXT 冷却 0 秒。
+# 来源行 6：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会腐蚀之种 == True) and (腐蚀之种可用 == True) and (腐蚀之种冷却 == 0) and (目标有腐蚀术_146739减益 == False) and (玩家有枯萎_445465增益 == False) and (目标有腐蚀之种减益 == False) and (玩家有SeedofCorruptionIsOutDNT增益 == False)"
+macro = "腐蚀之种"
+annotate = "来源步骤 0：腐蚀之种（ID 27243）"
+
+# 来源 warlock/affliction.txt:11，步骤 1，动作 ID 27243，TXT 冷却 0 秒。
+# 来源行 15：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会腐蚀之种 == True) and (腐蚀之种可用 == True) and (腐蚀之种冷却 == 0) and (目标有枯萎_445474减益 == False) and (玩家有枯萎_445465增益 == True) and (目标有腐蚀之种减益 == False) and (玩家有SeedofCorruptionIsOutDNT增益 == False)"
+macro = "腐蚀之种"
+annotate = "来源步骤 1：腐蚀之种（ID 27243）"
+
+# 来源 warlock/affliction.txt:20，步骤 2，动作 ID 172，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会腐蚀术_172 == True) and (腐蚀术_172可用 == True) and (腐蚀术_172冷却 == 0) and (目标有腐蚀术_146739减益 == False) and (玩家有枯萎_445465增益 == False) and (目标有腐蚀之种减益 == False) and (玩家有SeedofCorruptionIsOutDNT增益 == False)"
+macro = "腐蚀术"
+annotate = "来源步骤 2：腐蚀术（ID 172）"
+
+# 来源 warlock/affliction.txt:28，步骤 3，动作 ID 172，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会腐蚀术_172 == True) and (腐蚀术_172可用 == True) and (腐蚀术_172冷却 == 0) and (目标有枯萎_445474减益 == False) and (玩家有枯萎_445465增益 == True) and (目标有腐蚀之种减益 == False) and (玩家有SeedofCorruptionIsOutDNT增益 == False)"
+macro = "腐蚀术"
+annotate = "来源步骤 3：腐蚀术（ID 172）"
+
+# 来源 warlock/affliction.txt:36，步骤 4，动作 ID 1259790，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会痛苦无常 == True) and (痛苦无常可用 == True) and (痛苦无常冷却 == 0) and (玩家灵魂碎片 >= 5)"
+macro = "痛苦无常"
+annotate = "来源步骤 4：痛苦无常（ID 1259790）"
+
+# 来源 warlock/affliction.txt:41，步骤 5，动作 ID 980，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会痛楚 == True) and (痛楚可用 == True) and (痛楚冷却 == 0) and (目标有痛楚减益 == False)"
+macro = "痛楚"
+annotate = "来源步骤 5：痛楚（ID 980）"
+
+# 来源 warlock/affliction.txt:46，步骤 6，动作 ID 48181，TXT 冷却 15 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会鬼影缠身 == True) and (鬼影缠身可用 == True) and (鬼影缠身冷却 == 0)"
+macro = "鬼影缠身"
+annotate = "来源步骤 6：鬼影缠身（ID 48181）"
+
+# 来源 warlock/affliction.txt:50，步骤 7，动作 ID 1259790，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会痛苦无常 == True) and (痛苦无常可用 == True) and (痛苦无常冷却 == 0) and (玩家有碎片动荡增益 == True)"
+macro = "痛苦无常"
+annotate = "来源步骤 7：痛苦无常（ID 1259790）"
+
+# 来源 warlock/affliction.txt:55，步骤 8，动作 ID 1259790，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会痛苦无常 == True) and (痛苦无常可用 == True) and (痛苦无常冷却 == 0)"
+macro = "痛苦无常"
+annotate = "来源步骤 8：痛苦无常（ID 1259790）"
+
+# 来源 warlock/affliction.txt:59，步骤 9，动作 ID 686，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会暗影箭 == True) and (暗影箭可用 == True) and (暗影箭冷却 == 0) and (暗影箭可用 == True)"
+macro = "暗影箭"
+annotate = "来源步骤 9：暗影箭（ID 686）"
+
+# 来源 warlock/affliction.txt:64，步骤 10，动作 ID 980，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会痛楚 == True) and (痛楚可用 == True) and (痛楚冷却 == 0) and (目标痛楚剩余秒数 <= 4)"
+macro = "痛楚"
+annotate = "来源步骤 10：痛楚（ID 980）"
+
+# 来源 warlock/affliction.txt:69，步骤 11，动作 ID 686，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "暗影箭"
+annotate = "来源步骤 11：暗影箭（ID 686）"
+
+# 来源 warlock/affliction.txt:70，步骤 12，动作 ID 442726，TXT 冷却 60 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会怨毒 == True) and (怨毒可用 == True) and (怨毒冷却 == 0)"
+macro = "怨毒"
+annotate = "来源步骤 12：怨毒（ID 442726）"
+
+# 来源 warlock/affliction.txt:74，步骤 13，动作 ID 1259790，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会痛苦无常 == True) and (痛苦无常可用 == True) and (痛苦无常冷却 == 0) and (痛苦无常可用 == True) and (玩家灵魂碎片 >= 2)"
+macro = "痛苦无常"
+annotate = "来源步骤 13：痛苦无常（ID 1259790）"
+
+# 来源 warlock/affliction.txt:80，步骤 14，动作 ID 691，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会召唤地狱猎犬 == True) and (召唤地狱猎犬可用 == True) and (召唤地狱猎犬冷却 == 0) and (玩家有存活宠物 == False) and (玩家有牺牲魔典_196099增益 == False) and (召唤地狱猎犬可用 == True) and (玩家有RecentlyDemonHasBeenSummonedDNT增益 == False)"
+macro = "召唤地狱猎犬"
+annotate = "来源步骤 14：召唤地狱猎犬（ID 691）"
+
+# 来源 warlock/affliction.txt:88，步骤 15，动作 ID 108503，TXT 冷却 30 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会牺牲魔典_108503 == True) and (牺牲魔典_108503可用 == True) and (牺牲魔典_108503冷却 == 0) and (玩家有存活宠物 == True) and (玩家有牺牲魔典_196099增益 == False)"
+macro = "牺牲魔典"
+annotate = "来源步骤 15：牺牲魔典（ID 108503）"
+
+# 来源 warlock/affliction.txt:94，步骤 16，动作 ID 688，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会召唤小鬼 == True) and (召唤小鬼可用 == True) and (召唤小鬼冷却 == 0) and (玩家有存活宠物 == False) and (玩家有牺牲魔典_196099增益 == False) and (玩家有RecentlyDemonHasBeenSummonedDNT增益 == False)"
+macro = "召唤小鬼"
+annotate = "来源步骤 16：召唤小鬼（ID 688）"
+
+# 来源 warlock/affliction.txt:101，步骤 17，动作 ID 205180，TXT 冷却 120 秒。
+# 来源行 105：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会召唤黑眼 == True) and (召唤黑眼可用 == True) and (召唤黑眼冷却 == 0)"
+macro = "召唤黑眼"
+annotate = "来源步骤 17：召唤黑眼（ID 205180）"
+
+# 来源 warlock/affliction.txt:106，步骤 18，动作 ID 1257052，TXT 冷却 60 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会幽冥收割 == True) and (幽冥收割可用 == True) and (幽冥收割冷却 == 0)"
+macro = "幽冥收割"
+annotate = "来源步骤 18：幽冥收割（ID 1257052）"
+
+# 来源 warlock/affliction.txt:110，步骤 19，动作 ID 686，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会暗影箭 == True) and (暗影箭可用 == True) and (暗影箭冷却 == 0) and (玩家夜幕层数 >= 2)"
+macro = "暗影箭"
+annotate = "来源步骤 19：暗影箭（ID 686）"
+
+# 来源 warlock/affliction.txt:115，步骤 20，动作 ID 686，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会暗影箭 == True) and (暗影箭可用 == True) and (暗影箭冷却 == 0) and (玩家夜幕剩余秒数 <= 3)"
+macro = "暗影箭"
+annotate = "来源步骤 20：暗影箭（ID 686）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

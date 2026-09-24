@@ -1,0 +1,17 @@
+name = "focus_in_range@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "焦点在技能射程内"
+recommended_condition_name = "焦点在{技能名称}射程内"
+assisted_combat_rule_types = ["ASSISTED_COMBAT_RULE_TYPE_TARGET_DISTANCE_LESS", "ASSISTED_COMBAT_RULE_TYPE_TARGET_DISTANCE_GREATER"]
+description = "C_Spell.IsSpellInRange(spell_id, focus) 判断技能射程，不返回实际距离；规则仅作检索关联。0.1 秒随机错峰轮询；潜在秘密结果经 EvaluateColorFromBoolean 显示。"
+
+[parameters.spell_id]
+type = "int"
+required = true
+description = "检测射程的技能 ID，必须为正整数，不接受 bool。"
+
+[returns]
+type = "bool"
+fallback = false
+description = "严格黑白 Cell；无单位、无效技能、普通 nil、解码异常为 False。"

@@ -1,0 +1,19 @@
+name = "spell_known@dev"
+assisted_combat_rule_types = ["ASSISTED_COMBAT_RULE_TYPE_SPELL_LEARNED"]
+author = "liantian-cn"
+version = "dev"
+display_name = "玩家是否掌握任一候选技能"
+description = "known = C_SpellBook.IsSpellKnown(spellID)；inBook = C_SpellBook.IsSpellInSpellBook(spellID)；默认玩家法术书，返回布尔值，后者含覆盖技能。C_Timer.After(0, callback) 延后刷新。任一 ID 已知或在法术书中即为真；与 talent_known 行为完全相同，事件后延至下一帧刷新。"
+recommended_condition_name = "玩家是否掌握任一候选技能"
+
+[parameters.spell_ids]
+type = "list[int]"
+required = true
+description = "非空正整数技能 ID 列表，任一已知或在法术书中即为真。"
+
+[returns]
+type = "bool"
+description = "任一 ID 已知或在法术书中即为真；与 talent_known 行为完全相同，事件后延至下一帧刷新。"
+fallback = false
+
+# 刷新约定：事件通过 C_Timer.After(0, ...) 延后；无定时轮询。

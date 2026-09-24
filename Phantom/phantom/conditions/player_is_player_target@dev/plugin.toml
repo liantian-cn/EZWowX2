@@ -1,0 +1,16 @@
+name = "player_is_player_target@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "玩家当前目标是否为自己"
+description = "result = UnitIsUnit(\"player\", \"target\")；返回可能秘密的单位相等布尔值。秘密布尔直接交给 Cell:setCellBoolean，不在 Lua 中分支。"
+recommended_condition_name = "玩家当前目标是否为自己"
+
+[parameters]
+description = "无参数，拒绝多余字段。"
+
+[returns]
+type = "bool"
+description = "秘密布尔直接交给 Cell:setCellBoolean，不在 Lua 中分支。"
+fallback = false
+
+# 刷新约定：事件通过 C_Timer.After(0, ...) 延后；UPDATE_INTERVAL = 1 秒兜底。

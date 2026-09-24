@@ -1,0 +1,16 @@
+name = "player_in_vehicle@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "玩家是否在载具或坐骑中"
+description = "inVehicle = UnitInVehicle(\"player\")；mounted = IsMounted()；返回布尔值。任一为真即显示白色，普通坐骑也算。"
+recommended_condition_name = "玩家是否在载具或坐骑中"
+
+[parameters]
+description = "无参数，拒绝多余字段。"
+
+[returns]
+type = "bool"
+description = "任一为真即显示白色，普通坐骑也算。"
+fallback = false
+
+# 刷新约定：事件通过 C_Timer.After(0, ...) 延后；UPDATE_INTERVAL = 1 秒兜底。

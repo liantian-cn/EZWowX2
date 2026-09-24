@@ -1,0 +1,112 @@
+# 引擎、表达式、Lua配对与TUI测试专用的固定十条件样本，不代表正式战斗策略。
+schema_version = 1
+uuid = "550e8400-e29b-41d4-a716-446655440000"
+
+[profile]
+title = "引擎测试循环"
+description = "固定布局和优先级测试夹具。"
+unit_class = "DEATHKNIGHT"
+unit_class_id = 6
+unit_spec = 1
+
+[[conditions]]
+title = "符文能量"
+plugin = "player_primary_power@dev"
+[conditions.plugin_args]
+max_power = 120
+
+[[conditions]]
+title = "符文数量"
+plugin = "spec_power_rune@dev"
+
+[[conditions]]
+title = "血沸充能"
+plugin = "spell_charges@dev"
+[conditions.plugin_args]
+spell_ids = [50841, 50842]
+max_charges = 2
+# 固定旧测试的像素位置，不跟随新缺省宽度。
+width = 2
+
+[[conditions]]
+title = "血沸高亮"
+plugin = "spell_overlay@dev"
+[conditions.plugin_args]
+spell_ids = [50841, 50842]
+
+[[conditions]]
+title = "公共冷却"
+plugin = "spell_gcd@dev"
+
+[[conditions]]
+title = "死神的抚摩冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [195292]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家血量百分比"
+plugin = "player_health_pct@dev"
+[conditions.plugin_args]
+use_predicted = true
+
+[[conditions]]
+title = "灵界打击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [49998]
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "正在延迟"
+plugin = "delaying@dev"
+
+[[macros]]
+name = "灵界打击"
+macro_text = "/cast [@target] 灵界打击"
+
+[[macros]]
+name = "血液沸腾"
+macro_text = "/cast 血液沸腾"
+
+[[macros]]
+name = "死神的抚摩"
+macro_text = "/cast 死神的抚摩"
+
+[[macros]]
+name = "心脏打击"
+macro_text = "/cast 心脏打击"
+
+[[rotation]]
+annotate = "插件关闭或延迟时跳过本轮"
+condition = "not 插件启用 or 正在延迟"
+macro = "Idle"
+
+[[rotation]]
+annotate = "同时满足回血条件时优先灵界打击"
+condition = "(玩家血量百分比 < 50) and 灵界打击可用 and (符文能量>=40)"
+macro = "灵界打击"
+
+[[rotation]]
+condition = "血沸高亮 and (血沸充能>=1)"
+macro = "血液沸腾"
+
+[[rotation]]
+condition = "(死神的抚摩冷却==0)"
+macro = "死神的抚摩"
+
+[[rotation]]
+condition = "灵界打击可用 and (符文能量>=100)"
+macro = "灵界打击"
+
+[[rotation]]
+condition = "符文数量>=1"
+macro = "心脏打击"
+
+[[rotation]]
+condition = ""
+macro = "Idle"

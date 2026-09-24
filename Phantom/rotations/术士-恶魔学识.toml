@@ -1,0 +1,375 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：warlock/demonology.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 宠物条件只统计存在且存活的 pet 单位，不统计临时召唤物。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+schema_version = 1
+uuid = "e9399d40-c8fa-5800-acb3-c97107bb8064"
+
+[profile]
+title = "术士-恶魔学识"
+description = "术士一键辅助"
+unit_class = "WARLOCK"
+unit_class_id = 9
+unit_spec = 2
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "已学会召唤恶魔卫士"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [30146]
+
+[[conditions]]
+title = "召唤恶魔卫士可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [30146]
+
+[[conditions]]
+title = "召唤恶魔卫士冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [30146]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有存活宠物"
+plugin = "player_has_pet@dev"
+
+[[conditions]]
+title = "已学会召唤邪犬"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [264119]
+
+[[conditions]]
+title = "召唤邪犬可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [264119]
+
+[[conditions]]
+title = "召唤邪犬冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [264119]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会召唤恐惧猎犬"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [104316]
+
+[[conditions]]
+title = "召唤恐惧猎犬可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [104316]
+
+[[conditions]]
+title = "召唤恐惧猎犬冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [104316]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会古尔丹之手"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [105174]
+
+[[conditions]]
+title = "古尔丹之手可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [105174]
+
+[[conditions]]
+title = "古尔丹之手冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [105174]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会恶魔之箭"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [264178]
+
+[[conditions]]
+title = "恶魔之箭可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [264178]
+
+[[conditions]]
+title = "恶魔之箭冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [264178]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有恶魔之核增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [264173]
+player_only = true
+
+[[conditions]]
+title = "已学会能量虹吸"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [264130]
+
+[[conditions]]
+title = "能量虹吸可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [264130]
+
+[[conditions]]
+title = "能量虹吸冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [264130]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会暗影箭"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [686]
+
+[[conditions]]
+title = "暗影箭可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [686]
+
+[[conditions]]
+title = "暗影箭冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [686]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有狱火箭增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [433891]
+player_only = true
+
+[[conditions]]
+title = "玩家有TrackPets增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1245326]
+player_only = true
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "已学会召唤恶魔暴君"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [265187]
+
+[[conditions]]
+title = "召唤恶魔暴君可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [265187]
+
+[[conditions]]
+title = "召唤恶魔暴君冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [265187]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会召唤小鬼"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [688]
+
+[[conditions]]
+title = "召唤小鬼可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [688]
+
+[[conditions]]
+title = "召唤小鬼冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [688]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有牺牲魔典增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [196099]
+player_only = true
+
+[[conditions]]
+title = "召唤地狱猎犬可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [691]
+
+[[conditions]]
+title = "召唤地狱猎犬冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [691]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会召唤地狱猎犬"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [691]
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "召唤恶魔卫士"
+macro_text = "/cast 召唤恶魔卫士"
+
+[[macros]]
+name = "召唤邪犬"
+macro_text = "/cast 召唤邪犬"
+
+[[macros]]
+name = "召唤恐惧猎犬"
+macro_text = "/cast 召唤恐惧猎犬"
+
+[[macros]]
+name = "古尔丹之手"
+macro_text = "/cast 古尔丹之手"
+
+[[macros]]
+name = "恶魔之箭"
+macro_text = "/cast 恶魔之箭"
+
+[[macros]]
+name = "能量虹吸"
+macro_text = "/cast 能量虹吸"
+
+[[macros]]
+name = "暗影箭"
+macro_text = "/cast 暗影箭"
+
+[[macros]]
+name = "召唤恶魔暴君"
+macro_text = "/cast 召唤恶魔暴君"
+
+[[macros]]
+name = "召唤小鬼"
+macro_text = "/cast 召唤小鬼"
+
+[[macros]]
+name = "召唤地狱猎犬"
+macro_text = "/cast 召唤地狱猎犬"
+
+# 来源 warlock/demonology.txt:2，步骤 0，动作 ID 30146，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会召唤恶魔卫士 == True) and (召唤恶魔卫士可用 == True) and (召唤恶魔卫士冷却 == 0) and (玩家有存活宠物 == False) and (召唤恶魔卫士可用 == True)"
+macro = "召唤恶魔卫士"
+annotate = "来源步骤 0：召唤恶魔卫士（ID 30146）"
+
+# 来源 warlock/demonology.txt:8，步骤 1，动作 ID 264119，TXT 冷却 25 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会召唤邪犬 == True) and (召唤邪犬可用 == True) and (召唤邪犬冷却 == 0)"
+macro = "召唤邪犬"
+annotate = "来源步骤 1：召唤邪犬（ID 264119）"
+
+# 来源 warlock/demonology.txt:12，步骤 2，动作 ID 104316，TXT 冷却 20 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会召唤恐惧猎犬 == True) and (召唤恐惧猎犬可用 == True) and (召唤恐惧猎犬冷却 == 0)"
+macro = "召唤恐惧猎犬"
+annotate = "来源步骤 2：召唤恐惧猎犬（ID 104316）"
+
+# 来源 warlock/demonology.txt:16，步骤 3，动作 ID 105174，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会古尔丹之手 == True) and (古尔丹之手可用 == True) and (古尔丹之手冷却 == 0)"
+macro = "古尔丹之手"
+annotate = "来源步骤 3：古尔丹之手（ID 105174）"
+
+# 来源 warlock/demonology.txt:20，步骤 4，动作 ID 264178，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会恶魔之箭 == True) and (恶魔之箭可用 == True) and (恶魔之箭冷却 == 0) and (玩家有恶魔之核增益 == True)"
+macro = "恶魔之箭"
+annotate = "来源步骤 4：恶魔之箭（ID 264178）"
+
+# 来源 warlock/demonology.txt:25，步骤 5，动作 ID 264130，TXT 冷却 30 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会能量虹吸 == True) and (能量虹吸可用 == True) and (能量虹吸冷却 == 0)"
+macro = "能量虹吸"
+annotate = "来源步骤 5：能量虹吸（ID 264130）"
+
+# 来源 warlock/demonology.txt:29，步骤 6，动作 ID 686，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会暗影箭 == True) and (暗影箭可用 == True) and (暗影箭冷却 == 0) and (暗影箭可用 == True)"
+macro = "暗影箭"
+annotate = "来源步骤 6：暗影箭（ID 686）"
+
+# 来源 warlock/demonology.txt:34，步骤 7，动作 ID 686，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会暗影箭 == True) and (暗影箭可用 == True) and (暗影箭冷却 == 0) and (玩家有狱火箭增益 == True)"
+macro = "暗影箭"
+annotate = "来源步骤 7：暗影箭（ID 686）"
+
+# 来源 warlock/demonology.txt:39，步骤 8，动作 ID 104316，TXT 冷却 20 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "召唤恐惧猎犬"
+annotate = "来源步骤 8：召唤恐惧猎犬（ID 104316）"
+
+# 来源 warlock/demonology.txt:40，步骤 9，动作 ID 30146，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会召唤恶魔卫士 == True) and (召唤恶魔卫士可用 == True) and (召唤恶魔卫士冷却 == 0) and (玩家有TrackPets增益 == True) and (召唤恶魔卫士可用 == True)"
+macro = "召唤恶魔卫士"
+annotate = "来源步骤 9：召唤恶魔卫士（ID 30146）"
+
+# 来源 warlock/demonology.txt:46，步骤 10，动作 ID 265187，TXT 冷却 60 秒。
+# 来源行 50：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会召唤恶魔暴君 == True) and (召唤恶魔暴君可用 == True) and (召唤恶魔暴君冷却 == 0)"
+macro = "召唤恶魔暴君"
+annotate = "来源步骤 10：召唤恶魔暴君（ID 265187）"
+
+# 来源 warlock/demonology.txt:51，步骤 11，动作 ID 688，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会召唤小鬼 == True) and (召唤小鬼可用 == True) and (召唤小鬼冷却 == 0) and (玩家有存活宠物 == False) and (玩家有牺牲魔典增益 == False)"
+macro = "召唤小鬼"
+annotate = "来源步骤 11：召唤小鬼（ID 688）"
+
+# 来源 warlock/demonology.txt:57，步骤 12，动作 ID 691，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (召唤地狱猎犬可用 == True) and (玩家有牺牲魔典增益 == False) and (玩家有存活宠物 == False) and (召唤地狱猎犬冷却 == 0) and (召唤地狱猎犬可用 == True) and (已学会召唤地狱猎犬 == True)"
+macro = "召唤地狱猎犬"
+annotate = "来源步骤 12：召唤地狱猎犬（ID 691）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

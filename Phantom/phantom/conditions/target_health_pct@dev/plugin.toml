@@ -1,0 +1,19 @@
+name = "target_health_pct@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "目标生命百分比"
+recommended_condition_name = "目标血量百分比"
+assisted_combat_rule_types = ["ASSISTED_COMBAT_RULE_TYPE_HEALTH_PCT_GREATER", "ASSISTED_COMBAT_RULE_TYPE_HEALTH_PCT_LESS"]
+description = "UnitHealthPercent(target, use_predicted, curve) 直接显示潜在秘密生命比例，经纯灰色 Cell 解码为 float 百分比。无单位为 0；初始化、目标切换和单位生命相关事件刷新，事件延至下一帧。"
+
+[parameters.use_predicted]
+type = "bool"
+required = false
+default = true
+description = "是否使用预测生命值，严格布尔值。"
+
+[returns]
+type = "float"
+unit = "百分比（0–100）"
+fallback = 0.0
+description = "Cell 灰度百分比，量化步长约 100/255；无单位或解码异常为 0.0。"

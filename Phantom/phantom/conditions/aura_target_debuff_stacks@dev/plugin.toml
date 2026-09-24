@@ -1,0 +1,37 @@
+name = "aura_target_debuff_stacks@dev"
+assisted_combat_rule_types = ["ASSISTED_COMBAT_RULE_TYPE_TARGET_AURA_APPLICATION_GREATER", "ASSISTED_COMBAT_RULE_TYPE_TARGET_AURA_APPLICATION_LESS"]
+author = "liantian-cn"
+version = "dev"
+display_name = "目标减益层数估计"
+description = "官方 AuraContainer 单 AuraSlot 多 ID 首匹配不可辅助目标减益，固定 PLAYER|HARMFUL，官方 PLAYER 包含玩家宠物和载具；不增加 player_only 参数。UnitCanAssist(player, target, true, true) 分类。SetApplicationBar 仅指定 maxApplications，秘密层数由官方显示。ValueBarBackplate 提供定位、红色分隔与黑底，不创建默认填充，由槽子级 StatusBar 覆盖。"
+recommended_condition_name = "目标{减益名称}层数"
+
+[parameters.aura_ids]
+type = "list[int]"
+required = true
+description = "非空正整数光环 ID 列表；官方首匹配，不保证按配置 ID 顺序。"
+
+[parameters.max_value]
+type = "int"
+required = true
+description = "正整数层数上限，传给官方 maxApplications，并作为 Python 比例换算上限。"
+
+# 12.1.5 之前 min_value 只能为 0；保留参数但当前不启用 minApplications 等新版选项。
+# 来源：https://warcraft.wiki.gg/wiki/API:AuraButton_SetApplicationBar?oldid=6858640
+[parameters.min_value]
+type = "int"
+required = false
+default = 0
+description = "保留参数，仅允许整数 0。"
+
+[parameters.width]
+type = "int"
+required = false
+default = 2
+description = "正整数内容宽度，每单位 4 像素；层数名义步长为 max_value / (4 * width)。"
+
+[returns]
+type = "float"
+unit = "层"
+description = "ValueBar.ratio * max_value 的浮点估计，不取整；无目标、可辅助、无光环或解码失败为 0.0。"
+fallback = 0.0

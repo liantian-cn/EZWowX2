@@ -1,0 +1,34 @@
+name = "aura_player_buff_duration@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "玩家增益剩余时间估计"
+description = "官方 AuraContainer 单 AuraSlot 多 ID 首匹配玩家增益，默认 HELPFUL|PLAYER，player_only=false 时使用 HELPFUL。SetDurationBar 使用 Immediate / RemainingTime，永久光环交官方处理；不保证永久光环满条。ValueBarBackplate 提供定位、红色分隔与黑底，不创建默认填充，由槽子级 StatusBar 显示；不读取秘密光环数据。"
+recommended_condition_name = "{增益名称}剩余时间"
+assisted_combat_rule_types = ["ASSISTED_COMBAT_RULE_TYPE_AURA_DURATION_PLAYER"]
+
+[parameters.aura_ids]
+type = "list[int]"
+required = true
+description = "非空正整数光环 ID 列表；官方首匹配，不保证按配置 ID 顺序。"
+
+[parameters.duration]
+type = "int | float"
+required = true
+description = "有限正数秒，允许小数，不接受 bool、NaN 或无穷；与物理宽度独立。不是官方固定绝对量程；实际光环时长与配置不同时估计有误差，名义步长为 duration/(4*width) 秒。"
+
+[parameters.width]
+type = "int"
+required = false
+description = "独立的 ValueBar 内容宽度，以 Cell 为单位，每单位 4 像素；显式值必须为正整数，不接受 bool 或 float，可大于 8。省略时取 min(8, max(1, ceil(duration/4)))，派生默认值不补写配置；此默认会改变旧配置省略 width 时的布局。"
+
+[parameters.player_only]
+type = "bool"
+required = false
+default = true
+description = "默认仅匹配 PLAYER 来源（玩家、玩家宠物和载具）；false 允许任意来源的 HELPFUL 增益。"
+
+[returns]
+type = "float"
+unit = "秒"
+description = "ValueBar.ratio * 配置 duration 的浮点估计；单个 ValueBar，内容尺寸为 4*width × 4 像素，含分隔为 4*(width+1) × 4；无光环或解码失败为 0.0。"
+fallback = 0.0

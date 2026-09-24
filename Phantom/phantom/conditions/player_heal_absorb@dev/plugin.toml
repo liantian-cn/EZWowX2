@@ -1,0 +1,19 @@
+name = "player_heal_absorb@dev"
+author = "liantian-cn"
+version = "dev"
+# 显示实现：CellBackplate 提供固定黑底和行宽登记，直接子级吸收 StatusBar 使用 Content 静态层级。
+display_name = "玩家治疗吸收量是否超过阈值"
+description = "value = UnitGetTotalHealAbsorbs(\"player\")；返回秘密数值，直接送入 StatusBar:SetValue(value)。SetMinMaxValues(N, N+1) 固定阈值显示范围。白色 StatusBar 覆盖黑底；整数吸收量不超过 N 为黑色，至少 N+1 为白色，Lua 不比较或计算吸收值。"
+recommended_condition_name = "玩家治疗吸收量是否超过阈值"
+
+[parameters.threshold]
+type = "int"
+required = true
+description = "非负整数 N，0–9007199254740990；保证 Lua 中 N 与 N+1 可区分。"
+
+[returns]
+type = "bool"
+description = "白色 StatusBar 覆盖黑底；整数吸收量不超过 N 为黑色，至少 N+1 为白色，Lua 不比较或计算吸收值。"
+fallback = false
+
+# 刷新约定：事件通过 C_Timer.After(0, ...) 延后；无定时轮询。

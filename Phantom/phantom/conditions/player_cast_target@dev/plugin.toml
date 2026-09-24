@@ -1,0 +1,16 @@
+name = "player_cast_target@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "玩家施法目标"
+description = "UNIT_SPELLCAST_SENT(unit, targetName, castGUID, spellID) 提供可能秘密的目标名；UnitName(unit) 返回可能秘密的单位名。UnitExists(unit) 检查候选单位。匹配 player、party1–4、raid1–40；秘密目标暂留旧值，成功/停止/失败与每秒兜底清空，长施法可能提前清空。编码 0 未知、1 玩家、2–5 队员、6–45 团员，各乘 5。"
+recommended_condition_name = "玩家施法目标"
+
+[parameters]
+description = "无参数，拒绝多余字段。"
+
+[returns]
+type = "str"
+description = "匹配 player、party1–4、raid1–40；秘密目标暂留旧值，成功/停止/失败与每秒兜底清空，长施法可能提前清空。编码 0 未知、1 玩家、2–5 队员、6–45 团员，各乘 5。"
+fallback = ""
+
+# 刷新约定：事件通过 C_Timer.After(0, ...) 延后；UPDATE_INTERVAL = 1 秒兜底。

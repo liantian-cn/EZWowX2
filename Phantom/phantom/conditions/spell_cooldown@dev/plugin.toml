@@ -1,0 +1,31 @@
+# AI Agent 自述；运行时不读取。参数与返回值以同目录实现为准。
+# 核验：2026-09-13，@wow-ui-source，12.1.0.69587
+# revision: a89e9d0ceb7f6cd31e8fc5ca7df1a338ac0b1b58
+# 定义：Interface/AddOns/Blizzard_APIDocumentationGenerated/ 下 SpellBookDocumentation.lua, SpellDocumentation.lua, CurveUtilDocumentation.lua, LuaDurationObjectAPIDocumentation.lua
+name = "spell_cooldown@dev"
+assisted_combat_rule_types = ["ASSISTED_COMBAT_RULE_TYPE_SPELL_ON_COOLDOWN", "ASSISTED_COMBAT_RULE_TYPE_SPELL_OFF_COOLDOWN", "ASSISTED_COMBAT_RULE_TYPE_COOLDOWN_REMAINING_GREATER", "ASSISTED_COMBAT_RULE_TYPE_COOLDOWN_REMAINING_LESS"]
+author = "liantian-cn"
+version = "dev"
+display_name = "技能剩余冷却时间"
+recommended_condition_name = "{技能名称}的冷却时间"
+description = """
+C_SpellBook.IsSpellInSpellBook 选择首个匹配候选，C_Spell.GetSpellCooldownDuration 根据 ignore_gcd 获取 duration，通过 EvaluateRemainingDuration 与 C_CurveUtil.CreateColorCurve 生成显示颜色，不在 Lua 中计算秘密剩余秒数。剩余时长经颜色曲线编码为灰度 Cell，Python 将亮度 255/155/105/55/0 分段线性反算为 0/5/30/155/375 秒。黑色同时表示 375 秒饱和或不可用，不能据此区分原因。独立随机错峰后，累计时间严格超过 0.1 秒时轮询一次；法术书变化重新选择技能。
+"""
+
+[parameters.spell_ids]
+type = "list[int]"
+required = true
+description = "按优先顺序排列的候选技能 ID，非空且每项为正整数，不接受 bool；选择首个匹配玩家法术书的技能，不合并候选结果。"
+
+[parameters.ignore_gcd]
+type = "bool"
+required = true
+description = "是否在查询技能冷却时排除公共冷却；必须显式提供 true 或 false，本插件无默认值。"
+
+[returns]
+type = "float"
+unit = "秒"
+fallback = 375.0
+description = "0–375 的剩余秒数标量；无匹配技能、无 duration、黑色饱和或解码异常返回 375.0。"
+
+# 刷新约定：事件通过 C_Timer.After(0, ...) 延后；UPDATE_INTERVAL = 0.1 秒持续轮询。

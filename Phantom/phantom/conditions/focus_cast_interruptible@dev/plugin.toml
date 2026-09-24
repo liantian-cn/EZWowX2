@@ -1,0 +1,14 @@
+name = "focus_cast_interruptible@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "焦点当前施法或引导是否可中断"
+description = "存在且当前有施法或引导且可中断；普通 nil 保守 false。NeverSecret 哨兵判断状态，EvaluateColorFromBoolean 安全反转，不代表玩家能成功打断。"
+recommended_condition_name = "焦点当前施法或引导是否可中断"
+
+[parameters]
+description = "无业务参数；拒绝多余字段。"
+
+[returns]
+type = "bool"
+description = "存在且当前有施法或引导且可中断；普通 nil 保守 false。NeverSecret 哨兵判断状态，EvaluateColorFromBoolean 安全反转，不代表玩家能成功打断。"
+fallback = false

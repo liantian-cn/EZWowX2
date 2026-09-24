@@ -1,0 +1,23 @@
+# AI Agent 自述；运行时不读取。参数与返回值以同目录实现为准。
+# 核验：2026-09-13，@wow-ui-source，12.1.0.69587
+# revision: a89e9d0ceb7f6cd31e8fc5ca7df1a338ac0b1b58
+# 定义：Interface/AddOns/Blizzard_APIDocumentationGenerated/ 下 SpellDocumentation.lua, CurveUtilDocumentation.lua, LuaDurationObjectAPIDocumentation.lua
+name = "spell_gcd@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "公共冷却剩余时间"
+recommended_condition_name = "公共冷却时间"
+description = """
+固定使用 C_Spell.GetSpellCooldownDuration 查询技能 61304，ignoreGCD=false，不查询法术书，也不接受技能 ID 或 ignore_gcd 参数。duration 经 EvaluateRemainingDuration 与 C_CurveUtil.CreateColorCurve 转为显示颜色。剩余时长经颜色曲线编码为灰度 Cell，Python 将亮度 255/155/105/55/0 分段线性反算为 0/5/30/155/375 秒。黑色同时表示 375 秒饱和或不可用，不能据此区分原因。独立随机错峰后，累计时间严格超过 0.1 秒时轮询一次，每帧最多刷新一次。
+"""
+
+[parameters]
+description = "无参数；可省略 plugin_args 或传空表，其他字段均拒绝。"
+
+[returns]
+type = "float"
+unit = "秒"
+fallback = 375.0
+description = "0–375 的公共冷却剩余秒数标量；无 duration、黑色饱和或解码异常返回 375.0。"
+
+# 刷新约定：UPDATE_INTERVAL = 0.1 秒持续轮询，无事件刷新。

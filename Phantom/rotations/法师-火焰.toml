@@ -1,0 +1,422 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：mage/fire.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+schema_version = 1
+uuid = "1ff6c749-e381-5910-8965-b2ac7f8fb5c2"
+
+[profile]
+title = "法师-火焰"
+description = "法师一键辅助"
+unit_class = "MAGE"
+unit_class_id = 8
+unit_spec = 2
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "已学会火焰冲击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [108853]
+
+[[conditions]]
+title = "火焰冲击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [108853]
+
+[[conditions]]
+title = "火焰冲击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [108853]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有热力迸发增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [48107]
+player_only = true
+
+[[conditions]]
+title = "玩家有过热高温增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [383874]
+player_only = true
+
+[[conditions]]
+title = "已学会烈焰风暴_2120"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [2120]
+
+[[conditions]]
+title = "烈焰风暴_2120可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [2120]
+
+[[conditions]]
+title = "烈焰风暴_2120冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [2120]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有炽热连击增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [48108]
+player_only = true
+
+[[conditions]]
+title = "已学会炎爆术"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [11366]
+
+[[conditions]]
+title = "炎爆术可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [11366]
+
+[[conditions]]
+title = "炎爆术冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [11366]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会流星"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [153561]
+
+[[conditions]]
+title = "流星可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [153561]
+
+[[conditions]]
+title = "流星冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [153561]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会火球术"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [133]
+
+[[conditions]]
+title = "火球术可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [133]
+
+[[conditions]]
+title = "火球术冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [133]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会霜火之箭"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [431044]
+
+[[conditions]]
+title = "霜火之箭可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [431044]
+
+[[conditions]]
+title = "霜火之箭冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [431044]
+ignore_gcd = true
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "已学会燃烧"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [190319]
+
+[[conditions]]
+title = "燃烧可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [190319]
+
+[[conditions]]
+title = "燃烧冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [190319]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会奥术智慧"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1459]
+
+[[conditions]]
+title = "奥术智慧可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1459]
+
+[[conditions]]
+title = "奥术智慧冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1459]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有奥术智慧高亮增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1271907]
+player_only = true
+
+[[conditions]]
+title = "已学会烈焰风暴_1254851"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1254851]
+
+[[conditions]]
+title = "烈焰风暴_1254851可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1254851]
+
+[[conditions]]
+title = "烈焰风暴_1254851冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1254851]
+ignore_gcd = true
+
+[[conditions]]
+title = "灼烧可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [2948]
+
+[[conditions]]
+title = "灼烧冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [2948]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会灼烧"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [2948]
+
+[[conditions]]
+title = "目标当前血量百分比"
+plugin = "target_health_pct@dev"
+[conditions.plugin_args]
+use_predicted = false
+
+[[conditions]]
+title = "玩家有热能闪光增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [458964]
+player_only = true
+
+[[conditions]]
+title = "玩家有火焰冲撞增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [269651]
+player_only = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "火焰冲击"
+macro_text = "/cast 火焰冲击"
+
+[[macros]]
+name = "烈焰风暴"
+macro_text = "/cast 烈焰风暴"
+
+[[macros]]
+name = "炎爆术"
+macro_text = "/cast 炎爆术"
+
+[[macros]]
+name = "流星"
+macro_text = "/cast 流星"
+
+[[macros]]
+name = "火球术"
+macro_text = "/cast 火球术"
+
+[[macros]]
+name = "霜火之箭"
+macro_text = "/cast 霜火之箭"
+
+[[macros]]
+name = "燃烧"
+macro_text = "/cast 燃烧"
+
+[[macros]]
+name = "奥术智慧"
+macro_text = "/cast 奥术智慧"
+
+[[macros]]
+name = "灼烧"
+macro_text = "/cast 灼烧"
+
+# 来源 mage/fire.txt:2，步骤 0，动作 ID 108853，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会火焰冲击 == True) and (火焰冲击可用 == True) and (火焰冲击冷却 == 0) and (玩家有热力迸发增益 == True) and (玩家有过热高温增益 == False)"
+macro = "火焰冲击"
+annotate = "来源步骤 0：火焰冲击（ID 108853）"
+
+# 来源 mage/fire.txt:8，步骤 1，动作 ID 2120，TXT 冷却 0 秒。
+# 来源行 13：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会烈焰风暴_2120 == True) and (烈焰风暴_2120可用 == True) and (烈焰风暴_2120冷却 == 0) and (玩家有炽热连击增益 == True)"
+macro = "烈焰风暴"
+annotate = "来源步骤 1：烈焰风暴（ID 2120）"
+
+# 来源 mage/fire.txt:14，步骤 2，动作 ID 11366，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会炎爆术 == True) and (炎爆术可用 == True) and (炎爆术冷却 == 0) and (玩家有炽热连击增益 == True)"
+macro = "炎爆术"
+annotate = "来源步骤 2：炎爆术（ID 11366）"
+
+# 来源 mage/fire.txt:19，步骤 3，动作 ID 153561，TXT 冷却 45 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会流星 == True) and (流星可用 == True) and (流星冷却 == 0)"
+macro = "流星"
+annotate = "来源步骤 3：流星（ID 153561）"
+
+# 来源 mage/fire.txt:23，步骤 4，动作 ID 133，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会火球术 == True) and (火球术可用 == True) and (火球术冷却 == 0) and (火球术可用 == True)"
+macro = "火球术"
+annotate = "来源步骤 4：火球术（ID 133）"
+
+# 来源 mage/fire.txt:28，步骤 5，动作 ID 133，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "火球术"
+annotate = "来源步骤 5：火球术（ID 133）"
+
+# 来源 mage/fire.txt:29，步骤 6，动作 ID 431044，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会霜火之箭 == True) and (霜火之箭可用 == True) and (霜火之箭冷却 == 0) and (霜火之箭可用 == True)"
+macro = "霜火之箭"
+annotate = "来源步骤 6：霜火之箭（ID 431044）"
+
+# 来源 mage/fire.txt:34，步骤 7，动作 ID 190319，TXT 冷却 120 秒。
+# 来源行 38：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会燃烧 == True) and (燃烧可用 == True) and (燃烧冷却 == 0)"
+macro = "燃烧"
+annotate = "来源步骤 7：燃烧（ID 190319）"
+
+# 来源 mage/fire.txt:39，步骤 8，动作 ID 11366，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会炎爆术 == True) and (炎爆术可用 == True) and (炎爆术冷却 == 0) and (玩家有过热高温增益 == True)"
+macro = "炎爆术"
+annotate = "来源步骤 8：炎爆术（ID 11366）"
+
+# 来源 mage/fire.txt:44，步骤 9，动作 ID 2120，TXT 冷却 0 秒。
+# 来源行 49：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会烈焰风暴_2120 == True) and (烈焰风暴_2120可用 == True) and (烈焰风暴_2120冷却 == 0) and (玩家有过热高温增益 == True)"
+macro = "烈焰风暴"
+annotate = "来源步骤 9：烈焰风暴（ID 2120）"
+
+# 来源 mage/fire.txt:50，步骤 10，动作 ID 1459，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会奥术智慧 == True) and (奥术智慧可用 == True) and (奥术智慧冷却 == 0) and (玩家有奥术智慧高亮增益 == True)"
+macro = "奥术智慧"
+annotate = "来源步骤 10：奥术智慧（ID 1459）"
+
+# 来源 mage/fire.txt:55，步骤 11，动作 ID 1254851，TXT 冷却 0 秒。
+# 来源行 60：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会烈焰风暴_1254851 == True) and (烈焰风暴_1254851可用 == True) and (烈焰风暴_1254851冷却 == 0) and (玩家有过热高温增益 == True)"
+macro = "烈焰风暴"
+annotate = "来源步骤 11：烈焰风暴（ID 1254851）"
+
+# 来源 mage/fire.txt:61，步骤 12，动作 ID 1254851，TXT 冷却 0 秒。
+# 来源行 66：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会烈焰风暴_1254851 == True) and (烈焰风暴_1254851可用 == True) and (烈焰风暴_1254851冷却 == 0) and (玩家有炽热连击增益 == True)"
+macro = "烈焰风暴"
+annotate = "来源步骤 12：烈焰风暴（ID 1254851）"
+
+# 来源 mage/fire.txt:67，步骤 13，动作 ID 2948，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (灼烧可用 == True) and (灼烧冷却 == 0) and (灼烧可用 == True) and (已学会灼烧 == True) and (目标当前血量百分比 <= 30)"
+macro = "灼烧"
+annotate = "来源步骤 13：灼烧（ID 2948）"
+
+# 来源 mage/fire.txt:73，步骤 14，动作 ID 2948，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会灼烧 == True) and (灼烧可用 == True) and (灼烧冷却 == 0) and (灼烧可用 == True) and (玩家有热能闪光增益 == True)"
+macro = "灼烧"
+annotate = "来源步骤 14：灼烧（ID 2948）"
+
+# 来源 mage/fire.txt:79，步骤 15，动作 ID 2120，TXT 冷却 0 秒。
+# 来源行 83：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会烈焰风暴_2120 == True) and (烈焰风暴_2120可用 == True) and (烈焰风暴_2120冷却 == 0) and (玩家有火焰冲撞增益 == True) and (烈焰风暴_2120可用 == True)"
+macro = "烈焰风暴"
+annotate = "来源步骤 15：烈焰风暴（ID 2120）"
+
+# 来源 mage/fire.txt:86，步骤 16，动作 ID 1254851，TXT 冷却 0 秒。
+# 来源行 88：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (玩家有火焰冲撞增益 == True) and (烈焰风暴_1254851冷却 == 0) and (烈焰风暴_1254851可用 == True) and (已学会烈焰风暴_1254851 == True) and (烈焰风暴_1254851可用 == True)"
+macro = "烈焰风暴"
+annotate = "来源步骤 16：烈焰风暴（ID 1254851）"
+
+# 来源 mage/fire.txt:93，步骤 17，动作 ID 11366，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (炎爆术冷却 == 0) and (炎爆术可用 == True) and (已学会炎爆术 == True) and (玩家有火焰冲撞增益 == True) and (炎爆术可用 == True)"
+macro = "炎爆术"
+annotate = "来源步骤 17：炎爆术（ID 11366）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

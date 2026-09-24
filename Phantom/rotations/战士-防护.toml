@@ -1,0 +1,499 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：warrior/protection.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 技能射程规则使用当前步骤动作 ID 对 target 的射程结果，无效射程返回 False。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 距离条件近似为当前步骤技能射程，忽略 TXT 码数；无效技能/无目标/nil 射程也返回 False。
+# 玩家周围人数近似为本步骤技能可攻击敌人总数，仅可观察 nameplate1–40；secret/nil 射程漏计，不代表原码数圆内完整人数。
+schema_version = 1
+uuid = "f83ed62e-4b7d-50ae-a0a6-09e201074bb5"
+
+[profile]
+title = "战士-防护"
+description = "战士一键辅助"
+unit_class = "WARRIOR"
+unit_class_id = 1
+unit_spec = 3
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "已学会破坏者"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [228920]
+
+[[conditions]]
+title = "破坏者可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [228920]
+
+[[conditions]]
+title = "破坏者冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [228920]
+ignore_gcd = true
+
+[[conditions]]
+title = "破坏者对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 228920
+unit_token = "target"
+
+[[conditions]]
+title = "已学会崩摧"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [436358]
+
+[[conditions]]
+title = "崩摧可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [436358]
+
+[[conditions]]
+title = "崩摧冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [436358]
+ignore_gcd = true
+
+[[conditions]]
+title = "崩摧对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 436358
+unit_token = "target"
+
+[[conditions]]
+title = "玩家有雷霆轰击_435615增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [435615]
+player_only = true
+
+[[conditions]]
+title = "目标在雷霆轰击_435222技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 435222
+
+[[conditions]]
+title = "已学会雷霆轰击_435222"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [435222]
+
+[[conditions]]
+title = "雷霆轰击_435222可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [435222]
+
+[[conditions]]
+title = "雷霆轰击_435222冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [435222]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会盾牌猛击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [23922]
+
+[[conditions]]
+title = "盾牌猛击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [23922]
+
+[[conditions]]
+title = "盾牌猛击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [23922]
+ignore_gcd = true
+
+[[conditions]]
+title = "盾牌猛击对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 23922
+unit_token = "target"
+
+[[conditions]]
+title = "已学会英勇投掷"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [57755]
+
+[[conditions]]
+title = "英勇投掷可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [57755]
+
+[[conditions]]
+title = "英勇投掷冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [57755]
+ignore_gcd = true
+
+[[conditions]]
+title = "英勇投掷对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 57755
+unit_token = "target"
+
+[[conditions]]
+title = "目标在英勇投掷技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 57755
+
+[[conditions]]
+title = "目标在雷霆一击技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 6343
+
+[[conditions]]
+title = "已学会雷霆一击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [6343]
+
+[[conditions]]
+title = "雷霆一击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [6343]
+
+[[conditions]]
+title = "雷霆一击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [6343]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在复仇技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 6572
+
+[[conditions]]
+title = "复仇技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 6572
+combat_only = false
+
+[[conditions]]
+title = "已学会复仇"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [6572]
+
+[[conditions]]
+title = "复仇可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [6572]
+
+[[conditions]]
+title = "复仇冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [6572]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会斩杀"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [163201]
+
+[[conditions]]
+title = "斩杀可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [163201]
+
+[[conditions]]
+title = "斩杀冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [163201]
+ignore_gcd = true
+
+[[conditions]]
+title = "斩杀对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 163201
+unit_token = "target"
+
+[[conditions]]
+title = "玩家有灭绝者增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [236279]
+player_only = true
+
+[[conditions]]
+title = "已学会毁灭打击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [20243]
+
+[[conditions]]
+title = "毁灭打击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [20243]
+
+[[conditions]]
+title = "毁灭打击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [20243]
+ignore_gcd = true
+
+[[conditions]]
+title = "毁灭打击对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 20243
+unit_token = "target"
+
+[[conditions]]
+title = "已学会盾牌冲锋"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [385952]
+
+[[conditions]]
+title = "盾牌冲锋可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [385952]
+
+[[conditions]]
+title = "盾牌冲锋冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [385952]
+ignore_gcd = true
+
+[[conditions]]
+title = "盾牌冲锋对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 385952
+unit_token = "target"
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "已学会天神下凡"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [107574]
+
+[[conditions]]
+title = "天神下凡可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [107574]
+
+[[conditions]]
+title = "天神下凡冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [107574]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会战斗怒吼"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [6673]
+
+[[conditions]]
+title = "战斗怒吼可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [6673]
+
+[[conditions]]
+title = "战斗怒吼冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [6673]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有战斗怒吼高亮增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1271909]
+player_only = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "破坏者"
+macro_text = "/cast 破坏者"
+
+[[macros]]
+name = "崩摧"
+macro_text = "/cast 崩摧"
+
+[[macros]]
+name = "雷霆轰击"
+macro_text = "/cast 雷霆轰击"
+
+[[macros]]
+name = "盾牌猛击"
+macro_text = "/cast 盾牌猛击"
+
+[[macros]]
+name = "英勇投掷"
+macro_text = "/cast 英勇投掷"
+
+[[macros]]
+name = "雷霆一击"
+macro_text = "/cast 雷霆一击"
+
+[[macros]]
+name = "复仇"
+macro_text = "/cast 复仇"
+
+[[macros]]
+name = "斩杀"
+macro_text = "/cast 斩杀"
+
+[[macros]]
+name = "毁灭打击"
+macro_text = "/cast 毁灭打击"
+
+[[macros]]
+name = "盾牌冲锋"
+macro_text = "/cast 盾牌冲锋"
+
+[[macros]]
+name = "天神下凡"
+macro_text = "/cast 天神下凡"
+
+[[macros]]
+name = "战斗怒吼"
+macro_text = "/cast 战斗怒吼"
+
+# 来源 warrior/protection.txt:2，步骤 0，动作 ID 228920，TXT 冷却 8 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会破坏者 == True) and (破坏者可用 == True) and (破坏者冷却 == 0) and (破坏者对目标在射程内 == True)"
+macro = "破坏者"
+annotate = "来源步骤 0：破坏者（ID 228920）"
+
+# 来源 warrior/protection.txt:7，步骤 1，动作 ID 436358，TXT 冷却 30 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会崩摧 == True) and (崩摧可用 == True) and (崩摧冷却 == 0) and (崩摧对目标在射程内 == True)"
+macro = "崩摧"
+annotate = "来源步骤 1：崩摧（ID 436358）"
+
+# 来源 warrior/protection.txt:12，步骤 2，动作 ID 435222，TXT 冷却 6 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (玩家有雷霆轰击_435615增益 == True) and (目标在雷霆轰击_435222技能范围内 == True) and (已学会雷霆轰击_435222 == True) and (雷霆轰击_435222可用 == True) and (雷霆轰击_435222冷却 == 0)"
+macro = "雷霆轰击"
+annotate = "来源步骤 2：雷霆轰击（ID 435222）"
+
+# 来源 warrior/protection.txt:18，步骤 3，动作 ID 23922，TXT 冷却 9 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会盾牌猛击 == True) and (盾牌猛击可用 == True) and (盾牌猛击冷却 == 0) and (盾牌猛击对目标在射程内 == True)"
+macro = "盾牌猛击"
+annotate = "来源步骤 3：盾牌猛击（ID 23922）"
+
+# 来源 warrior/protection.txt:23，步骤 4，动作 ID 57755，TXT 冷却 6 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会英勇投掷 == True) and (英勇投掷可用 == True) and (英勇投掷冷却 == 0) and (英勇投掷对目标在射程内 == True) and (目标在英勇投掷技能范围内 == False)"
+macro = "英勇投掷"
+annotate = "来源步骤 4：英勇投掷（ID 57755）"
+
+# 来源 warrior/protection.txt:29，步骤 5，动作 ID 6343，TXT 冷却 6 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (目标在雷霆一击技能范围内 == True) and (已学会雷霆一击 == True) and (雷霆一击可用 == True) and (雷霆一击冷却 == 0)"
+macro = "雷霆一击"
+annotate = "来源步骤 5：雷霆一击（ID 6343）"
+
+# 来源 warrior/protection.txt:34，步骤 6，动作 ID 6572，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (目标在复仇技能范围内 == True) and (复仇技能可攻击敌人总数 > 3) and (已学会复仇 == True) and (复仇可用 == True) and (复仇冷却 == 0)"
+macro = "复仇"
+annotate = "来源步骤 6：复仇（ID 6572）"
+
+# 来源 warrior/protection.txt:40，步骤 7，动作 ID 163201，TXT 冷却 6 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会斩杀 == True) and (斩杀可用 == True) and (斩杀冷却 == 0) and (斩杀对目标在射程内 == True)"
+macro = "斩杀"
+annotate = "来源步骤 7：斩杀（ID 163201）"
+
+# 来源 warrior/protection.txt:45，步骤 8，动作 ID 20243，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (玩家有灭绝者增益 == False) and (已学会毁灭打击 == True) and (毁灭打击可用 == True) and (毁灭打击冷却 == 0) and (毁灭打击对目标在射程内 == True)"
+macro = "毁灭打击"
+annotate = "来源步骤 8：毁灭打击（ID 20243）"
+
+# 来源 warrior/protection.txt:51，步骤 9，动作 ID 6572，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (目标在复仇技能范围内 == True) and (已学会复仇 == True) and (复仇可用 == True) and (复仇冷却 == 0)"
+macro = "复仇"
+annotate = "来源步骤 9：复仇（ID 6572）"
+
+# 来源 warrior/protection.txt:56，步骤 10，动作 ID 23922，TXT 冷却 9 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "盾牌猛击"
+annotate = "来源步骤 10：盾牌猛击（ID 23922）"
+
+# 来源 warrior/protection.txt:57，步骤 11，动作 ID 385952，TXT 冷却 45 秒。
+# 来源行 62：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (已学会盾牌冲锋 == True) and (盾牌冲锋可用 == True) and (盾牌冲锋冷却 == 0) and (盾牌冲锋对目标在射程内 == True)"
+macro = "盾牌冲锋"
+annotate = "来源步骤 11：盾牌冲锋（ID 385952）"
+
+# 来源 warrior/protection.txt:63，步骤 12，动作 ID 107574，TXT 冷却 90 秒。
+# 来源行 68：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会天神下凡 == True) and (天神下凡可用 == True) and (天神下凡冷却 == 0) and (天神下凡冷却 == 0)"
+macro = "天神下凡"
+annotate = "来源步骤 12：天神下凡（ID 107574）"
+
+# 来源 warrior/protection.txt:69，步骤 13，动作 ID 6673，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会战斗怒吼 == True) and (战斗怒吼可用 == True) and (战斗怒吼冷却 == 0) and (玩家有战斗怒吼高亮增益 == True)"
+macro = "战斗怒吼"
+annotate = "来源步骤 13：战斗怒吼（ID 6673）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

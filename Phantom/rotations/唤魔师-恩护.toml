@@ -1,0 +1,140 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：evoker/preservation.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 目标光环限定不可辅助目标的 PLAYER|HARMFUL 减益；PLAYER 包含玩家、宠物和载具，排除其他来源。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+schema_version = 1
+uuid = "85b35969-c050-589c-95fa-8b9dc3304453"
+
+[profile]
+title = "唤魔师-恩护"
+description = "唤魔师一键辅助"
+unit_class = "EVOKER"
+unit_class_id = 13
+unit_spec = 2
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "已学会火焰吐息_357208"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [357208]
+
+[[conditions]]
+title = "火焰吐息_357208可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [357208]
+
+[[conditions]]
+title = "火焰吐息_357208冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [357208]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标有火焰吐息_357209减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [357209]
+
+[[conditions]]
+title = "已学会活化烈焰"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [361469]
+
+[[conditions]]
+title = "活化烈焰可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [361469]
+
+[[conditions]]
+title = "活化烈焰冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [361469]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标是敌人"
+plugin = "target_is_enemy@dev"
+
+[[conditions]]
+title = "已学会青铜龙的祝福"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [364342]
+
+[[conditions]]
+title = "青铜龙的祝福可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [364342]
+
+[[conditions]]
+title = "青铜龙的祝福冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [364342]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有青铜龙的祝福高亮增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1271912]
+player_only = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "火焰吐息"
+macro_text = "/cast 火焰吐息"
+
+[[macros]]
+name = "活化烈焰"
+macro_text = "/cast 活化烈焰"
+
+[[macros]]
+name = "青铜龙的祝福"
+macro_text = "/cast 青铜龙的祝福"
+
+# 来源 evoker/preservation.txt:2，步骤 0，动作 ID 357208，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会火焰吐息_357208 == True) and (火焰吐息_357208可用 == True) and (火焰吐息_357208冷却 == 0) and (火焰吐息_357208可用 == True) and (目标有火焰吐息_357209减益 == False)"
+macro = "火焰吐息"
+annotate = "来源步骤 0：火焰吐息（ID 357208）"
+
+# 来源 evoker/preservation.txt:8，步骤 1，动作 ID 361469，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会活化烈焰 == True) and (活化烈焰可用 == True) and (活化烈焰冷却 == 0) and (目标是敌人 == True) and (活化烈焰可用 == True)"
+macro = "活化烈焰"
+annotate = "来源步骤 1：活化烈焰（ID 361469）"
+
+# 来源 evoker/preservation.txt:14，步骤 2，动作 ID 361469，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "活化烈焰"
+annotate = "来源步骤 2：活化烈焰（ID 361469）"
+
+# 来源 evoker/preservation.txt:15，步骤 3，动作 ID 364342，TXT 冷却 15 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会青铜龙的祝福 == True) and (青铜龙的祝福可用 == True) and (青铜龙的祝福冷却 == 0) and (玩家有青铜龙的祝福高亮增益 == True)"
+macro = "青铜龙的祝福"
+annotate = "来源步骤 3：青铜龙的祝福（ID 364342）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

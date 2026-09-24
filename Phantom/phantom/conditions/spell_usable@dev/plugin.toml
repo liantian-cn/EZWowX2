@@ -1,0 +1,27 @@
+# AI Agent 自述；运行时不读取。参数与返回值以同目录实现为准。
+# 核验：2026-09-13，@wow-ui-source，12.1.0.69587
+# revision: a89e9d0ceb7f6cd31e8fc5ca7df1a338ac0b1b58
+# 定义：Interface/AddOns/Blizzard_APIDocumentationGenerated/ 下 SpellBookDocumentation.lua, SpellDocumentation.lua, CurveUtilDocumentation.lua
+name = "spell_usable@dev"
+# 仅作规则检索关联；isUsable 不等价于资源支付判断或全部施法成功条件。
+assisted_combat_rule_types = ["ASSISTED_COMBAT_RULE_TYPE_AFFORD_COST", "ASSISTED_COMBAT_RULE_TYPE_COOLDOWN_ALLOW_CASTING_SUCCESS"]
+author = "liantian-cn"
+version = "dev"
+display_name = "技能可用状态"
+recommended_condition_name = "{技能名称}可用"
+description = """
+C_SpellBook.IsSpellInSpellBook 选择首个匹配候选，C_Spell.IsSpellUsable 读取第一个返回值 isUsable，C_CurveUtil.EvaluateColorFromBoolean 直接转为黑白颜色。Python 把一个纯白 Cell 解为 True、纯黑解为 False，不单独编码 insufficientPower。独立随机错峰后以严格超过 0.1 秒的间隔轮询；法术书变化重新选择技能。该值不保证冷却、距离等全部施法条件均满足，应按循环需要组合其他条件。
+"""
+
+[parameters.spell_ids]
+type = "list[int]"
+required = true
+description = "按优先顺序排列的候选技能 ID，非空且每项为正整数，不接受 bool；选择首个匹配玩家法术书的技能，不合并候选结果。"
+
+[returns]
+type = "bool"
+unit = "无"
+fallback = false
+description = "技能可用性标量；无匹配候选、不可用或解码异常返回 False；非纯黑白也返回 False。"
+
+# 刷新约定：事件通过 C_Timer.After(0, ...) 延后；UPDATE_INTERVAL = 0.1 秒持续轮询。

@@ -1,0 +1,259 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：paladin/holy.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 玩家周围人数近似为本步骤技能可攻击敌人总数，仅可观察 nameplate1–40；secret/nil 射程漏计，不代表原码数圆内完整人数。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 技能射程规则使用当前步骤动作 ID 对 target 的射程结果，无效射程返回 False。
+# 距离条件近似为当前步骤技能射程，忽略 TXT 码数；无效技能/无目标/nil 射程也返回 False。
+schema_version = 1
+uuid = "4437a432-5b95-5e8c-9d7c-cb73f7a290a4"
+
+[profile]
+title = "圣骑士-神圣"
+description = "圣骑士一键辅助"
+unit_class = "PALADIN"
+unit_class_id = 2
+unit_spec = 1
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "已学会奉献"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [26573]
+
+[[conditions]]
+title = "奉献可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [26573]
+
+[[conditions]]
+title = "奉献冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [26573]
+ignore_gcd = true
+
+[[conditions]]
+title = "奉献技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 26573
+combat_only = false
+
+[[conditions]]
+title = "已学会审判"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [275773]
+
+[[conditions]]
+title = "审判可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [275773]
+
+[[conditions]]
+title = "审判冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [275773]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有崇圣增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [392939]
+player_only = true
+
+[[conditions]]
+title = "已学会愤怒之锤"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [24275]
+
+[[conditions]]
+title = "愤怒之锤可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [24275]
+
+[[conditions]]
+title = "愤怒之锤冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [24275]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有复仇之怒增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [31884]
+player_only = true
+
+[[conditions]]
+title = "玩家有复仇十字军增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [216331]
+player_only = true
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "复仇十字军可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [216331]
+
+[[conditions]]
+title = "复仇十字军冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [216331]
+ignore_gcd = true
+
+[[conditions]]
+title = "复仇十字军对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 216331
+unit_token = "target"
+
+[[conditions]]
+title = "目标当前血量百分比"
+plugin = "target_health_pct@dev"
+[conditions.plugin_args]
+use_predicted = false
+
+[[conditions]]
+title = "目标在奉献技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 26573
+
+[[conditions]]
+title = "玩家有公正审判增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [414113]
+player_only = true
+
+[[conditions]]
+title = "已学会神圣震击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [20473]
+
+[[conditions]]
+title = "神圣震击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [20473]
+
+[[conditions]]
+title = "神圣震击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [20473]
+ignore_gcd = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "奉献"
+macro_text = "/cast 奉献"
+
+[[macros]]
+name = "审判"
+macro_text = "/cast 审判"
+
+[[macros]]
+name = "愤怒之锤"
+macro_text = "/cast 愤怒之锤"
+
+[[macros]]
+name = "复仇十字军"
+macro_text = "/cast 复仇十字军"
+
+[[macros]]
+name = "神圣震击"
+macro_text = "/cast 神圣震击"
+
+# 来源 paladin/holy.txt:2，步骤 0，动作 ID 26573，TXT 冷却 9 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会奉献 == True) and (奉献可用 == True) and (奉献冷却 == 0) and (奉献技能可攻击敌人总数 > 8)"
+macro = "奉献"
+annotate = "来源步骤 0：奉献（ID 26573）"
+
+# 来源 paladin/holy.txt:7，步骤 1，动作 ID 275773，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会审判 == True) and (审判可用 == True) and (审判冷却 == 0)"
+macro = "审判"
+annotate = "来源步骤 1：审判（ID 275773）"
+
+# 来源 paladin/holy.txt:11，步骤 2，动作 ID 24275，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (玩家有崇圣增益 == True) and (已学会愤怒之锤 == True) and (愤怒之锤可用 == True) and (愤怒之锤冷却 == 0)"
+macro = "愤怒之锤"
+annotate = "来源步骤 2：愤怒之锤（ID 24275）"
+
+# 来源 paladin/holy.txt:16，步骤 3，动作 ID 24275，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会愤怒之锤 == True) and (愤怒之锤可用 == True) and (愤怒之锤冷却 == 0) and (玩家有复仇之怒增益 == True)"
+macro = "愤怒之锤"
+annotate = "来源步骤 3：愤怒之锤（ID 24275）"
+
+# 来源 paladin/holy.txt:21，步骤 4，动作 ID 24275，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会愤怒之锤 == True) and (愤怒之锤可用 == True) and (愤怒之锤冷却 == 0) and (玩家有复仇十字军增益 == True)"
+macro = "愤怒之锤"
+annotate = "来源步骤 4：愤怒之锤（ID 24275）"
+
+# 来源 paladin/holy.txt:26，步骤 5，动作 ID 216331，TXT 冷却 60 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (玩家有复仇十字军增益 == True) and (复仇十字军可用 == True) and (复仇十字军冷却 == 0) and (复仇十字军对目标在射程内 == True)"
+macro = "复仇十字军"
+annotate = "来源步骤 5：复仇十字军（ID 216331）"
+
+# 来源 paladin/holy.txt:31，步骤 6，动作 ID 24275，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会愤怒之锤 == True) and (愤怒之锤可用 == True) and (愤怒之锤冷却 == 0) and (目标当前血量百分比 <= 20)"
+macro = "愤怒之锤"
+annotate = "来源步骤 6：愤怒之锤（ID 24275）"
+
+# 来源 paladin/holy.txt:36，步骤 7，动作 ID 26573，TXT 冷却 9 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会奉献 == True) and (奉献可用 == True) and (奉献冷却 == 0) and (目标在奉献技能范围内 == True) and (玩家有公正审判增益 == False)"
+macro = "奉献"
+annotate = "来源步骤 7：奉献（ID 26573）"
+
+# 来源 paladin/holy.txt:42，步骤 8，动作 ID 275773，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "审判"
+annotate = "来源步骤 8：审判（ID 275773）"
+
+# 来源 paladin/holy.txt:43，步骤 9，动作 ID 20473，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会神圣震击 == True) and (神圣震击可用 == True) and (神圣震击冷却 == 0)"
+macro = "神圣震击"
+annotate = "来源步骤 9：神圣震击（ID 20473）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

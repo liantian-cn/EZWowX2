@@ -1,0 +1,17 @@
+name = "player_cast_progress@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "玩家施法或通道进度"
+description = "UnitCastingInfo(\"player\") 第 11 项 delayTimeMs、UnitChannelInfo(\"player\") 第 9 项 isEmpowered 是 NeverSecret 状态哨兵；UnitCastingDuration/UnitChannelDuration(\"player\") 返回 duration 或无值。color = duration:EvaluateElapsedPercent(curve) 接受颜色曲线并返回可能秘密的颜色。CreateColorCurve 黑色 0、白色 1；直接渲染颜色。Python 返回 0–100，空闲为 0.0。"
+recommended_condition_name = "玩家施法或通道进度"
+
+[parameters]
+description = "无参数，拒绝多余字段。"
+
+[returns]
+type = "float"
+description = "CreateColorCurve 黑色 0、白色 1；直接渲染颜色。Python 返回 0–100，空闲为 0.0。"
+fallback = 0.0
+unit = "%"
+
+# 刷新约定：事件通过 C_Timer.After(0, ...) 延后；UPDATE_INTERVAL = 0.1 秒持续轮询。

@@ -1,0 +1,3 @@
+interface:
+  display_name: "Phantom 循环开发"
+  short_description: "编写 Phantom 循环配置、宏键位与战斗优先级并进行离线验证"

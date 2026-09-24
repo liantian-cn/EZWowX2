@@ -1,0 +1,14 @@
+-r requirements.txt
+pytest==9.1.1
+lupa==2.8
+mypy==2.3.1
+ruff==0.16.7
+ast_serialize==0.11.1
+colorama==0.4.6; sys_platform == "win32"
+iniconfig==2.3.0
+librt==0.15.0
+mypy_extensions==1.1.0
+packaging==26.3
+pathspec==1.1.1
+pluggy==1.6.0
+types-psutil==7.2.2.20260906

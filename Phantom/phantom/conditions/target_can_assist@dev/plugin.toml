@@ -1,0 +1,13 @@
+name = "target_can_assist@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "目标是否可辅助"
+description = "存在目标时调用默认 UnitCanAssist(player, target)，不启用免疫与不可交互选项；无目标 false，事件刷新。"
+recommended_condition_name = "目标是否可辅助"
+assisted_combat_rule_types = ["ASSISTED_COMBAT_RULE_TYPE_FRIENDLY_TARGET"]
+[parameters]
+description = "无参数。"
+[returns]
+type = "bool"
+description = "严格黑白 Cell；白色表示可辅助。"
+fallback = false

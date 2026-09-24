@@ -1,0 +1,693 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：rogue/subtlety.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 玩家周围人数近似为本步骤技能可攻击敌人总数，仅可观察 nameplate1–40；secret/nil 射程漏计，不代表原码数圆内完整人数。
+# 技能射程规则使用当前步骤动作 ID 对 target 的射程结果，无效射程返回 False。
+# 距离条件近似为当前步骤技能射程，忽略 TXT 码数；无效技能/无目标/nil 射程也返回 False。
+schema_version = 1
+uuid = "a13cb46c-4942-50ae-a8b7-b45fe0414cbf"
+
+[profile]
+title = "潜行者-敏锐"
+description = "潜行者一键辅助"
+unit_class = "ROGUE"
+unit_class_id = 4
+unit_spec = 3
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "已学会速效药膏"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [315584]
+
+[[conditions]]
+title = "速效药膏可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [315584]
+
+[[conditions]]
+title = "速效药膏冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [315584]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有速效药膏增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [315584]
+player_only = true
+
+[[conditions]]
+title = "玩家有PvPRulesEnabledHARDCODED增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [134735]
+player_only = true
+
+[[conditions]]
+title = "暗影之舞_185313可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [185313]
+
+[[conditions]]
+title = "暗影之舞_185313冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [185313]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会暗影之舞_185313"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [185313]
+
+[[conditions]]
+title = "暗影之舞_185313技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 185313
+combat_only = false
+
+[[conditions]]
+title = "影分身可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [280719]
+
+[[conditions]]
+title = "影分身冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [280719]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会影分身"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [280719]
+
+[[conditions]]
+title = "玩家有暗影之舞_185422增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [185422]
+player_only = true
+
+[[conditions]]
+title = "玩家连击点"
+plugin = "spec_power_combo_points@dev"
+
+[[conditions]]
+title = "影分身对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 280719
+unit_token = "target"
+
+[[conditions]]
+title = "玩家有至黑之夜增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [457280]
+player_only = true
+
+[[conditions]]
+title = "刺骨可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [196819]
+
+[[conditions]]
+title = "刺骨冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [196819]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会刺骨"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [196819]
+
+[[conditions]]
+title = "玩家有致命一击增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [462128]
+player_only = true
+
+[[conditions]]
+title = "刺骨对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 196819
+unit_token = "target"
+
+[[conditions]]
+title = "已学会赤喉之咬"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [426591]
+
+[[conditions]]
+title = "赤喉之咬可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [426591]
+
+[[conditions]]
+title = "赤喉之咬冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [426591]
+ignore_gcd = true
+
+[[conditions]]
+title = "赤喉之咬对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 426591
+unit_token = "target"
+
+[[conditions]]
+title = "黑火药可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [319175]
+
+[[conditions]]
+title = "黑火药冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [319175]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会黑火药"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [319175]
+
+[[conditions]]
+title = "黑火药技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 319175
+combat_only = false
+
+[[conditions]]
+title = "袖剑风暴可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [197835]
+
+[[conditions]]
+title = "袖剑风暴冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [197835]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会袖剑风暴"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [197835]
+
+[[conditions]]
+title = "袖剑风暴技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 197835
+combat_only = false
+
+[[conditions]]
+title = "暗影打击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [185438]
+
+[[conditions]]
+title = "暗影打击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [185438]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会暗影打击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [185438]
+
+[[conditions]]
+title = "暗影打击对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 185438
+unit_token = "target"
+
+[[conditions]]
+title = "影袭可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1752]
+
+[[conditions]]
+title = "影袭冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1752]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会影袭"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1752]
+
+[[conditions]]
+title = "影袭对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 1752
+unit_token = "target"
+
+[[conditions]]
+title = "飞镖投掷可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [114014]
+
+[[conditions]]
+title = "飞镖投掷冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [114014]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会飞镖投掷"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [114014]
+
+[[conditions]]
+title = "飞镖投掷对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 114014
+unit_token = "target"
+
+[[conditions]]
+title = "玩家有潜行_1784增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1784]
+player_only = true
+
+[[conditions]]
+title = "玩家有消失增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [11327]
+player_only = true
+
+[[conditions]]
+title = "目标在飞镖投掷技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 114014
+
+[[conditions]]
+title = "玩家有潜行_115191增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [115191]
+player_only = true
+
+[[conditions]]
+title = "玩家有深邃诡计增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [193531]
+player_only = true
+
+[[conditions]]
+title = "玩家有隐秘诡计增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [394320]
+player_only = true
+
+[[conditions]]
+title = "暗影打击技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 185438
+combat_only = false
+
+[[conditions]]
+title = "影袭技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 1752
+combat_only = false
+
+[[conditions]]
+title = "已学会致伤药膏"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [8679]
+
+[[conditions]]
+title = "致伤药膏可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [8679]
+
+[[conditions]]
+title = "致伤药膏冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [8679]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有致伤药膏增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [8679]
+player_only = true
+
+[[conditions]]
+title = "已学会萎缩药膏"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [381637]
+
+[[conditions]]
+title = "萎缩药膏可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [381637]
+
+[[conditions]]
+title = "萎缩药膏冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [381637]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有萎缩药膏增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [381637]
+player_only = true
+
+[[conditions]]
+title = "已学会迟钝药膏"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [5761]
+
+[[conditions]]
+title = "迟钝药膏可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [5761]
+
+[[conditions]]
+title = "迟钝药膏冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [5761]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有迟钝药膏增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [5761]
+player_only = true
+
+[[conditions]]
+title = "已学会减速药膏"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [3408]
+
+[[conditions]]
+title = "减速药膏可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [3408]
+
+[[conditions]]
+title = "减速药膏冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [3408]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有减速药膏增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [3408]
+player_only = true
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "已学会暗影之刃"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [121471]
+
+[[conditions]]
+title = "暗影之刃可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [121471]
+
+[[conditions]]
+title = "暗影之刃冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [121471]
+ignore_gcd = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "速效药膏"
+macro_text = "/cast 速效药膏"
+
+[[macros]]
+name = "暗影之舞"
+macro_text = "/cast 暗影之舞"
+
+[[macros]]
+name = "影分身"
+macro_text = "/cast 影分身"
+
+[[macros]]
+name = "刺骨"
+macro_text = "/cast 刺骨"
+
+[[macros]]
+name = "赤喉之咬"
+macro_text = "/cast 赤喉之咬"
+
+[[macros]]
+name = "黑火药"
+macro_text = "/cast 黑火药"
+
+[[macros]]
+name = "袖剑风暴"
+macro_text = "/cast 袖剑风暴"
+
+[[macros]]
+name = "暗影打击"
+macro_text = "/cast 暗影打击"
+
+[[macros]]
+name = "影袭"
+macro_text = "/cast 影袭"
+
+[[macros]]
+name = "飞镖投掷"
+macro_text = "/cast 飞镖投掷"
+
+[[macros]]
+name = "致伤药膏"
+macro_text = "/cast 致伤药膏"
+
+[[macros]]
+name = "萎缩药膏"
+macro_text = "/cast 萎缩药膏"
+
+[[macros]]
+name = "迟钝药膏"
+macro_text = "/cast 迟钝药膏"
+
+[[macros]]
+name = "减速药膏"
+macro_text = "/cast 减速药膏"
+
+[[macros]]
+name = "暗影之刃"
+macro_text = "/cast 暗影之刃"
+
+# 来源 rogue/subtlety.txt:2，步骤 0，动作 ID 315584，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会速效药膏 == True) and (速效药膏可用 == True) and (速效药膏冷却 == 0) and (玩家有速效药膏增益 == False) and (玩家有PvPRulesEnabledHARDCODED增益 == False)"
+macro = "速效药膏"
+annotate = "来源步骤 0：速效药膏（ID 315584）"
+
+# 来源 rogue/subtlety.txt:8，步骤 1，动作 ID 185313，TXT 冷却 6 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (暗影之舞_185313可用 == True) and (暗影之舞_185313冷却 == 0) and (已学会暗影之舞_185313 == True) and (暗影之舞_185313技能可攻击敌人总数 > 1) and (暗影之舞_185313冷却 == 0)"
+macro = "暗影之舞"
+annotate = "来源步骤 1：暗影之舞（ID 185313）"
+
+# 来源 rogue/subtlety.txt:14，步骤 2，动作 ID 280719，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (影分身可用 == True) and (影分身冷却 == 0) and (已学会影分身 == True) and (玩家有暗影之舞_185422增益 == True) and (玩家连击点 >= 5) and (影分身对目标在射程内 == True) and (玩家有至黑之夜增益 == False)"
+macro = "影分身"
+annotate = "来源步骤 2：影分身（ID 280719）"
+
+# 来源 rogue/subtlety.txt:22，步骤 3，动作 ID 196819，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (刺骨可用 == True) and (刺骨冷却 == 0) and (已学会刺骨 == True) and (玩家连击点 >= 5) and (玩家有致命一击增益 == True) and (刺骨对目标在射程内 == True)"
+macro = "刺骨"
+annotate = "来源步骤 3：刺骨（ID 196819）"
+
+# 来源 rogue/subtlety.txt:29，步骤 4，动作 ID 426591，TXT 冷却 45 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会赤喉之咬 == True) and (赤喉之咬可用 == True) and (赤喉之咬冷却 == 0) and (玩家连击点 <= 2) and (赤喉之咬对目标在射程内 == True)"
+macro = "赤喉之咬"
+annotate = "来源步骤 4：赤喉之咬（ID 426591）"
+
+# 来源 rogue/subtlety.txt:35，步骤 5，动作 ID 319175，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (黑火药可用 == True) and (黑火药冷却 == 0) and (已学会黑火药 == True) and (黑火药技能可攻击敌人总数 > 3) and (玩家连击点 >= 5) and (玩家有至黑之夜增益 == False)"
+macro = "黑火药"
+annotate = "来源步骤 5：黑火药（ID 319175）"
+
+# 来源 rogue/subtlety.txt:42，步骤 6，动作 ID 197835，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (袖剑风暴可用 == True) and (袖剑风暴冷却 == 0) and (已学会袖剑风暴 == True) and (袖剑风暴技能可攻击敌人总数 > 3)"
+macro = "袖剑风暴"
+annotate = "来源步骤 6：袖剑风暴（ID 197835）"
+
+# 来源 rogue/subtlety.txt:47，步骤 7，动作 ID 185438，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (暗影打击可用 == True) and (暗影打击冷却 == 0) and (已学会暗影打击 == True) and (暗影打击对目标在射程内 == True)"
+macro = "暗影打击"
+annotate = "来源步骤 7：暗影打击（ID 185438）"
+
+# 来源 rogue/subtlety.txt:52，步骤 8，动作 ID 1752，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (影袭可用 == True) and (影袭冷却 == 0) and (已学会影袭 == True) and (玩家有暗影之舞_185422增益 == False) and (影袭对目标在射程内 == True)"
+macro = "影袭"
+annotate = "来源步骤 8：影袭（ID 1752）"
+
+# 来源 rogue/subtlety.txt:58，步骤 9，动作 ID 114014，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (飞镖投掷可用 == True) and (飞镖投掷冷却 == 0) and (已学会飞镖投掷 == True) and (飞镖投掷对目标在射程内 == True) and (玩家有潜行_1784增益 == False) and (玩家有消失增益 == False) and (目标在飞镖投掷技能范围内 == False) and (玩家有潜行_115191增益 == False)"
+macro = "飞镖投掷"
+annotate = "来源步骤 9：飞镖投掷（ID 114014）"
+
+# 来源 rogue/subtlety.txt:67，步骤 10，动作 ID 196819，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (刺骨可用 == True) and (刺骨冷却 == 0) and (已学会刺骨 == True) and (玩家连击点 >= 5) and (刺骨对目标在射程内 == True) and (玩家有至黑之夜增益 == False)"
+macro = "刺骨"
+annotate = "来源步骤 10：刺骨（ID 196819）"
+
+# 来源 rogue/subtlety.txt:74，步骤 11，动作 ID 1752，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "影袭"
+annotate = "来源步骤 11：影袭（ID 1752）"
+
+# 来源 rogue/subtlety.txt:75，步骤 12，动作 ID 196819，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (刺骨可用 == True) and (刺骨冷却 == 0) and (已学会刺骨 == True) and (玩家连击点 >= 5) and (刺骨对目标在射程内 == True) and (玩家有至黑之夜增益 == True)"
+macro = "刺骨"
+annotate = "来源步骤 12：刺骨（ID 196819）"
+
+# 来源 rogue/subtlety.txt:82，步骤 13，动作 ID 197835，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (袖剑风暴可用 == True) and (袖剑风暴冷却 == 0) and (已学会袖剑风暴 == True) and (袖剑风暴技能可攻击敌人总数 > 3) and (玩家有深邃诡计增益 == True) and (玩家有隐秘诡计增益 == True) and (玩家连击点 <= 5)"
+macro = "袖剑风暴"
+annotate = "来源步骤 13：袖剑风暴（ID 197835）"
+
+# 来源 rogue/subtlety.txt:90，步骤 14，动作 ID 185438，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (暗影打击可用 == True) and (暗影打击冷却 == 0) and (已学会暗影打击 == True) and (暗影打击对目标在射程内 == True) and (玩家有深邃诡计增益 == True) and (玩家有隐秘诡计增益 == True) and (玩家连击点 <= 5) and (暗影打击技能可攻击敌人总数 <= 3)"
+macro = "暗影打击"
+annotate = "来源步骤 14：暗影打击（ID 185438）"
+
+# 来源 rogue/subtlety.txt:99，步骤 15，动作 ID 1752，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (影袭可用 == True) and (影袭冷却 == 0) and (已学会影袭 == True) and (玩家有暗影之舞_185422增益 == False) and (影袭对目标在射程内 == True) and (玩家有深邃诡计增益 == True) and (玩家有隐秘诡计增益 == True) and (玩家连击点 <= 5) and (影袭技能可攻击敌人总数 <= 2)"
+macro = "影袭"
+annotate = "来源步骤 15：影袭（ID 1752）"
+
+# 来源 rogue/subtlety.txt:109，步骤 16，动作 ID 8679，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会致伤药膏 == True) and (致伤药膏可用 == True) and (致伤药膏冷却 == 0) and (玩家有致伤药膏增益 == False) and (玩家有PvPRulesEnabledHARDCODED增益 == True)"
+macro = "致伤药膏"
+annotate = "来源步骤 16：致伤药膏（ID 8679）"
+
+# 来源 rogue/subtlety.txt:115，步骤 17，动作 ID 381637，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会萎缩药膏 == True) and (萎缩药膏可用 == True) and (萎缩药膏冷却 == 0) and (玩家有萎缩药膏增益 == False)"
+macro = "萎缩药膏"
+annotate = "来源步骤 17：萎缩药膏（ID 381637）"
+
+# 来源 rogue/subtlety.txt:120，步骤 18，动作 ID 5761，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会迟钝药膏 == True) and (迟钝药膏可用 == True) and (迟钝药膏冷却 == 0) and (玩家有迟钝药膏增益 == False)"
+macro = "迟钝药膏"
+annotate = "来源步骤 18：迟钝药膏（ID 5761）"
+
+# 来源 rogue/subtlety.txt:125，步骤 19，动作 ID 3408，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会减速药膏 == True) and (减速药膏可用 == True) and (减速药膏冷却 == 0) and (玩家有迟钝药膏增益 == False) and (玩家有萎缩药膏增益 == False) and (玩家有减速药膏增益 == False)"
+macro = "减速药膏"
+annotate = "来源步骤 19：减速药膏（ID 3408）"
+
+# 来源 rogue/subtlety.txt:132，步骤 20，动作 ID 121471，TXT 冷却 90 秒。
+# 来源行 136：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会暗影之刃 == True) and (暗影之刃可用 == True) and (暗影之刃冷却 == 0)"
+macro = "暗影之刃"
+annotate = "来源步骤 20：暗影之刃（ID 121471）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

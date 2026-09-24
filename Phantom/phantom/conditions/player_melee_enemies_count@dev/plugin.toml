@@ -1,0 +1,25 @@
+name = "player_melee_enemies_count@dev"
+assisted_combat_rule_types = ["ASSISTED_COMBAT_RULE_TYPE_TARGET_COUNT_NEAR_PLAYER_GREATER", "ASSISTED_COMBAT_RULE_TYPE_TARGET_COUNT_NEAR_PLAYER_LESS"]
+author = "liantian-cn"
+version = "dev"
+display_name = "玩家近战范围敌人数量"
+description = "DoesSpellExist 验证技能后，扫描 nameplate1–40 中存在、UnitCanAttack、非死亡的单位；combat_only=true 时要求 UnitAffectingCombat。仅计普通射程 true，秘密或 nil 不计数。仅报告可观察姓名板，不代表全部附近敌人或实际距离；事件加 1 秒兜底。"
+recommended_condition_name = "玩家近战范围敌人数量"
+
+[parameters.spell_id]
+type = "int"
+required = true
+description = "用于检测近战范围的技能 ID，正整数。"
+
+[parameters.combat_only]
+type = "bool"
+required = false
+default = false
+description = "仅计战斗中的单位；严格布尔值，默认也统计脱战敌人。"
+
+[returns]
+type = "int"
+description = "扫描 nameplate1–40；秘密或 nil 距离结果不计数。灰度 count/40，Python 四舍五入至 0–40。"
+fallback = 0
+
+# 刷新约定：事件通过 C_Timer.After(0, ...) 延后；UPDATE_INTERVAL = 1 秒兜底。

@@ -1,0 +1,516 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：deathknight/unholy.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 目标光环限定不可辅助目标的 PLAYER|HARMFUL 减益；PLAYER 包含玩家、宠物和载具，排除其他来源。
+# 宠物条件只统计存在且存活的 pet 单位，不统计临时召唤物。
+# 技能射程规则使用当前步骤动作 ID 对 target 的射程结果，无效射程返回 False。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 层数使用固定显示量程；超量程饱和，零填充不能区分无光环与零层。
+# 资源 max_power 为固定参考，须按天赋调整；临时上限变化会有误差，Cell 量化步长约为 max_power/255。
+schema_version = 1
+uuid = "7a080ce2-358a-5214-9a57-cc884af554b1"
+
+[profile]
+title = "死亡骑士-邪恶"
+description = "死亡骑士一键辅助"
+unit_class = "DEATHKNIGHT"
+unit_class_id = 6
+unit_spec = 3
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "已学会爆发"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [77575]
+
+[[conditions]]
+title = "爆发可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [77575]
+
+[[conditions]]
+title = "爆发冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [77575]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标有恶性病变减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [191587]
+
+[[conditions]]
+title = "已学会黑暗突变"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1233448]
+
+[[conditions]]
+title = "黑暗突变可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1233448]
+
+[[conditions]]
+title = "黑暗突变冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1233448]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有存活宠物"
+plugin = "player_has_pet@dev"
+
+[[conditions]]
+title = "已学会天灾打击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [55090]
+
+[[conditions]]
+title = "天灾打击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [55090]
+
+[[conditions]]
+title = "天灾打击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [55090]
+ignore_gcd = true
+
+[[conditions]]
+title = "天灾打击对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 55090
+unit_token = "target"
+
+[[conditions]]
+title = "玩家次级食尸鬼_1254252层数"
+plugin = "aura_player_buff_stacks@dev"
+[conditions.plugin_args]
+aura_ids = [1254252]
+max_value = 8
+min_value = 0
+width = 2
+player_only = true
+
+[[conditions]]
+title = "已学会凋零缠绕"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [47541]
+
+[[conditions]]
+title = "凋零缠绕可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [47541]
+
+[[conditions]]
+title = "凋零缠绕冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [47541]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有末日突降增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [81340]
+player_only = true
+
+[[conditions]]
+title = "已学会扩散"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [207317]
+
+[[conditions]]
+title = "扩散可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [207317]
+
+[[conditions]]
+title = "扩散冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [207317]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会符文打击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [316239]
+
+[[conditions]]
+title = "符文打击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [316239]
+
+[[conditions]]
+title = "符文打击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [316239]
+ignore_gcd = true
+
+[[conditions]]
+title = "符文打击对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 316239
+unit_token = "target"
+
+[[conditions]]
+title = "已学会灵魂收割"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [343294]
+
+[[conditions]]
+title = "灵魂收割可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [343294]
+
+[[conditions]]
+title = "灵魂收割冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [343294]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标当前血量百分比"
+plugin = "target_health_pct@dev"
+[conditions.plugin_args]
+use_predicted = false
+
+[[conditions]]
+title = "灵魂收割对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 343294
+unit_token = "target"
+
+[[conditions]]
+title = "目标有未知技能194310减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [194310]
+
+[[conditions]]
+title = "已学会腐化"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1247378]
+
+[[conditions]]
+title = "腐化可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1247378]
+
+[[conditions]]
+title = "腐化冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1247378]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有次级食尸鬼_1242998增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1242998]
+player_only = true
+
+[[conditions]]
+title = "腐化对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 1247378
+unit_token = "target"
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "已学会亡者复生"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [46585]
+
+[[conditions]]
+title = "亡者复生可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [46585]
+
+[[conditions]]
+title = "亡者复生冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [46585]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有脓疮毒镰_458123增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [458123]
+player_only = true
+
+[[conditions]]
+title = "脓疮打击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [85948]
+
+[[conditions]]
+title = "目标有脓疮毒镰_1241077减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [1241077]
+
+[[conditions]]
+title = "玩家有瘟疫降临增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1271975]
+player_only = true
+
+[[conditions]]
+title = "已学会亡者大军"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [42650]
+
+[[conditions]]
+title = "亡者大军可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [42650]
+
+[[conditions]]
+title = "亡者大军冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [42650]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家符文能量"
+plugin = "spec_power_runic_power@dev"
+[conditions.plugin_args]
+max_power = 100
+
+[[conditions]]
+title = "玩家有禁断知识增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1242223]
+player_only = true
+
+[[conditions]]
+title = "玩家有割魂索命增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1242654]
+player_only = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "爆发"
+macro_text = "/cast 爆发"
+
+[[macros]]
+name = "黑暗突变"
+macro_text = "/cast 黑暗突变"
+
+[[macros]]
+name = "天灾打击"
+macro_text = "/cast 天灾打击"
+
+[[macros]]
+name = "凋零缠绕"
+macro_text = "/cast 凋零缠绕"
+
+[[macros]]
+name = "扩散"
+macro_text = "/cast 扩散"
+
+[[macros]]
+name = "符文打击"
+macro_text = "/cast 符文打击"
+
+[[macros]]
+name = "灵魂收割"
+macro_text = "/cast 灵魂收割"
+
+[[macros]]
+name = "腐化"
+macro_text = "/cast 腐化"
+
+[[macros]]
+name = "亡者复生"
+macro_text = "/cast 亡者复生"
+
+[[macros]]
+name = "脓疮打击"
+macro_text = "/cast 脓疮打击"
+
+[[macros]]
+name = "亡者大军"
+macro_text = "/cast 亡者大军"
+
+# 来源 deathknight/unholy.txt:2，步骤 0，动作 ID 77575，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会爆发 == True) and (爆发可用 == True) and (爆发冷却 == 0) and (目标有恶性病变减益 == False)"
+macro = "爆发"
+annotate = "来源步骤 0：爆发（ID 77575）"
+
+# 来源 deathknight/unholy.txt:7，步骤 1，动作 ID 1233448，TXT 冷却 45 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会黑暗突变 == True) and (黑暗突变可用 == True) and (黑暗突变冷却 == 0) and (玩家有存活宠物 == True)"
+macro = "黑暗突变"
+annotate = "来源步骤 1：黑暗突变（ID 1233448）"
+
+# 来源 deathknight/unholy.txt:12，步骤 2，动作 ID 55090，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会天灾打击 == True) and (天灾打击可用 == True) and (天灾打击冷却 == 0) and (天灾打击对目标在射程内 == True) and (玩家次级食尸鬼_1254252层数 <= 1)"
+macro = "天灾打击"
+annotate = "来源步骤 2：天灾打击（ID 55090）"
+
+# 来源 deathknight/unholy.txt:18，步骤 3，动作 ID 47541，TXT 冷却 0 秒。
+# 来源行 23：TARGET_COUNT_NEAR_TARGET_LESS；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量小于等于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会凋零缠绕 == True) and (凋零缠绕可用 == True) and (凋零缠绕冷却 == 0) and (玩家有末日突降增益 == True)"
+macro = "凋零缠绕"
+annotate = "来源步骤 3：凋零缠绕（ID 47541）"
+
+# 来源 deathknight/unholy.txt:24，步骤 4，动作 ID 207317，TXT 冷却 0 秒。
+# 来源行 29：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 4 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会扩散 == True) and (扩散可用 == True) and (扩散冷却 == 0) and (目标有恶性病变减益 == True) and (玩家有末日突降增益 == True)"
+macro = "扩散"
+annotate = "来源步骤 4：扩散（ID 207317）"
+
+# 来源 deathknight/unholy.txt:31，步骤 5，动作 ID 47541，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会凋零缠绕 == True) and (凋零缠绕可用 == True) and (凋零缠绕冷却 == 0)"
+macro = "凋零缠绕"
+annotate = "来源步骤 5：凋零缠绕（ID 47541）"
+
+# 来源 deathknight/unholy.txt:35，步骤 6，动作 ID 316239，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会符文打击 == True) and (符文打击可用 == True) and (符文打击冷却 == 0) and (符文打击对目标在射程内 == True)"
+macro = "符文打击"
+annotate = "来源步骤 6：符文打击（ID 316239）"
+
+# 来源 deathknight/unholy.txt:40，步骤 7，动作 ID 343294，TXT 冷却 15 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会灵魂收割 == True) and (灵魂收割可用 == True) and (灵魂收割冷却 == 0) and (目标当前血量百分比 <= 35) and (灵魂收割对目标在射程内 == True)"
+macro = "灵魂收割"
+annotate = "来源步骤 7：灵魂收割（ID 343294）"
+
+# 来源 deathknight/unholy.txt:46，步骤 8，动作 ID 55090，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会天灾打击 == True) and (天灾打击可用 == True) and (天灾打击冷却 == 0) and (目标有未知技能194310减益 == True) and (天灾打击对目标在射程内 == True)"
+macro = "天灾打击"
+annotate = "来源步骤 8：天灾打击（ID 55090）"
+
+# 来源 deathknight/unholy.txt:52，步骤 9，动作 ID 1247378，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会腐化 == True) and (腐化可用 == True) and (腐化冷却 == 0) and (玩家有次级食尸鬼_1242998增益 == True) and (腐化对目标在射程内 == True)"
+macro = "腐化"
+annotate = "来源步骤 9：腐化（ID 1247378）"
+
+# 来源 deathknight/unholy.txt:58，步骤 10，动作 ID 46585，TXT 冷却 120 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会亡者复生 == True) and (亡者复生可用 == True) and (亡者复生冷却 == 0) and (玩家有存活宠物 == False)"
+macro = "亡者复生"
+annotate = "来源步骤 10：亡者复生（ID 46585）"
+
+# 来源 deathknight/unholy.txt:63，步骤 11，动作 ID 316239，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "符文打击"
+annotate = "来源步骤 11：符文打击（ID 316239）"
+
+# 来源 deathknight/unholy.txt:64，步骤 12，动作 ID 85948，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (玩家有脓疮毒镰_458123增益 == True) and (脓疮打击可用 == True) and (目标有脓疮毒镰_1241077减益 == False)"
+macro = "脓疮打击"
+annotate = "来源步骤 12：脓疮打击（ID 85948）"
+
+# 来源 deathknight/unholy.txt:68，步骤 13，动作 ID 316239，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (符文打击对目标在射程内 == True) and (玩家次级食尸鬼_1254252层数 <= 2) and (符文打击冷却 == 0) and (符文打击可用 == True) and (已学会符文打击 == True)"
+macro = "符文打击"
+annotate = "来源步骤 13：符文打击（ID 316239）"
+
+# 来源 deathknight/unholy.txt:74，步骤 14，动作 ID 77575，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会爆发 == True) and (爆发可用 == True) and (爆发冷却 == 0) and (玩家有瘟疫降临增益 == True)"
+macro = "爆发"
+annotate = "来源步骤 14：爆发（ID 77575）"
+
+# 来源 deathknight/unholy.txt:79，步骤 15，动作 ID 42650，TXT 冷却 90 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会亡者大军 == True) and (亡者大军可用 == True) and (亡者大军冷却 == 0)"
+macro = "亡者大军"
+annotate = "来源步骤 15：亡者大军（ID 42650）"
+
+# 来源 deathknight/unholy.txt:83，步骤 16，动作 ID 47541，TXT 冷却 0 秒。
+# 来源行 85：TARGET_COUNT_NEAR_TARGET_LESS；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量小于等于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (玩家符文能量 >= 50) and (凋零缠绕冷却 == 0) and (玩家有禁断知识增益 == True)"
+macro = "凋零缠绕"
+annotate = "来源步骤 16：凋零缠绕（ID 47541）"
+
+# 来源 deathknight/unholy.txt:88，步骤 17，动作 ID 207317，TXT 冷却 0 秒。
+# 来源行 90：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 4 个
+[[rotation]]
+condition = "(插件启用 == True) and (玩家符文能量 >= 50) and (目标有恶性病变减益 == True) and (玩家有禁断知识增益 == True)"
+macro = "扩散"
+annotate = "来源步骤 17：扩散（ID 207317）"
+
+# 来源 deathknight/unholy.txt:93，步骤 18，动作 ID 55090，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (玩家次级食尸鬼_1254252层数 >= 3) and (天灾打击对目标在射程内 == True) and (天灾打击冷却 == 0) and (天灾打击可用 == True) and (已学会天灾打击 == True)"
+macro = "天灾打击"
+annotate = "来源步骤 18：天灾打击（ID 55090）"
+
+# 来源 deathknight/unholy.txt:99，步骤 19，动作 ID 343294，TXT 冷却 15 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会灵魂收割 == True) and (灵魂收割可用 == True) and (灵魂收割冷却 == 0) and (灵魂收割对目标在射程内 == True) and (玩家有割魂索命增益 == True)"
+macro = "灵魂收割"
+annotate = "来源步骤 19：灵魂收割（ID 343294）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

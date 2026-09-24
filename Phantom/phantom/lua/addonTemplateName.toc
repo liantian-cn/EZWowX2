@@ -1,0 +1,26 @@
+## Interface: 120100
+## Title: addonTemplateName
+## Version: 12.1.0.68209
+## SavedVariables: addonTemplateNameSettings
+## LoadSavedVariablesFirst: 1
+## IconTexture: Interface\Icons\UI_Spellbook_OneButton
+
+runtime\01_addon.lua
+runtime\02_config.lua
+runtime\03_rotation_variable.lua
+runtime\04_baseline_definition.lua
+runtime\05_background.lua
+runtime\06_panel.lua
+runtime\07_cell_backplate.lua
+runtime\08_cell.lua
+runtime\09_value_bar_backplate.lua
+runtime\10_value_bar.lua
+runtime\11_icon_tile_backplate.lua
+runtime\12_icon_tile.lua
+runtime\13_mask.lua
+runtime\14_specialization_reload.lua
+general\01_player_class.lua
+general\02_player_specialization.lua
+general\03_enable.lua
+general\04_in_burst.lua
+general\05_delaying.lua

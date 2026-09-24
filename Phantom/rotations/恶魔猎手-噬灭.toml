@@ -1,0 +1,351 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：demonhunter/devourer.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 距离条件近似为当前步骤技能射程，忽略 TXT 码数；无效技能/无目标/nil 射程也返回 False。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 技能射程规则使用当前步骤动作 ID 对 target 的射程结果，无效射程返回 False。
+# 层数使用固定显示量程；超量程饱和，零填充不能区分无光环与零层。
+schema_version = 1
+uuid = "14695978-c979-538d-a197-72b658cd3c8a"
+
+[profile]
+title = "恶魔猎手-噬灭"
+description = "恶魔猎手一键辅助"
+unit_class = "DEMONHUNTER"
+unit_class_id = 12
+unit_spec = 3
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "已学会虚空射线"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [473728]
+
+[[conditions]]
+title = "虚空射线可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [473728]
+
+[[conditions]]
+title = "虚空射线冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [473728]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在虚空射线技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 473728
+
+[[conditions]]
+title = "已学会献祭光环"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [258920]
+
+[[conditions]]
+title = "献祭光环可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [258920]
+
+[[conditions]]
+title = "献祭光环冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [258920]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有自发献祭增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1246556]
+player_only = true
+
+[[conditions]]
+title = "玩家有灵魂献祭增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1241937]
+player_only = true
+
+[[conditions]]
+title = "已学会虚空变形"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1217605]
+
+[[conditions]]
+title = "虚空变形可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1217605]
+
+[[conditions]]
+title = "虚空变形冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1217605]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在虚空变形技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 1217605
+
+[[conditions]]
+title = "玩家有虚空变形增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1217605]
+player_only = true
+
+[[conditions]]
+title = "已学会吞噬"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [473662]
+
+[[conditions]]
+title = "吞噬可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [473662]
+
+[[conditions]]
+title = "吞噬冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [473662]
+ignore_gcd = true
+
+[[conditions]]
+title = "吞噬对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 473662
+unit_token = "target"
+
+[[conditions]]
+title = "已学会收割"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1226019]
+
+[[conditions]]
+title = "收割可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1226019]
+
+[[conditions]]
+title = "收割冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1226019]
+ignore_gcd = true
+
+[[conditions]]
+title = "收割对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 1226019
+unit_token = "target"
+
+[[conditions]]
+title = "玩家灵魂残片层数"
+plugin = "aura_player_buff_stacks@dev"
+[conditions.plugin_args]
+aura_ids = [1245577]
+max_value = 15
+min_value = 0
+width = 4
+player_only = true
+
+[[conditions]]
+title = "玩家有坍缩之星增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1221171]
+player_only = true
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "已学会恶魔追击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1246167]
+
+[[conditions]]
+title = "恶魔追击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1246167]
+
+[[conditions]]
+title = "恶魔追击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1246167]
+ignore_gcd = true
+
+[[conditions]]
+title = "恶魔追击对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 1246167
+unit_token = "target"
+
+[[conditions]]
+title = "已学会虚空之刃"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1245412]
+
+[[conditions]]
+title = "虚空之刃可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1245412]
+
+[[conditions]]
+title = "虚空之刃冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1245412]
+ignore_gcd = true
+
+[[conditions]]
+title = "虚空之刃对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 1245412
+unit_token = "target"
+
+[[conditions]]
+title = "玩家有噬欲时刻增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1238495]
+player_only = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "虚空射线"
+macro_text = "/cast 虚空射线"
+
+[[macros]]
+name = "献祭光环"
+macro_text = "/cast 献祭光环"
+
+[[macros]]
+name = "虚空变形"
+macro_text = "/cast 虚空变形"
+
+[[macros]]
+name = "吞噬"
+macro_text = "/cast 吞噬"
+
+[[macros]]
+name = "收割"
+macro_text = "/cast 收割"
+
+[[macros]]
+name = "恶魔追击"
+macro_text = "/cast 恶魔追击"
+
+[[macros]]
+name = "虚空之刃"
+macro_text = "/cast 虚空之刃"
+
+# 来源 demonhunter/devourer.txt:2，步骤 0，动作 ID 473728，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会虚空射线 == True) and (虚空射线可用 == True) and (虚空射线冷却 == 0) and (目标在虚空射线技能范围内 == True)"
+macro = "虚空射线"
+annotate = "来源步骤 0：虚空射线（ID 473728）"
+
+# 来源 demonhunter/devourer.txt:7，步骤 1，动作 ID 258920，TXT 冷却 2 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会献祭光环 == True) and (献祭光环可用 == True) and (献祭光环冷却 == 0) and (玩家有自发献祭增益 == False) and (玩家有灵魂献祭增益 == False)"
+macro = "献祭光环"
+annotate = "来源步骤 1：献祭光环（ID 258920）"
+
+# 来源 demonhunter/devourer.txt:13，步骤 2，动作 ID 1217605，TXT 冷却 0 秒。
+# 来源行 19：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (已学会虚空变形 == True) and (虚空变形可用 == True) and (虚空变形冷却 == 0) and (目标在虚空变形技能范围内 == True) and (玩家有虚空变形增益 == False)"
+macro = "虚空变形"
+annotate = "来源步骤 2：虚空变形（ID 1217605）"
+
+# 来源 demonhunter/devourer.txt:20，步骤 3，动作 ID 473662，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会吞噬 == True) and (吞噬可用 == True) and (吞噬冷却 == 0) and (吞噬对目标在射程内 == True)"
+macro = "吞噬"
+annotate = "来源步骤 3：吞噬（ID 473662）"
+
+# 来源 demonhunter/devourer.txt:25，步骤 4，动作 ID 473662，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "吞噬"
+annotate = "来源步骤 4：吞噬（ID 473662）"
+
+# 来源 demonhunter/devourer.txt:26，步骤 5，动作 ID 1226019，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会收割 == True) and (收割可用 == True) and (收割冷却 == 0) and (收割对目标在射程内 == True) and (玩家灵魂残片层数 >= 4)"
+macro = "收割"
+annotate = "来源步骤 5：收割（ID 1226019）"
+
+# 来源 demonhunter/devourer.txt:32，步骤 6，动作 ID 1217605，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会虚空变形 == True) and (虚空变形可用 == True) and (虚空变形冷却 == 0) and (玩家有坍缩之星增益 == True) and (目标在虚空变形技能范围内 == True)"
+macro = "虚空变形"
+annotate = "来源步骤 6：虚空变形（ID 1217605）"
+
+# 来源 demonhunter/devourer.txt:38，步骤 7，动作 ID 1246167，TXT 冷却 90 秒。
+# 来源行 42：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会恶魔追击 == True) and (恶魔追击可用 == True) and (恶魔追击冷却 == 0) and (恶魔追击对目标在射程内 == True)"
+macro = "恶魔追击"
+annotate = "来源步骤 7：恶魔追击（ID 1246167）"
+
+# 来源 demonhunter/devourer.txt:44，步骤 8，动作 ID 1245412，TXT 冷却 0 秒。
+# 来源行 48：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (已学会虚空之刃 == True) and (虚空之刃可用 == True) and (虚空之刃冷却 == 0) and (虚空之刃对目标在射程内 == True)"
+macro = "虚空之刃"
+annotate = "来源步骤 8：虚空之刃（ID 1245412）"
+
+# 来源 demonhunter/devourer.txt:50，步骤 9，动作 ID 1226019，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会收割 == True) and (收割可用 == True) and (收割冷却 == 0) and (玩家有噬欲时刻增益 == True) and (收割对目标在射程内 == True)"
+macro = "收割"
+annotate = "来源步骤 9：收割（ID 1226019）"
+
+# 来源 demonhunter/devourer.txt:56，步骤 10，动作 ID 473728，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会虚空射线 == True) and (虚空射线可用 == True) and (虚空射线冷却 == 0) and (目标在虚空射线技能范围内 == True) and (玩家有虚空变形增益 == True)"
+macro = "虚空射线"
+annotate = "来源步骤 10：虚空射线（ID 473728）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

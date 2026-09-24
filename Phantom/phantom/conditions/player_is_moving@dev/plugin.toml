@@ -1,0 +1,16 @@
+name = "player_is_moving@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "玩家是否正在移动"
+description = "result = IsPlayerMoving()；返回玩家移动布尔值。C_Timer.After(0, callback) 在后续帧执行回调，无业务返回值。移动事件延至下一帧再查询；1 秒兜底轮询补齐状态。"
+recommended_condition_name = "玩家是否正在移动"
+
+[parameters]
+description = "无参数，拒绝多余字段。"
+
+[returns]
+type = "bool"
+description = "移动事件延至下一帧再查询；1 秒兜底轮询补齐状态。"
+fallback = false
+
+# 刷新约定：事件通过 C_Timer.After(0, ...) 延后；UPDATE_INTERVAL = 1 秒兜底。

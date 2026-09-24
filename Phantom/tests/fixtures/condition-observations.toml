@@ -1,0 +1,442 @@
+# 迁移前扩展观测样本的保留副本，仅用于测试，不作为正式职业循环。
+schema_version = 1
+uuid = "550e8400-e29b-41d4-a716-446655440000"
+
+[profile]
+title = "血DK循环"
+description = "测试使用。"
+unit_class = "DEATHKNIGHT"
+unit_class_id = 6
+unit_spec = 1
+
+[[conditions]]
+title = "符文能量"
+plugin = "player_primary_power@dev"
+[conditions.plugin_args]
+max_power = 120
+
+[[conditions]]
+title = "符文数量"
+plugin = "spec_power_rune@dev"
+# 无参数
+
+[[conditions]]
+title = "血沸充能"
+plugin = "spell_charges@dev"
+[conditions.plugin_args]
+spell_ids = [50841, 50842]
+max_charges = 2
+
+[[conditions]]
+title = "血沸高亮"
+plugin = "spell_overlay@dev"
+[conditions.plugin_args]
+spell_ids = [50841, 50842]
+
+[[conditions]]
+title = "公共冷却"
+plugin = "spell_gcd@dev"
+
+[[conditions]]
+title = "死神的抚摩冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [195292]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家血量百分比"
+plugin = "player_health_pct@dev"
+[conditions.plugin_args]
+use_predicted = true
+
+[[conditions]]
+title = "灵界打击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [49998]
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "正在延迟"
+plugin = "delaying@dev"
+
+# 补充观测条件：每种可加载插件仅声明一次，排除十五种非死亡骑士资源。
+# 以下按功能分组，可选参数显式配置为当前插件默认值。
+
+# 通用状态与固定符文能量。
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "固定符文能量"
+plugin = "spec_power_runic_power@dev"
+[conditions.plugin_args]
+max_power = 120
+
+# 玩家基础状态。
+
+[[conditions]]
+title = "玩家职责"
+plugin = "player_role@dev"
+
+[[conditions]]
+title = "玩家战斗中"
+plugin = "player_in_combat@dev"
+
+[[conditions]]
+title = "玩家目标是自己"
+plugin = "player_is_player_target@dev"
+
+[[conditions]]
+title = "玩家正在移动"
+plugin = "player_is_moving@dev"
+
+[[conditions]]
+title = "玩家在载具或坐骑上"
+plugin = "player_in_vehicle@dev"
+
+[[conditions]]
+title = "玩家正在选择施法目标"
+plugin = "player_is_targeting_spell@dev"
+
+[[conditions]]
+title = "玩家存在键盘输入焦点"
+plugin = "player_is_chatting@dev"
+
+[[conditions]]
+title = "玩家在队伍或团队中"
+plugin = "player_in_group@dev"
+
+[[conditions]]
+title = "玩家有存活宠物"
+plugin = "player_has_pet@dev"
+
+# 玩家施法与技能已知状态。
+
+[[conditions]]
+title = "玩家施法进度"
+plugin = "player_cast_progress@dev"
+
+[[conditions]]
+title = "玩家正在蓄力"
+plugin = "player_is_empowering@dev"
+
+[[conditions]]
+title = "玩家施法图标"
+plugin = "player_cast_icon@dev"
+
+[[conditions]]
+title = "玩家施法目标"
+plugin = "player_cast_target@dev"
+
+[[conditions]]
+title = "心灵冰冻技能已知"
+plugin = "spell_known@dev"
+[conditions.plugin_args]
+spell_ids = [47528]
+
+[[conditions]]
+title = "天赋技能439843已知"
+plugin = "talent_known@dev"
+# 仅判断技能已知或在法术书中，不解析天赋树，也不代表此刻可施放。
+[conditions.plugin_args]
+spell_ids = [439843]
+
+# 玩家物品、吸收量与防御光环。
+
+[[conditions]]
+title = "上栏饰品就绪"
+plugin = "player_trinket_ready@dev"
+[conditions.plugin_args]
+slot_id = 13
+
+[[conditions]]
+title = "治疗石就绪"
+plugin = "player_healthstone_ready@dev"
+
+[[conditions]]
+title = "治疗药水就绪"
+plugin = "player_heal_potion_ready@dev"
+
+[[conditions]]
+title = "玩家伤害吸收超过一万"
+plugin = "player_damage_absorb@dev"
+[conditions.plugin_args]
+threshold = 10000
+
+[[conditions]]
+title = "玩家治疗吸收超过一万"
+plugin = "player_heal_absorb@dev"
+[conditions.plugin_args]
+threshold = 10000
+
+[[conditions]]
+title = "玩家有大防御"
+plugin = "player_has_big_defensive@dev"
+
+[[conditions]]
+title = "玩家有白骨之盾"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [195181]
+
+[[conditions]]
+title = "玩家有可驱散毒或魔法减益"
+plugin = "player_has_dispellable_debuff@dev"
+[conditions.plugin_args]
+dispel_types = { Poison = true, Magic = true, Disease = false, Curse = false, Stealth = false, Special = false, Enrage = false }
+
+# 目标状态、施法与光环。
+
+[[conditions]]
+title = "目标存在"
+plugin = "target_is_exists@dev"
+
+[[conditions]]
+title = "目标存活"
+plugin = "target_is_alive@dev"
+
+[[conditions]]
+title = "目标敌对"
+plugin = "target_is_enemy@dev"
+
+[[conditions]]
+title = "目标可攻击"
+plugin = "target_can_attack@dev"
+
+[[conditions]]
+title = "目标可辅助"
+plugin = "target_can_assist@dev"
+
+[[conditions]]
+title = "目标战斗中"
+plugin = "target_in_combat@dev"
+
+[[conditions]]
+title = "目标血量百分比"
+plugin = "target_health_pct@dev"
+[conditions.plugin_args]
+use_predicted = true
+
+[[conditions]]
+title = "目标施法进度"
+plugin = "target_cast_progress@dev"
+
+[[conditions]]
+title = "目标施法可中断"
+plugin = "target_cast_interruptible@dev"
+
+[[conditions]]
+title = "目标施法图标"
+plugin = "target_cast_icon@dev"
+
+[[conditions]]
+title = "目标有白骨之盾"
+plugin = "target_has_buff@dev"
+[conditions.plugin_args]
+aura_ids = [195181]
+
+[[conditions]]
+title = "目标有血之疫病"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [55078]
+
+[[conditions]]
+title = "目标有可驱散毒或魔法增益"
+plugin = "target_has_dispellable_buff@dev"
+# 团队可驱散过滤不代表玩家本人当前具有驱散能力。
+[conditions.plugin_args]
+dispel_types = { Poison = true, Magic = true, Disease = false, Curse = false, Stealth = false, Special = false, Enrage = false }
+
+# 焦点状态、施法与光环。
+
+[[conditions]]
+title = "焦点存在"
+plugin = "focus_is_exists@dev"
+
+[[conditions]]
+title = "焦点存活"
+plugin = "focus_is_alive@dev"
+
+[[conditions]]
+title = "焦点敌对"
+plugin = "focus_is_enemy@dev"
+
+[[conditions]]
+title = "焦点可攻击"
+plugin = "focus_can_attack@dev"
+
+[[conditions]]
+title = "焦点可辅助"
+plugin = "focus_can_assist@dev"
+
+[[conditions]]
+title = "焦点战斗中"
+plugin = "focus_in_combat@dev"
+
+[[conditions]]
+title = "焦点血量百分比"
+plugin = "focus_health_pct@dev"
+[conditions.plugin_args]
+use_predicted = true
+
+[[conditions]]
+title = "焦点施法进度"
+plugin = "focus_cast_progress@dev"
+
+[[conditions]]
+title = "焦点施法可中断"
+plugin = "focus_cast_interruptible@dev"
+
+[[conditions]]
+title = "焦点施法图标"
+plugin = "focus_cast_icon@dev"
+
+[[conditions]]
+title = "焦点有白骨之盾"
+plugin = "focus_has_buff@dev"
+[conditions.plugin_args]
+aura_ids = [195181]
+
+[[conditions]]
+title = "焦点有血之疫病"
+plugin = "focus_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [55078]
+
+[[conditions]]
+title = "焦点有可驱散毒或魔法增益"
+plugin = "focus_has_dispellable_buff@dev"
+# 团队可驱散过滤不代表玩家本人当前具有驱散能力。
+[conditions.plugin_args]
+dispel_types = { Poison = true, Magic = true, Disease = false, Curse = false, Stealth = false, Special = false, Enrage = false }
+
+# 射程与姓名板计数：统一使用死神的抚摩，不代表实际几何距离。
+
+[[conditions]]
+title = "目标在抚摩射程内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 195292
+
+[[conditions]]
+title = "焦点在抚摩射程内"
+plugin = "focus_in_range@dev"
+[conditions.plugin_args]
+spell_id = 195292
+
+[[conditions]]
+title = "抚摩对焦点射程结果"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 195292
+unit_token = "focus"
+
+[[conditions]]
+title = "抚摩射程内可观察敌人数"
+plugin = "player_melee_enemies_count@dev"
+# 名义近战插件在此统计抚摩射程内的可观察姓名板，不是真正近战人数。
+[conditions.plugin_args]
+spell_id = 195292
+combat_only = false
+
+# 光环条观测：白骨之盾时长条采用比例乘以三十的时间估计，血之疫病保留零到十比例刻度，层数条仅声明观测。
+
+[[conditions]]
+title = "白骨之盾剩余时间估计"
+plugin = "aura_player_buff_duration@dev"
+# 返回剩余比例乘以三十的时间估计，并非 API 提供的精确剩余秒数；实际光环时长与配置不同时会有误差。
+[conditions.plugin_args]
+aura_ids = [195181]
+duration = 30
+
+[[conditions]]
+title = "血之疫病剩余比例刻度"
+plugin = "aura_target_debuff_duration@dev"
+# 返回剩余比例乘以十，是比例刻度而非秒数，不假定真实光环时长为十秒。
+[conditions.plugin_args]
+aura_ids = [55078]
+duration = 10
+
+[[conditions]]
+title = "白骨之盾层数观测"
+plugin = "aura_player_buff_stacks@dev"
+# 仅声明层数观测，不保证叠层非零；零填充不能区分无光环和零应用层数。
+[conditions.plugin_args]
+aura_ids = [195181]
+max_value = 12
+min_value = 0
+width = 2
+
+[[conditions]]
+title = "血之疫病层数观测"
+plugin = "aura_target_debuff_stacks@dev"
+# 仅声明层数观测，不保证叠层非零；零填充不能区分无光环和零应用层数。
+[conditions.plugin_args]
+aura_ids = [55078]
+max_value = 1
+min_value = 0
+width = 2
+
+# 打断黑名单只提供图标列表，不自动匹配施法或执行打断。
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "灵界打击"
+macro_text = "/cast [@target] 灵界打击"
+
+[[macros]]
+name = "血液沸腾"
+macro_text = "/cast 血液沸腾"
+
+[[macros]]
+name = "死神的抚摩"
+macro_text = "/cast 死神的抚摩"
+
+[[macros]]
+name = "心脏打击"
+macro_text = "/cast 心脏打击"
+
+[[rotation]]
+annotate = "插件关闭或延迟时跳过本轮"
+condition = "not 插件启用 or 正在延迟"
+macro = "Idle"
+
+[[rotation]]
+annotate = "血量低于50%，就打灵界打击回血"
+condition = "(玩家血量百分比 < 50) and 灵界打击可用 and (符文能量>=40)"
+macro = "灵界打击"
+
+[[rotation]]
+annotate = "打高亮血沸"
+condition = "血沸高亮 and (血沸充能>=1)"
+macro = "血液沸腾"
+
+[[rotation]]
+annotate = "死神的抚摩，好了就用"
+condition = "(死神的抚摩冷却==0)"
+macro = "死神的抚摩"
+
+[[rotation]]
+annotate = "能量溢出，打灵打"
+condition = "灵界打击可用 and (符文能量>=100)"
+macro = "灵界打击"
+
+[[rotation]]
+annotate = "有符文就填充心脏打击"
+condition = "符文数量>=1"
+macro = "心脏打击"
+
+[[rotation]]
+annotate = "兜底规则"
+condition = ""
+macro = "Idle"

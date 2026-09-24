@@ -1,0 +1,17 @@
+# AI Agent 自述；仅供检索，运行时不读取。
+name = "spec_power_runic_power@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "玩家符文能量"
+recommended_condition_name = "符文能量"
+description = "固定 Enum.PowerType.RunicPower，通过 UnitPowerPercent 黑白线性颜色曲线渲染资源比例，秘密结果不参与 Lua 运算。Python 灰度比例乘 max_power 返回估计值；上限由配置提供，不自动读取。此值不是符文数量。初始化、进入世界及玩家资源、最大资源、显示资源变化时刷新，事件延至下一帧。"
+assisted_combat_rule_types = ["ASSISTED_COMBAT_RULE_TYPE_RUNIC_POWER_GREATER", "ASSISTED_COMBAT_RULE_TYPE_RUNIC_POWER_LESS"]
+[parameters.max_power]
+type = "int | float"
+required = true
+description = "有限正数，不接受 bool；应与实际符文能量上限一致。"
+[returns]
+type = "float"
+unit = "符文能量点数"
+fallback = 0.0
+description = "一个 4×4 灰度 Cell，输出 0..max_power 浮点估计；名义步长 max_power/255，解码异常为 0.0。"

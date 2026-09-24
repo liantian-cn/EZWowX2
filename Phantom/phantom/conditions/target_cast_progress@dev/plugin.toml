@@ -1,0 +1,14 @@
+name = "target_cast_progress@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "目标施法或引导已完成百分比"
+description = "存在且当前有施法或引导；Duration EvaluateElapsedPercent 安全渲染已完成 0–100 百分比，空闲或失败 0.0。"
+recommended_condition_name = "目标施法或引导已完成百分比"
+
+[parameters]
+description = "无业务参数；拒绝多余字段。"
+
+[returns]
+type = "float"
+description = "存在且当前有施法或引导；Duration EvaluateElapsedPercent 安全渲染已完成 0–100 百分比，空闲或失败 0.0。"
+fallback = 0.0

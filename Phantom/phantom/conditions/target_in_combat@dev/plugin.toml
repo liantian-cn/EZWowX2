@@ -1,0 +1,14 @@
+name = "target_in_combat@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "目标是否处于战斗"
+description = "存在且 UnitAffectingCombat；经颜色消费者显示潜在秘密布尔。"
+recommended_condition_name = "目标是否处于战斗"
+
+[parameters]
+description = "无业务参数；拒绝多余字段。"
+
+[returns]
+type = "bool"
+description = "存在且 UnitAffectingCombat；经颜色消费者显示潜在秘密布尔。"
+fallback = false

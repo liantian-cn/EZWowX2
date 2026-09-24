@@ -1,0 +1,13 @@
+name = "target_is_enemy@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "目标是否敌对"
+description = "存在目标时调用 UnitIsEnemy(player, target)，并非可攻击性；无目标 false，事件刷新。"
+recommended_condition_name = "目标是否敌对"
+assisted_combat_rule_types = ["ASSISTED_COMBAT_RULE_TYPE_HOSTILE_TARGET"]
+[parameters]
+description = "无参数。"
+[returns]
+type = "bool"
+description = "严格黑白 Cell；白色表示敌对。"
+fallback = false

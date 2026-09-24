@@ -1,0 +1,22 @@
+name = "spell_in_range@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "技能在指定单位射程内"
+recommended_condition_name = "{技能名称}在{单位}射程内"
+assisted_combat_rule_types = ["ASSISTED_COMBAT_RULE_TYPE_SPELL_IN_RANGE"]
+description = "C_Spell.IsSpellInRange(spell_id, unit_token) 判断技能射程，不表示实际距离。0.1 秒随机错峰轮询，不注册目标事件；潜在秘密结果经 EvaluateColorFromBoolean 显示。"
+
+[parameters.spell_id]
+type = "int"
+required = true
+description = "检测射程的技能 ID，必须为正整数，不接受 bool。"
+
+[parameters.unit_token]
+type = "str"
+required = true
+description = "仅允许 target、focus、mouseover。"
+
+[returns]
+type = "bool"
+fallback = false
+description = "严格黑白 Cell；无单位、无效技能、普通 nil、解码异常为 False。"

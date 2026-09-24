@@ -1,0 +1,612 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：warlock/destruction.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 灵魂碎片 TXT 除以 10；毁灭使用 0..50 片段 ValueBar / 10 浮点模式，其他专精保留整数碎片。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 目标光环限定不可辅助目标的 PLAYER|HARMFUL 减益；PLAYER 包含玩家、宠物和载具，排除其他来源。
+# 充能 max_charges=2 是本批阈值所需显示量程，不宣称技能真实上限为 2。
+# 层数使用固定显示量程；超量程饱和，零填充不能区分无光环与零层。
+# 光环秒数以固定 duration 换算；实际实例时长、延长和天赋变化会产生误差。
+# 距离条件近似为当前步骤技能射程，忽略 TXT 码数；无效技能/无目标/nil 射程也返回 False。
+# 宠物条件只统计存在且存活的 pet 单位，不统计临时召唤物。
+schema_version = 1
+uuid = "de14b9c4-b40a-563e-8e38-48857b2221eb"
+
+[profile]
+title = "术士-毁灭"
+description = "术士一键辅助"
+unit_class = "WARLOCK"
+unit_class_id = 9
+unit_spec = 3
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "已学会大灾变"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [152108]
+
+[[conditions]]
+title = "大灾变可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [152108]
+
+[[conditions]]
+title = "大灾变冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [152108]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会火焰之雨_5740"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [5740]
+
+[[conditions]]
+title = "火焰之雨_5740可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [5740]
+
+[[conditions]]
+title = "火焰之雨_5740冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [5740]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会火焰之雨_1214467"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1214467]
+
+[[conditions]]
+title = "火焰之雨_1214467可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1214467]
+
+[[conditions]]
+title = "火焰之雨_1214467冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1214467]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会混乱之箭"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [116858]
+
+[[conditions]]
+title = "混乱之箭可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [116858]
+
+[[conditions]]
+title = "混乱之箭冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [116858]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家灵魂碎片"
+plugin = "spec_power_soul_shards@dev"
+[conditions.plugin_args]
+fractional = true
+width = 25
+
+[[conditions]]
+title = "玩家有毁灭仪式增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [387157]
+player_only = true
+
+[[conditions]]
+title = "已学会腐蚀术"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [172]
+
+[[conditions]]
+title = "腐蚀术可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [172]
+
+[[conditions]]
+title = "腐蚀术冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [172]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标有枯萎_445474减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [445474]
+
+[[conditions]]
+title = "玩家有枯萎_445465增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [445465]
+player_only = true
+
+[[conditions]]
+title = "目标有献祭减益"
+plugin = "target_has_debuff@dev"
+[conditions.plugin_args]
+aura_ids = [157736]
+
+[[conditions]]
+title = "已学会暗影灼烧"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [17877]
+
+[[conditions]]
+title = "暗影灼烧可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [17877]
+
+[[conditions]]
+title = "暗影灼烧冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [17877]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会燃烧"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [17962]
+
+[[conditions]]
+title = "燃烧可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [17962]
+
+[[conditions]]
+title = "燃烧冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [17962]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有爆燃增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [117828]
+player_only = true
+
+[[conditions]]
+title = "燃烧充能"
+plugin = "spell_charges@dev"
+[conditions.plugin_args]
+spell_ids = [17962]
+max_charges = 2
+width = 1
+
+[[conditions]]
+title = "已学会暗影箭"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [686]
+
+[[conditions]]
+title = "暗影箭可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [686]
+
+[[conditions]]
+title = "暗影箭冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [686]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会灵魂之火"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [6353]
+
+[[conditions]]
+title = "灵魂之火可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [6353]
+
+[[conditions]]
+title = "灵魂之火冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [6353]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家爆燃层数"
+plugin = "aura_player_buff_stacks@dev"
+[conditions.plugin_args]
+aura_ids = [117828]
+max_value = 2
+min_value = 0
+width = 1
+player_only = true
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "已学会怨毒"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [442726]
+
+[[conditions]]
+title = "怨毒可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [442726]
+
+[[conditions]]
+title = "怨毒冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [442726]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家狱火箭剩余秒数"
+plugin = "aura_player_buff_duration@dev"
+[conditions.plugin_args]
+aura_ids = [433891]
+duration = 20
+width = 5
+player_only = true
+
+[[conditions]]
+title = "已学会引导恶魔之火"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [196447]
+
+[[conditions]]
+title = "引导恶魔之火可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [196447]
+
+[[conditions]]
+title = "引导恶魔之火冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [196447]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在引导恶魔之火技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 196447
+
+[[conditions]]
+title = "已学会召唤地狱猎犬"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [691]
+
+[[conditions]]
+title = "召唤地狱猎犬可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [691]
+
+[[conditions]]
+title = "召唤地狱猎犬冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [691]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家有存活宠物"
+plugin = "player_has_pet@dev"
+
+[[conditions]]
+title = "玩家有牺牲魔典_196099增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [196099]
+player_only = true
+
+[[conditions]]
+title = "玩家有RecentlyDemonHasBeenSummonedDNT增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1288970]
+player_only = true
+
+[[conditions]]
+title = "已学会召唤小鬼"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [688]
+
+[[conditions]]
+title = "召唤小鬼可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [688]
+
+[[conditions]]
+title = "召唤小鬼冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [688]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会牺牲魔典_108503"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [108503]
+
+[[conditions]]
+title = "牺牲魔典_108503可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [108503]
+
+[[conditions]]
+title = "牺牲魔典_108503冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [108503]
+ignore_gcd = true
+
+[[conditions]]
+title = "已学会召唤地狱火"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1122]
+
+[[conditions]]
+title = "召唤地狱火可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1122]
+
+[[conditions]]
+title = "召唤地狱火冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1122]
+ignore_gcd = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "大灾变"
+macro_text = "/cast 大灾变"
+
+[[macros]]
+name = "火焰之雨"
+macro_text = "/cast 火焰之雨"
+
+[[macros]]
+name = "混乱之箭"
+macro_text = "/cast 混乱之箭"
+
+[[macros]]
+name = "腐蚀术"
+macro_text = "/cast 腐蚀术"
+
+[[macros]]
+name = "暗影灼烧"
+macro_text = "/cast 暗影灼烧"
+
+[[macros]]
+name = "燃烧"
+macro_text = "/cast 燃烧"
+
+[[macros]]
+name = "暗影箭"
+macro_text = "/cast 暗影箭"
+
+[[macros]]
+name = "灵魂之火"
+macro_text = "/cast 灵魂之火"
+
+[[macros]]
+name = "怨毒"
+macro_text = "/cast 怨毒"
+
+[[macros]]
+name = "引导恶魔之火"
+macro_text = "/cast 引导恶魔之火"
+
+[[macros]]
+name = "召唤地狱猎犬"
+macro_text = "/cast 召唤地狱猎犬"
+
+[[macros]]
+name = "召唤小鬼"
+macro_text = "/cast 召唤小鬼"
+
+[[macros]]
+name = "牺牲魔典"
+macro_text = "/cast 牺牲魔典"
+
+[[macros]]
+name = "召唤地狱火"
+macro_text = "/cast 召唤地狱火"
+
+# 来源 warlock/destruction.txt:2，步骤 0，动作 ID 152108，TXT 冷却 30 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会大灾变 == True) and (大灾变可用 == True) and (大灾变冷却 == 0)"
+macro = "大灾变"
+annotate = "来源步骤 0：大灾变（ID 152108）"
+
+# 来源 warlock/destruction.txt:6，步骤 1，动作 ID 5740，TXT 冷却 0 秒。
+# 来源行 10：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会火焰之雨_5740 == True) and (火焰之雨_5740可用 == True) and (火焰之雨_5740冷却 == 0)"
+macro = "火焰之雨"
+annotate = "来源步骤 1：火焰之雨（ID 5740）"
+
+# 来源 warlock/destruction.txt:11，步骤 2，动作 ID 1214467，TXT 冷却 0 秒。
+# 来源行 15：TARGET_COUNT_NEAR_TARGET_GREATER；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量大于 3 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会火焰之雨_1214467 == True) and (火焰之雨_1214467可用 == True) and (火焰之雨_1214467冷却 == 0)"
+macro = "火焰之雨"
+annotate = "来源步骤 2：火焰之雨（ID 1214467）"
+
+# 来源 warlock/destruction.txt:16，步骤 3，动作 ID 116858，TXT 冷却 0 秒。
+# 来源行 20：TARGET_COUNT_NEAR_TARGET_LESS；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量小于等于 2 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会混乱之箭 == True) and (混乱之箭可用 == True) and (混乱之箭冷却 == 0) and (玩家灵魂碎片 >= 2) and (混乱之箭可用 == True) and (玩家有毁灭仪式增益 == True)"
+macro = "混乱之箭"
+annotate = "来源步骤 3：混乱之箭（ID 116858）"
+
+# 来源 warlock/destruction.txt:24，步骤 4，动作 ID 172，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会腐蚀术 == True) and (腐蚀术可用 == True) and (腐蚀术冷却 == 0) and (目标有枯萎_445474减益 == False) and (玩家有枯萎_445465增益 == True)"
+macro = "腐蚀术"
+annotate = "来源步骤 4：腐蚀术（ID 172）"
+
+# 来源 warlock/destruction.txt:30，步骤 5，动作 ID 172，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (腐蚀术可用 == True) and (腐蚀术冷却 == 0) and (目标有献祭减益 == False) and (玩家有枯萎_445465增益 == False) and (已学会腐蚀术 == True)"
+macro = "腐蚀术"
+annotate = "来源步骤 5：腐蚀术（ID 172）"
+
+# 来源 warlock/destruction.txt:36，步骤 6，动作 ID 17877，TXT 冷却 0 秒。
+# 来源行 40：TARGET_COUNT_NEAR_TARGET_LESS；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量小于等于 2 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会暗影灼烧 == True) and (暗影灼烧可用 == True) and (暗影灼烧冷却 == 0)"
+macro = "暗影灼烧"
+annotate = "来源步骤 6：暗影灼烧（ID 17877）"
+
+# 来源 warlock/destruction.txt:41，步骤 7，动作 ID 17962，TXT 冷却 0 秒。
+# 来源行 47：TARGET_COUNT_NEAR_TARGET_LESS；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量小于等于 2 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会燃烧 == True) and (燃烧可用 == True) and (燃烧冷却 == 0) and (玩家有爆燃增益 == False) and (玩家灵魂碎片 >= 1.5)"
+macro = "燃烧"
+annotate = "来源步骤 7：燃烧（ID 17962）"
+
+# 来源 warlock/destruction.txt:48，步骤 8，动作 ID 17962，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会燃烧 == True) and (燃烧可用 == True) and (燃烧冷却 == 0) and (燃烧充能 >= 2)"
+macro = "燃烧"
+annotate = "来源步骤 8：燃烧（ID 17962）"
+
+# 来源 warlock/destruction.txt:53，步骤 9，动作 ID 686，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会暗影箭 == True) and (暗影箭可用 == True) and (暗影箭冷却 == 0) and (暗影箭可用 == True)"
+macro = "暗影箭"
+annotate = "来源步骤 9：暗影箭（ID 686）"
+
+# 来源 warlock/destruction.txt:58，步骤 10，动作 ID 6353，TXT 冷却 45 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会灵魂之火 == True) and (灵魂之火可用 == True) and (灵魂之火冷却 == 0) and (玩家灵魂碎片 <= 4)"
+macro = "灵魂之火"
+annotate = "来源步骤 10：灵魂之火（ID 6353）"
+
+# 来源 warlock/destruction.txt:63，步骤 11，动作 ID 686，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "暗影箭"
+annotate = "来源步骤 11：暗影箭（ID 686）"
+
+# 来源 warlock/destruction.txt:64，步骤 12，动作 ID 686，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会暗影箭 == True) and (暗影箭可用 == True) and (暗影箭冷却 == 0) and (玩家爆燃层数 >= 2)"
+macro = "暗影箭"
+annotate = "来源步骤 12：暗影箭（ID 686）"
+
+# 来源 warlock/destruction.txt:69，步骤 13，动作 ID 116858，TXT 冷却 0 秒。
+# 来源行 73：TARGET_COUNT_NEAR_TARGET_LESS；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量小于等于 2 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会混乱之箭 == True) and (混乱之箭可用 == True) and (混乱之箭冷却 == 0)"
+macro = "混乱之箭"
+annotate = "来源步骤 13：混乱之箭（ID 116858）"
+
+# 来源 warlock/destruction.txt:74，步骤 14，动作 ID 116858，TXT 冷却 0 秒。
+# 来源行 78：TARGET_COUNT_NEAR_TARGET_LESS；按冻结方案仅删除此条件，保留步骤。原文：若目标周围 10 码内的目标数量小于等于 2 个
+[[rotation]]
+condition = "(插件启用 == True) and (已学会混乱之箭 == True) and (混乱之箭可用 == True) and (混乱之箭冷却 == 0) and (玩家灵魂碎片 >= 4) and (混乱之箭可用 == True)"
+macro = "混乱之箭"
+annotate = "来源步骤 14：混乱之箭（ID 116858）"
+
+# 来源 warlock/destruction.txt:81，步骤 15，动作 ID 442726，TXT 冷却 60 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会怨毒 == True) and (怨毒可用 == True) and (怨毒冷却 == 0)"
+macro = "怨毒"
+annotate = "来源步骤 15：怨毒（ID 442726）"
+
+# 来源 warlock/destruction.txt:85，步骤 16，动作 ID 686，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (玩家狱火箭剩余秒数 <= 5) and (已学会暗影箭 == True) and (暗影箭可用 == True) and (暗影箭冷却 == 0)"
+macro = "暗影箭"
+annotate = "来源步骤 16：暗影箭（ID 686）"
+
+# 来源 warlock/destruction.txt:90，步骤 17，动作 ID 196447，TXT 冷却 25 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会引导恶魔之火 == True) and (引导恶魔之火可用 == True) and (引导恶魔之火冷却 == 0) and (目标在引导恶魔之火技能范围内 == True)"
+macro = "引导恶魔之火"
+annotate = "来源步骤 17：引导恶魔之火（ID 196447）"
+
+# 来源 warlock/destruction.txt:95，步骤 18，动作 ID 691，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会召唤地狱猎犬 == True) and (召唤地狱猎犬可用 == True) and (召唤地狱猎犬冷却 == 0) and (玩家有存活宠物 == False) and (玩家有牺牲魔典_196099增益 == False) and (召唤地狱猎犬可用 == True) and (玩家有RecentlyDemonHasBeenSummonedDNT增益 == False)"
+macro = "召唤地狱猎犬"
+annotate = "来源步骤 18：召唤地狱猎犬（ID 691）"
+
+# 来源 warlock/destruction.txt:103，步骤 19，动作 ID 688，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会召唤小鬼 == True) and (召唤小鬼可用 == True) and (召唤小鬼冷却 == 0) and (玩家有存活宠物 == False) and (玩家有牺牲魔典_196099增益 == False) and (玩家有RecentlyDemonHasBeenSummonedDNT增益 == False)"
+macro = "召唤小鬼"
+annotate = "来源步骤 19：召唤小鬼（ID 688）"
+
+# 来源 warlock/destruction.txt:110，步骤 20，动作 ID 108503，TXT 冷却 30 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (已学会牺牲魔典_108503 == True) and (牺牲魔典_108503可用 == True) and (牺牲魔典_108503冷却 == 0) and (玩家有存活宠物 == True) and (玩家有牺牲魔典_196099增益 == False)"
+macro = "牺牲魔典"
+annotate = "来源步骤 20：牺牲魔典（ID 108503）"
+
+# 来源 warlock/destruction.txt:116，步骤 21，动作 ID 1122，TXT 冷却 120 秒。
+# 来源行 120：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会召唤地狱火 == True) and (召唤地狱火可用 == True) and (召唤地狱火冷却 == 0)"
+macro = "召唤地狱火"
+annotate = "来源步骤 21：召唤地狱火（ID 1122）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

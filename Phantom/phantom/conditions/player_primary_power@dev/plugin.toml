@@ -1,0 +1,25 @@
+# AI Agent 自述；运行时不读取。参数与返回值以同目录实现为准。
+# 核验：2026-09-13，@wow-ui-source，12.1.0.69587
+# revision: a89e9d0ceb7f6cd31e8fc5ca7df1a338ac0b1b58
+# 定义：Interface/AddOns/Blizzard_APIDocumentationGenerated/ 下 UnitDocumentation.lua, CurveUtilDocumentation.lua
+name = "player_primary_power@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "玩家首要能量"
+recommended_condition_name = "{能量名称}"
+description = """
+读取玩家当前主要能量，适用于符文能量等按上限换算的资源。UnitPowerType 选择当前能量类型，UnitPowerPercent 与 C_CurveUtil.CreateColorCurve 将比例直接映射为黑白线性灰度，Lua 不对秘密能量做算术。Python 读取一个 Cell 的灰度比例并乘 max_power，返回浮点能量值；max_power 是配置提供的换算上限，不会自动读取实际资源上限。初始化及玩家能量、显示能量类型相关事件刷新。
+"""
+
+[parameters.max_power]
+type = "int | float"
+required = true
+description = "业务换算的能量上限，必须为有限正数，不接受 bool；应与当前专精实际能量上限一致。"
+
+[returns]
+type = "float"
+unit = "能量点数"
+fallback = 0.0
+description = "0 到 max_power 的标量；比例受灰度量化影响。解码异常返回 0.0。"
+
+# 刷新约定：事件通过 C_Timer.After(0, ...) 延后；无定时轮询。

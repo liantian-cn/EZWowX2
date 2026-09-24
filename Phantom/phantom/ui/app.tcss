@@ -1,0 +1,107 @@
+Screen {
+    background: $flexoki-base;
+    color: $flexoki-text;
+}
+#content { height: 1fr; }
+#footer {
+    dock: bottom;
+    height: auto;
+    background: $flexoki-mantle;
+}
+#status_line { height: 1; padding: 0 1; text-wrap: nowrap; }
+#size_notice {
+    height: 1fr;
+    content-align: center middle;
+    text-align: center;
+    color: $flexoki-orange;
+}
+#pages, TabPane, ContentSwitcher { height: 1fr; }
+TabPane { padding: 1 2; background: $flexoki-base; }
+Tabs { background: $flexoki-mantle; }
+Tab { color: $flexoki-subtext-1; background: $flexoki-mantle; }
+Tab:hover { color: $flexoki-blue; background: $flexoki-surface-0; }
+Tab.-active { color: $flexoki-blue; background: $flexoki-base; text-style: bold; }
+Tabs:focus Tab.-active { color: $flexoki-blue; background: $flexoki-base; }
+Underline > .underline--bar { color: $flexoki-blue; background: $flexoki-surface-0; }
+#overview_columns { height: 1fr; }
+#controls {
+    width: 1fr;
+    height: 1fr;
+    padding: 1 2;
+    margin-right: 2;
+    border: round $flexoki-surface-1;
+    background: $flexoki-mantle;
+}
+#work_status {
+    width: 3fr;
+    height: 1fr;
+    padding: 1 3;
+    border: round $flexoki-surface-1;
+    background: $flexoki-mantle;
+}
+.section_title { height: auto; text-style: bold; color: $flexoki-blue; margin-bottom: 1; }
+.state_label { height: auto; color: $flexoki-subtext-1; }
+.state_value { height: auto; margin-bottom: 1; color: $flexoki-text; }
+#current_error { color: $flexoki-orange; }
+.muted, #keyboard_help { height: auto; color: $flexoki-subtext-1; }
+#keyboard_help { margin-top: 2; }
+#controls Button {
+    width: 1fr;
+    min-width: 10;
+    margin-bottom: 1;
+    color: $flexoki-text;
+    background: $flexoki-surface-0;
+    border: tall $flexoki-surface-0;
+    text-opacity: 1;
+}
+#controls Button:hover, #controls Button:focus {
+    color: $flexoki-blue;
+    background: $flexoki-base;
+    border: tall $flexoki-blue;
+    text-style: bold;
+}
+#controls Button.-active {
+    color: $flexoki-base;
+    background: $flexoki-blue !important;
+    border: tall $flexoki-blue !important;
+    tint: transparent;
+}
+#controls Button:disabled {
+    color: $flexoki-overlay-1;
+    background: $flexoki-mantle !important;
+    border: tall $flexoki-surface-0 !important;
+    text-opacity: 1;
+}
+#general_table, #condition_table {
+    height: 1fr;
+    background: $flexoki-base;
+    color: $flexoki-text;
+}
+DataTable > .datatable--header {
+    background: $flexoki-surface-0;
+    color: $flexoki-text;
+    text-style: bold;
+}
+DataTable > .datatable--odd-row { background: $flexoki-base; }
+DataTable > .datatable--even-row { background: $flexoki-mantle; }
+DataTable > .datatable--cursor { background: $flexoki-blue; color: $flexoki-base; }
+DataTable > .datatable--hover { background: $flexoki-surface-0; color: $flexoki-text; }
+#business_log {
+    height: 1fr;
+    border: round $flexoki-surface-1;
+    background: $flexoki-mantle;
+    background-tint: transparent;
+    color: $flexoki-text;
+}
+.placeholder { height: 1fr; content-align: center middle; color: $flexoki-subtext-1; }
+* {
+    scrollbar-color: $flexoki-overlay-0;
+    scrollbar-color-hover: $flexoki-overlay-1;
+    scrollbar-color-active: $flexoki-blue;
+    scrollbar-background: $flexoki-mantle;
+    scrollbar-background-hover: $flexoki-mantle;
+    scrollbar-background-active: $flexoki-mantle;
+    scrollbar-corner-color: $flexoki-mantle;
+}
+
+#rotation_title, #decision { height: auto; margin-bottom: 1; }

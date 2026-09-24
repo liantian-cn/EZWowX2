@@ -1,0 +1,699 @@
+# 此配置按冻结 TXT 显示顺序编制，来源及映射边界见项目规范。
+# 唯一规则来源：monk/windwalker.txt；未读取 CSV 或补充隐藏字段。
+# 所有叶子条件按 AND 保留顺序；无冷却标签按 0 秒；仅启用与动作冷却 >= 60 秒的爆发门控。
+# 技能射程规则使用当前步骤动作 ID 对 target 的射程结果，无效射程返回 False。
+# 资源可支付/成功施放规则映射 spell_usable 的 isUsable；不保证所有实际施放条件。
+# 天赋条件按技能 ID 查询已知/法术书状态，不解析天赋树。
+# 玩家光环限定 HELPFUL 增益；TXT 的增益/减益合称按现有插件能力映射。
+# 层数使用固定显示量程；超量程饱和，零填充不能区分无光环与零层。
+# 皇帝的容电器为 TXT 遗留规则，仍按原 ID 393039 和阈值保留。
+# 距离条件近似为当前步骤技能射程，忽略 TXT 码数；无效技能/无目标/nil 射程也返回 False。
+# 玩家周围人数近似为本步骤技能可攻击敌人总数，仅可观察 nameplate1–40；secret/nil 射程漏计，不代表原码数圆内完整人数。
+# 资源 max_power 为固定参考，须按天赋调整；临时上限变化会有误差，Cell 量化步长约为 max_power/255。
+# 本专精固定资源参考：踏风能量 120（Ascension）。
+schema_version = 1
+uuid = "c835c96e-33e5-5ddd-adb6-6b2995acf88b"
+
+[profile]
+title = "武僧-踏风"
+description = "武僧一键辅助"
+unit_class = "MONK"
+unit_class_id = 10
+unit_spec = 3
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "风领主之击对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 392983
+unit_token = "target"
+
+[[conditions]]
+title = "风领主之击冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [392983]
+ignore_gcd = true
+
+[[conditions]]
+title = "风领主之击可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [392983]
+
+[[conditions]]
+title = "已学会风领主之击"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [392983]
+
+[[conditions]]
+title = "玩家有青龙之心_443421增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [443421]
+player_only = true
+
+[[conditions]]
+title = "玩家有青龙之心_443616增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [443616]
+player_only = true
+
+[[conditions]]
+title = "玩家有组合拳风领主之击增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1249766]
+player_only = true
+
+[[conditions]]
+title = "玩家赤精之舞层数"
+plugin = "aura_player_buff_stacks@dev"
+[conditions.plugin_args]
+aura_ids = [325202]
+max_value = 2
+min_value = 0
+width = 1
+player_only = true
+
+[[conditions]]
+title = "神鹤引项踢冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [101546]
+ignore_gcd = true
+
+[[conditions]]
+title = "神鹤引项踢可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [101546]
+
+[[conditions]]
+title = "已学会神鹤引项踢"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [101546]
+
+[[conditions]]
+title = "玩家有组合拳神鹤引项踢增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1249754]
+player_only = true
+
+[[conditions]]
+title = "碎玉闪电对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 117952
+unit_token = "target"
+
+[[conditions]]
+title = "碎玉闪电冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [117952]
+ignore_gcd = true
+
+[[conditions]]
+title = "碎玉闪电可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [117952]
+
+[[conditions]]
+title = "已学会碎玉闪电"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [117952]
+
+[[conditions]]
+title = "玩家皇帝的容电器层数"
+plugin = "aura_player_buff_stacks@dev"
+[conditions.plugin_args]
+aura_ids = [393039]
+max_value = 20
+min_value = 0
+width = 5
+player_only = true
+
+[[conditions]]
+title = "玩家有组合拳碎玉闪电增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1249764]
+player_only = true
+
+[[conditions]]
+title = "怒雷破冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [113656]
+ignore_gcd = true
+
+[[conditions]]
+title = "怒雷破可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [113656]
+
+[[conditions]]
+title = "已学会怒雷破"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [113656]
+
+[[conditions]]
+title = "目标在怒雷破技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 113656
+
+[[conditions]]
+title = "玩家有组合拳怒雷破增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1249758]
+player_only = true
+
+[[conditions]]
+title = "旭日东升踢对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 107428
+unit_token = "target"
+
+[[conditions]]
+title = "旭日东升踢冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [107428]
+ignore_gcd = true
+
+[[conditions]]
+title = "旭日东升踢可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [107428]
+
+[[conditions]]
+title = "已学会旭日东升踢"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [107428]
+
+[[conditions]]
+title = "玩家有组合拳旭日东升踢增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1249753]
+player_only = true
+
+[[conditions]]
+title = "目标在升龙霸技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 152175
+
+[[conditions]]
+title = "升龙霸冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [152175]
+ignore_gcd = true
+
+[[conditions]]
+title = "升龙霸可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [152175]
+
+[[conditions]]
+title = "已学会升龙霸"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [152175]
+
+[[conditions]]
+title = "玩家有组合拳升龙霸增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1249765]
+player_only = true
+
+[[conditions]]
+title = "幻灭踢_100784对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 100784
+unit_token = "target"
+
+[[conditions]]
+title = "幻灭踢_100784冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [100784]
+ignore_gcd = true
+
+[[conditions]]
+title = "幻灭踢_100784可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [100784]
+
+[[conditions]]
+title = "已学会幻灭踢_100784"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [100784]
+
+[[conditions]]
+title = "玩家有幻灭踢_116768增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [116768]
+player_only = true
+
+[[conditions]]
+title = "玩家有组合拳幻灭踢增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1249757]
+player_only = true
+
+[[conditions]]
+title = "神鹤引项踢技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 101546
+combat_only = false
+
+[[conditions]]
+title = "真气爆裂冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [461404]
+ignore_gcd = true
+
+[[conditions]]
+title = "真气爆裂可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [461404]
+
+[[conditions]]
+title = "已学会真气爆裂"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [461404]
+
+[[conditions]]
+title = "幻灭踢_100784技能可攻击敌人总数"
+plugin = "player_melee_enemies_count@dev"
+[conditions.plugin_args]
+spell_id = 100784
+combat_only = false
+
+[[conditions]]
+title = "猛虎掌冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [100780]
+ignore_gcd = true
+
+[[conditions]]
+title = "猛虎掌可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [100780]
+
+[[conditions]]
+title = "已学会猛虎掌"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [100780]
+
+[[conditions]]
+title = "猛虎掌对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 100780
+unit_token = "target"
+
+[[conditions]]
+title = "玩家有组合拳猛虎掌增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1249756]
+player_only = true
+
+[[conditions]]
+title = "玩家能量"
+plugin = "spec_power_energy@dev"
+[conditions.plugin_args]
+max_power = 120
+
+[[conditions]]
+title = "目标在碎玉闪电技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 117952
+
+[[conditions]]
+title = "目标在碧火踏技能范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 388193
+
+[[conditions]]
+title = "碧火踏冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [388193]
+ignore_gcd = true
+
+[[conditions]]
+title = "碧火踏可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [388193]
+
+[[conditions]]
+title = "已学会碧火踏"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [388193]
+
+[[conditions]]
+title = "玩家真气"
+plugin = "spec_power_chi@dev"
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "已学会轮回之触"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [322109]
+
+[[conditions]]
+title = "轮回之触可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [322109]
+
+[[conditions]]
+title = "轮回之触冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [322109]
+ignore_gcd = true
+
+[[conditions]]
+title = "轮回之触对目标在射程内"
+plugin = "spell_in_range@dev"
+[conditions.plugin_args]
+spell_id = 322109
+unit_token = "target"
+
+[[conditions]]
+title = "玩家有幻灭踢_261916增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [261916]
+player_only = true
+
+[[conditions]]
+title = "已学会翔龙在天"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [101545]
+
+[[conditions]]
+title = "翔龙在天冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [101545]
+ignore_gcd = true
+
+[[conditions]]
+title = "翔龙在天可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [101545]
+
+[[conditions]]
+title = "乾元之巅冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [1249625]
+ignore_gcd = true
+
+[[conditions]]
+title = "乾元之巅可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [1249625]
+
+[[conditions]]
+title = "玩家有乾元之巅增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1249625]
+player_only = true
+
+[[conditions]]
+title = "已学会乾元之巅"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [1249625]
+
+[[conditions]]
+title = "天神御身冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [443028]
+ignore_gcd = true
+
+[[conditions]]
+title = "天神御身可用"
+plugin = "spell_usable@dev"
+[conditions.plugin_args]
+spell_ids = [443028]
+
+[[conditions]]
+title = "已学会天神御身"
+plugin = "talent_known@dev"
+[conditions.plugin_args]
+spell_ids = [443028]
+
+[[conditions]]
+title = "玩家有疾风呼啸踢增益"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [1250554]
+player_only = true
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "风领主之击"
+macro_text = "/cast 风领主之击"
+
+[[macros]]
+name = "神鹤引项踢"
+macro_text = "/cast 神鹤引项踢"
+
+[[macros]]
+name = "碎玉闪电"
+macro_text = "/cast 碎玉闪电"
+
+[[macros]]
+name = "怒雷破"
+macro_text = "/cast 怒雷破"
+
+[[macros]]
+name = "旭日东升踢"
+macro_text = "/cast 旭日东升踢"
+
+[[macros]]
+name = "升龙霸"
+macro_text = "/cast 升龙霸"
+
+[[macros]]
+name = "幻灭踢"
+macro_text = "/cast 幻灭踢"
+
+[[macros]]
+name = "真气爆裂"
+macro_text = "/cast 真气爆裂"
+
+[[macros]]
+name = "猛虎掌"
+macro_text = "/cast 猛虎掌"
+
+[[macros]]
+name = "碧火踏"
+macro_text = "/cast 碧火踏"
+
+[[macros]]
+name = "轮回之触"
+macro_text = "/cast 轮回之触"
+
+[[macros]]
+name = "翔龙在天"
+macro_text = "/cast 翔龙在天"
+
+[[macros]]
+name = "乾元之巅"
+macro_text = "/cast 乾元之巅"
+
+[[macros]]
+name = "天神御身"
+macro_text = "/cast 天神御身"
+
+# 来源 monk/windwalker.txt:2，步骤 0，动作 ID 392983，TXT 冷却 35 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (风领主之击对目标在射程内 == True) and (风领主之击冷却 == 0) and (风领主之击可用 == True) and (已学会风领主之击 == True) and (玩家有青龙之心_443421增益 == False) and (玩家有青龙之心_443616增益 == False) and (玩家有组合拳风领主之击增益 == False)"
+macro = "风领主之击"
+annotate = "来源步骤 0：风领主之击（ID 392983）"
+
+# 来源 monk/windwalker.txt:10，步骤 1，动作 ID 101546，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (玩家赤精之舞层数 >= 2) and (神鹤引项踢冷却 == 0) and (神鹤引项踢可用 == True) and (已学会神鹤引项踢 == True) and (神鹤引项踢可用 == True) and (玩家有组合拳神鹤引项踢增益 == False)"
+macro = "神鹤引项踢"
+annotate = "来源步骤 1：神鹤引项踢（ID 101546）"
+
+# 来源 monk/windwalker.txt:17，步骤 2，动作 ID 117952，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (碎玉闪电对目标在射程内 == True) and (碎玉闪电冷却 == 0) and (碎玉闪电可用 == True) and (已学会碎玉闪电 == True) and (玩家皇帝的容电器层数 >= 20) and (玩家有组合拳碎玉闪电增益 == False)"
+macro = "碎玉闪电"
+annotate = "来源步骤 2：碎玉闪电（ID 117952）"
+
+# 来源 monk/windwalker.txt:24，步骤 3，动作 ID 113656，TXT 冷却 24 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (怒雷破冷却 == 0) and (怒雷破可用 == True) and (已学会怒雷破 == True) and (目标在怒雷破技能范围内 == True) and (玩家有组合拳怒雷破增益 == False)"
+macro = "怒雷破"
+annotate = "来源步骤 3：怒雷破（ID 113656）"
+
+# 来源 monk/windwalker.txt:30，步骤 4，动作 ID 107428，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (旭日东升踢对目标在射程内 == True) and (旭日东升踢冷却 == 0) and (旭日东升踢可用 == True) and (已学会旭日东升踢 == True) and (玩家有组合拳旭日东升踢增益 == False)"
+macro = "旭日东升踢"
+annotate = "来源步骤 4：旭日东升踢（ID 107428）"
+
+# 来源 monk/windwalker.txt:36，步骤 5，动作 ID 152175，TXT 冷却 35 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (目标在升龙霸技能范围内 == True) and (升龙霸冷却 == 0) and (升龙霸可用 == True) and (玩家有青龙之心_443421增益 == False) and (已学会升龙霸 == True) and (玩家有组合拳升龙霸增益 == False)"
+macro = "升龙霸"
+annotate = "来源步骤 5：升龙霸（ID 152175）"
+
+# 来源 monk/windwalker.txt:43，步骤 6，动作 ID 100784，TXT 冷却 3 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (幻灭踢_100784对目标在射程内 == True) and (幻灭踢_100784冷却 == 0) and (幻灭踢_100784可用 == True) and (已学会幻灭踢_100784 == True) and (玩家有幻灭踢_116768增益 == True) and (玩家有组合拳幻灭踢增益 == False)"
+macro = "幻灭踢"
+annotate = "来源步骤 6：幻灭踢（ID 100784）"
+
+# 来源 monk/windwalker.txt:50，步骤 7，动作 ID 101546，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (神鹤引项踢冷却 == 0) and (神鹤引项踢可用 == True) and (神鹤引项踢技能可攻击敌人总数 > 3) and (已学会神鹤引项踢 == True) and (神鹤引项踢可用 == True) and (玩家有组合拳神鹤引项踢增益 == False)"
+macro = "神鹤引项踢"
+annotate = "来源步骤 7：神鹤引项踢（ID 101546）"
+
+# 来源 monk/windwalker.txt:57，步骤 8，动作 ID 461404，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (真气爆裂冷却 == 0) and (真气爆裂可用 == True) and (已学会真气爆裂 == True)"
+macro = "真气爆裂"
+annotate = "来源步骤 8：真气爆裂（ID 461404）"
+
+# 来源 monk/windwalker.txt:61，步骤 9，动作 ID 100784，TXT 冷却 3 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (幻灭踢_100784对目标在射程内 == True) and (幻灭踢_100784冷却 == 0) and (幻灭踢_100784可用 == True) and (已学会幻灭踢_100784 == True) and (幻灭踢_100784技能可攻击敌人总数 <= 2) and (玩家有组合拳幻灭踢增益 == False)"
+macro = "幻灭踢"
+annotate = "来源步骤 9：幻灭踢（ID 100784）"
+
+# 来源 monk/windwalker.txt:68，步骤 10，动作 ID 100780，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (猛虎掌冷却 == 0) and (猛虎掌可用 == True) and (已学会猛虎掌 == True) and (猛虎掌对目标在射程内 == True) and (玩家有组合拳猛虎掌增益 == False)"
+macro = "猛虎掌"
+annotate = "来源步骤 10：猛虎掌（ID 100780）"
+
+# 来源 monk/windwalker.txt:74，步骤 11，动作 ID 117952，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (碎玉闪电冷却 == 0) and (碎玉闪电可用 == True) and (已学会碎玉闪电 == True) and (玩家能量 >= 75) and (碎玉闪电可用 == True) and (目标在碎玉闪电技能范围内 == False) and (玩家有组合拳碎玉闪电增益 == False)"
+macro = "碎玉闪电"
+annotate = "来源步骤 11：碎玉闪电（ID 117952）"
+
+# 来源 monk/windwalker.txt:82，步骤 12，动作 ID 388193，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (目标在碧火踏技能范围内 == True) and (碧火踏冷却 == 0) and (碧火踏可用 == True) and (已学会碧火踏 == True)"
+macro = "碧火踏"
+annotate = "来源步骤 12：碧火踏（ID 388193）"
+
+# 来源 monk/windwalker.txt:87，步骤 13，动作 ID 100780，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (猛虎掌冷却 == 0) and (猛虎掌可用 == True) and (已学会猛虎掌 == True) and (猛虎掌对目标在射程内 == True) and (玩家真气 <= 4) and (玩家能量 >= 101) and (玩家有青龙之心_443421增益 == False) and (玩家有组合拳猛虎掌增益 == False)"
+macro = "猛虎掌"
+annotate = "来源步骤 13：猛虎掌（ID 100780）"
+
+# 来源 monk/windwalker.txt:96，步骤 14，动作 ID 107428，TXT 冷却 0 秒。
+# TXT 原无条件步骤，仍在原位置并保留启用/适用爆发门控。
+[[rotation]]
+condition = "(插件启用 == True)"
+macro = "旭日东升踢"
+annotate = "来源步骤 14：旭日东升踢（ID 107428）"
+
+# 来源 monk/windwalker.txt:97，步骤 15，动作 ID 322109，TXT 冷却 180 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (已学会轮回之触 == True) and (轮回之触可用 == True) and (轮回之触冷却 == 0) and (轮回之触对目标在射程内 == True)"
+macro = "轮回之触"
+annotate = "来源步骤 15：轮回之触（ID 322109）"
+
+# 来源 monk/windwalker.txt:102，步骤 16，动作 ID 100780，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (猛虎掌冷却 == 0) and (猛虎掌可用 == True) and (已学会猛虎掌 == True) and (猛虎掌对目标在射程内 == True) and (玩家有幻灭踢_261916增益 == False)"
+macro = "猛虎掌"
+annotate = "来源步骤 16：猛虎掌（ID 100780）"
+
+# 来源 monk/windwalker.txt:108，步骤 17，动作 ID 101545，TXT 冷却 30 秒。
+# 来源行 113：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (已学会翔龙在天 == True) and (翔龙在天冷却 == 0) and (翔龙在天可用 == True) and (已学会翔龙在天 == True)"
+macro = "翔龙在天"
+annotate = "来源步骤 17：翔龙在天（ID 101545）"
+
+# 来源 monk/windwalker.txt:114，步骤 18，动作 ID 1249625，TXT 冷却 16 秒。
+# 来源行 119：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (乾元之巅冷却 == 0) and (乾元之巅可用 == True) and (玩家有乾元之巅增益 == False) and (已学会乾元之巅 == True)"
+macro = "乾元之巅"
+annotate = "来源步骤 18：乾元之巅（ID 1249625）"
+
+# 来源 monk/windwalker.txt:120，步骤 19，动作 ID 443028，TXT 冷却 90 秒。
+# 来源行 124：AUTOMATION_ONLY；仅作来源标记，保留步骤。原文：仅自动化施放（不属于游戏的辅助战斗循环）
+[[rotation]]
+condition = "(插件启用 == True) and (爆发开启 == True) and (天神御身冷却 == 0) and (天神御身可用 == True) and (已学会天神御身 == True)"
+macro = "天神御身"
+annotate = "来源步骤 19：天神御身（ID 443028）"
+
+# 来源 monk/windwalker.txt:125，步骤 20，动作 ID 107428，TXT 冷却 0 秒。
+[[rotation]]
+condition = "(插件启用 == True) and (玩家有疾风呼啸踢增益 == True)"
+macro = "旭日东升踢"
+annotate = "来源步骤 20：旭日东升踢（ID 107428）"
+
+[[rotation]]
+condition = ""
+macro = "Idle"
+annotate = "末尾兜底"

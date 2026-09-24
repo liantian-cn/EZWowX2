@@ -1,0 +1,14 @@
+name = "target_can_attack@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "目标是否可攻击"
+description = "存在且 UnitCanAttack(player, unit)；不等同 UnitIsEnemy 或不可辅助。"
+recommended_condition_name = "目标是否可攻击"
+
+[parameters]
+description = "无业务参数；拒绝多余字段。"
+
+[returns]
+type = "bool"
+description = "存在且 UnitCanAttack(player, unit)；不等同 UnitIsEnemy 或不可辅助。"
+fallback = false

@@ -1,0 +1,373 @@
+schema_version = 1
+uuid = "1daf2f41-18fa-55d5-83f0-69dc71343da7"
+
+[profile]
+title = "圣骑士-防护"
+description = "作者：liantian-cn"
+unit_class = "PALADIN"
+unit_class_id = 2
+unit_spec = 2
+
+[[conditions]]
+title = "插件启用"
+plugin = "enable@dev"
+
+[[conditions]]
+title = "正在延迟"
+plugin = "delaying@dev"
+
+[[conditions]]
+title = "玩家有圣言祭礼"
+plugin = "player_has_buff@dev"
+[conditions.plugin_args]
+buff_ids = [433550]
+player_only = true
+
+[[conditions]]
+title = "玩家战斗中"
+plugin = "player_in_combat@dev"
+
+[[conditions]]
+title = "玩家施法进度"
+plugin = "player_cast_progress@dev"
+
+[[conditions]]
+title = "玩家正在蓄力"
+plugin = "player_is_empowering@dev"
+
+[[conditions]]
+title = "目标存在"
+plugin = "target_is_exists@dev"
+
+[[conditions]]
+title = "目标存活"
+plugin = "target_is_alive@dev"
+
+[[conditions]]
+title = "目标可攻击"
+plugin = "target_can_attack@dev"
+
+[[conditions]]
+title = "目标可协助"
+plugin = "target_can_assist@dev"
+
+[[conditions]]
+title = "神圣能量"
+plugin = "spec_power_holy_power@dev"
+
+[[conditions]]
+title = "正义盾击剩余时间"
+plugin = "aura_player_buff_duration@dev"
+[conditions.plugin_args]
+aura_ids = [132403]
+duration = 13.5
+width = 4
+player_only = true
+
+[[conditions]]
+title = "玩家生命值"
+plugin = "player_health_pct@dev"
+[conditions.plugin_args]
+use_predicted = true
+
+[[conditions]]
+title = "闪耀之光层数"
+plugin = "aura_player_buff_stacks@dev"
+[conditions.plugin_args]
+aura_ids = [327510]
+max_value = 2
+min_value = 0
+width = 1
+player_only = true
+
+[[conditions]]
+title = "法力值"
+plugin = "spec_power_mana@dev"
+[conditions.plugin_args]
+max_power = 100
+
+[[conditions]]
+title = "小闪耀之光层数"
+plugin = "aura_player_buff_stacks@dev"
+[conditions.plugin_args]
+aura_ids = [182104]
+max_value = 3
+min_value = 0
+width = 3
+player_only = true
+
+[[conditions]]
+title = "复仇者之盾冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [31935]
+ignore_gcd = true
+
+[[conditions]]
+title = "焦点存在"
+plugin = "focus_is_exists@dev"
+
+[[conditions]]
+title = "焦点存活"
+plugin = "focus_is_alive@dev"
+
+[[conditions]]
+title = "焦点可攻击"
+plugin = "focus_can_attack@dev"
+
+[[conditions]]
+title = "焦点可协助"
+plugin = "focus_can_assist@dev"
+
+[[conditions]]
+title = "焦点可打断"
+plugin = "focus_cast_interruptible@dev"
+
+[[conditions]]
+title = "目标在复仇者之盾范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 31935
+
+[[conditions]]
+title = "目标可打断"
+plugin = "target_cast_interruptible@dev"
+
+[[conditions]]
+title = "责难冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [96231]
+ignore_gcd = true
+
+[[conditions]]
+title = "目标在责难范围内"
+plugin = "target_in_range@dev"
+[conditions.plugin_args]
+spell_id = 96231
+
+[[conditions]]
+title = "奉献剩余时间"
+plugin = "aura_player_buff_duration@dev"
+[conditions.plugin_args]
+aura_ids = [188370]
+duration = 4
+width = 2
+player_only = true
+
+[[conditions]]
+title = "奉献冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [26573]
+ignore_gcd = true
+
+[[conditions]]
+title = "玩家正在移动"
+plugin = "player_is_moving@dev"
+
+[[conditions]]
+title = "审判充能"
+plugin = "spell_charges@dev"
+[conditions.plugin_args]
+spell_ids = [275779]
+max_charges = 2
+width = 1
+
+[[conditions]]
+title = "爆发开启"
+plugin = "in_burst@dev"
+
+[[conditions]]
+title = "戒卫冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [389539]
+ignore_gcd = true
+
+[[conditions]]
+title = "圣洁鸣钟冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [375576]
+ignore_gcd = true
+
+[[conditions]]
+title = "神圣壁垒充能"
+plugin = "spell_charges@dev"
+[conditions.plugin_args]
+spell_ids = [432459]
+max_charges = 2
+width = 1
+
+[[conditions]]
+title = "圣洁武器充能"
+plugin = "spell_charges@dev"
+[conditions.plugin_args]
+spell_ids = [432472]
+max_charges = 2
+width = 1
+
+[[conditions]]
+title = "祝福之锤充能"
+plugin = "spell_charges@dev"
+[conditions.plugin_args]
+spell_ids = [204019]
+max_charges = 3
+width = 1
+
+[[conditions]]
+title = "打断黑名单图标"
+plugin = "interrupt_blacklist_icons@dev"
+
+[[macros]]
+name = "圣言祭礼"
+macro_text = "/cast 圣言祭礼\n/use 16"
+
+[[macros]]
+name = "正义盾击"
+macro_text = "/cast 正义盾击"
+
+[[macros]]
+name = "荣耀圣令"
+macro_text = "/cast [@player] 荣耀圣令"
+
+[[macros]]
+name = "焦点复仇者之盾"
+macro_text = "/cast [@focus] 复仇者之盾"
+
+[[macros]]
+name = "目标复仇者之盾"
+macro_text = "/cast [@target] 复仇者之盾"
+
+[[macros]]
+name = "目标责难"
+macro_text = "/cast [@target] 责难"
+
+[[macros]]
+name = "奉献"
+macro_text = "/cast 奉献"
+
+[[macros]]
+name = "审判"
+macro_text = "/cast 审判"
+
+[[macros]]
+name = "复仇之怒"
+macro_text = "/cast 复仇之怒"
+
+[[macros]]
+name = "圣洁鸣钟"
+macro_text = "/cast 圣洁鸣钟"
+
+[[macros]]
+name = "神圣壁垒"
+macro_text = "/cast 神圣壁垒"
+
+[[macros]]
+name = "祝福之锤"
+macro_text = "/cast 祝福之锤"
+
+[[rotation]]
+condition = "not 插件启用"
+macro = "Idle"
+
+[[rotation]]
+condition = "正在延迟"
+macro = "Idle"
+
+[[rotation]]
+condition = "not 玩家有圣言祭礼"
+macro = "圣言祭礼"
+
+[[rotation]]
+condition = "not 玩家战斗中"
+macro = "Idle"
+
+[[rotation]]
+condition = "玩家施法进度 > 0"
+macro = "Idle"
+
+[[rotation]]
+condition = "玩家正在蓄力"
+macro = "Idle"
+
+[[rotation]]
+condition = "not (目标存在 and 目标存活 and 目标可攻击 and not 目标可协助)"
+macro = "Idle"
+
+[[rotation]]
+condition = "神圣能量 >= 3 and 正义盾击剩余时间 <= 4"
+macro = "正义盾击"
+
+[[rotation]]
+condition = "玩家生命值 <= 75 and 闪耀之光层数 == 2 and 法力值 >= 20"
+macro = "荣耀圣令"
+
+[[rotation]]
+condition = "玩家生命值 <= 55 and 闪耀之光层数 == 1 and 法力值 >= 5"
+macro = "荣耀圣令"
+
+[[rotation]]
+condition = "闪耀之光层数 == 2 and 小闪耀之光层数 == 2 and 神圣能量 >= 3 and 玩家生命值 <= 90 and 法力值 >= 50"
+macro = "荣耀圣令"
+
+[[rotation]]
+condition = "(复仇者之盾冷却 == 0 and (焦点存在 and 焦点存活 and 焦点可攻击 and not 焦点可协助)) and (焦点可打断)"
+macro = "焦点复仇者之盾"
+
+[[rotation]]
+condition = "(复仇者之盾冷却 == 0 and 目标在复仇者之盾范围内) and (目标可打断)"
+macro = "目标复仇者之盾"
+
+[[rotation]]
+condition = "(责难冷却 == 0 and 目标在责难范围内) and (目标可打断)"
+macro = "目标责难"
+
+[[rotation]]
+condition = "奉献剩余时间 <= 1 and 奉献冷却 == 0 and not 玩家正在移动"
+macro = "奉献"
+
+[[rotation]]
+condition = "审判充能 == 2"
+macro = "审判"
+
+[[rotation]]
+condition = "爆发开启 and 戒卫冷却 == 0 and not 玩家正在移动"
+macro = "复仇之怒"
+
+[[rotation]]
+condition = "爆发开启 and 圣洁鸣钟冷却 == 0 and not 玩家正在移动 and 神圣能量 <= 2"
+macro = "圣洁鸣钟"
+
+[[rotation]]
+condition = "神圣壁垒充能 == 2 and 爆发开启"
+macro = "神圣壁垒"
+
+[[rotation]]
+condition = "圣洁武器充能 == 2 and 爆发开启"
+macro = "神圣壁垒"
+
+[[rotation]]
+condition = "复仇者之盾冷却 == 0"
+macro = "目标复仇者之盾"
+
+[[rotation]]
+condition = "审判充能 == 1"
+macro = "审判"
+
+[[rotation]]
+condition = "神圣能量 == 5"
+macro = "正义盾击"
+
+[[rotation]]
+condition = "祝福之锤充能 >= 1"
+macro = "祝福之锤"
+
+[[rotation]]
+condition = "神圣能量 == 5"
+macro = "正义盾击"
+
+[[rotation]]
+condition = ""
+macro = "Idle"

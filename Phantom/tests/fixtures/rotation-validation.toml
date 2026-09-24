@@ -1,0 +1,58 @@
+# 稳定的解析校验样本，不依赖用户维护的战斗循环。
+schema_version = 1
+uuid = "550e8400-e29b-41d4-a716-446655440000"
+
+[profile]
+title = "加载校验"
+description = ""
+unit_class = "DEATHKNIGHT"
+unit_class_id = 6
+unit_spec = 1
+
+[[conditions]]
+title = "生命值"
+plugin = "player_health_pct@dev"
+
+[[conditions]]
+title = "符文能量"
+plugin = "player_primary_power@dev"
+[conditions.plugin_args]
+max_power = 120
+
+[[conditions]]
+title = "符文数量"
+plugin = "spec_power_rune@dev"
+
+[[conditions]]
+title = "充能"
+plugin = "spell_charges@dev"
+[conditions.plugin_args]
+spell_ids = [50842]
+max_charges = 2
+
+[[conditions]]
+title = "冷却"
+plugin = "spell_cooldown@dev"
+[conditions.plugin_args]
+spell_ids = [195292]
+ignore_gcd = true
+
+[[conditions]]
+title = "公共冷却"
+plugin = "spell_gcd@dev"
+
+[[macros]]
+name = "心脏打击"
+macro_text = "/cast 心脏打击"
+
+[[macros]]
+name = "灵界打击"
+macro_text = "/cast 灵界打击"
+
+[[rotation]]
+condition = "符文数量>=1"
+macro = "心脏打击"
+
+[[rotation]]
+condition = "符文能量>=40"
+macro = "灵界打击"

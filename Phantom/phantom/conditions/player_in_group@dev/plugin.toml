@@ -1,0 +1,16 @@
+name = "player_in_group@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "玩家是否在队伍或团队中"
+description = "grouped = IsInGroup()；raiding = IsInRaid()；返回组队布尔值。队伍或团队任一成立即为真。"
+recommended_condition_name = "玩家是否在队伍或团队中"
+
+[parameters]
+description = "无参数，拒绝多余字段。"
+
+[returns]
+type = "bool"
+description = "队伍或团队任一成立即为真。"
+fallback = false
+
+# 刷新约定：事件通过 C_Timer.After(0, ...) 延后；UPDATE_INTERVAL = 1 秒兜底。

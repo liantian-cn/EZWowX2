@@ -1,0 +1,16 @@
+name = "player_cast_icon@dev"
+author = "liantian-cn"
+version = "dev"
+display_name = "玩家当前施法图标"
+description = "UnitCastingInfo/UnitChannelInfo(\"player\") 第 3 项返回可能秘密的 textureID；用 NeverSecret 的 delayTimeMs/isEmpowered 判断状态。秘密纹理直接送给 IconTile:SetIcon；沿用玩家施法角标；空槽返回空字符串，其他为内部 6×6 RGB hash。"
+recommended_condition_name = "玩家当前施法图标"
+
+[parameters]
+description = "无参数，拒绝多余字段。"
+
+[returns]
+type = "str"
+description = "秘密纹理直接送给 IconTile:SetIcon；沿用玩家施法角标；空槽返回空字符串，其他为内部 6×6 RGB hash。"
+fallback = ""
+
+# 刷新约定：事件通过 C_Timer.After(0, ...) 延后；无定时轮询。
